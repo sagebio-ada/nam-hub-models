@@ -1,14 +1,14 @@
-Attribute,Description,Valid Values,DependsOn,Required,Properties,Parent,DependsOn Component,Source,Validation Rules,Nonpreferred Terms,Ontology Identifier,Ontology Url,NCIt Code,Notes
-Danio rerio,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Drosophila melanogaster,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Gallus gallus,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Homo sapiens,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Mus musculus,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Macaca nemestrina,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Mus musculus (humanized),,,,FALSE,,,,NF Landscape/Species,,,,,,
-Oryctolagus cuniculus,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Pan troglodytes,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Rattus norvegicus,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Rhesus macaque,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Sus scrofa,,,,FALSE,,,,NF Landscape/Species,,,,,,
-Unknown,,,,FALSE,,,,NF Landscape/Species,,,,,,
+Attribute,Description,Valid Values,DependsOn,Required,Properties,Validation Rules,columnType,Format,Pattern,Minimum,Maximum,IsTemplate,Source
+Danio rerio,,,,,,,,,,,,,NF Landscape/Species
+Drosophila melanogaster,,,,,,,,,,,,,NF Landscape/Species
+Gallus gallus,,,,,,,,,,,,,NF Landscape/Species
+Homo sapiens,,,,,,,,,,,,,NF Landscape/Species
+Mus musculus,,,,,,,,,,,,,NF Landscape/Species
+Macaca nemestrina,,,,,,,,,,,,,NF Landscape/Species
+Mus musculus (humanized),,,,,,,,,,,,,NF Landscape/Species
+Oryctolagus cuniculus,,,,,,,,,,,,,NF Landscape/Species
+Pan troglodytes,,,,,,,,,,,,,NF Landscape/Species
+Rattus norvegicus,,,,,,,,,,,,,NF Landscape/Species
+Rhesus macaque,,,,,,,,,,,,,NF Landscape/Species
+Sus scrofa,,,,,,,,,,,,,NF Landscape/Species
+Unknown,,,,,,,,,,,,,NF Landscape/Species

@@ -1,10 +1,10 @@
-Attribute,Description,Valid Values,DependsOn,Required,Properties,Parent,DependsOn Component,Source,Validation Rules,Nonpreferred Terms,Ontology Identifier,Ontology Url,NCIt Code,Notes
-Biosamples,,,,FALSE,,,,NYU Landscape/NAM Data Types,,,,,,
-Subjects / Donors,,,,FALSE,,,,NYU Landscape/NAM Data Types,,,,,,
-Files / Data Types,,,,FALSE,,,,NYU Landscape/NAM Data Types,,,,,,
-In Chemico / Biomaterials,,,,FALSE,,,,NYU Landscape/NAM Data Types,,,,,,
-Assays / Conditions,,,,FALSE,,,,NYU Landscape/NAM Data Types,,,,,,
-Ontologies / Standards,,,,FALSE,,,,NYU Landscape/NAM Data Types,,,,,,
-Imaging Metadata,,,,FALSE,,,,NYU Landscape/NAM Data Types,,,,,,
-Pharmacokinetics / ADMET,,,,FALSE,,,,NYU Landscape/NAM Data Types,,,,,,
-Analytical Models,,,,FALSE,,,,NYU Landscape/NAM Data Types,,,,,,
+Attribute,Description,Valid Values,DependsOn,Required,Properties,Validation Rules,columnType,Format,Pattern,Minimum,Maximum,IsTemplate,Source
+Biosamples,,,,,,,,,,,,,NYU Landscape/NAM Data Types
+Subjects / Donors,,,,,,,,,,,,,NYU Landscape/NAM Data Types
+Files / Data Types,,,,,,,,,,,,,NYU Landscape/NAM Data Types
+In Chemico / Biomaterials,,,,,,,,,,,,,NYU Landscape/NAM Data Types
+Assays / Conditions,,,,,,,,,,,,,NYU Landscape/NAM Data Types
+Ontologies / Standards,,,,,,,,,,,,,NYU Landscape/NAM Data Types
+Imaging Metadata,,,,,,,,,,,,,NYU Landscape/NAM Data Types
+Pharmacokinetics / ADMET,,,,,,,,,,,,,NYU Landscape/NAM Data Types
+Analytical Models,,,,,,,,,,,,,NYU Landscape/NAM Data Types
