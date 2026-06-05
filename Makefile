@@ -5,6 +5,7 @@ all: collate generate-json
 
 collate:
 	@echo "Collating module components..."
+	python update_valid_values.py
 	head -1 modules/dataLandscape/annotationProperty.csv > ${CSV}
 	tail -n +2 -q modules/*/annotationProperty.csv >> ${CSV}
 
