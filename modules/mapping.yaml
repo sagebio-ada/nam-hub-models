@@ -1,0 +1,14 @@
+﻿dataLandscape:
+  - name: Dataset Assay
+    src: vocabulary/assay.csv
+  - name: Dataset Species
+    src: vocabulary/species.csv
+  - name: Dataset File Formats
+    src: vocabulary/file_formats.csv
+  - name: Dataset Processing Level
+    src: vocabulary/process_level.csv
+  - name: Dataset Category
+    src: vocabulary/data_type_category.csv
+    
+  
+    
