@@ -304,7 +304,7 @@
       "type": "string"
     },
     "DatasetFileFormats": {
-      "description": "The list of extensions (e.g., csv, fastq, geojson, qpath, etc.) associated with files in the dataset. Only one value permitted.",
+      "description": "The extension (e.g., csv, fastq, geojson, qpath, etc.) associated with files in the dataset.",
       "enum": [
         "7z",
         "Ab1",
@@ -429,7 +429,7 @@
         "Xml",
         "Yaml",
         "Zip"
-      },
+      ],
       "title": "Dataset File Formats"
     },
     "DatasetName": {
