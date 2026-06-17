@@ -1,0 +1,88 @@
+{
+  "$id": "http://example.com/People",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Investigators and contributors associated with NAMHub studies. Synapse table: syn75404714.",
+  "properties": {
+    "email": {
+      "description": "Contact email address.",
+      "title": "email"
+    },
+    "firstName": {
+      "description": "First name.",
+      "not": {
+        "type": "null"
+      },
+      "title": "firstName"
+    },
+    "grantId": {
+      "description": "Grant identifier linking to the Grants table (syn75404715).",
+      "not": {
+        "type": "null"
+      },
+      "title": "grantId"
+    },
+    "institution": {
+      "description": "Affiliated institution(s).",
+      "title": "institution"
+    },
+    "investigatorId": {
+      "description": "Unique identifier for the investigator.",
+      "title": "investigatorId"
+    },
+    "lastName": {
+      "description": "Last name.",
+      "not": {
+        "type": "null"
+      },
+      "title": "lastName"
+    },
+    "orcidId": {
+      "description": "ORCID persistent digital identifier.",
+      "title": "orcidId"
+    },
+    "portalDisplay": {
+      "description": "Whether this record should be displayed on the public portal.",
+      "title": "portalDisplay"
+    },
+    "role": {
+      "description": "Role in the NAMHub program.",
+      "oneOf": [
+        {
+          "enum": [
+            "Co-Investigator",
+            "Collaborator",
+            "Data Manager",
+            "Other",
+            "Principal Investigator",
+            "Trainee"
+          ],
+          "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
+        }
+      ],
+      "title": "role"
+    },
+    "studyId": {
+      "description": "Study identifier linking to the Studies table (syn75404711).",
+      "not": {
+        "type": "null"
+      },
+      "title": "studyId"
+    },
+    "synapseUserId": {
+      "description": "Synapse user account ID.",
+      "title": "synapseUserId"
+    }
+  },
+  "required": [
+    "firstName",
+    "grantId",
+    "lastName",
+    "studyId"
+  ],
+  "title": "People",
+  "type": "object"
+}

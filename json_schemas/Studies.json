@@ -1,0 +1,75 @@
+{
+  "$id": "http://example.com/Studies",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "One row per Technology Development Center (TDC) study in the NAMHub program. Synapse table: syn75404711.",
+  "properties": {
+    "NAMsTechFocus": {
+      "description": "New Approach Methodology technology focus areas.",
+      "title": "NAMsTechFocus"
+    },
+    "alternateName": {
+      "description": "Acronym or short name for the study.",
+      "title": "alternateName"
+    },
+    "diseaseFocus": {
+      "description": "Disease areas or conditions the study addresses.",
+      "title": "diseaseFocus"
+    },
+    "fundingAgency": {
+      "description": "Funding agency or agencies (e.g. NIH Common Fund).",
+      "title": "fundingAgency"
+    },
+    "grantId": {
+      "description": "Grant identifier linking to the Grants table (syn75404715).",
+      "not": {
+        "type": "null"
+      },
+      "title": "grantId"
+    },
+    "institution": {
+      "description": "Affiliated institution(s).",
+      "title": "institution"
+    },
+    "modelTypeDesc": {
+      "description": "Description of the key model type or approach used.",
+      "title": "modelTypeDesc"
+    },
+    "studyDoi": {
+      "description": "Digital Object Identifier (DOI) for the study.",
+      "title": "studyDoi"
+    },
+    "studyId": {
+      "description": "Study identifier linking to the Studies table (syn75404711).",
+      "not": {
+        "type": "null"
+      },
+      "title": "studyId"
+    },
+    "studyLeads": {
+      "description": "Principal investigators or study leads.",
+      "title": "studyLeads"
+    },
+    "studyName": {
+      "description": "Full display name of the study.",
+      "not": {
+        "type": "null"
+      },
+      "title": "studyName"
+    },
+    "summary": {
+      "description": "Brief description of the study's goals and approach.",
+      "title": "summary"
+    },
+    "synapseProjectId": {
+      "description": "Synapse project entity ID housing the study's files.",
+      "title": "synapseProjectId"
+    }
+  },
+  "required": [
+    "grantId",
+    "studyId",
+    "studyName"
+  ],
+  "title": "Studies",
+  "type": "object"
+}

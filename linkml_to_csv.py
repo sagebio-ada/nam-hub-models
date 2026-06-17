@@ -1,44 +1,44 @@
 """Convert NAMHub LinkML schemas to a schematic-compatible CSV data model.
 
 Reads portal_schemas/namhub.yaml and portal_schemas/enums.yaml and writes
-namhub.model.csv in the format expected by the Synapse Data Curator /
-schematic (CSV or JSON-LD only; YAML not supported).
+namhub.model.csv in the format expected by schematic 25.x (schematicpy).
+
+Required schematic headers (v25):
+    Attribute, Description, Valid Values, DependsOn, DependsOn Component,
+    Required, Parent, Validation Rules, Properties, Source
+
+Mapping from LinkML:
+    class             → template row: DependsOn = slot list, Parent = empty
+    slot              → attribute row: Parent = all classes using it,
+                        Required = TRUE if required in any class slot_usage
+    multivalued: true → (informational; schematic uses Valid Values for arrays)
+    range: <Enum>     → Valid Values = comma-separated permissible_values
+    required: true    → Required = TRUE
 
 Usage:
     python linkml_to_csv.py [--output namhub.model.csv]
-
-Mapping:
-    LinkML class       → IsTemplate=TRUE row; Properties = slot list
-    LinkML slot        → attribute row with columnType, Valid Values, etc.
-    LinkML enum range  → Valid Values (comma-separated permissible_values)
-    multivalued: true  → columnType = string_list
-    required: true     → Required = TRUE
-    pattern:           → Pattern column
 """
 
 import argparse
 import csv
 import re
-import sys
 from pathlib import Path
+from collections import defaultdict
 
 import yaml
 
 SCHEMA_DIR = Path("portal_schemas")
+
 HEADERS = [
     "Attribute",
     "Description",
     "Valid Values",
     "DependsOn",
+    "DependsOn Component",
     "Required",
-    "Properties",
+    "Parent",
     "Validation Rules",
-    "columnType",
-    "Format",
-    "Pattern",
-    "Minimum",
-    "Maximum",
-    "IsTemplate",
+    "Properties",
     "Source",
 ]
 
@@ -50,14 +50,12 @@ def load_yaml(path: Path) -> dict:
 
 
 def normalise_text(s: str) -> str:
-    """Collapse whitespace/newlines from multi-line YAML strings."""
     if not s:
         return ""
     return re.sub(r"\s+", " ", s).strip()
 
 
 def build_enum_lookup(enums_schema: dict, namhub_schema: dict) -> dict[str, list[str]]:
-    """Return {enum_name: [permissible_value, ...]} from both schema files."""
     lookup: dict[str, list[str]] = {}
     for schema in (enums_schema, namhub_schema):
         for name, defn in (schema.get("enums") or {}).items():
@@ -66,40 +64,10 @@ def build_enum_lookup(enums_schema: dict, namhub_schema: dict) -> dict[str, list
     return lookup
 
 
-def linkml_range_to_col_type(slot_def: dict, enum_lookup: dict) -> tuple[str, str]:
-    """Return (columnType, format) for a slot definition."""
-    range_ = slot_def.get("range", "string")
-    multivalued = slot_def.get("multivalued", False)
-
-    if range_ == "integer":
-        return ("int", "")
-    if range_ == "boolean":
-        return ("boolean", "")
-    if range_ == "date":
-        return ("date", "date")
-    if range_ in ("float", "double"):
-        return ("float", "")
-    # uri → plain string in schematic
-    if multivalued or range_ in enum_lookup and multivalued:
-        return ("string_list", "")
-    # enum ranges that are multivalued are handled above; single-value enums → string
-    return ("string", "")
-
-
 def get_valid_values(slot_def: dict, enum_lookup: dict) -> str:
     range_ = slot_def.get("range", "string")
     if range_ in enum_lookup:
         return ", ".join(enum_lookup[range_])
-    return ""
-
-
-def is_required(slot_name: str, slot_def: dict, slot_usages: list[dict]) -> str:
-    """Return 'TRUE' if the slot is required in the base definition or any class."""
-    if slot_def.get("required"):
-        return "TRUE"
-    for usage in slot_usages:
-        if usage.get("required"):
-            return "TRUE"
     return ""
 
 
@@ -110,69 +78,72 @@ def convert(namhub_schema: dict, enums_schema: dict) -> list[dict]:
     all_slots: dict[str, dict] = namhub_schema.get("slots") or {}
     all_classes: dict[str, dict] = namhub_schema.get("classes") or {}
 
+    # Build reverse map: slot_name → [class_name, ...]
+    slot_parents: dict[str, list[str]] = defaultdict(list)
+    for class_name, class_def in all_classes.items():
+        for slot_name in (class_def.get("slots") or []):
+            slot_parents[slot_name].append(class_name)
+
+    # Build required map: slot_name → TRUE/FALSE
+    # A slot is required if the base definition or any class slot_usage marks it required.
+    slot_required: dict[str, str] = {}
+    for slot_name, slot_def in all_slots.items():
+        if slot_def.get("required"):
+            slot_required[slot_name] = "TRUE"
+    for class_def in all_classes.values():
+        for slot_name, usage in (class_def.get("slot_usage") or {}).items():
+            if usage.get("required"):
+                slot_required[slot_name] = "TRUE"
+
     rows: list[dict] = []
     emitted_slots: set[str] = set()
 
     for class_name, class_def in all_classes.items():
         class_slots: list[str] = class_def.get("slots") or []
-        slot_usage_map: dict[str, dict] = class_def.get("slot_usage") or {}
 
-        # Template row
+        # Template row — DependsOn lists the slots for this template
         rows.append({
             "Attribute": class_name,
             "Description": normalise_text(class_def.get("description", "")),
             "Valid Values": "",
-            "DependsOn": "",
+            "DependsOn": ", ".join(class_slots),
+            "DependsOn Component": "",
             "Required": "",
-            "Properties": ", ".join(class_slots),
+            "Parent": "",
             "Validation Rules": "",
-            "columnType": "",
-            "Format": "",
-            "Pattern": "",
-            "Minimum": "",
-            "Maximum": "",
-            "IsTemplate": "TRUE",
+            "Properties": "",
             "Source": "",
         })
 
-        # Slot rows (emit each slot only once globally)
+        # Slot rows (emitted once globally; Parent lists all classes that use them)
         for slot_name in class_slots:
             if slot_name in emitted_slots:
                 continue
             emitted_slots.add(slot_name)
 
             base_def = dict(all_slots.get(slot_name) or {})
-            usage = dict(slot_usage_map.get(slot_name) or {})
+            # Merge all slot_usage entries across classes for this slot
+            merged = dict(base_def)
+            for cd in all_classes.values():
+                usage = (cd.get("slot_usage") or {}).get(slot_name, {})
+                if usage:
+                    merged.update(usage)
 
-            # Collect slot_usage for this slot across all classes for required check
-            all_usages = [
-                (c.get("slot_usage") or {}).get(slot_name, {})
-                for c in all_classes.values()
-            ]
-
-            # Merge: slot_usage overrides base for range/multivalued
-            merged = {**base_def, **usage}
-
-            col_type, fmt = linkml_range_to_col_type(merged, enum_lookup)
+            desc = normalise_text(merged.get("description", ""))
             valid_vals = get_valid_values(merged, enum_lookup)
-            required = is_required(slot_name, merged, all_usages)
-            pattern = merged.get("pattern", "")
-            desc = normalise_text(merged.get("description", base_def.get("description", "")))
+            required = slot_required.get(slot_name, "FALSE")
+            parents = ", ".join(slot_parents[slot_name])
 
             rows.append({
                 "Attribute": slot_name,
                 "Description": desc,
                 "Valid Values": valid_vals,
                 "DependsOn": "",
+                "DependsOn Component": "",
                 "Required": required,
-                "Properties": "",
+                "Parent": parents,
                 "Validation Rules": "",
-                "columnType": col_type,
-                "Format": fmt,
-                "Pattern": pattern,
-                "Minimum": "",
-                "Maximum": "",
-                "IsTemplate": "",
+                "Properties": "",
                 "Source": "",
             })
 
@@ -181,13 +152,9 @@ def convert(namhub_schema: dict, enums_schema: dict) -> list[dict]:
 
 def main():
     parser = argparse.ArgumentParser(description="Convert LinkML schemas to schematic CSV.")
-    parser.add_argument("--output", default="namhub.model.csv", help="Output CSV path.")
-    parser.add_argument(
-        "--schema", default=str(SCHEMA_DIR / "namhub.yaml"), help="Path to namhub.yaml."
-    )
-    parser.add_argument(
-        "--enums", default=str(SCHEMA_DIR / "enums.yaml"), help="Path to enums.yaml."
-    )
+    parser.add_argument("--output", default="namhub.model.csv")
+    parser.add_argument("--schema", default=str(SCHEMA_DIR / "namhub.yaml"))
+    parser.add_argument("--enums", default=str(SCHEMA_DIR / "enums.yaml"))
     args = parser.parse_args()
 
     namhub_schema = load_yaml(Path(args.schema))
@@ -200,8 +167,9 @@ def main():
         writer.writeheader()
         writer.writerows(rows)
 
-    print(f"Wrote {len(rows)} rows ({sum(1 for r in rows if r['IsTemplate'] == 'TRUE')} templates, "
-          f"{sum(1 for r in rows if not r['IsTemplate'])} slots) → {args.output}")
+    templates = sum(1 for r in rows if not r["Parent"] and r["DependsOn"])
+    slots = sum(1 for r in rows if r["Parent"])
+    print(f"Wrote {len(rows)} rows ({templates} templates, {slots} slots) → {args.output}")
 
 
 if __name__ == "__main__":

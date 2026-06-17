@@ -1,45 +1,10 @@
 {
-  "$id": "http://example.com/Landscape",
+  "$id": "http://example.com/Publications",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Preliminary information about datasets intended to be shared through NAM Hub. Used by TDC teams to declare expected data uploads.",
+  "description": "Publications associated with NAMHub studies, grants, or NAMs. Synapse table: syn75404744.",
   "properties": {
-    "applicableStandards": {
-      "description": "Controlled vocabularies or data models used to organize and annotate files.",
-      "title": "applicableStandards"
-    },
-    "comments": {
-      "description": "Additional information not captured in other fields.",
-      "title": "comments"
-    },
-    "contextOfUse": {
-      "description": "NAM application context(s) associated with files in the dataset. Multiple values permitted.",
-      "oneOf": [
-        {
-          "enum": [
-            "Analytical Models",
-            "Assays / Conditions",
-            "Biosamples",
-            "Files / Data Types",
-            "Imaging Metadata",
-            "In Chemico / Biomaterials",
-            "Ontologies / Standards",
-            "Pharmacokinetics / ADMET",
-            "Subjects / Donors"
-          ],
-          "title": "enum"
-        }
-      ],
-      "title": "contextOfUse"
-    },
-    "dataContributionLead": {
-      "description": "Name of the individual responsible for uploading files.",
-      "not": {
-        "type": "null"
-      },
-      "title": "dataContributionLead"
-    },
-    "datasetAssay": {
-      "description": "Experimental method used to generate files in the dataset.",
+    "assay": {
+      "description": "Experimental assay or method.",
       "oneOf": [
         {
           "enum": [
@@ -246,12 +211,20 @@
             "word recognition score"
           ],
           "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
         }
       ],
-      "title": "datasetAssay"
+      "title": "assay"
     },
-    "datasetCategory": {
-      "description": "Categorical label for data contained in the dataset.",
+    "authors": {
+      "description": "Author list.",
+      "title": "authors"
+    },
+    "dataType": {
+      "description": "Broad category of the data type.",
       "oneOf": [
         {
           "enum": [
@@ -316,250 +289,77 @@
             "weight"
           ],
           "title": "enum"
-        }
-      ],
-      "title": "datasetCategory"
-    },
-    "datasetDescription": {
-      "description": "A text description of the files contained in this dataset.",
-      "title": "datasetDescription"
-    },
-    "datasetFileFormats": {
-      "description": "File extension(s) associated with files in the dataset.",
-      "oneOf": [
-        {
-          "enum": [
-            "7z",
-            "DICOM",
-            "MATLAB data",
-            "MATLAB script",
-            "MPEG-4",
-            "NWB",
-            "Ome-zarr",
-            "PAR",
-            "Python script",
-            "R script",
-            "RCC",
-            "RData",
-            "REC",
-            "SDAT",
-            "SPAR",
-            "Sentrix descriptor file",
-            "Unknown",
-            "ab1",
-            "abf",
-            "aci",
-            "ai",
-            "avi",
-            "bai",
-            "bam",
-            "bash script",
-            "bcf",
-            "bed",
-            "bed broadPeak",
-            "bed gappedPeak",
-            "bed narrowPeak",
-            "bedgraph",
-            "bgzip",
-            "bigwig",
-            "bmp",
-            "bpm",
-            "cel",
-            "chp",
-            "cloupe",
-            "cnn",
-            "cnr",
-            "cns",
-            "crai",
-            "cram",
-            "csi",
-            "csv",
-            "ctab",
-            "czi",
-            "dat",
-            "dm3",
-            "dna",
-            "doc",
-            "docker image",
-            "dup",
-            "edat3",
-            "excel",
-            "fasta",
-            "fastq",
-            "fcs",
-            "fig",
-            "flagstat",
-            "gb",
-            "gct",
-            "gff3",
-            "gtf",
-            "gzip",
-            "h5",
-            "hdf5",
-            "hdr",
-            "hic",
-            "html",
-            "hyperlink",
-            "idat",
-            "idx",
-            "img",
-            "jpg",
-            "js",
-            "json",
-            "lif",
-            "locs",
-            "maf",
-            "md",
-            "mov",
-            "msf",
-            "mtx",
-            "mzML",
-            "nii",
-            "ome-tiff",
-            "parquet",
-            "pdf",
-            "plink",
-            "png",
-            "powerpoint",
-            "prism",
-            "psydat",
-            "pzfx",
-            "raw",
-            "rds",
-            "recal",
-            "rmd",
-            "sam",
-            "sav",
-            "sdf",
-            "seg",
-            "sf",
-            "sif",
-            "sqlite",
-            "sra",
-            "svg",
-            "svs",
-            "sws",
-            "tagAlign",
-            "tar",
-            "tbi",
-            "tif",
-            "tom",
-            "tranches",
-            "tsv",
-            "txt",
-            "vcf",
-            "wiggle",
-            "xml",
-            "yaml",
-            "zip"
-          ],
-          "title": "enum"
         },
         {
           "title": "null",
           "type": "null"
         }
       ],
-      "title": "datasetFileFormats"
+      "title": "dataType"
     },
-    "datasetName": {
-      "description": "Name of the dataset.",
+    "doi": {
+      "description": "Digital Object Identifier (DOI).",
+      "title": "doi"
+    },
+    "grantId": {
+      "description": "Grant identifier linking to the Grants table (syn75404715).",
       "not": {
         "type": "null"
       },
-      "title": "datasetName"
+      "title": "grantId"
     },
-    "datasetProcessingLevel": {
-      "description": "Level of processing associated with the dataset.",
-      "oneOf": [
-        {
-          "enum": [
-            "Auxiliary",
-            "Level 1",
-            "Level 2",
-            "Level 3",
-            "Level 4",
-            "Metadata",
-            "Not Applicable"
-          ],
-          "title": "enum"
-        },
-        {
-          "title": "null",
-          "type": "null"
-        }
-      ],
-      "title": "datasetProcessingLevel"
+    "journal": {
+      "description": "Journal name.",
+      "title": "journal"
     },
-    "datasetSpecies": {
-      "description": "Species of origin associated with files in the dataset.",
-      "oneOf": [
-        {
-          "enum": [
-            "Danio rerio",
-            "Drosophila melanogaster",
-            "Gallus gallus",
-            "Homo sapiens",
-            "Macaca nemestrina",
-            "Mus musculus",
-            "Mus musculus (humanized)",
-            "Oryctolagus cuniculus",
-            "Pan troglodytes",
-            "Rattus norvegicus",
-            "Rhesus macaque",
-            "Sus scrofa",
-            "Unknown"
-          ],
-          "title": "enum"
-        }
-      ],
-      "title": "datasetSpecies"
+    "keywords": {
+      "description": "Publication keywords or MeSH terms.",
+      "title": "keywords"
     },
-    "expectedNumberOfFiles": {
-      "description": "Number of files expected to be uploaded as part of this dataset.",
-      "title": "expectedNumberOfFiles"
-    },
-    "expectedNumberOfSamples": {
-      "description": "Number of biospecimens associated with the files in the dataset.",
-      "title": "expectedNumberOfSamples"
-    },
-    "landscapeId": {
-      "description": "Unique identifier for the landscape entry.",
-      "title": "landscapeId"
-    },
-    "studyAim": {
-      "description": "Key connecting the expected data to aims in the research proposal.",
+    "namId": {
+      "description": "NAM identifier(s) linking to the NAMs table (syn75404716).",
       "not": {
         "type": "null"
       },
-      "title": "studyAim"
+      "title": "namId"
     },
-    "studyName": {
-      "description": "Full display name of the study.",
+    "pubMedId": {
+      "description": "PubMed identifier (PMID).",
+      "title": "pubMedId"
+    },
+    "pubMedLink": {
+      "description": "URL to the PubMed entry.",
+      "title": "pubMedLink"
+    },
+    "publicationTitle": {
+      "description": "Full title of the publication.",
       "not": {
         "type": "null"
       },
-      "title": "studyName"
+      "title": "publicationTitle"
     },
-    "uploadByDate": {
-      "description": "Non-binding estimated date by which files are expected to be uploaded.",
+    "publicationYear": {
+      "description": "Year of publication.",
+      "title": "publicationYear"
+    },
+    "studyId": {
+      "description": "Study identifier linking to the Studies table (syn75404711).",
       "not": {
         "type": "null"
       },
-      "title": "uploadByDate"
+      "title": "studyId"
+    },
+    "synapseEntityId": {
+      "description": "Synapse project or entity ID (syn-prefixed).",
+      "title": "synapseEntityId"
     }
   },
   "required": [
-    "contextOfUse",
-    "dataContributionLead",
-    "datasetAssay",
-    "datasetCategory",
-    "datasetName",
-    "datasetSpecies",
-    "studyAim",
-    "studyName",
-    "uploadByDate"
+    "grantId",
+    "namId",
+    "publicationTitle",
+    "studyId"
   ],
-  "title": "Landscape",
+  "title": "Publications",
   "type": "object"
 }
