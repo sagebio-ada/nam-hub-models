@@ -3,56 +3,56 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "Backend grant records linked to Studies. Not directly surfaced on the portal. Synapse table: syn75404715.",
   "properties": {
-    "abstract": {
+    "Abstract": {
       "description": "Grant abstract.",
       "title": "abstract"
     },
-    "fundingAgency": {
+    "FundingAgency": {
       "description": "Funding agency or agencies (e.g. NIH Common Fund).",
       "title": "fundingAgency"
     },
-    "grantEndDate": {
+    "GrantEndDate": {
       "description": "Grant end date.",
       "title": "grantEndDate"
     },
-    "grantId": {
+    "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
       "not": {
         "type": "null"
       },
       "title": "grantId"
     },
-    "grantInstitution": {
+    "GrantInstitution": {
       "description": "Institution holding the grant.",
       "title": "grantInstitution"
     },
-    "grantName": {
+    "GrantName": {
       "description": "Full title of the grant.",
       "title": "grantName"
     },
-    "grantNumber": {
+    "GrantNumber": {
       "description": "NIH grant number (e.g. UM1TR006029).",
       "title": "grantNumber"
     },
-    "grantStartDate": {
+    "GrantStartDate": {
       "description": "Grant start date.",
       "title": "grantStartDate"
     },
-    "grantType": {
+    "GrantType": {
       "description": "Grant mechanism type (e.g. UM1, R01).",
       "title": "grantType"
     },
-    "investigator": {
+    "Investigator": {
       "description": "Name of the principal investigator.",
       "title": "investigator"
     },
-    "nihReporterLink": {
+    "NihReporterLink": {
       "description": "URL to the grant record on NIH Reporter.",
       "title": "nihReporterLink"
     }
   },
   "required": [
-    "grantId"
+    "GrantId"
   ],
   "title": "Grants",
   "type": "object"
