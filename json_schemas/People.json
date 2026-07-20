@@ -3,85 +3,76 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "Investigators and contributors associated with NAMHub studies. Synapse table: syn75404714.",
   "properties": {
-    "email": {
+    "Email": {
       "description": "Contact email address.",
       "title": "email"
     },
-    "firstName": {
+    "FirstName": {
       "description": "First name.",
       "not": {
         "type": "null"
       },
       "title": "firstName"
     },
-    "grantId": {
+    "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
       "not": {
         "type": "null"
       },
       "title": "grantId"
     },
-    "institution": {
+    "Institution": {
       "description": "Affiliated institution(s).",
       "title": "institution"
     },
-    "investigatorId": {
+    "InvestigatorId": {
       "description": "Unique identifier for the investigator.",
       "title": "investigatorId"
     },
-    "lastName": {
+    "LastName": {
       "description": "Last name.",
       "not": {
         "type": "null"
       },
       "title": "lastName"
     },
-    "orcidId": {
+    "OrcidId": {
       "description": "ORCID persistent digital identifier.",
       "title": "orcidId"
     },
-    "portalDisplay": {
+    "PortalDisplay": {
       "description": "Whether this record should be displayed on the public portal.",
       "title": "portalDisplay"
     },
-    "role": {
+    "Role": {
       "description": "Role in the NAMHub program.",
-      "oneOf": [
-        {
-          "enum": [
-            "Co-Investigator",
-            "Collaborator",
-            "Data Manager",
-            "Other",
-            "Principal Investigator",
-            "Trainee"
-          ],
-          "title": "enum"
-        },
-        {
-          "title": "null",
-          "type": "null"
-        }
+      "enum": [
+        "Co-Investigator",
+        "Collaborator",
+        "DataManager",
+        "Other",
+        "PrincipalInvestigator",
+        "Trainee"
       ],
       "title": "role"
     },
-    "studyId": {
+    "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
       "not": {
         "type": "null"
       },
       "title": "studyId"
     },
-    "synapseUserId": {
+    "SynapseUserId": {
       "description": "Synapse user account ID.",
       "title": "synapseUserId"
     }
   },
   "required": [
-    "firstName",
-    "grantId",
-    "lastName",
-    "studyId"
+    "FirstName",
+    "GrantId",
+    "LastName",
+    "StudyId"
   ],
   "title": "People",
   "type": "object"
