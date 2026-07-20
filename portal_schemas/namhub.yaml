@@ -49,13 +49,29 @@ classes:
       - studyAim
       - comments
     slot_usage:
+      landscapeId:
+        required: true
       datasetName:
+        required: true
+      datasetDescription:
         required: true
       datasetAssay:
         required: true
       datasetSpecies:
         required: true
+      datasetFileFormats:
+        required: true
+      datasetCategory:
+        required: true
+      datasetProcessingLevel:
+        required: true
       contextOfUse:
+        required: true
+      expectedNumberOfFiles:
+        required: true
+      expectedNumberOfSamples:
+        required: true
+      uploadByDate:
         required: true
       dataContributionLead:
         required: true
@@ -63,11 +79,7 @@ classes:
         required: true
       studyAim:
         required: true
-      uploadByDate:
-        required: true
-      datasetCategory:
-        required: true
-
+      
   # -- Portal tables -----------------------------------------------------------
 
   Studies:
