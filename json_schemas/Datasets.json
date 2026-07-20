@@ -1,45 +1,28 @@
 {
-  "$id": "http://example.com/Landscape",
+  "$id": "http://example.com/Datasets",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Preliminary information about datasets intended to be shared through NAM Hub. Used by TDC teams to declare expected data uploads.",
+  "description": "One row per dataset — Synapse-hosted or external (e.g. GEO). Links to Studies and NAMs. Synapse table: syn75404713.",
   "properties": {
-    "applicableStandards": {
-      "description": "Controlled vocabularies or data models used to organize and annotate files.",
-      "title": "applicableStandards"
-    },
-    "comments": {
-      "description": "Additional information not captured in other fields.",
-      "title": "comments"
-    },
-    "contextOfUse": {
-      "description": "NAM application context(s) associated with files in the dataset. Multiple values permitted.",
+    "accessType": {
+      "description": "Data access level.",
       "oneOf": [
         {
           "enum": [
-            "Analytical Models",
-            "Assays / Conditions",
-            "Biosamples",
-            "Files / Data Types",
-            "Imaging Metadata",
-            "In Chemico / Biomaterials",
-            "Ontologies / Standards",
-            "Pharmacokinetics / ADMET",
-            "Subjects / Donors"
+            "Controlled",
+            "Embargoed",
+            "Open"
           ],
           "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
         }
       ],
-      "title": "contextOfUse"
+      "title": "accessType"
     },
-    "dataContributionLead": {
-      "description": "Name of the individual responsible for uploading files.",
-      "not": {
-        "type": "null"
-      },
-      "title": "dataContributionLead"
-    },
-    "datasetAssay": {
-      "description": "Experimental method used to generate files in the dataset.",
+    "assay": {
+      "description": "Experimental assay or method.",
       "oneOf": [
         {
           "enum": [
@@ -246,233 +229,82 @@
             "word recognition score"
           ],
           "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
         }
       ],
-      "title": "datasetAssay"
+      "title": "assay"
     },
-    "DatasetCategory": {
-      "description": "The categorical label for data contained in the dataset.",
-      "enum": [
-        "Alignedreads",
-        "Annotatedgermlinevariants",
-        "Annotatedsomaticmutation",
-        "Audiotranscript",
-        "Behavioraldata",
-        "Capsidsequence",
-        "Cellularphysiology",
-        "Characteristic",
-        "Chromatinactivity",
-        "Clinical",
-        "Copynumbervariants",
-        "Countmatrix",
-        "Dataindex",
-        "Datasharingplan",
-        "Demographics",
-        "Drugcombinationscreen",
-        "Drugscreen",
-        "Electrophysiology",
-        "Epidemiologicaldata",
-        "Geneexpression",
-        "Geneexpressionmatrix",
-        "Genomicfeatures",
-        "Genomicvariants",
-        "Germlinevariants",
-        "GuideRNAsequence",
-        "Image",
-        "Immunoassay",
-        "Isoformexpression",
-        "Kinomics",
-        "Maskimage",
-        "Massspectrometrydata",
-        "Metabolomics",
-        "Model",
-        "Molecularproperty",
-        "Morphologyparameter",
-        "Network",
-        "Nucleicacidsequencerecord",
-        "Over-representationdata",
-        "Particlecharacterization",
-        "Pharmacokinetics",
-        "Physiologyparameter",
-        "Plasmidsequence",
-        "Plot",
-        "Primersequence",
-        "Probesequence",
-        "Promotersequence",
-        "Proteininteractiondata",
-        "Proteininteractionrawdata",
-        "Proteomics",
-        "Quantifiedgeneexpression",
-        "Rawcounts",
-        "Referencesequence",
-        "Report",
-        "Somaticvariants",
-        "Structuralvariants",
-        "Surveydata",
-        "Textdata",
-        "Unknown",
-        "Volume",
-        "Weight"
-      ],
-      "title": "datasetCategory"
+    "croissantMetadataUrl": {
+      "description": "URL to the Croissant metadata file for this dataset.",
+      "title": "croissantMetadataUrl"
     },
-    "datasetDescription": {
-      "description": "A text description of the files contained in this dataset.",
-      "title": "datasetDescription"
-    },
-    "DatasetFileFormats": {
-      "description": "The extension (e.g., csv, fastq, geojson, qpath, etc.) associated with files in the dataset.",
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": [
-        "7z",
-        "Ab1",
-        "Abf",
-        "Aci",
-        "Ai",
-        "Avi",
-        "Bai",
-        "Bam",
-        "Bashscript",
-        "Bcf",
-        "Bed",
-        "BedbroadPeak",
-        "BedgappedPeak",
-        "Bedgraph",
-        "BednarrowPeak",
-        "Bgzip",
-        "Bigwig",
-        "Bmp",
-        "Bpm",
-        "Cel",
-        "Chp",
-        "Cloupe",
-        "Cnn",
-        "Cnr",
-        "Cns",
-        "Crai",
-        "Cram",
-        "Csi",
-        "Csv",
-        "Ctab",
-        "Czi",
-        "DICOM",
-        "Dat",
-        "Dm3",
-        "Dna",
-        "Doc",
-        "Dockerimage",
-        "Dup",
-        "Edat3",
-        "Excel",
-        "Fasta",
-        "Fastq",
-        "Fcs",
-        "Fig",
-        "Flagstat",
-        "Gb",
-        "Gct",
-        "Gff3",
-        "GithubRepo",
-        "Gtf",
-        "Gzip",
-        "H5",
-        "Hdf5",
-        "Hdr",
-        "Hic",
-        "Html",
-        "Hyperlink",
-        "Idat",
-        "Idx",
-        "Img",
-        "Jpg",
-        "Js",
-        "Json",
-        "Lif",
-        "Locs",
-        "MATLABdata",
-        "MATLABscript",
-        "MPEG-4",
-        "Maf",
-        "Md",
-        "Mov",
-        "Msf",
-        "Mtx",
-        "MzML",
-        "NWB",
-        "Nii",
-        "Ome-tiff",
-        "Ome-zarr",
-        "PAR",
-        "Parquet",
-        "Pdf",
-        "Plink",
-        "Png",
-        "Powerpoint",
-        "Prism",
-        "Psydat",
-        "Pythonscript",
-        "Pzfx",
-        "RCC",
-        "RData",
-        "REC",
-        "Raw",
-        "Rds",
-        "Recal",
-        "Rmd",
-        "Rscript",
-        "SDAT",
-        "SPAR",
-        "Sam",
-        "Sav",
-        "Sdf",
-        "Seg",
-        "Sentrixdescriptorfile",
-        "Sf",
-        "Sif",
-        "Sqlite",
-        "Sra",
-        "Svg",
-        "Svs",
-        "Sws",
-        "TagAlign",
-        "Tar",
-        "Tbi",
-        "Tif",
-        "Tom",
-        "Tranches",
-        "Tsv",
-        "Txt",
-        "Unknown",
-        "Vcf",
-        "Wiggle",
-        "Xml",
-        "Yaml",
-        "Zip"
-        ]
-      },
-      "title": "Dataset File Formats"
-    },
-    "datasetName": {
-      "description": "Name of the dataset.",
-      "not": {
-        "type": "null"
-      },
-      "title": "datasetName"
-    },
-    "datasetProcessingLevel": {
-      "description": "Level of processing associated with the dataset.",
+    "dataType": {
+      "description": "Broad category of the data type.",
       "oneOf": [
         {
           "enum": [
-            "Auxiliary",
-            "Level 1",
-            "Level 2",
-            "Level 3",
-            "Level 4",
-            "Metadata",
-            "Not Applicable"
+            "Unknown",
+            "aligned reads",
+            "annotated germline variants",
+            "annotated somatic mutation",
+            "audio transcript",
+            "behavioral data",
+            "capsid sequence",
+            "cellular physiology",
+            "characteristic",
+            "chromatin activity",
+            "clinical",
+            "copy number variants",
+            "count matrix",
+            "data index",
+            "data sharing plan",
+            "demographics",
+            "drug combination screen",
+            "drug screen",
+            "electrophysiology",
+            "epidemiological data",
+            "gene expression",
+            "gene expression matrix",
+            "genomic features",
+            "genomic variants",
+            "germline variants",
+            "guide RNA sequence",
+            "image",
+            "immunoassay",
+            "isoform expression",
+            "kinomics",
+            "mask image",
+            "mass spectrometry data",
+            "metabolomics",
+            "molecular property",
+            "morphology parameter",
+            "network",
+            "nucleic acid sequence record",
+            "over-representation data",
+            "particle characterization",
+            "pharmacokinetics",
+            "physiology parameter",
+            "plasmid sequence",
+            "plot",
+            "primer sequence",
+            "probe sequence",
+            "promoter sequence",
+            "protein interaction data",
+            "protein interaction raw data",
+            "proteomics",
+            "quantified gene expression",
+            "raw counts",
+            "reference sequence",
+            "report",
+            "somatic variants",
+            "structural variants",
+            "survey data",
+            "text data",
+            "volume",
+            "weight"
           ],
           "title": "enum"
         },
@@ -481,10 +313,207 @@
           "type": "null"
         }
       ],
-      "title": "datasetProcessingLevel"
+      "title": "dataType"
     },
-    "datasetSpecies": {
-      "description": "Species of origin associated with files in the dataset.",
+    "datasetId": {
+      "description": "Synapse Dataset entity ID. Blank for externally hosted datasets.",
+      "title": "datasetId"
+    },
+    "datasetItemCount": {
+      "description": "Number of files or items in the dataset.",
+      "title": "datasetItemCount"
+    },
+    "datasetSizeInBytes": {
+      "description": "Total size of the dataset in bytes.",
+      "title": "datasetSizeInBytes"
+    },
+    "description": {
+      "description": "Free-text description.",
+      "title": "description"
+    },
+    "doi": {
+      "description": "Digital Object Identifier (DOI).",
+      "title": "doi"
+    },
+    "externalLink": {
+      "description": "External URL for additional resources.",
+      "title": "externalLink"
+    },
+    "format": {
+      "description": "File formats contained in the dataset.",
+      "oneOf": [
+        {
+          "enum": [
+            "7z",
+            "DICOM",
+            "MATLAB data",
+            "MATLAB script",
+            "MPEG-4",
+            "NWB",
+            "Ome-zarr",
+            "PAR",
+            "Python script",
+            "R script",
+            "RCC",
+            "RData",
+            "REC",
+            "SDAT",
+            "SPAR",
+            "Sentrix descriptor file",
+            "Unknown",
+            "ab1",
+            "abf",
+            "aci",
+            "ai",
+            "avi",
+            "bai",
+            "bam",
+            "bash script",
+            "bcf",
+            "bed",
+            "bed broadPeak",
+            "bed gappedPeak",
+            "bed narrowPeak",
+            "bedgraph",
+            "bgzip",
+            "bigwig",
+            "bmp",
+            "bpm",
+            "cel",
+            "chp",
+            "cloupe",
+            "cnn",
+            "cnr",
+            "cns",
+            "crai",
+            "cram",
+            "csi",
+            "csv",
+            "ctab",
+            "czi",
+            "dat",
+            "dm3",
+            "dna",
+            "doc",
+            "docker image",
+            "dup",
+            "edat3",
+            "excel",
+            "fasta",
+            "fastq",
+            "fcs",
+            "fig",
+            "flagstat",
+            "gb",
+            "gct",
+            "gff3",
+            "gtf",
+            "gzip",
+            "h5",
+            "hdf5",
+            "hdr",
+            "hic",
+            "html",
+            "hyperlink",
+            "idat",
+            "idx",
+            "img",
+            "jpg",
+            "js",
+            "json",
+            "lif",
+            "locs",
+            "maf",
+            "md",
+            "mov",
+            "msf",
+            "mtx",
+            "mzML",
+            "nii",
+            "ome-tiff",
+            "parquet",
+            "pdf",
+            "plink",
+            "png",
+            "powerpoint",
+            "prism",
+            "psydat",
+            "pzfx",
+            "raw",
+            "rds",
+            "recal",
+            "rmd",
+            "sam",
+            "sav",
+            "sdf",
+            "seg",
+            "sf",
+            "sif",
+            "sqlite",
+            "sra",
+            "svg",
+            "svs",
+            "sws",
+            "tagAlign",
+            "tar",
+            "tbi",
+            "tif",
+            "tom",
+            "tranches",
+            "tsv",
+            "txt",
+            "vcf",
+            "wiggle",
+            "xml",
+            "yaml",
+            "zip"
+          ],
+          "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
+        }
+      ],
+      "title": "format"
+    },
+    "hasCroissantMetadata": {
+      "description": "Whether the dataset has associated Croissant-format metadata.",
+      "title": "hasCroissantMetadata"
+    },
+    "namId": {
+      "description": "NAM identifier(s) linking to the NAMs table (syn75404716).",
+      "not": {
+        "type": "null"
+      },
+      "title": "namId"
+    },
+    "releaseDate": {
+      "description": "Date the dataset was made publicly available.",
+      "title": "releaseDate"
+    },
+    "repository": {
+      "description": "Repository where the dataset is hosted.",
+      "oneOf": [
+        {
+          "enum": [
+            "GEO",
+            "Other",
+            "SRA",
+            "Synapse",
+            "Zenodo"
+          ],
+          "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
+        }
+      ],
+      "title": "repository"
+    },
+    "species": {
+      "description": "Species of origin.",
       "oneOf": [
         {
           "enum": [
@@ -503,28 +532,20 @@
             "Unknown"
           ],
           "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
         }
       ],
-      "title": "datasetSpecies"
+      "title": "species"
     },
-    "expectedNumberOfFiles": {
-      "description": "Number of files expected to be uploaded as part of this dataset.",
-      "title": "expectedNumberOfFiles"
-    },
-    "expectedNumberOfSamples": {
-      "description": "Number of biospecimens associated with the files in the dataset.",
-      "title": "expectedNumberOfSamples"
-    },
-    "landscapeId": {
-      "description": "Unique identifier for the landscape entry.",
-      "title": "landscapeId"
-    },
-    "studyAim": {
-      "description": "Key connecting the expected data to aims in the research proposal.",
+    "studyId": {
+      "description": "Study identifier linking to the Studies table (syn75404711).",
       "not": {
         "type": "null"
       },
-      "title": "studyAim"
+      "title": "studyId"
     },
     "studyName": {
       "description": "Full display name of the study.",
@@ -533,25 +554,20 @@
       },
       "title": "studyName"
     },
-    "uploadByDate": {
-      "description": "Non-binding estimated date by which files are expected to be uploaded.",
+    "title": {
+      "description": "Display title of the dataset.",
       "not": {
         "type": "null"
       },
-      "title": "uploadByDate"
+      "title": "title"
     }
   },
   "required": [
-    "contextOfUse",
-    "dataContributionLead",
-    "datasetAssay",
-    "datasetCategory",
-    "datasetName",
-    "datasetSpecies",
-    "studyAim",
+    "namId",
+    "studyId",
     "studyName",
-    "uploadByDate"
+    "title"
   ],
-  "title": "Landscape",
+  "title": "Datasets",
   "type": "object"
 }
