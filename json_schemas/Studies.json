@@ -5,64 +5,88 @@
   "properties": {
     "AlternateName": {
       "description": "Acronym or short name for the study.",
-      "title": "alternateName"
+      "items": {
+        "type": "string"
+      },
+      "title": "alternateName",
+      "type": "array"
     },
     "DiseaseFocus": {
       "description": "Disease areas or conditions the study addresses.",
-      "title": "diseaseFocus"
+      "items": {
+        "type": "string"
+      },
+      "title": "diseaseFocus",
+      "type": "array"
     },
     "FundingAgency": {
       "description": "Funding agency or agencies (e.g. NIH Common Fund).",
-      "title": "fundingAgency"
+      "items": {
+        "type": "string"
+      },
+      "title": "fundingAgency",
+      "type": "array"
     },
     "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
-      "not": {
-        "type": "null"
-      },
-      "title": "grantId"
+      "title": "grantId",
+      "type": "string"
     },
     "Institution": {
       "description": "Affiliated institution(s).",
-      "title": "institution"
+      "items": {
+        "type": "string"
+      },
+      "title": "institution",
+      "type": "array"
     },
     "ModelTypeDesc": {
       "description": "Description of the key model type or approach used.",
-      "title": "modelTypeDesc"
+      "title": "modelTypeDesc",
+      "type": "string"
     },
     "NAMsTechFocus": {
       "description": "New Approach Methodology technology focus areas.",
-      "title": "NAMsTechFocus"
+      "items": {
+        "type": "string"
+      },
+      "title": "NAMsTechFocus",
+      "type": "array"
     },
     "StudyDoi": {
       "description": "Digital Object Identifier (DOI) for the study.",
-      "title": "studyDoi"
+      "format": "uri",
+      "title": "studyDoi",
+      "type": "string"
     },
     "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
-      "not": {
-        "type": "null"
-      },
-      "title": "studyId"
+      "title": "studyId",
+      "type": "string"
     },
     "StudyLeads": {
       "description": "Principal investigators or study leads.",
-      "title": "studyLeads"
+      "items": {
+        "type": "string"
+      },
+      "title": "studyLeads",
+      "type": "array"
     },
     "StudyName": {
       "description": "Full display name of the study.",
-      "not": {
-        "type": "null"
-      },
-      "title": "studyName"
+      "title": "studyName",
+      "type": "string"
     },
     "Summary": {
       "description": "Brief description of the study's goals and approach.",
-      "title": "summary"
+      "title": "summary",
+      "type": "string"
     },
     "SynapseProjectId": {
       "description": "Synapse project entity ID housing the study's files.",
-      "title": "synapseProjectId"
+      "pattern": "^syn\\d+$",
+      "title": "synapseProjectId",
+      "type": "string"
     }
   },
   "required": [

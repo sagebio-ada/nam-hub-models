@@ -5,50 +5,64 @@
   "properties": {
     "Abstract": {
       "description": "Grant abstract.",
-      "title": "abstract"
+      "title": "abstract",
+      "type": "string"
     },
     "FundingAgency": {
       "description": "Funding agency or agencies (e.g. NIH Common Fund).",
-      "title": "fundingAgency"
+      "items": {
+        "type": "string"
+      },
+      "title": "fundingAgency",
+      "type": "array"
     },
     "GrantEndDate": {
       "description": "Grant end date.",
-      "title": "grantEndDate"
+      "format": "date",
+      "title": "grantEndDate",
+      "type": "string"
     },
     "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
-      "not": {
-        "type": "null"
-      },
-      "title": "grantId"
+      "title": "grantId",
+      "type": "string"
     },
     "GrantInstitution": {
       "description": "Institution holding the grant.",
-      "title": "grantInstitution"
+      "title": "grantInstitution",
+      "type": "string"
     },
     "GrantName": {
       "description": "Full title of the grant.",
-      "title": "grantName"
+      "title": "grantName",
+      "type": "string"
     },
     "GrantNumber": {
       "description": "NIH grant number (e.g. UM1TR006029).",
-      "title": "grantNumber"
+      "title": "grantNumber",
+      "type": "string"
     },
     "GrantStartDate": {
       "description": "Grant start date.",
-      "title": "grantStartDate"
+      "format": "date",
+      "title": "grantStartDate",
+      "type": "string"
     },
     "GrantType": {
       "description": "Grant mechanism type (e.g. UM1, R01).",
-      "title": "grantType"
+      "title": "grantType",
+      "type": "string"
     },
     "Investigator": {
       "description": "Name of the principal investigator.",
-      "title": "investigator"
+      "title": "investigator",
+      "type": "string"
     },
     "NihReporterLink": {
       "description": "URL to the grant record on NIH Reporter.",
-      "title": "nihReporterLink"
+      "format": "uri",
+      "title": "nihReporterLink",
+      "type": "string"
     }
   },
   "required": [
