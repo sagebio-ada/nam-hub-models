@@ -5,7 +5,7 @@
   "properties": {
     "AccessRequirements": {
       "description": "Description of any Synapse Access Requirements governing the underlying data.",
-      "title": "accessRequirements",
+      "title": "Access Requirements",
       "type": "string"
     },
     "AccessType": {
@@ -15,22 +15,22 @@
         "Embargoed",
         "Open"
       ],
-      "title": "accessType"
+      "title": "Access Type"
     },
     "AcknowledgementStatements": {
       "description": "Required attribution or acknowledgement text for data reuse.",
-      "title": "acknowledgementStatements",
+      "title": "Acknowledgement Statements",
       "type": "string"
     },
     "DatasetId": {
       "description": "Synapse Dataset entity ID. Blank for externally hosted datasets.",
       "pattern": "^syn\\d+$",
-      "title": "datasetId",
+      "title": "Dataset_id",
       "type": "string"
     },
     "Description": {
       "description": "Free-text description.",
-      "title": "description",
+      "title": "Description",
       "type": "string"
     },
     "DevelopmentStatus": {
@@ -41,14 +41,14 @@
         "Prototype",
         "Validated"
       ],
-      "title": "developmentStatus"
+      "title": "Development Status"
     },
     "DuoCode": {
       "description": "Data Use Ontology (GA4GH DUO) codes restricting data reuse. Examples: GRU (General Research Use), HMB (Health/Medical/Biomedical), DS (Disease Specific).",
       "items": {
         "type": "string"
       },
-      "title": "duoCode",
+      "title": "Duo Code",
       "type": "array"
     },
     "EndpointsMeasured": {
@@ -56,18 +56,18 @@
       "items": {
         "type": "string"
       },
-      "title": "endpointsMeasured",
+      "title": "Endpoints Measured",
       "type": "array"
     },
     "ExternalLink": {
       "description": "External URL for additional resources.",
       "format": "uri",
-      "title": "externalLink",
+      "title": "External Link",
       "type": "string"
     },
     "License": {
       "description": "License governing reuse of the underlying data (e.g. CC-BY-4.0).",
-      "title": "license",
+      "title": "License",
       "type": "string"
     },
     "NamId": {
@@ -75,28 +75,28 @@
       "items": {
         "type": "string"
       },
-      "title": "namId",
+      "title": "Nam_id",
       "type": "array"
     },
     "NamName": {
       "description": "Display name of the NAM.",
-      "title": "namName",
+      "title": "Nam Name",
       "type": "string"
     },
     "NamoCategory": {
       "description": "Top-level branch from the NAMO ontology. Examples: InVitroBiological, InSilico, InChemico.",
-      "title": "namoCategory",
+      "title": "Namo Category",
       "type": "string"
     },
     "NamoClass": {
       "description": "Specific class name from the New Approach Methods Ontology (NAMO). Examples: Organoid, OrganOnChip, QSARModel, PBPKModel.",
-      "title": "namoClass",
+      "title": "Namo Class",
       "type": "string"
     },
     "NamoId": {
       "description": "NAMO ontology term identifier. Format: NAMO:XXXXXXX.",
       "pattern": "^NAMO:\\d+$",
-      "title": "namoId",
+      "title": "Namo_id",
       "type": "string"
     },
     "Organism": {
@@ -119,12 +119,12 @@
         ],
         "type": "string"
       },
-      "title": "organism",
+      "title": "Organism",
       "type": "array"
     },
     "PortalDisplay": {
       "description": "Whether this record should be displayed on the public portal.",
-      "title": "portalDisplay",
+      "title": "Portal Display",
       "type": "boolean"
     },
     "RelatedPublications": {
@@ -132,18 +132,18 @@
       "items": {
         "type": "string"
       },
-      "title": "relatedPublications",
+      "title": "Related Publications",
       "type": "array"
     },
     "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
-      "title": "studyId",
+      "title": "Study_id",
       "type": "string"
     },
     "SynapseEntityId": {
       "description": "Synapse project or entity ID (syn-prefixed).",
       "pattern": "^syn\\d+$",
-      "title": "synapseEntityId",
+      "title": "Synapse Entity_id",
       "type": "string"
     },
     "TissueOrCellType": {
@@ -151,7 +151,7 @@
       "items": {
         "type": "string"
       },
-      "title": "tissueOrCellType",
+      "title": "Tissue Or Cell Type",
       "type": "array"
     }
   },

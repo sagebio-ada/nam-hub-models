@@ -211,12 +211,12 @@
         ],
         "type": "string"
       },
-      "title": "assay",
+      "title": "Assay",
       "type": "array"
     },
     "Authors": {
       "description": "Author list.",
-      "title": "authors",
+      "title": "Authors",
       "type": "string"
     },
     "DataType": {
@@ -285,23 +285,23 @@
         ],
         "type": "string"
       },
-      "title": "dataType",
+      "title": "Data Type",
       "type": "array"
     },
     "Doi": {
       "description": "Digital Object Identifier (DOI).",
       "format": "uri",
-      "title": "doi",
+      "title": "Doi",
       "type": "string"
     },
     "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
-      "title": "grantId",
+      "title": "Grant_id",
       "type": "string"
     },
     "Journal": {
       "description": "Journal name.",
-      "title": "journal",
+      "title": "Journal",
       "type": "string"
     },
     "Keywords": {
@@ -309,7 +309,7 @@
       "items": {
         "type": "string"
       },
-      "title": "keywords",
+      "title": "Keywords",
       "type": "array"
     },
     "NamId": {
@@ -317,39 +317,39 @@
       "items": {
         "type": "string"
       },
-      "title": "namId",
+      "title": "Nam_id",
       "type": "array"
     },
     "PubMedId": {
       "description": "PubMed identifier (PMID).",
-      "title": "pubMedId",
+      "title": "Pub Med_id",
       "type": "string"
     },
     "PubMedLink": {
       "description": "URL to the PubMed entry.",
       "format": "uri",
-      "title": "pubMedLink",
+      "title": "Pub Med Link",
       "type": "string"
     },
     "PublicationTitle": {
       "description": "Full title of the publication.",
-      "title": "publicationTitle",
+      "title": "Publication Title",
       "type": "string"
     },
     "PublicationYear": {
       "description": "Year of publication.",
-      "title": "publicationYear",
+      "title": "Publication Year",
       "type": "number"
     },
     "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
-      "title": "studyId",
+      "title": "Study_id",
       "type": "string"
     },
     "SynapseEntityId": {
       "description": "Synapse project or entity ID (syn-prefixed).",
       "pattern": "^syn\\d+$",
-      "title": "synapseEntityId",
+      "title": "Synapse Entity_id",
       "type": "string"
     }
   },

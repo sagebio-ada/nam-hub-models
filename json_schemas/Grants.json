@@ -5,7 +5,7 @@
   "properties": {
     "Abstract": {
       "description": "Grant abstract.",
-      "title": "abstract",
+      "title": "Abstract",
       "type": "string"
     },
     "FundingAgency": {
@@ -13,55 +13,55 @@
       "items": {
         "type": "string"
       },
-      "title": "fundingAgency",
+      "title": "Funding Agency",
       "type": "array"
     },
     "GrantEndDate": {
       "description": "Grant end date.",
       "format": "date",
-      "title": "grantEndDate",
+      "title": "Grant End Date",
       "type": "string"
     },
     "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
-      "title": "grantId",
+      "title": "Grant_id",
       "type": "string"
     },
     "GrantInstitution": {
       "description": "Institution holding the grant.",
-      "title": "grantInstitution",
+      "title": "Grant Institution",
       "type": "string"
     },
     "GrantName": {
       "description": "Full title of the grant.",
-      "title": "grantName",
+      "title": "Grant Name",
       "type": "string"
     },
     "GrantNumber": {
       "description": "NIH grant number (e.g. UM1TR006029).",
-      "title": "grantNumber",
+      "title": "Grant Number",
       "type": "string"
     },
     "GrantStartDate": {
       "description": "Grant start date.",
       "format": "date",
-      "title": "grantStartDate",
+      "title": "Grant Start Date",
       "type": "string"
     },
     "GrantType": {
       "description": "Grant mechanism type (e.g. UM1, R01).",
-      "title": "grantType",
+      "title": "Grant Type",
       "type": "string"
     },
     "Investigator": {
       "description": "Name of the principal investigator.",
-      "title": "investigator",
+      "title": "Investigator",
       "type": "string"
     },
     "NihReporterLink": {
       "description": "URL to the grant record on NIH Reporter.",
       "format": "uri",
-      "title": "nihReporterLink",
+      "title": "Nih Reporter Link",
       "type": "string"
     }
   },
