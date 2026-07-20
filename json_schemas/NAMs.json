@@ -1,0 +1,160 @@
+{
+  "$id": "http://example.com/NAMs",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "One row per New Approach Method (NAM). Modelled after NF/MC2 Tools tables. NAM type classification uses the New Approach Methods Ontology (NAMO) from the Monarch Initiative (https://github.com/monarch-initiative/namo). Governance fields follow Synapse/Sage portal conventions. Synapse table: syn75404716.",
+  "properties": {
+    "accessRequirements": {
+      "description": "Description of any Synapse Access Requirements governing the underlying data.",
+      "title": "accessRequirements"
+    },
+    "accessType": {
+      "description": "Data access level.",
+      "oneOf": [
+        {
+          "enum": [
+            "Controlled",
+            "Embargoed",
+            "Open"
+          ],
+          "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
+        }
+      ],
+      "title": "accessType"
+    },
+    "acknowledgementStatements": {
+      "description": "Required attribution or acknowledgement text for data reuse.",
+      "title": "acknowledgementStatements"
+    },
+    "datasetId": {
+      "description": "Synapse Dataset entity ID. Blank for externally hosted datasets.",
+      "title": "datasetId"
+    },
+    "description": {
+      "description": "Free-text description.",
+      "title": "description"
+    },
+    "developmentStatus": {
+      "description": "Current development stage of the NAM.",
+      "oneOf": [
+        {
+          "enum": [
+            "Deprecated",
+            "In Development",
+            "Prototype",
+            "Validated"
+          ],
+          "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
+        }
+      ],
+      "title": "developmentStatus"
+    },
+    "duoCode": {
+      "description": "Data Use Ontology (GA4GH DUO) codes restricting data reuse. Examples: GRU (General Research Use), HMB (Health/Medical/Biomedical), DS (Disease Specific).",
+      "title": "duoCode"
+    },
+    "endpointsMeasured": {
+      "description": "Biological or chemical endpoints the NAM measures.",
+      "title": "endpointsMeasured"
+    },
+    "externalLink": {
+      "description": "External URL for additional resources.",
+      "title": "externalLink"
+    },
+    "license": {
+      "description": "License governing reuse of the underlying data (e.g. CC-BY-4.0).",
+      "title": "license"
+    },
+    "namId": {
+      "description": "NAM identifier(s) linking to the NAMs table (syn75404716).",
+      "not": {
+        "type": "null"
+      },
+      "title": "namId"
+    },
+    "namName": {
+      "description": "Display name of the NAM.",
+      "not": {
+        "type": "null"
+      },
+      "title": "namName"
+    },
+    "namoCategory": {
+      "description": "Top-level branch from the NAMO ontology. Examples: InVitroBiological, InSilico, InChemico.",
+      "title": "namoCategory"
+    },
+    "namoClass": {
+      "description": "Specific class name from the New Approach Methods Ontology (NAMO). Examples: Organoid, OrganOnChip, QSARModel, PBPKModel.",
+      "title": "namoClass"
+    },
+    "namoId": {
+      "description": "NAMO ontology term identifier. Format: NAMO:XXXXXXX.",
+      "title": "namoId"
+    },
+    "organism": {
+      "description": "Organism(s) the NAM is derived from or applicable to.",
+      "oneOf": [
+        {
+          "enum": [
+            "Danio rerio",
+            "Drosophila melanogaster",
+            "Gallus gallus",
+            "Homo sapiens",
+            "Macaca nemestrina",
+            "Mus musculus",
+            "Mus musculus (humanized)",
+            "Oryctolagus cuniculus",
+            "Pan troglodytes",
+            "Rattus norvegicus",
+            "Rhesus macaque",
+            "Sus scrofa",
+            "Unknown"
+          ],
+          "title": "enum"
+        },
+        {
+          "title": "null",
+          "type": "null"
+        }
+      ],
+      "title": "organism"
+    },
+    "portalDisplay": {
+      "description": "Whether this record should be displayed on the public portal.",
+      "title": "portalDisplay"
+    },
+    "relatedPublications": {
+      "description": "PubMed IDs of publications describing or using this NAM.",
+      "title": "relatedPublications"
+    },
+    "studyId": {
+      "description": "Study identifier linking to the Studies table (syn75404711).",
+      "not": {
+        "type": "null"
+      },
+      "title": "studyId"
+    },
+    "synapseEntityId": {
+      "description": "Synapse project or entity ID (syn-prefixed).",
+      "title": "synapseEntityId"
+    },
+    "tissueOrCellType": {
+      "description": "Tissue or cell type(s) used in the NAM.",
+      "title": "tissueOrCellType"
+    }
+  },
+  "required": [
+    "namId",
+    "namName",
+    "studyId"
+  ],
+  "title": "NAMs",
+  "type": "object"
+}

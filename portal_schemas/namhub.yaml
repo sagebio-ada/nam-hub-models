@@ -1,0 +1,633 @@
+id: https://namhub.synapse.org/portal_schemas
+name: namhub
+description: >-
+  NAMHub portal data schemas — backend Synapse tables and the Landscape data
+  collection form. Portal tables are backed by Synapse project syn74360399.
+  NAM classification uses the New Approach Methods Ontology (NAMO) developed
+  by the Monarch Initiative (https://github.com/monarch-initiative/namo).
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  namhub: https://namhub.synapse.org/portal_schemas/
+  namo: https://github.com/monarch-initiative/namo/
+  duo: http://purl.obolibrary.org/obo/DUO_
+  schema: http://schema.org/
+
+default_prefix: namhub
+default_range: string
+
+imports:
+  - linkml:types
+  - enums
+
+# ── Classes ────────────────────────────────────────────────────────────────────
+
+classes:
+
+  # -- Landscape (data collection form) ----------------------------------------
+
+  Landscape:
+    description: >-
+      Preliminary information about datasets intended to be shared through
+      NAM Hub. Used by TDC teams to declare expected data uploads.
+    slots:
+      - landscapeId
+      - datasetName
+      - datasetDescription
+      - datasetAssay
+      - datasetSpecies
+      - datasetFileFormats
+      - datasetCategory
+      - datasetProcessingLevel
+      - contextOfUse
+      - applicableStandards
+      - expectedNumberOfFiles
+      - expectedNumberOfSamples
+      - uploadByDate
+      - dataContributionLead
+      - studyName
+      - studyAim
+      - comments
+    slot_usage:
+      datasetName:
+        required: true
+      datasetAssay:
+        required: true
+      datasetSpecies:
+        required: true
+      contextOfUse:
+        required: true
+      dataContributionLead:
+        required: true
+      studyName:
+        required: true
+      studyAim:
+        required: true
+      uploadByDate:
+        required: true
+      datasetCategory:
+        required: true
+
+  # -- Portal tables -----------------------------------------------------------
+
+  Studies:
+    description: >-
+      One row per Technology Development Center (TDC) study in the NAMHub
+      program. Synapse table: syn75404711.
+    slots:
+      - studyId
+      - studyName
+      - studyLeads
+      - summary
+      - institution
+      - fundingAgency
+      - synapseProjectId
+      - studyDoi
+      - diseaseFocus
+      - alternateName
+      - NAMsTechFocus
+      - modelTypeDesc
+      - grantId
+    slot_usage:
+      studyId:
+        required: true
+      studyName:
+        required: true
+
+  Datasets:
+    description: >-
+      One row per dataset — Synapse-hosted or external (e.g. GEO).
+      Links to Studies and NAMs. Synapse table: syn75404713.
+    slots:
+      - datasetId
+      - title
+      - description
+      - studyId
+      - studyName
+      - assay
+      - dataType
+      - species
+      - format
+      - repository
+      - externalLink
+      - doi
+      - releaseDate
+      - datasetItemCount
+      - datasetSizeInBytes
+      - hasCroissantMetadata
+      - croissantMetadataUrl
+      - accessType
+      - namId
+    slot_usage:
+      title:
+        required: true
+
+  People:
+    description: >-
+      Investigators and contributors associated with NAMHub studies.
+      Synapse table: syn75404714.
+    slots:
+      - investigatorId
+      - firstName
+      - lastName
+      - institution
+      - role
+      - studyId
+      - grantId
+      - orcidId
+      - synapseUserId
+      - email
+      - portalDisplay
+    slot_usage:
+      firstName:
+        required: true
+      lastName:
+        required: true
+
+  Grants:
+    description: >-
+      Backend grant records linked to Studies. Not directly surfaced on the
+      portal. Synapse table: syn75404715.
+    slots:
+      - grantId
+      - grantName
+      - grantNumber
+      - grantType
+      - grantInstitution
+      - abstract
+      - grantStartDate
+      - grantEndDate
+      - investigator
+      - fundingAgency
+      - nihReporterLink
+    slot_usage:
+      grantId:
+        required: true
+
+  NAMs:
+    description: >-
+      One row per New Approach Method (NAM). Modelled after NF/MC2 Tools tables.
+      NAM type classification uses the New Approach Methods Ontology (NAMO)
+      from the Monarch Initiative (https://github.com/monarch-initiative/namo).
+      Governance fields follow Synapse/Sage portal conventions.
+      Synapse table: syn75404716.
+    see_also:
+      - https://github.com/monarch-initiative/namo
+    slots:
+      - namId
+      - namName
+      - description
+      - developmentStatus
+      - namoClass
+      - namoCategory
+      - namoId
+      - organism
+      - tissueOrCellType
+      - endpointsMeasured
+      - studyId
+      - datasetId
+      - relatedPublications
+      - externalLink
+      - synapseEntityId
+      - accessType
+      - accessRequirements
+      - duoCode
+      - acknowledgementStatements
+      - license
+      - portalDisplay
+    slot_usage:
+      namId:
+        required: true
+      namName:
+        required: true
+
+  Publications:
+    description: >-
+      Publications associated with NAMHub studies, grants, or NAMs.
+      Synapse table: syn75404744.
+    slots:
+      - pubMedId
+      - publicationTitle
+      - authors
+      - journal
+      - publicationYear
+      - doi
+      - pubMedLink
+      - keywords
+      - studyId
+      - grantId
+      - namId
+      - dataType
+      - assay
+      - synapseEntityId
+    slot_usage:
+      publicationTitle:
+        required: true
+
+# ── Slots ──────────────────────────────────────────────────────────────────────
+
+slots:
+
+  # -- Shared / cross-table ----------------------------------------------------
+
+  studyId:
+    description: Study identifier linking to the Studies table (syn75404711).
+    multivalued: false
+    range: string
+
+  studyName:
+    description: Full display name of the study.
+    range: string
+
+  institution:
+    description: Affiliated institution(s).
+    multivalued: true
+    range: string
+
+  fundingAgency:
+    description: Funding agency or agencies (e.g. NIH Common Fund).
+    multivalued: true
+    range: string
+
+  grantId:
+    description: Grant identifier linking to the Grants table (syn75404715).
+    multivalued: false
+    range: string
+
+  description:
+    description: Free-text description.
+    range: string
+
+  doi:
+    description: Digital Object Identifier (DOI).
+    range: uri
+
+  assay:
+    description: Experimental assay or method.
+    multivalued: true
+    range: AssayEnum
+
+  dataType:
+    description: Broad category of the data type.
+    multivalued: true
+    range: DataCategoryEnum
+
+  species:
+    description: Species of origin.
+    multivalued: true
+    range: SpeciesEnum
+
+  accessType:
+    description: Data access level.
+    range: AccessTypeEnum
+
+  namId:
+    description: NAM identifier(s) linking to the NAMs table (syn75404716).
+    multivalued: true
+    range: string
+
+  externalLink:
+    description: External URL for additional resources.
+    range: uri
+
+  synapseEntityId:
+    description: Synapse project or entity ID (syn-prefixed).
+    range: string
+    pattern: "^syn\\d+$"
+
+  portalDisplay:
+    description: Whether this record should be displayed on the public portal.
+    range: boolean
+    ifabsent: "true"
+
+  # -- Landscape slots ---------------------------------------------------------
+
+  landscapeId:
+    description: Unique identifier for the landscape entry.
+    range: string
+
+  datasetName:
+    description: Name of the dataset.
+    range: string
+
+  datasetDescription:
+    description: A text description of the files contained in this dataset.
+    range: string
+
+  datasetAssay:
+    description: Experimental method used to generate files in the dataset.
+    range: AssayEnum
+
+  datasetSpecies:
+    description: Species of origin associated with files in the dataset.
+    range: SpeciesEnum
+
+  datasetFileFormats:
+    description: File extension(s) associated with files in the dataset.
+    range: FileFormatEnum
+
+  datasetCategory:
+    description: Categorical label for data contained in the dataset.
+    range: DataCategoryEnum
+
+  datasetProcessingLevel:
+    description: Level of processing associated with the dataset.
+    range: ProcessLevelEnum
+
+  contextOfUse:
+    description: >-
+      NAM application context(s) associated with files in the dataset.
+      Multiple values permitted.
+    multivalued: true
+    range: NamContextEnum
+
+  applicableStandards:
+    description: Controlled vocabularies or data models used to organize and annotate files.
+    range: string
+
+  expectedNumberOfFiles:
+    description: Number of files expected to be uploaded as part of this dataset.
+    range: integer
+
+  expectedNumberOfSamples:
+    description: Number of biospecimens associated with the files in the dataset.
+    range: integer
+
+  uploadByDate:
+    description: Non-binding estimated date by which files are expected to be uploaded.
+    range: date
+
+  dataContributionLead:
+    description: Name of the individual responsible for uploading files.
+    range: string
+
+  studyAim:
+    description: Key connecting the expected data to aims in the research proposal.
+    range: string
+
+  comments:
+    description: Additional information not captured in other fields.
+    range: string
+
+  # -- Studies slots -----------------------------------------------------------
+
+  studyLeads:
+    description: Principal investigators or study leads.
+    multivalued: true
+    range: string
+
+  summary:
+    description: Brief description of the study's goals and approach.
+    range: string
+
+  synapseProjectId:
+    description: Synapse project entity ID housing the study's files.
+    range: string
+    pattern: "^syn\\d+$"
+
+  studyDoi:
+    description: Digital Object Identifier (DOI) for the study.
+    range: uri
+
+  diseaseFocus:
+    description: Disease areas or conditions the study addresses.
+    multivalued: true
+    range: string
+
+  alternateName:
+    description: Acronym or short name for the study.
+    multivalued: true
+    range: string
+
+  NAMsTechFocus:
+    description: New Approach Methodology technology focus areas.
+    multivalued: true
+    range: string
+
+  modelTypeDesc:
+    description: Description of the key model type or approach used.
+    range: string
+
+  # -- Datasets slots ----------------------------------------------------------
+
+  datasetId:
+    description: >-
+      Synapse Dataset entity ID. Blank for externally hosted datasets.
+    range: string
+    pattern: "^syn\\d+$"
+
+  title:
+    description: Display title of the dataset.
+    range: string
+
+  format:
+    description: File formats contained in the dataset.
+    multivalued: true
+    range: FileFormatEnum
+
+  repository:
+    description: Repository where the dataset is hosted.
+    range: RepositoryEnum
+
+  releaseDate:
+    description: Date the dataset was made publicly available.
+    range: date
+
+  datasetItemCount:
+    description: Number of files or items in the dataset.
+    range: integer
+
+  datasetSizeInBytes:
+    description: Total size of the dataset in bytes.
+    range: integer
+
+  hasCroissantMetadata:
+    description: Whether the dataset has associated Croissant-format metadata.
+    range: boolean
+
+  croissantMetadataUrl:
+    description: URL to the Croissant metadata file for this dataset.
+    range: uri
+
+  # -- People slots ------------------------------------------------------------
+
+  investigatorId:
+    description: Unique identifier for the investigator.
+    range: string
+
+  firstName:
+    description: First name.
+    range: string
+
+  lastName:
+    description: Last name.
+    range: string
+
+  role:
+    description: Role in the NAMHub program.
+    range: RoleEnum
+
+  orcidId:
+    description: ORCID persistent digital identifier.
+    range: string
+    pattern: "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$"
+
+  synapseUserId:
+    description: Synapse user account ID.
+    range: string
+
+  email:
+    description: Contact email address.
+    range: string
+    pattern: "^[^@]+@[^@]+\\.[^@]+$"
+
+  # -- Grants slots ------------------------------------------------------------
+
+  grantName:
+    description: Full title of the grant.
+    range: string
+
+  grantNumber:
+    description: NIH grant number (e.g. UM1TR006029).
+    range: string
+
+  grantType:
+    description: Grant mechanism type (e.g. UM1, R01).
+    range: string
+
+  grantInstitution:
+    description: Institution holding the grant.
+    range: string
+
+  abstract:
+    description: Grant abstract.
+    range: string
+
+  grantStartDate:
+    description: Grant start date.
+    range: date
+
+  grantEndDate:
+    description: Grant end date.
+    range: date
+
+  investigator:
+    description: Name of the principal investigator.
+    range: string
+
+  nihReporterLink:
+    description: URL to the grant record on NIH Reporter.
+    range: uri
+
+  # -- NAMs slots --------------------------------------------------------------
+
+  namName:
+    description: Display name of the NAM.
+    range: string
+
+  developmentStatus:
+    description: Current development stage of the NAM.
+    range: DevelopmentStatusEnum
+
+  namoClass:
+    description: >-
+      Specific class name from the New Approach Methods Ontology (NAMO).
+      Examples: Organoid, OrganOnChip, QSARModel, PBPKModel.
+    range: string
+    see_also:
+      - https://github.com/monarch-initiative/namo
+
+  namoCategory:
+    description: >-
+      Top-level branch from the NAMO ontology.
+      Examples: InVitroBiological, InSilico, InChemico.
+    range: string
+    see_also:
+      - https://github.com/monarch-initiative/namo
+
+  namoId:
+    description: >-
+      NAMO ontology term identifier. Format: NAMO:XXXXXXX.
+    range: string
+    pattern: "^NAMO:\\d+$"
+    see_also:
+      - https://github.com/monarch-initiative/namo
+
+  organism:
+    description: Organism(s) the NAM is derived from or applicable to.
+    multivalued: true
+    range: SpeciesEnum
+
+  tissueOrCellType:
+    description: Tissue or cell type(s) used in the NAM.
+    multivalued: true
+    range: string
+
+  endpointsMeasured:
+    description: Biological or chemical endpoints the NAM measures.
+    multivalued: true
+    range: string
+
+  datasetId_list:
+    description: Dataset identifier(s) linking to the Datasets table (syn75404713).
+    multivalued: true
+    range: string
+
+  relatedPublications:
+    description: PubMed IDs of publications describing or using this NAM.
+    multivalued: true
+    range: string
+
+  accessRequirements:
+    description: >-
+      Description of any Synapse Access Requirements governing the underlying data.
+    range: string
+
+  duoCode:
+    description: >-
+      Data Use Ontology (GA4GH DUO) codes restricting data reuse.
+      Examples: GRU (General Research Use), HMB (Health/Medical/Biomedical),
+      DS (Disease Specific).
+    multivalued: true
+    range: string
+    see_also:
+      - http://purl.obolibrary.org/obo/duo.owl
+
+  acknowledgementStatements:
+    description: Required attribution or acknowledgement text for data reuse.
+    range: string
+
+  license:
+    description: License governing reuse of the underlying data (e.g. CC-BY-4.0).
+    range: string
+
+  # -- Publications slots ------------------------------------------------------
+
+  pubMedId:
+    description: PubMed identifier (PMID).
+    range: string
+
+  publicationTitle:
+    description: Full title of the publication.
+    range: string
+
+  authors:
+    description: Author list.
+    range: string
+
+  journal:
+    description: Journal name.
+    range: string
+
+  publicationYear:
+    description: Year of publication.
+    range: integer
+
+  pubMedLink:
+    description: URL to the PubMed entry.
+    range: uri
+
+  keywords:
+    description: Publication keywords or MeSH terms.
+    multivalued: true
+    range: string
