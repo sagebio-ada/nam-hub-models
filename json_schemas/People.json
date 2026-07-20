@@ -6,17 +6,17 @@
     "Email": {
       "description": "Contact email address.",
       "pattern": "^[^@]+@[^@]+\\.[^@]+$",
-      "title": "email",
+      "title": "Email",
       "type": "string"
     },
     "FirstName": {
       "description": "First name.",
-      "title": "firstName",
+      "title": "First Name",
       "type": "string"
     },
     "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
-      "title": "grantId",
+      "title": "Grant_id",
       "type": "string"
     },
     "Institution": {
@@ -24,28 +24,28 @@
       "items": {
         "type": "string"
       },
-      "title": "institution",
+      "title": "Institution",
       "type": "array"
     },
     "InvestigatorId": {
       "description": "Unique identifier for the investigator.",
-      "title": "investigatorId",
+      "title": "Investigator_id",
       "type": "string"
     },
     "LastName": {
       "description": "Last name.",
-      "title": "lastName",
+      "title": "Last Name",
       "type": "string"
     },
     "OrcidId": {
       "description": "ORCID persistent digital identifier.",
       "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$",
-      "title": "orcidId",
+      "title": "Orcid_id",
       "type": "string"
     },
     "PortalDisplay": {
       "description": "Whether this record should be displayed on the public portal.",
-      "title": "portalDisplay",
+      "title": "Portal Display",
       "type": "boolean"
     },
     "Role": {
@@ -58,16 +58,16 @@
         "PrincipalInvestigator",
         "Trainee"
       ],
-      "title": "role"
+      "title": "Role"
     },
     "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
-      "title": "studyId",
+      "title": "Study_id",
       "type": "string"
     },
     "SynapseUserId": {
       "description": "Synapse user account ID.",
-      "title": "synapseUserId",
+      "title": "Synapse User_id",
       "type": "string"
     }
   },

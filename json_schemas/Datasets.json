@@ -1,7 +1,7 @@
 {
   "$id": "http://example.com/Datasets",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "One row per dataset — Synapse-hosted or external (e.g. GEO). Links to Studies and NAMs. Synapse table: syn75404713.",
+  "description": "One row per dataset - Synapse-hosted or external (e.g. GEO). Links to Studies and NAMs. Synapse table: syn75404713.",
   "properties": {
     "AccessType": {
       "description": "Data access level.",
@@ -10,7 +10,7 @@
         "Embargoed",
         "Open"
       ],
-      "title": "accessType"
+      "title": "Access Type"
     },
     "Assay": {
       "description": "Experimental assay or method.",
@@ -220,13 +220,13 @@
         ],
         "type": "string"
       },
-      "title": "assay",
+      "title": "Assay",
       "type": "array"
     },
     "CroissantMetadataUrl": {
       "description": "URL to the Croissant metadata file for this dataset.",
       "format": "uri",
-      "title": "croissantMetadataUrl",
+      "title": "Croissant Metadata Url",
       "type": "string"
     },
     "DataType": {
@@ -295,40 +295,40 @@
         ],
         "type": "string"
       },
-      "title": "dataType",
+      "title": "Data Type",
       "type": "array"
     },
     "DatasetId": {
       "description": "Synapse Dataset entity ID. Blank for externally hosted datasets.",
       "pattern": "^syn\\d+$",
-      "title": "datasetId",
+      "title": "Dataset_id",
       "type": "string"
     },
     "DatasetItemCount": {
       "description": "Number of files or items in the dataset.",
-      "title": "datasetItemCount",
+      "title": "Dataset Item Count",
       "type": "number"
     },
     "DatasetSizeInBytes": {
       "description": "Total size of the dataset in bytes.",
-      "title": "datasetSizeInBytes",
+      "title": "Dataset Size In Bytes",
       "type": "number"
     },
     "Description": {
       "description": "Free-text description.",
-      "title": "description",
+      "title": "Description",
       "type": "string"
     },
     "Doi": {
       "description": "Digital Object Identifier (DOI).",
       "format": "uri",
-      "title": "doi",
+      "title": "Doi",
       "type": "string"
     },
     "ExternalLink": {
       "description": "External URL for additional resources.",
       "format": "uri",
-      "title": "externalLink",
+      "title": "External Link",
       "type": "string"
     },
     "Format": {
@@ -461,12 +461,12 @@
         ],
         "type": "string"
       },
-      "title": "format",
+      "title": "Format",
       "type": "array"
     },
     "HasCroissantMetadata": {
       "description": "Whether the dataset has associated Croissant-format metadata.",
-      "title": "hasCroissantMetadata",
+      "title": "Has Croissant Metadata",
       "type": "boolean"
     },
     "NamId": {
@@ -474,13 +474,13 @@
       "items": {
         "type": "string"
       },
-      "title": "namId",
+      "title": "Nam_id",
       "type": "array"
     },
     "ReleaseDate": {
       "description": "Date the dataset was made publicly available.",
       "format": "date",
-      "title": "releaseDate",
+      "title": "Release Date",
       "type": "string"
     },
     "Repository": {
@@ -492,7 +492,7 @@
         "Synapse",
         "Zenodo"
       ],
-      "title": "repository"
+      "title": "Repository"
     },
     "Species": {
       "description": "Species of origin.",
@@ -514,22 +514,22 @@
         ],
         "type": "string"
       },
-      "title": "species",
+      "title": "Species",
       "type": "array"
     },
     "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
-      "title": "studyId",
+      "title": "Study_id",
       "type": "string"
     },
     "StudyName": {
       "description": "Full display name of the study.",
-      "title": "studyName",
+      "title": "Study Name",
       "type": "string"
     },
     "Title": {
       "description": "Display title of the dataset.",
-      "title": "title",
+      "title": "Title",
       "type": "string"
     }
   },

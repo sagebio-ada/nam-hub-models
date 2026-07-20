@@ -8,7 +8,7 @@
       "items": {
         "type": "string"
       },
-      "title": "alternateName",
+      "title": "Alternate Name",
       "type": "array"
     },
     "DiseaseFocus": {
@@ -16,7 +16,7 @@
       "items": {
         "type": "string"
       },
-      "title": "diseaseFocus",
+      "title": "Disease Focus",
       "type": "array"
     },
     "FundingAgency": {
@@ -24,12 +24,12 @@
       "items": {
         "type": "string"
       },
-      "title": "fundingAgency",
+      "title": "Funding Agency",
       "type": "array"
     },
     "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
-      "title": "grantId",
+      "title": "Grant_id",
       "type": "string"
     },
     "Institution": {
@@ -37,12 +37,12 @@
       "items": {
         "type": "string"
       },
-      "title": "institution",
+      "title": "Institution",
       "type": "array"
     },
     "ModelTypeDesc": {
       "description": "Description of the key model type or approach used.",
-      "title": "modelTypeDesc",
+      "title": "Model Type Desc",
       "type": "string"
     },
     "NAMsTechFocus": {
@@ -50,18 +50,18 @@
       "items": {
         "type": "string"
       },
-      "title": "NAMsTechFocus",
+      "title": "NAMs Tech Focus",
       "type": "array"
     },
     "StudyDoi": {
       "description": "Digital Object Identifier (DOI) for the study.",
       "format": "uri",
-      "title": "studyDoi",
+      "title": "Study Doi",
       "type": "string"
     },
     "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
-      "title": "studyId",
+      "title": "Study_id",
       "type": "string"
     },
     "StudyLeads": {
@@ -69,23 +69,23 @@
       "items": {
         "type": "string"
       },
-      "title": "studyLeads",
+      "title": "Study Leads",
       "type": "array"
     },
     "StudyName": {
       "description": "Full display name of the study.",
-      "title": "studyName",
+      "title": "Study Name",
       "type": "string"
     },
     "Summary": {
       "description": "Brief description of the study's goals and approach.",
-      "title": "summary",
+      "title": "Summary",
       "type": "string"
     },
     "SynapseProjectId": {
       "description": "Synapse project entity ID housing the study's files.",
       "pattern": "^syn\\d+$",
-      "title": "synapseProjectId",
+      "title": "Synapse Project_id",
       "type": "string"
     }
   },
