@@ -5,7 +5,8 @@
   "properties": {
     "AccessRequirements": {
       "description": "Description of any Synapse Access Requirements governing the underlying data.",
-      "title": "accessRequirements"
+      "title": "accessRequirements",
+      "type": "string"
     },
     "AccessType": {
       "description": "Data access level.",
@@ -18,15 +19,19 @@
     },
     "AcknowledgementStatements": {
       "description": "Required attribution or acknowledgement text for data reuse.",
-      "title": "acknowledgementStatements"
+      "title": "acknowledgementStatements",
+      "type": "string"
     },
     "DatasetId": {
       "description": "Synapse Dataset entity ID. Blank for externally hosted datasets.",
-      "title": "datasetId"
+      "pattern": "^syn\\d+$",
+      "title": "datasetId",
+      "type": "string"
     },
     "Description": {
       "description": "Free-text description.",
-      "title": "description"
+      "title": "description",
+      "type": "string"
     },
     "DevelopmentStatus": {
       "description": "Current development stage of the NAM.",
@@ -40,87 +45,114 @@
     },
     "DuoCode": {
       "description": "Data Use Ontology (GA4GH DUO) codes restricting data reuse. Examples: GRU (General Research Use), HMB (Health/Medical/Biomedical), DS (Disease Specific).",
-      "title": "duoCode"
+      "items": {
+        "type": "string"
+      },
+      "title": "duoCode",
+      "type": "array"
     },
     "EndpointsMeasured": {
       "description": "Biological or chemical endpoints the NAM measures.",
-      "title": "endpointsMeasured"
+      "items": {
+        "type": "string"
+      },
+      "title": "endpointsMeasured",
+      "type": "array"
     },
     "ExternalLink": {
       "description": "External URL for additional resources.",
-      "title": "externalLink"
+      "format": "uri",
+      "title": "externalLink",
+      "type": "string"
     },
     "License": {
       "description": "License governing reuse of the underlying data (e.g. CC-BY-4.0).",
-      "title": "license"
+      "title": "license",
+      "type": "string"
     },
     "NamId": {
       "description": "NAM identifier(s) linking to the NAMs table (syn75404716).",
-      "not": {
-        "type": "null"
+      "items": {
+        "type": "string"
       },
-      "title": "namId"
+      "title": "namId",
+      "type": "array"
     },
     "NamName": {
       "description": "Display name of the NAM.",
-      "not": {
-        "type": "null"
-      },
-      "title": "namName"
+      "title": "namName",
+      "type": "string"
     },
     "NamoCategory": {
       "description": "Top-level branch from the NAMO ontology. Examples: InVitroBiological, InSilico, InChemico.",
-      "title": "namoCategory"
+      "title": "namoCategory",
+      "type": "string"
     },
     "NamoClass": {
       "description": "Specific class name from the New Approach Methods Ontology (NAMO). Examples: Organoid, OrganOnChip, QSARModel, PBPKModel.",
-      "title": "namoClass"
+      "title": "namoClass",
+      "type": "string"
     },
     "NamoId": {
       "description": "NAMO ontology term identifier. Format: NAMO:XXXXXXX.",
-      "title": "namoId"
+      "pattern": "^NAMO:\\d+$",
+      "title": "namoId",
+      "type": "string"
     },
     "Organism": {
       "description": "Organism(s) the NAM is derived from or applicable to.",
-      "enum": [
-        "Daniorerio",
-        "Drosophilamelanogaster",
-        "Gallusgallus",
-        "Homosapiens",
-        "Macacanemestrina",
-        "Musmusculus",
-        "Musmusculus(humanized)",
-        "Oryctolaguscuniculus",
-        "Pantroglodytes",
-        "Rattusnorvegicus",
-        "Rhesusmacaque",
-        "Susscrofa",
-        "Unknown"
-      ],
-      "title": "organism"
+      "items": {
+        "enum": [
+          "Daniorerio",
+          "Drosophilamelanogaster",
+          "Gallusgallus",
+          "Homosapiens",
+          "Macacanemestrina",
+          "Musmusculus",
+          "Musmusculus(humanized)",
+          "Oryctolaguscuniculus",
+          "Pantroglodytes",
+          "Rattusnorvegicus",
+          "Rhesusmacaque",
+          "Susscrofa",
+          "Unknown"
+        ],
+        "type": "string"
+      },
+      "title": "organism",
+      "type": "array"
     },
     "PortalDisplay": {
       "description": "Whether this record should be displayed on the public portal.",
-      "title": "portalDisplay"
+      "title": "portalDisplay",
+      "type": "boolean"
     },
     "RelatedPublications": {
       "description": "PubMed IDs of publications describing or using this NAM.",
-      "title": "relatedPublications"
+      "items": {
+        "type": "string"
+      },
+      "title": "relatedPublications",
+      "type": "array"
     },
     "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
-      "not": {
-        "type": "null"
-      },
-      "title": "studyId"
+      "title": "studyId",
+      "type": "string"
     },
     "SynapseEntityId": {
       "description": "Synapse project or entity ID (syn-prefixed).",
-      "title": "synapseEntityId"
+      "pattern": "^syn\\d+$",
+      "title": "synapseEntityId",
+      "type": "string"
     },
     "TissueOrCellType": {
       "description": "Tissue or cell type(s) used in the NAM.",
-      "title": "tissueOrCellType"
+      "items": {
+        "type": "string"
+      },
+      "title": "tissueOrCellType",
+      "type": "array"
     }
   },
   "required": [

@@ -5,33 +5,37 @@
   "properties": {
     "ApplicableStandards": {
       "description": "Controlled vocabularies or data models used to organize and annotate files.",
-      "title": "applicableStandards"
+      "title": "applicableStandards",
+      "type": "string"
     },
     "Comments": {
       "description": "Additional information not captured in other fields.",
-      "title": "comments"
+      "title": "comments",
+      "type": "string"
     },
     "ContextOfUse": {
       "description": "NAM application context(s) associated with files in the dataset. Multiple values permitted.",
-      "enum": [
-        "AnalyticalModels",
-        "Assays/Conditions",
-        "Biosamples",
-        "Files/DataTypes",
-        "ImagingMetadata",
-        "InChemico/Biomaterials",
-        "Ontologies/Standards",
-        "Pharmacokinetics/ADMET",
-        "Subjects/Donors"
-      ],
-      "title": "contextOfUse"
+      "items": {
+        "enum": [
+          "AnalyticalModels",
+          "Assays/Conditions",
+          "Biosamples",
+          "Files/DataTypes",
+          "ImagingMetadata",
+          "InChemico/Biomaterials",
+          "Ontologies/Standards",
+          "Pharmacokinetics/ADMET",
+          "Subjects/Donors"
+        ],
+        "type": "string"
+      },
+      "title": "contextOfUse",
+      "type": "array"
     },
     "DataContributionLead": {
       "description": "Name of the individual responsible for uploading files.",
-      "not": {
-        "type": "null"
-      },
-      "title": "dataContributionLead"
+      "title": "dataContributionLead",
+      "type": "string"
     },
     "DatasetAssay": {
       "description": "Experimental method used to generate files in the dataset.",
@@ -307,10 +311,8 @@
     },
     "DatasetDescription": {
       "description": "A text description of the files contained in this dataset.",
-      "not": {
-        "type": "null"
-      },
-      "title": "datasetDescription"
+      "title": "datasetDescription",
+      "type": "string"
     },
     "DatasetFileFormats": {
       "description": "File extension(s) associated with files in the dataset.",
@@ -443,10 +445,8 @@
     },
     "DatasetName": {
       "description": "Name of the dataset.",
-      "not": {
-        "type": "null"
-      },
-      "title": "datasetName"
+      "title": "datasetName",
+      "type": "string"
     },
     "DatasetProcessingLevel": {
       "description": "Level of processing associated with the dataset.",
@@ -482,45 +482,34 @@
     },
     "ExpectedNumberOfFiles": {
       "description": "Number of files expected to be uploaded as part of this dataset.",
-      "not": {
-        "type": "null"
-      },
-      "title": "expectedNumberOfFiles"
+      "title": "expectedNumberOfFiles",
+      "type": "number"
     },
     "ExpectedNumberOfSamples": {
       "description": "Number of biospecimens associated with the files in the dataset.",
-      "not": {
-        "type": "null"
-      },
-      "title": "expectedNumberOfSamples"
+      "title": "expectedNumberOfSamples",
+      "type": "number"
     },
     "LandscapeId": {
       "description": "Unique identifier for the landscape entry.",
-      "not": {
-        "type": "null"
-      },
-      "title": "landscapeId"
+      "title": "landscapeId",
+      "type": "string"
     },
     "StudyAim": {
       "description": "Key connecting the expected data to aims in the research proposal.",
-      "not": {
-        "type": "null"
-      },
-      "title": "studyAim"
+      "title": "studyAim",
+      "type": "string"
     },
     "StudyName": {
       "description": "Full display name of the study.",
-      "not": {
-        "type": "null"
-      },
-      "title": "studyName"
+      "title": "studyName",
+      "type": "string"
     },
     "UploadByDate": {
       "description": "Non-binding estimated date by which files are expected to be uploaded.",
-      "not": {
-        "type": "null"
-      },
-      "title": "uploadByDate"
+      "format": "date",
+      "title": "uploadByDate",
+      "type": "string"
     }
   },
   "required": [

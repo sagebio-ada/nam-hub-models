@@ -5,44 +5,48 @@
   "properties": {
     "Email": {
       "description": "Contact email address.",
-      "title": "email"
+      "pattern": "^[^@]+@[^@]+\\.[^@]+$",
+      "title": "email",
+      "type": "string"
     },
     "FirstName": {
       "description": "First name.",
-      "not": {
-        "type": "null"
-      },
-      "title": "firstName"
+      "title": "firstName",
+      "type": "string"
     },
     "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
-      "not": {
-        "type": "null"
-      },
-      "title": "grantId"
+      "title": "grantId",
+      "type": "string"
     },
     "Institution": {
       "description": "Affiliated institution(s).",
-      "title": "institution"
+      "items": {
+        "type": "string"
+      },
+      "title": "institution",
+      "type": "array"
     },
     "InvestigatorId": {
       "description": "Unique identifier for the investigator.",
-      "title": "investigatorId"
+      "title": "investigatorId",
+      "type": "string"
     },
     "LastName": {
       "description": "Last name.",
-      "not": {
-        "type": "null"
-      },
-      "title": "lastName"
+      "title": "lastName",
+      "type": "string"
     },
     "OrcidId": {
       "description": "ORCID persistent digital identifier.",
-      "title": "orcidId"
+      "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$",
+      "title": "orcidId",
+      "type": "string"
     },
     "PortalDisplay": {
       "description": "Whether this record should be displayed on the public portal.",
-      "title": "portalDisplay"
+      "title": "portalDisplay",
+      "type": "boolean"
     },
     "Role": {
       "description": "Role in the NAMHub program.",
@@ -58,14 +62,13 @@
     },
     "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
-      "not": {
-        "type": "null"
-      },
-      "title": "studyId"
+      "title": "studyId",
+      "type": "string"
     },
     "SynapseUserId": {
       "description": "Synapse user account ID.",
-      "title": "synapseUserId"
+      "title": "synapseUserId",
+      "type": "string"
     }
   },
   "required": [
