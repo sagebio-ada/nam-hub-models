@@ -362,6 +362,7 @@ enums:
       "svg":
       "Unknown":
       "Ome-zarr":
+      "Github Repo":
 
   DataCategoryEnum:
     description: Categorical label for data contained in a dataset.
