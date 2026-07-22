@@ -16,17 +16,6 @@
     "ContextOfUse": {
       "description": "NAM application context(s) associated with files in the dataset. Multiple values permitted.",
       "items": {
-        "enum": [
-          "AnalyticalModels",
-          "Assays/Conditions",
-          "Biosamples",
-          "Files/DataTypes",
-          "ImagingMetadata",
-          "InChemico/Biomaterials",
-          "Ontologies/Standards",
-          "Pharmacokinetics/ADMET",
-          "Subjects/Donors"
-        ],
         "type": "string"
       },
       "title": "Context Of Use",
@@ -366,6 +355,7 @@
           "Gb",
           "Gct",
           "Gff3",
+          "GithubRepo",
           "Gtf",
           "Gzip",
           "H5",

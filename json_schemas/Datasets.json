@@ -1,7 +1,7 @@
 {
   "$id": "http://example.com/Datasets",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "One row per dataset - Synapse-hosted or external (e.g. GEO). Links to Studies and NAMs. Synapse table: syn75404713.",
+  "description": "One row per dataset \u2014 Synapse-hosted or external (e.g. GEO). Links to Studies and NAMs. Synapse table: syn75404713.",
   "properties": {
     "AccessType": {
       "description": "Data access level.",
@@ -383,6 +383,7 @@
           "Gb",
           "Gct",
           "Gff3",
+          "GithubRepo",
           "Gtf",
           "Gzip",
           "H5",
