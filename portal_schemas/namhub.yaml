@@ -86,7 +86,6 @@ classes:
       - diseaseFocus
       - alternateName
       - NAMsTechFocus
-      - modelTypeDesc
       - grantId
     slot_usage:
       studyId:
@@ -135,7 +134,7 @@ classes:
       - studyId
       - grantId
       - orcidId
-      - synapseUserId
+      - synapseId
       - email
       - portalDisplay
     slot_usage:
@@ -155,8 +154,6 @@ classes:
       - grantType
       - grantInstitution
       - abstract
-      - grantStartDate
-      - grantEndDate
       - investigator
       - fundingAgency
       - nihReporterLink
@@ -404,10 +401,6 @@ slots:
     multivalued: true
     range: string
 
-  modelTypeDesc:
-    description: Description of the key model type or approach used.
-    range: string
-
   # -- Datasets slots ----------------------------------------------------------
 
   datasetId:
@@ -472,7 +465,7 @@ slots:
     range: string
     pattern: "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$"
 
-  synapseUserId:
+  synapseId:
     description: Synapse user account ID.
     range: string
 
@@ -502,14 +495,6 @@ slots:
   abstract:
     description: Grant abstract.
     range: string
-
-  grantStartDate:
-    description: Grant start date.
-    range: date
-
-  grantEndDate:
-    description: Grant end date.
-    range: date
 
   investigator:
     description: Name of the principal investigator.
