@@ -352,7 +352,6 @@ slots:
       NAM application context(s) associated with files in the dataset.
       Multiple values permitted.
     multivalued: true
-    range: NamContextEnum
 
   applicableStandards:
     description: Controlled vocabularies or data models used to organize and annotate files.
