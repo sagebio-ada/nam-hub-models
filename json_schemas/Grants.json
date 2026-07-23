@@ -16,12 +16,6 @@
       "title": "Funding Agency",
       "type": "array"
     },
-    "GrantEndDate": {
-      "description": "Grant end date.",
-      "format": "date",
-      "title": "Grant End Date",
-      "type": "string"
-    },
     "GrantId": {
       "description": "Grant identifier linking to the Grants table (syn75404715).",
       "title": "Grant_id",
@@ -40,12 +34,6 @@
     "GrantNumber": {
       "description": "NIH grant number (e.g. UM1TR006029).",
       "title": "Grant Number",
-      "type": "string"
-    },
-    "GrantStartDate": {
-      "description": "Grant start date.",
-      "format": "date",
-      "title": "Grant Start Date",
       "type": "string"
     },
     "GrantType": {

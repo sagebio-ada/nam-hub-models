@@ -40,11 +40,6 @@
       "title": "Institution",
       "type": "array"
     },
-    "ModelTypeDesc": {
-      "description": "Description of the key model type or approach used.",
-      "title": "Model Type Desc",
-      "type": "string"
-    },
     "NAMsTechFocus": {
       "description": "New Approach Methodology technology focus areas.",
       "items": {

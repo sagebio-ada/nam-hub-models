@@ -53,7 +53,7 @@
       "enum": [
         "Co-Investigator",
         "Collaborator",
-        "DataManager",
+        "CoordinatingCenter",
         "Other",
         "PrincipalInvestigator",
         "Trainee"
@@ -65,9 +65,9 @@
       "title": "Study_id",
       "type": "string"
     },
-    "SynapseUserId": {
+    "SynapseId": {
       "description": "Synapse user account ID.",
-      "title": "Synapse User_id",
+      "title": "Synapse_id",
       "type": "string"
     }
   },
