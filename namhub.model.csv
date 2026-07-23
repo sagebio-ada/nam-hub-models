@@ -11,7 +11,7 @@ datasetProcessingLevel,Level of processing associated with the dataset.,"Level 1
 contextOfUse,NAM application context(s) associated with files in the dataset. Multiple values permitted.,,,True,,,string_list,,,,,,
 applicableStandards,Controlled vocabularies or data models used to organize and annotate files.,,,False,,,string,,,,,,
 expectedNumberOfFiles,Number of files expected to be uploaded as part of this dataset.,,,True,,,number,,,,,,
-expectedNumberOfSamples,Number of biospecimens associated with the files in the dataset.,,,True,,,number,,,,,,
+expectedNumberOfSamples,"Estimated total number of physical biospecimen samples represented in the dataset (e.g. 200 participants at 3 time points = 600 total samples). Distinct from expectedNumberOfFiles, which counts the files expected to be submitted.",,,True,,,number,,,,,,
 uploadByDate,Non-binding estimated date by which files are expected to be uploaded.,,,True,,,string,date,,,,,
 dataContributionLead,Name of the individual responsible for uploading files.,,,True,,,string,,,,,,
 studyName,Full display name of the study.,,,True,,,string,,,,,,

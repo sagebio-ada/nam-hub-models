@@ -359,7 +359,10 @@ slots:
     range: integer
 
   expectedNumberOfSamples:
-    description: Number of biospecimens associated with the files in the dataset.
+    description: >-
+      Estimated total number of physical biospecimen samples represented in the
+      dataset (e.g. 200 participants at 3 time points = 600 total samples). Distinct
+      from expectedNumberOfFiles, which counts the files expected to be submitted.
     range: integer
 
   uploadByDate:
