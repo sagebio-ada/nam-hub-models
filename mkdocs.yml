@@ -1,0 +1,58 @@
+# Project
+site_name: "NAMHub Data Models Explorer"
+site_description: >-
+  Documentation for the NAMHub portal data schemas.
+
+# Repository
+repo_url: https://github.com/sagebio-ada/nam-hub-models
+repo_name: nam-hub-models
+
+# Navigation - see nav.yml to edit the actual navigation
+nav:
+  - index.md
+
+# Theme configuration
+theme:
+  name: material
+  font:
+    text: DM Sans
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  icon:
+    admonition:
+      note: octicons/tag-16
+      info: octicons/info-16
+  features:
+    - content.code.copy
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+
+plugins:
+  - search
+
+hooks:
+  - scripts/hooks.py
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - toc:
+      permalink: true

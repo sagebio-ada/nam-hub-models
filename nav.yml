@@ -1,0 +1,11 @@
+Home:
+  - index.md
+Data Model:
+  - Landscape: model/landscape.md
+  - Studies: model/studies.md
+  - Datasets: model/datasets.md
+  - People: model/people.md
+  - Grants: model/grants.md
+  - NAMs: model/nams.md
+  - Publications: model/publications.md
+Standard Terms: {}
