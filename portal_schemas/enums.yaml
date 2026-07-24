@@ -4,6 +4,23 @@ description: Shared enumeration definitions for NAMHub portal schemas.
 
 prefixes:
   linkml: https://w3id.org/linkml/
+  NCIT: http://purl.obolibrary.org/obo/NCIT_
+  NCBITaxon: http://purl.obolibrary.org/obo/NCBITaxon_
+  MESH: http://id.nlm.nih.gov/mesh/
+  EFO: http://www.ebi.ac.uk/efo/EFO_
+  MAMO: http://identifiers.org/mamo/MAMO_
+  EDAM: http://edamontology.org/
+  GENEPIO: http://purl.obolibrary.org/obo/GENEPIO_
+  OBI: http://purl.obolibrary.org/obo/OBI_
+  CHMO: http://purl.obolibrary.org/obo/CHMO_
+  MI: http://purl.obolibrary.org/obo/MI_
+  MMO: http://purl.obolibrary.org/obo/MMO_
+  GO: http://purl.obolibrary.org/obo/GO_
+  BAO: http://purl.obolibrary.org/obo/BAO_
+  ENM: http://purl.enanomapper.org/onto/ENM_
+  COB: http://purl.obolibrary.org/obo/COB_
+  SO: http://purl.obolibrary.org/obo/SO_
+  IAO: http://purl.obolibrary.org/obo/IAO_
 
 default_prefix: https://namhub.synapse.org/portal_schemas/enums/
 
@@ -18,445 +35,1567 @@ enums:
     description: Experimental method used to generate files in the dataset.
     permissible_values:
       "ATAC-seq":
+        meaning: EFO:0007045
+        description: "A method based on direct in vitro transposition of sequencing adaptors into native chromatin, used for rapid, sensitive integrative epigenomic analysis of open chromatin."
+        annotations: {description_source: ontology}
       "CAPP-seq":
+        meaning: EFO:0008672
+        description: "Cancer personalized profiling by deep sequencing (CAPP-Seq), a method for ultrasensitive detection of circulating tumor DNA."
+        annotations: {description_source: ontology}
       "CUT&RUN":
+        meaning: EFO:0009973
+        description: "Cleavage under targets and release using nuclease, a method for assessing DNA-protein interactions by antibody-targeted chromatin cleavage."
+        annotations: {description_source: ontology}
       "ChIP-seq":
+        meaning: EFO:0002692
+        description: "An assay in which chromatin immunoprecipitation with high-throughput sequencing is used to identify the cistrome of DNA-associated proteins."
+        annotations: {description_source: ontology}
       "ERR bisulfite sequencing":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A bisulfite sequencing variant for detecting DNA methylation using an enzymatic or error-reduced conversion protocol."
       "HI-C":
+        meaning: EFO:0007693
+        description: "A method for analysing the 3-dimensional organisation and interaction of chromatin, belonging to the Chromosome Conformation Capture family of techniques."
+        annotations: {description_source: ontology}
       "ISO-seq":
+        meaning: OBI:0002575
+        description: "A method for sequencing isoforms by enriching a cDNA library for full-length reads spanning entire transcript isoforms."
+        annotations: {description_source: ontology}
       "NOMe-seq":
+        meaning: NCIT:C106053
+        description: "A DNA sequencing technique that determines DNA methylation status while also distinguishing non-nucleosomal from nucleosome-associated DNA."
+        annotations: {description_source: ontology}
       "RNA array":
+        meaning: EFO:0002768
+        description: "An assay in which the transcriptome of a biological sample is analysed using array technology."
+        annotations: {description_source: ontology}
       "RNA-seq":
+        meaning: EFO:0002770
+        description: "A method used to assess the transcriptome of a biological sample using a high-throughput sequencing platform."
+        annotations: {description_source: ontology}
       "SNP array":
+        meaning: EFO:0002703
+        description: "An oligonucleotide DNA microarray used to detect single-nucleotide polymorphisms in DNA samples."
+        annotations: {description_source: ontology}
       "SaferSeqS":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An error-corrected duplex sequencing method (Safer Sequencing System) designed to detect rare somatic mutations with very low false-positive rates."
       "Sanger sequencing":
+        meaning: NCIT:C19641
+        description: "A DNA sequencing technique using chain-terminating dideoxynucleotides combined with regular nucleotides, with fragments separated and read by size."
+        annotations: {description_source: ontology}
       "T cell receptor repertoire sequencing":
+        meaning: NCIT:C189102
+        description: "A sequencing analysis used to identify T-cell receptors in a biological sample, enabling identification of disease or treatment-response biomarkers."
+        annotations: {description_source: ontology}
       "bisulfite sequencing":
+        meaning: NCIT:C106054
+        description: "A DNA sequencing technique that differentiates cytosine from 5-methylcytosine in a DNA sample via bisulfite conversion."
+        annotations: {description_source: ontology}
       "jumping library":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A mate-pair sequencing library construction method that captures long-range genomic linkage by circularizing large DNA fragments before sequencing."
       "lncRNA-seq":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "RNA sequencing targeted at profiling long non-coding RNA (lncRNA) transcripts."
       "methylation array":
+        meaning: NCIT:C165222
+        description: "The use of a high-throughput microarray to determine which CpG islands or promoter sequences in a specimen are methylated."
+        annotations: {description_source: ontology}
       "miRNA array":
+        meaning: EFO:0000753
+        description: "An assay in which a microRNA array is used to analyse the microRNA component of the transcriptome."
+        annotations: {description_source: ontology}
       "miRNA-seq":
+        meaning: NCIT:C156057
+        description: "A high-throughput DNA sequencing-based procedure that identifies and quantifies microRNA sequences present in a biological sample."
+        annotations: {description_source: ontology}
       "next-generation sequencing":
+        meaning: NCIT:C101293
+        description: "Technologies that facilitate the rapid determination of the nucleotide sequence of large numbers of strands or segments of DNA or RNA."
+        annotations: {description_source: ontology}
       "next generation targeted sequencing":
+        meaning: NCIT:C130177
+        description: "A technique that determines the nucleotide sequence of a pre-specified region of DNA or RNA using primers specific to that region."
+        annotations: {description_source: ontology}
       "oxBS-seq":
+        meaning: EFO:0008840
+        description: "Oxidative bisulfite sequencing, used to map 5-methylcytosine and 5-hydroxymethylcytosine separately."
+        annotations: {description_source: ontology}
       "ribo-seq":
+        meaning: EFO:0008891
+        description: "Ribosome profiling using specialized mRNA sequencing to determine which mRNAs are being actively translated at a given moment."
+        annotations: {description_source: ontology}
       "scCGI-seq":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A single-cell sequencing method for profiling CpG island methylation status at single-cell resolution."
       "single cell ATAC-seq":
+        meaning: NCIT:C179458
+        description: "A technique in which DNA isolated from single-cell samples is subjected to ATAC-seq to isolate and sequence regions rich in open chromatin."
+        annotations: {description_source: ontology}
       "single-cell RNA-seq":
+        meaning: EFO:0008913
+        description: "A protocol providing expression profiles of single cells via isolation and barcoding of single cells and their RNA, followed by reverse transcription, amplification, and sequencing."
+        annotations: {description_source: ontology}
       "single-nucleus RNA-seq":
+        meaning: EFO:0009809
+        description: "Sequencing that examines RNA from individual nuclei, enabling RNA-seq profiling of cell types vulnerable to tissue-dissociation artifacts."
+        annotations: {description_source: ontology}
       "spatial transcriptomics":
+        meaning: EFO:0008994
+        description: "An assay allowing visualization and quantitative analysis of the transcriptome with spatial resolution in individual tissue sections."
+        annotations: {description_source: ontology}
       "targeted exome sequencing":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Sequencing of a targeted subset of exonic regions selected via a custom gene panel, rather than the entire exome."
       "whole exome sequencing":
+        meaning: NCIT:C101295
+        description: "A procedure that determines the DNA sequence for all of the exons in an individual."
+        annotations: {description_source: ontology}
       "whole genome sequencing":
+        meaning: NCIT:C101294
+        description: "A procedure that determines the DNA sequence for nearly the entire genome of an individual."
+        annotations: {description_source: ontology}
       "3D confocal imaging":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Three-dimensional imaging generated by combining a series of optical sections acquired using confocal microscopy."
       "3D electron microscopy":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: OBI:0003118
+        description: "A 3D molecular structure determination assay that uses electron microscopy imaging."
       "3D imaging":
+        meaning: NCIT:C18485
+        description: "A technique that combines multiple scans into a manipulable 3D model to visualize structures in detail."
+        annotations: {description_source: ontology}
       "CODEX":
+        meaning: NCIT:C181931
+        description: "A highly multiplexed cytometric imaging approach that iteratively visualizes antibody binding events using DNA barcodes and in situ polymerization-based indexing."
+        annotations: {description_source: ontology}
       "DNA optical mapping":
+        meaning: NCIT:C116162
+        description: "A technique for constructing an ordered, high-resolution restriction-enzyme map of a genome from a single stained DNA molecule imaged by optical microscopy."
+        annotations: {description_source: ontology}
       "Fluorescence In Situ Hybridization":
+        meaning: NCIT:C17563
+        description: "A physical mapping approach using fluorescent tags to detect probe hybridization within chromosomes, used to identify chromosomal abnormalities and for gene mapping."
+        annotations: {description_source: ontology}
       "Magnetization-Prepared Rapid Gradient Echo MRI":
+        meaning: NCIT:C118462
+        description: "An MRI modality combining magnetization-prepared imaging with rapid 3D gradient echo acquisition for high tissue contrast and spatial resolution in a short scan time."
+        annotations: {description_source: ontology}
       "SUSHI":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A specialized imaging or data-processing platform used for structuring and sharing high-throughput biological data."
       "atomic force microscopy":
+        meaning: NCIT:C17754
+        description: "A technique using a scanning probe to image and analyze a material's surface with atomic-level resolution."
+        annotations: {description_source: ontology}
       "autoradiography":
+        meaning: NCIT:C16314
+        description: "A technique used to locate radioactively labeled molecules by recording the radiation they emit on a photographic or sensor plate."
+        annotations: {description_source: ontology}
       "brightfield microscopy":
+        meaning: NCIT:C19827
+        description: "A type of light microscopy in which objects are seen against a bright background."
+        annotations: {description_source: ontology}
       "live imaging":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C48799
+        description: "Visual representation of a biological component inside a living body, used to provide insight into disease states, molecular characterization, and biological processes."
       "histology":
+        meaning: NCIT:C16680
+        description: "A technique or procedure used to study the microanatomy of tissues and cellular structure, usually via microscopic examination of tissue slices."
+        annotations: {description_source: ontology}
       "confocal microscopy":
+        meaning: NCIT:C17753
+        description: "A light microscopy system in which a fine laser beam scans the object, rejecting out-of-focus light to produce higher effective resolution."
+        annotations: {description_source: ontology}
       "conventional MRI":
+        meaning: NCIT:C175525
+        description: "Magnetic resonance imaging using standard protocols for high-resolution structural and anatomic characterization, including T1/T2-weighted, FLAIR, and gadolinium-enhanced sequences."
+        annotations: {description_source: ontology}
       "diffusion MRI":
+        meaning: NCIT:C20117
+        description: "An MRI method that measures the diffusion of water in tissue, rather than water content as in conventional MRI."
+        annotations: {description_source: ontology}
       "fluorescence microscopy assay":
+        meaning: CHMO:0000087
+        description: "A light microscopy assay in which the specimen is made to fluoresce by illumination with light of specific wavelengths."
+        annotations: {description_source: ontology}
       "functional MRI":
+        meaning: NCIT:C17958
+        description: "A technique that captures a rapid series of images of an organ and statistically analyzes differences among them, most often used to study brain function."
+        annotations: {description_source: ontology}
       "gel filtration chromatography":
+        meaning: NCIT:C16433
+        description: "Gel permeation or sieve chromatography performed on porous gels that separate solutes on the basis of size."
+        annotations: {description_source: ontology}
       "high content screen":
+        meaning: EFO:0007550
+        description: "An image analysis technique combining automated fluorescence microscopy with multi-parameter quantitative image analysis for large-scale study of cells."
+        annotations: {description_source: ontology}
       "high frequency ultrasound":
+        meaning: NCIT:C188307
+        description: "Ultrasound imaging using frequencies above 10 MHz, yielding improved spatial resolution at the expense of depth of penetration, useful for superficial organs like skin."
+        annotations: {description_source: ontology}
       "immunocytochemistry":
+        meaning: NCIT:C17731
+        description: "A method for detecting proteins or antigens on cells grown in monolayers or suspension using antibodies visualized through a chemical process."
+        annotations: {description_source: ontology}
       "immunofluorescence":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C142337
+        description: "A microscopy staining method that uses immunofluorescent markers for histological applications on preserved cells."
       "immunohistochemistry":
+        meaning: EFO:0022943
+        description: "A method using antibodies to detect specific antigens, determining the presence or absence of a protein or portion of a protein."
+        annotations: {description_source: ontology}
       "in vivo bioluminescence":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Imaging of light emitted by luciferase or other bioluminescent reporters within a living organism, used to visualize biological processes non-invasively."
       "laser speckle imaging":
+        meaning: NCIT:C116492
+        description: "A noninvasive, non-scanning optical imaging technique providing full-field visualization of blood flow, informing on tissue perfusion."
+        annotations: {description_source: ontology}
       "magnetic resonance angiography":
+        meaning: NCIT:C190557
+        description: "Angiography performed using magnetic resonance imaging."
+        annotations: {description_source: ontology}
       "magnetic resonance spectroscopy":
+        meaning: NCIT:C16810
+        description: "Detection and measurement of the resonant spectra of molecular species in a tissue or sample."
+        annotations: {description_source: ontology}
       "optical coherence tomography":
+        meaning: NCIT:C20828
+        description: "Combines ultrasound-like imaging principles with microscope-level resolution, using infrared light reflected off internal tissue microstructure."
+        annotations: {description_source: ontology}
       "optical tomography":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C116446
+        description: "Creates 3D digital models of an object by interpreting light transmitted and scattered through it, working best on soft, partially translucent tissues."
       "phase-contrast microscopy":
+        meaning: NCIT:C16857
+        description: "A non-quantitative form of interference microscopy useful for visualizing live cells, rendering differences in optical path length as differences in light intensity."
+        annotations: {description_source: ontology}
       "photograph":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C19342
+        description: "A photographic image captured electronically."
       "positron emission tomography":
+        meaning: NCIT:C17007
+        description: "A technique measuring gamma radiation from positron-electron annihilation after a subject receives a positron-emitting radionuclide, used to visualize metabolic activity."
+        annotations: {description_source: ontology}
       "spatial frequency domain imaging":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A wide-field, non-contact optical imaging technique that projects patterned light onto tissue to quantitatively map its optical absorption and scattering properties."
       "traction force microscopy":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A technique that measures the mechanical forces cells exert on their surrounding substrate, typically by tracking displacement of embedded fiducial markers."
       "transcranial doppler ultrasonography":
+        meaning: NCIT:C122930
+        description: "A diagnostic technique using pulsed Doppler ultrasound to measure blood-flow velocity through the major blood vessels of the brain."
+        annotations: {description_source: ontology}
       "western blot":
+        meaning: NCIT:C16357
+        description: "A laboratory procedure for detecting proteins or peptides separated by gel electrophoresis and transferred onto a membrane, then detected via labeled antibodies."
+        annotations: {description_source: ontology}
       "FIA-MSMS":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Flow injection analysis coupled with tandem mass spectrometry, a rapid quantitative method that infuses a sample directly into the mass spectrometer without upstream chromatographic separation."
       "FTIR spectroscopy":
+        meaning: CHMO:0000636
+        description: "Spectroscopy in which the sample absorbs a pulse of infrared radiation and the resulting spectrum is subjected to a Fourier transform."
+        annotations: {description_source: ontology}
       "MIB/MS":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Multiplexed inhibitor bead mass spectrometry, a chemoproteomic method that enriches native kinases from a lysate using immobilized kinase inhibitors prior to mass spectrometry identification."
       "MudPIT":
+        meaning: MI:0658
+        description: "A method for rapid, large-scale protein identification by multidimensional liquid chromatography coupled to tandem mass spectrometry."
+        annotations: {description_source: ontology}
       "RPPA":
+        meaning: NCIT:C184797
+        description: "An antibody-based functional proteomic microarray that characterizes basal protein expression and protein-modification levels across many samples."
+        annotations: {description_source: ontology}
       "TMT quantitation":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C161812
+        description: "A proteomic quantitation method where isobaric mass tags are added to a sample, which is then quantified using liquid chromatography/tandem mass spectrometry."
       "high-performance liquid chromatography/tandem mass spectrometry":
+        meaning: CHMO:0002876
+        description: "A method that couples high-performance liquid chromatography separation with tandem mass spectrometry detection to identify and quantify compounds in complex mixtures."
+        annotations: {description_source: inferred}
       "label free mass spectrometry":
+        meaning: NCIT:C161800
+        description: "Mass spectrometry performed on samples that have not been subjected to isotopic labeling."
+        annotations: {description_source: ontology}
       "liquid chromatography-electrochemical detection":
+        meaning: NCIT:C198350
+        description: "An analytical technique where HPLC with an electrochemical detector separates, identifies, and quantifies substances in a sample."
+        annotations: {description_source: ontology}
       "liquid chromatography/mass spectrometry":
+        meaning: NCIT:C18475
+        description: "A hyphenated technique combining the separation power of liquid chromatography with the detection power of mass spectrometry."
+        annotations: {description_source: ontology}
       "liquid chromatography/tandem mass spectrometry":
+        meaning: CHMO:0000701
+        description: "A method where a sample is separated by liquid chromatography before being ionised and characterised by mass-to-charge ratio using two mass spectrometers in series."
+        annotations: {description_source: ontology}
       "mass spectrometry":
+        meaning: CHMO:0000470
+        description: "A technique in which a sample is converted into gaseous ions that are characterized by their mass-to-charge ratios and relative abundances."
+        annotations: {description_source: ontology}
       "proximity extension assay":
+        meaning: NCIT:C221636
+        description: "A multiplex immunoassay using pairs of oligonucleotide-labeled antibodies that, when in close proximity, are extended and amplified via PCR to detect and quantify proteins."
+        annotations: {description_source: ontology}
       "SomaScan":
+        meaning: OBI:0003111
+        description: "An analyte assay that uses aptamers to detect protein analytes in serum."
+        annotations: {description_source: ontology}
       "ultra high-performance liquid chromatography/tandem mass spectrometry":
+        meaning: NCIT:C122176
+        description: "An analytical technique wherein ultra-high performance liquid chromatography is coupled to tandem mass spectrometry to separate, identify, and quantify substances in a sample."
+        annotations: {description_source: ontology}
       "AlgometRx Nociometer":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A pupillometry-based, objective device used to measure nociception and pain response."
       "quantitative sensory testing":
+        meaning: NCIT:C155860
+        description: "A non-invasive method for diagnosing peripheral nervous system disorders by determining sensation and pain thresholds compared to standard values."
+        annotations: {description_source: ontology}
       "Child Behavior Checklist for Ages 1.5-5":
+        meaning: NCIT:C165712
+        description: "A standardized measure designed to detect behavioral and emotional problems in children 1.5-5 years old, rated by parents, daycare providers, and teachers."
+        annotations: {description_source: ontology}
       "Child Behavior Checklist for Ages 6-18":
+        meaning: NCIT:C165711
+        description: "A standardized measure designed to detect behavioral and emotional problems in children and adolescents, completed by a parent or caretaker."
+        annotations: {description_source: ontology}
       "Children's Dermatology Life Quality Index Questionnaire":
+        meaning: NCIT:C119092
+        description: "A standardized rating scale used to assess quality of life in children with skin conditions."
+        annotations: {description_source: ontology}
       "Corsi blocks":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A visuospatial working-memory task (Corsi block-tapping test) in which a subject reproduces a sequence of blocks tapped by an examiner."
       "FACE-Q Appearance-related Distress":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A patient-reported outcome instrument module from the FACE-Q battery that measures psychological distress related to facial appearance."
       "Focus group":
+        meaning: NCIT:C154589
+        description: "A small, usually diverse group of people whose response to something is studied to determine the response expected from a larger population."
+        annotations: {description_source: ontology}
       "Interview":
+        meaning: NCIT:C16751
+        description: "A conversation with an individual regarding background, personal and professional details, and opinions on specific subjects posed by the interviewer."
+        annotations: {description_source: ontology}
       "NIH Toolbox":
+        meaning: NCIT:C154482
+        description: "A comprehensive set of neuro-behavioral measures that assess cognitive, emotional, sensory, and motor functions, designed to be run on an iPad."
+        annotations: {description_source: ontology}
       "PROMIS Cognitive Function":
+        meaning: NCIT:C122365
+        description: "The collection of PROMIS item scales that assess perceived difficulties in intellectual processes, capabilities, and deficits."
+        annotations: {description_source: ontology}
       "Riccardi and Ablon scales":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Clinical rating scales for grading the severity of neurofibromatosis-associated features such as cutaneous neurofibromas."
       "Skindex-16":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A 16-item patient-reported quality-of-life questionnaire assessing the impact of skin disease on daily functioning, emotions, and symptoms."
       "Social Responsiveness Scale":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A standardized questionnaire that quantifies the severity of social-communication deficits associated with autism spectrum disorder."
       "Social Responsiveness Scale, Second Edition":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "The revised (second) edition of the Social Responsiveness Scale questionnaire, quantifying social-communication deficits associated with autism spectrum disorder."
       "Von Frey test":
+        meaning: MMO:0000752
+        description: "A test evaluating mechanical allodynia in mice and rats using von Frey hairs or fibers of varying stiffness."
+        annotations: {description_source: ontology}
       "actigraphy":
+        meaning: NCIT:C180883
+        description: "A method for continuous recording of body movement using a worn sensor to measure rest/activity (sleep/wake) cycles over days to weeks."
+        annotations: {description_source: ontology}
       "active avoidance learning behavior assay":
+        meaning: MMO:0000302
+        description: "A conditioning paradigm in which an animal learns to control application of an aversive stimulus by performing a specific behavior to avoid it."
+        annotations: {description_source: ontology}
       "auditory brainstem response":
+        meaning: NCIT:C184949
+        description: "A neurologic test of auditory brainstem function in response to auditory stimuli, used to diagnose abnormalities of the 8th cranial nerve and auditory pathways."
+        annotations: {description_source: ontology}
       "blood chemistry measurement":
+        meaning: NCIT:C47868
+        description: "The determination of the measured concentrations of chemical constituents of the blood by assay in a clinical laboratory."
+        annotations: {description_source: ontology}
       "body size trait measurement":
+        meaning: EFO:0004302
+        description: "A measurement of the size, weight, and proportions of the human or other primate body."
+        annotations: {description_source: ontology}
       "cNF-Skindex":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A Skindex-derived quality-of-life questionnaire adapted to assess the impact of cutaneous neurofibromas."
       "clinical data":
+        meaning: NCIT:C15783
+        description: "Data obtained through patient examination or treatment."
+        annotations: {description_source: ontology}
       "cognitive assessment":
+        meaning: NCIT:C62736
+        description: "The examination of the cognitive capacities or deficits of an individual through tests that probe abilities such as perception, learning, and reasoning."
+        annotations: {description_source: ontology}
       "contextual conditioning behavior assay":
+        meaning: MMO:0000572
+        description: "A test in which an aversive stimulus is administered within a certain environment, followed by assessment of fear/emotion-based reactions in that environment without the stimulus."
+        annotations: {description_source: ontology}
       "distortion product otoacoustic emissions":
+        meaning: NCIT:C184951
+        description: "A neurologic test providing a preneural, noninvasive assessment of cochlear function via emissions generated in response to two tones presented in the ear canal."
+        annotations: {description_source: ontology}
       "elevated plus maze test":
+        meaning: MMO:0000262
+        description: "A method using a plus-shaped, elevated apparatus with enclosed and open arms to measure anxiety-related behavior in a test animal."
+        annotations: {description_source: ontology}
       "feeding assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An assay that measures an organism's food consumption or feeding behavior under experimental conditions."
       "gait measurement":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Quantitative assessment of an individual's walking pattern, including parameters such as stride length, cadence, and speed."
       "genotyping":
+        meaning: EFO:0000750
+        description: "An assay in which variation in a part of or the whole genome is analysed."
+        annotations: {description_source: ontology}
       "grip strength":
+        meaning: NCIT:C139210
+        description: "An assessment of hand muscle strength that measures the force with which one holds or grasps."
+        annotations: {description_source: ontology}
       "hand-held dynamometry":
+        meaning: NCIT:C186193
+        description: "A technique to assess isometric muscle strength using a hand-held dynamometer."
+        annotations: {description_source: ontology}
       "metabolic screening":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C137828
+        description: "A broad screening tool that measures glucose, electrolytes, and metabolites in blood serum to evaluate organ function and screen for metabolic conditions."
       "n-back task":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A working-memory task in which a subject indicates whether a current stimulus matches the one presented n steps earlier in a sequence."
       "neuropsychological assessment":
+        meaning: NCIT:C165543
+        description: "A performance-based method to assess cognitive functioning, used to examine the cognitive consequences of brain damage, disease, and severe mental illness."
+        annotations: {description_source: ontology}
       "novelty response behavior assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A behavioral assay that measures an animal's exploratory or recognition response when presented with a novel object or environment."
       "open field test":
+        meaning: MMO:0000258
+        description: "A test utilizing a walled enclosure to measure movement and exploratory behavior of an experimental subject."
+        annotations: {description_source: ontology}
       "optokinetic reflex assay":
+        meaning: MMO:0000754
+        description: "A testing method involving a rotating patterned stimulus passed across the subject's visual field to assess reflexive eye tracking."
+        annotations: {description_source: ontology}
       "pattern electroretinogram":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An electrophysiological recording of retinal ganglion cell responses to a reversing, patterned visual stimulus."
       "polysomnography":
+        meaning: NCIT:C114185
+        description: "A group of tests taken during sleep that record brain wave changes, eye movements, breathing rate, blood pressure, heart rate, and muscle electrical activity."
+        annotations: {description_source: ontology}
       "pure tone average":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: MESH:D001301
+        description: "Measurement of hearing based on the use of pure tones of various frequencies and intensities as auditory stimuli."
       "questionnaire":
+        meaning: OBI:0001000
+        description: "A document with a set of printed or written questions with a choice of answers, devised for the purposes of a survey or statistical study."
+        annotations: {description_source: ontology}
       "rotarod performance test":
+        meaning: MMO:0000567
+        description: "A method using a rotating rod whose speed is mechanically controlled, used to measure riding time or endurance to evaluate balance, motor coordination, or grip strength."
+        annotations: {description_source: ontology}
       "scale":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A weighing instrument used to measure body or specimen mass."
       "six-minute walk test":
+        meaning: NCIT:C115789
+        description: "A performance-based evaluation of functional exercise capacity in subjects with chronic respiratory disease, heart failure, and other conditions."
+        annotations: {description_source: ontology}
       "weight":
+        meaning: NCIT:C92648
+        description: "A measurement of the body weight of a subject."
+        annotations: {description_source: ontology}
       "survival":
+        meaning: OBI:0000789
+        description: "A measurement representing the percentage of people or animals in a study or treatment group who are alive for a given period of time after diagnosis or initiation of monitoring."
+        annotations: {description_source: ontology}
       "word recognition score":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An audiometric measure of the percentage of standardized words a subject correctly repeats when presented at a comfortable listening level."
       "2D AlamarBlue absorbance":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: OBI:0003757
+        description: "A cell viability assay based on the NAD(P)H-aided conversion of resazurin to resorufin by metabolically active cells, read here by absorbance."
       "2D AlamarBlue fluorescence":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: OBI:0003757
+        description: "A cell viability assay based on the NAD(P)H-aided conversion of resazurin to resorufin by metabolically active cells, read here by fluorescence."
       "3D microtissue viability":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A viability assay applied to three-dimensional microtissues, such as organoids or spheroids, assessing the proportion of living cells within the 3D structure."
       "ATPase activity assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An enzymatic assay that measures the rate of ATP hydrolysis catalyzed by an ATPase."
       "BrdU proliferation assay":
+        meaning: NCIT:C163545
+        description: "A cellular proliferation assay in which bromodeoxyuridine (BrdU) substitutes for thymidine in the DNA of replicating cells."
+        annotations: {description_source: ontology}
       "ELISA":
+        meaning: NCIT:C16553
+        description: "A highly sensitive technique for detecting and measuring antigens or antibodies in solution using immobilized antibodies on a surface."
+        annotations: {description_source: ontology}
       "EdU proliferation assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A cell proliferation assay in which the thymidine analog EdU is incorporated into newly synthesized DNA and detected via click chemistry."
       "FLIPR high-throughput cellular screening":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "High-throughput cellular screening performed on a Fluorometric Imaging Plate Reader (FLIPR), typically measuring real-time changes in intracellular calcium or membrane potential across many wells."
       "HPLC":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "High-performance liquid chromatography, a technique that separates mixture components by passing them under high pressure through a column packed with a stationary phase."
       "Migration Assay":
+        meaning: NCIT:C19425
+        description: "An in vitro assay in which cultured cells are monitored and analyzed for their ability to move into an acellular area of a culture material."
+        annotations: {description_source: ontology}
       "STR profile":
+        meaning: NCIT:C129889
+        description: "The analysis of all of the short tandem repeats in the genome of a biological sample."
+        annotations: {description_source: ontology}
       "TIDE":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Tracking of Indels by DEcomposition, a computational method that quantifies insertion/deletion spectra from Sanger sequencing traces of genome-edited cell populations."
       "TriKinetics activity monitoring":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Continuous locomotor activity monitoring performed using the TriKinetics Drosophila Activity Monitor (DAM) system."
       "array":
+        meaning: EFO:0002698
+        description: "An instrument consisting of nucleic acid or protein molecules bound to a substrate."
+        annotations: {description_source: ontology}
       "blue native PAGE":
+        meaning: CHMO:0002276
+        description: "A separation method where protein molecules move at different speeds under non-denaturing conditions in a polyacrylamide gel, using Coomassie blue dye to transfer charge."
+        annotations: {description_source: ontology}
       "SDS-PAGE":
+        meaning: EFO:0010936
+        description: "A protein assay that allows protein separation by mass in a polyacrylamide-based discontinuous gel."
+        annotations: {description_source: ontology}
       "bone histomorphometry":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Quantitative histological analysis of bone structure and remodeling dynamics performed on stained bone sections."
       "cAMP-Glo Max Assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A luminescent assay that measures intracellular cyclic AMP (cAMP) levels as an indicator of GPCR signaling activity."
       "calcium retention capacity assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An assay that measures the amount of calcium a mitochondrial preparation can sequester before triggering the mitochondrial permeability transition pore."
       "cell competition":
+        meaning: GO:0035212
+        description: "Competitive interactions within multicellular organisms between cell populations that differ in growth rates, leading to elimination of the slowest-growing cells."
+        annotations: {description_source: ontology}
       "cell count":
+        meaning: NCIT:C48938
+        description: "A procedure to determine the number of cells in a sample."
+        annotations: {description_source: ontology}
       "cell painting":
+        annotations: {ontology_verdict: partial, description_source: inferred}
+        meaning: BAO:0080031
+        description: "A high-content, image-based profiling assay that stains multiple cellular components with fluorescent dyes to capture a broad morphological signature of cell state."
       "cell permeability assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An assay that measures the ability of a compound or molecule to cross a cell membrane."
       "cell proliferation":
+        meaning: NCIT:C18081
+        description: "The growth and reproduction of similar cells by cell division, resulting in an increase in cell number."
+        annotations: {description_source: ontology}
       "cell viability assay":
+        meaning: OBI:0003583
+        description: "A cytometry assay which measures the number of living cells in a population."
+        annotations: {description_source: ontology}
       "combination library screen":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A high-throughput screen testing combinations of compounds from a chemical library to identify synergistic or antagonistic drug interactions."
       "combination screen":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A screen testing combinations of two or more compounds or treatments to identify synergistic or antagonistic effects."
       "complex II enzyme activity assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An enzymatic assay that measures the activity of mitochondrial respiratory chain Complex II (succinate dehydrogenase)."
       "compound screen":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: EFO:0007553
+        description: "High-throughput analysis of a collection of chemically diverse compounds to identify structures with affinity for pharmacological targets."
       "current clamp assay":
+        meaning: OBI:0002185
+        description: "Records the membrane potential of a cell by injecting current through a recording electrode, allowing the membrane potential to vary freely in response."
+        annotations: {description_source: ontology}
       "differential scanning calorimetry":
+        meaning: CHMO:0000684
+        description: "A scanning calorimetry technique in which the measured thermodynamic parameters are of both a sample and a reference."
+        annotations: {description_source: ontology}
       "dynamic light scattering":
+        meaning: CHMO:0000167
+        description: "Determines the size distribution of small particles in solution by illuminating the sample with a laser and measuring time-dependent fluctuations in scattered light intensity caused by Brownian motion."
+        annotations: {description_source: ontology}
       "electrochemiluminescence":
+        meaning: NCIT:C111193
+        description: "A method in which light emission is generated from an electrochemical reaction in solution."
+        annotations: {description_source: ontology}
       "electrophoretic light scattering":
+        meaning: NCIT:C78868
+        description: "A technique for determining the zeta potential of a sample by detecting the motion of dispersed particles relative to a fluid under an oscillating electric field."
+        annotations: {description_source: ontology}
       "flow cytometry":
+        meaning: NCIT:C16585
+        description: "A technique for counting, examining, and sorting microscopic particles suspended in a stream of fluid."
+        annotations: {description_source: ontology}
       "focus forming assay":
+        meaning: NCIT:C202399
+        description: "An assay used to determine viral quantity by infecting host cells with serially diluted virus and visualizing infected cells with conjugated antibodies."
+        annotations: {description_source: ontology}
       "gel permeation chromatography":
+        meaning: NCIT:C16433
+        description: "Gel permeation or sieve chromatography performed on porous gels that separate solutes on the basis of size."
+        annotations: {description_source: ontology}
       "immunoassay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An assay that uses the specific binding of an antibody to its antigen to detect or quantify a substance in a sample."
       "in silico synthesis":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "The computational design or generation of a molecule's structure or sequence, without physical laboratory synthesis."
       "in vitro tumorigenesis":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An assay that measures the capacity of cells to undergo malignant transformation or form tumor-like colonies in cell culture."
       "in vivo PDX viability":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An assay that measures the viability or growth of a patient-derived xenograft (PDX) tumor in a living host organism."
       "in vivo tumor growth":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Measurement of tumor size or growth rate over time in a living host organism, typically following tumor implantation or induction."
       "light scattering assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An assay that measures the intensity or pattern of light scattered by particles in solution to characterize their size or aggregation state."
       "local field potential recording":
+        meaning: OBI:0002189
+        description: "An extracellular electrophysiology assay where a microelectrode is placed in the extracellular space of brain tissue to measure local action-potential activity."
+        annotations: {description_source: ontology}
       "long term potentiation assay":
+        meaning: MESH:D017774
+        description: "A persistent increase in synaptic efficacy, usually induced by appropriate activation of the same synapses, thought to be a cellular mechanism of learning and memory."
+        annotations: {description_source: ontology}
       "massively parallel reporter assay":
+        meaning: OBI:0002675
+        description: "An assay that multiplexes the construction and interrogation of large libraries of reporter constructs to measure the transcriptional regulatory activity of thousands of DNA sequences."
+        annotations: {description_source: ontology}
       "microrheology":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A technique that measures the local viscoelastic properties of a material by tracking the motion of embedded microscopic tracer particles."
       "multi-electrode array":
+        meaning: OBI:0003901
+        description: "A multi-unit recording assay using a grid of tightly spaced microscopic electrodes on the surface of a well on a cell culture plate."
+        annotations: {description_source: ontology}
       "nanoparticle tracking analysis":
+        meaning: ENM:0000065
+        description: "A technique that tracks the Brownian motion of individual nanoparticles under laser illumination to determine their size distribution and concentration in solution."
+        annotations: {description_source: inferred}
       "oscillatory rheology":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A rheological technique that applies an oscillating strain or stress to a material to characterize its viscoelastic properties."
       "oxygen consumption assay":
+        meaning: NCIT:C123570
+        description: "The rate at which oxygen is absorbed and utilized by any given tissue or sample."
+        annotations: {description_source: ontology}
       "perineurial cell thickness":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A histological measurement of the thickness of the perineurium, the layer of cells surrounding a peripheral nerve fascicle."
       "pharmocokinetic ADME assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An assay that characterizes a compound's absorption, distribution, metabolism, and excretion (ADME) properties."
       "polymerase chain reaction":
+        meaning: NCIT:C17003
+        description: "A method for amplifying a DNA base sequence using multiple rounds of heat denaturation and primer annealing in the presence of a heat-stable polymerase."
+        annotations: {description_source: ontology}
       "quantitative PCR":
+        meaning: NCIT:C51962
+        description: "An application of PCR that measures the products generated during each amplification cycle to determine the starting amount of template in the reaction."
+        annotations: {description_source: ontology}
       "reactive oxygen species assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An assay that detects or quantifies the level of reactive oxygen species in a sample, typically using a fluorescent or luminescent ROS-sensitive probe."
       "reporter gene assay":
+        meaning: OBI:0002082
+        description: "An assay that detects expression of a reporter gene inserted under the control of a regulatory sequence of interest."
+        annotations: {description_source: ontology}
       "split-GFP assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A protein-interaction or complementation assay in which GFP is split into two non-fluorescent fragments that reconstitute fluorescence only when brought together by an interaction of interest."
       "rheometry":
+        meaning: CHMO:0000915
+        description: "The measurement of the relationship between deformation and stress for fluids that cannot be defined by a single value of viscosity."
+        annotations: {description_source: ontology}
       "sandwich ELISA":
+        meaning: NCIT:C187899
+        description: "A type of ELISA that uses separate capture and detection antibodies bound to non-overlapping epitopes on the same antigen of interest."
+        annotations: {description_source: ontology}
       "single molecule drug screen assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A drug screening assay performed at single-molecule resolution to detect compound effects on individual molecular targets or events."
       "small molecule library screen":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A high-throughput screen testing a collection of small-molecule compounds to identify hits with a desired biological activity."
       "sorbitol dehydrogenase activity level assay":
+        meaning: OBI:0003434
+        description: "An enzymatic activity level assay that measures the activity of sorbitol dehydrogenase in a sample."
+        annotations: {description_source: ontology}
       "static histomorphometry":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Quantitative histological analysis of bone structure at a single time point, without the time-spaced fluorescent labels used in dynamic histomorphometry."
       "static light scattering":
+        meaning: NCIT:C62325
+        description: "The average scattering intensity as a function of both angle and concentration of particles in dilute solutions."
+        annotations: {description_source: ontology}
       "trans-endothelial electrical resistance":
+        meaning: OBI:0003902
+        description: "An extracellular electrophysiology recording assay used to measure the integrity of a cell monolayer."
+        annotations: {description_source: ontology}
       "twin spot assay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A Drosophila genetic mosaic assay in which recombination produces adjacent marked clones of homozygous mutant and wild-type cells, used to study cell-autonomous gene function."
       "whole-cell patch clamp":
+        meaning: OBI:0002178
+        description: "A patch-clamp assay where the electrode remains on the cell after the membrane patch is perforated, providing electrical access from the pipette to the intracellular space."
+        annotations: {description_source: ontology}
       "Unknown":
+        meaning: NCIT:C17998
+        description: "Not known, observed, recorded; or reported as unknown by the data contributor."
+        annotations: {description_source: ontology}
 
   SpeciesEnum:
     description: Species of origin.
     permissible_values:
       "Danio rerio":
+        meaning: NCBITaxon:7955
+        description: "Zebrafish, a small freshwater teleost fish widely used as a model organism in developmental biology and genetics."
+        annotations: {description_source: inferred}
       "Drosophila melanogaster":
+        meaning: NCBITaxon:7227
+        description: "The common fruit fly, a widely used model organism in genetics and developmental biology."
+        annotations: {description_source: inferred}
       "Gallus gallus":
+        meaning: NCBITaxon:9031
+        description: "The domestic chicken, used as a model organism in developmental biology and avian research."
+        annotations: {description_source: inferred}
       "Homo sapiens":
+        meaning: NCBITaxon:9606
+        description: "Modern humans."
+        annotations: {description_source: inferred}
       "Mus musculus":
+        meaning: NCBITaxon:10090
+        description: "The house mouse, the most widely used mammalian model organism in biomedical research."
+        annotations: {description_source: inferred}
       "Macaca nemestrina":
+        meaning: NCBITaxon:9545
+        description: "The southern pig-tailed macaque, a nonhuman primate used in some biomedical research."
+        annotations: {description_source: inferred}
       "Mus musculus (humanized)":
+        annotations: {ontology_verdict: partial, description_source: inferred}
+        meaning: NCBITaxon:10090
+        description: "A strain of Mus musculus genetically modified to express human genes, proteins, or tissues, used to model human-specific biology."
       "Oryctolagus cuniculus":
+        meaning: NCBITaxon:9986
+        description: "The European rabbit, used as a model organism in immunology and biomedical research."
+        annotations: {description_source: inferred}
       "Pan troglodytes":
+        meaning: NCBITaxon:9598
+        description: "The common chimpanzee, a great ape closely related to humans."
+        annotations: {description_source: inferred}
       "Rattus norvegicus":
+        meaning: NCBITaxon:10116
+        description: "The brown (Norway) rat, a widely used mammalian model organism in biomedical research."
+        annotations: {description_source: inferred}
       "Rhesus macaque":
+        meaning: NCBITaxon:9544
+        description: "A nonhuman primate widely used in biomedical and neuroscience research."
+        annotations: {description_source: inferred}
       "Sus scrofa":
+        meaning: NCBITaxon:9823
+        description: "The domestic pig, used as a model organism in biomedical research due to its physiological similarity to humans."
+        annotations: {description_source: inferred}
       "Unknown":
+        meaning: NCIT:C17998
+        description: "Not known, observed, recorded; or reported as unknown by the data contributor."
 
   FileFormatEnum:
     description: File extension or format type.
     permissible_values:
       "bai":
+        meaning: EDAM:format_3327
+        description: "BAM indexing format, used for fast random access to a BAM alignment file."
+        annotations: {description_source: ontology}
       "bam":
+        meaning: EDAM:format_2572
+        description: "The binary, BGZF-compressed version of SAM format for alignment of nucleotide sequences to reference sequence(s), including base-call and alignment qualities."
+        annotations: {description_source: ontology}
       "bcf":
+        meaning: EDAM:format_3020
+        description: "The binary version of Variant Call Format (VCF) for sequence variation such as indels, polymorphisms, and structural variation."
+        annotations: {description_source: ontology}
       "bed":
+        meaning: EDAM:format_3003
+        description: "Browser Extensible Data (BED) format, a tab-delimited text format describing genomic features as intervals with optional annotation columns."
+        annotations: {description_source: ontology}
       "bed broadPeak":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: EDAM:format_3003
+        description: "A BED-format variant (ENCODE broadPeak) describing broad, contiguous regions of signal enrichment, without a specific EDAM subtype."
       "bed gappedPeak":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: EDAM:format_3003
+        description: "A BED-format variant (ENCODE gappedPeak) describing signal-enriched regions that may contain gaps, without a specific EDAM subtype."
       "bed narrowPeak":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: EDAM:format_3003
+        description: "A BED-format variant (ENCODE/MACS narrowPeak) describing narrow, precisely called peaks of signal enrichment, without a specific EDAM subtype."
       "bedgraph":
+        meaning: EDAM:format_3583
+        description: "A tab-delimited chromosome/start/end/data-value format for representing a continuous signal track."
+        annotations: {description_source: ontology}
       "bgzip":
+        meaning: EDAM:format_3615
+        description: "Blocked GNU Zip Format (BGZF), a variant of GZIP compression used by BAM and other indexed genomic file formats."
+        annotations: {description_source: ontology}
       "cloupe":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary interactive visualization file produced by 10x Genomics' Loupe Browser software."
       "bigwig":
+        meaning: EDAM:format_3006
+        description: "A format for large sequence-annotation tracks that consist of a value for each sequence position, similar to the textual WIG format."
+        annotations: {description_source: ontology}
       "cnn":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A CNVkit reference file storing per-bin normalization data used for copy-number variant calling."
       "cnr":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A CNVkit output file of per-bin copy-number ratios for a single sample."
       "cns":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A CNVkit output file of segmented copy-number data for a single sample."
       "crai":
+        meaning: NCIT:C192224
+        description: "An external index file created alongside a CRAM file, required for selective access to genomic sequence alignment data within the CRAM file."
+        annotations: {description_source: ontology}
       "cram":
+        meaning: EDAM:format_3462
+        description: "Reference-based compression of alignment format, storing sequence alignments in a smaller footprint than BAM by referencing a genome sequence."
+        annotations: {description_source: ontology}
       "csi":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Coordinate-sorted index (CSI), a general-purpose index format for large BAM/BCF/VCF files supporting genomic ranges beyond BAI's limits."
       "ctab":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A StringTie output table format reporting per-transcript or per-exon expression and coverage statistics."
       "dup":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A metrics file (e.g. from Picard MarkDuplicates) reporting PCR/optical duplicate read statistics for a sequencing library."
       "fasta":
+        meaning: EDAM:format_1929
+        description: "FASTA format for nucleotide or protein sequences, including NCBI-style identifiers."
+        annotations: {description_source: ontology}
       "fastq":
+        meaning: EDAM:format_1930
+        description: "FASTQ short-read format for sequencing reads, pairing each sequence with per-base quality scores."
+        annotations: {description_source: ontology}
       "flagstat":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A summary report (e.g. from samtools flagstat) of alignment flag statistics for a BAM/CRAM file."
       "gct":
+        meaning: EDAM:format_3709
+        description: "A tab-delimited GenePattern format containing a column per sample, a row per gene, and an expression value for each gene in each sample."
+        annotations: {description_source: ontology}
       "gff3":
+        meaning: EDAM:format_1975
+        description: "Generic Feature Format version 3 (GFF3), a tab-delimited format for describing genes and other sequence features."
+        annotations: {description_source: ontology}
       "gtf":
+        meaning: EDAM:format_2306
+        description: "Gene Transfer Format (GTF), a restricted, widely-used version of GFF for gene and transcript annotation."
+        annotations: {description_source: ontology}
       "hic":
+        meaning: NCIT:C203672
+        description: "An indexed binary format designed to permit fast random access to Hi-C contact matrix heatmaps."
+        annotations: {description_source: ontology}
       "maf":
+        meaning: NCIT:C172215
+        description: "Mutation Annotation Format (MAF), a tab-delimited text file containing mutation information aggregated across a set of variant call files."
+        annotations: {description_source: ontology}
       "mtx":
+        meaning: EDAM:format_3916
+        description: "The Matrix Market matrix (MTX) format, storing numerical or pattern matrices in dense or sparse representation."
+        annotations: {description_source: ontology}
       "plink":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: EDAM:format_3288
+        description: "PED/MAP, a pair of text file formats used by the PLINK package to describe genotyped individuals and their SNP data (PLINK's newer binary bed/bim/fam format is a distinct, more common variant)."
       "recal":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A base-quality recalibration table (e.g. from GATK BaseRecalibrator) recording empirical error-rate covariates for a sequencing run."
       "sam":
+        meaning: EDAM:format_2573
+        description: "Sequence Alignment/Map (SAM) format, the plain-text form of BAM for alignment of nucleotide sequences to reference sequence(s)."
+        annotations: {description_source: ontology}
       "seg":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C184744
+        description: "Segmented copy-number data, where sequence regions have been segmented to allow estimation of copy number per region (this term describes the data content rather than the specific .seg file format)."
       "sf":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A transcript-level quantification output file (e.g. Salmon's quant.sf) reporting estimated abundances per transcript."
       "sra":
+        meaning: EDAM:format_3698
+        description: "The archive format used for input to the NCBI Sequence Read Archive."
+        annotations: {description_source: ontology}
       "tagAlign":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A simplified, tab-delimited alignment format (used in ENCODE pipelines) recording one genomic alignment per line."
       "tbi":
+        meaning: NCIT:C184806
+        description: "A tab-delimited index file for the genome positions in a compressed (bgzipped) tabix-indexed file such as VCF."
+        annotations: {description_source: ontology}
       "tranches":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A GATK variant-quality-score-recalibration (VQSR) tranches file recording sensitivity/specificity cutoffs used to filter variant calls."
       "vcf":
+        meaning: NCIT:C172216
+        description: "Variant Call File Format (VCF), a text-based format for storing gene sequence variation data with a metadata header and tab-separated data columns."
+        annotations: {description_source: ontology}
       "wiggle":
+        meaning: EDAM:format_3005
+        description: "Wiggle format (WIG) for a sequence-annotation track consisting of a value for each sequence position, typically displayed in a genome browser."
+        annotations: {description_source: ontology}
       "DICOM":
+        meaning: NCIT:C49059
+        description: "A comprehensive set of standards for communication between medical imaging devices, including a file format definition and a network communication protocol."
+        annotations: {description_source: ontology}
       "NWB":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Neurodata Without Borders (NWB), an HDF5-based standard file format for storing and sharing neurophysiology data."
       "PAR":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "The header portion of Philips MRI's PAR/REC format, containing scan parameters and metadata for the accompanying REC image data."
       "REC":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "The binary image-data portion of Philips MRI's PAR/REC format, paired with a PAR header file."
       "aci":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary or instrument-specific data file format; not further characterized in available records."
       "avi":
+        meaning: NCIT:C190162
+        description: "A multimedia container format for audio video interleaved (AVI) files, allowing synchronous audio-with-video playback."
+        annotations: {description_source: ontology}
       "bmp":
+        meaning: EDAM:format_3592
+        description: "Windows bitmap image format, also supported by many non-Windows applications."
+        annotations: {description_source: ontology}
       "czi":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary microscopy image file format used by Zeiss ZEN software (Carl Zeiss Image format)."
       "dm3":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary electron/light microscopy image file format used by Gatan Digital Micrograph software."
       "hdr":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "The header file of the Analyze 7.5 medical image format, paired with a binary .img data file."
       "img":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "The binary image-data file of the Analyze 7.5 medical image format, paired with a .hdr header file."
       "jpg":
+        meaning: EDAM:format_3579
+        description: "Joint Photographic Experts Group (JPEG) format, a lossy compressed graphics file format."
+        annotations: {description_source: ontology}
       "lif":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary microscopy image file format (Leica Image File) used by Leica Application Suite software."
       "mov":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Apple QuickTime's multimedia container format for video and audio data."
       "nii":
+        meaning: EDAM:format_3549
+        description: "An open file format from the Neuroimaging Informatics Technology Initiative (NIfTI), commonly used to store brain MRI data."
+        annotations: {description_source: ontology}
       "ome-tiff":
+        meaning: EDAM:format_3727
+        description: "A standard TIFF/BigTIFF file carrying an embedded OME-XML metadata block describing microscopy pixel data and acquisition metadata."
+        annotations: {description_source: ontology}
       "png":
+        meaning: NCIT:C85437
+        description: "Portable Network Graphics, an extensible file format for lossless data compression of images."
+        annotations: {description_source: ontology}
       "svs":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary whole-slide image file format (Aperio ScanScope Virtual Slide) used for digital pathology imaging."
       "sws":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary MR spectroscopy workspace file format."
       "tif":
+        meaning: EDAM:format_3591
+        description: "Tagged Image File Format (TIFF), a versatile bitmap image format."
+        annotations: {description_source: ontology}
       "tom":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A tomographic reconstruction data file format used in electron microscopy tomography software."
       "Sentrix descriptor file":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An Illumina BeadArray manifest/descriptor file describing bead-type-to-probe mappings for a Sentrix array."
       "bpm":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An Illumina BeadArray manifest file (bead pool manifest) describing the probe content of a genotyping array."
       "cel":
+        meaning: EDAM:format_1638
+        description: "Format of an Affymetrix data file recording raw expression-level intensities for individual microarray probes."
+        annotations: {description_source: ontology}
       "chp":
+        meaning: EDAM:format_1644
+        description: "Format of an Affymetrix data file recording normalised expression levels for individual microarray probes."
+        annotations: {description_source: ontology}
       "dat":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: EDAM:format_2333
+        description: "A generic binary data file; the specific structure depends on the instrument or software that produced it."
       "idat":
+        meaning: EDAM:format_3578
+        description: "A proprietary Illumina format for raw BeadArray data, output directly by the scanner, storing summary intensities for each probe on an array."
+        annotations: {description_source: ontology}
       "locs":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "An Illumina sequencer file recording the pixel coordinates of clusters on a flow cell."
       "msf":
+        meaning: EDAM:format_3702
+        description: "A proprietary mass-spectrometry format used by Thermo Scientific's Proteome Discoverer software."
+        annotations: {description_source: ontology}
       "mzML":
+        meaning: NCIT:C190181
+        description: "An open-source, HUPO-PSI-standardized format for mass spectrometer output files."
+        annotations: {description_source: ontology}
       "raw":
+        meaning: EDAM:format_3712
+        description: "A proprietary file format used by Thermo Scientific instruments to store raw mass spectrometry data."
+        annotations: {description_source: ontology}
       "RCC":
+        meaning: EDAM:format_3580
+        description: "Reporter Code Count, a CSV data file output by the NanoString nCounter Digital Analyzer containing gene, probe, and probe-count information."
+        annotations: {description_source: ontology}
       "csv":
+        meaning: NCIT:C182456
+        description: "A text file format that separates data elements with commas."
+        annotations: {description_source: ontology}
       "excel":
+        meaning: NCIT:C164050
+        description: "A proprietary Microsoft Excel spreadsheet format saved as open XML (.xlsx)."
+        annotations: {description_source: ontology}
       "parquet":
+        meaning: NCIT:C223247
+        description: "An open-source, column-oriented data storage format optimized for efficient large-scale data storage, retrieval, and analytics."
+        annotations: {description_source: ontology}
       "tsv":
+        meaning: EDAM:format_3475
+        description: "Tabular data represented as tab-separated values in a text file."
+        annotations: {description_source: ontology}
       "MATLAB script":
+        meaning: EDAM:format_4007
+        description: "The file format for MATLAB scripts or functions."
+        annotations: {description_source: ontology}
       "Python script":
+        meaning: EDAM:format_3996
+        description: "Format for scripts written in Python, a widely used high-level general-purpose programming language."
+        annotations: {description_source: ontology}
       "R script":
+        meaning: EDAM:format_3999
+        description: "Format for scripts written in R, an open-source language and environment for statistical computing and graphics."
+        annotations: {description_source: ontology}
       "bash script":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A text file of commands written for execution by the bash Unix shell."
       "js":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A source-code file written in JavaScript, a high-level programming language most commonly used for web scripting."
       "MATLAB data":
+        meaning: NCIT:C190178
+        description: "A proprietary, binary data container format used by MATLAB software to store workspace variables."
+        annotations: {description_source: ontology}
       "RData":
+        meaning: NCIT:C224809
+        description: "An R file type designed for saving multiple R objects into a single file."
+        annotations: {description_source: ontology}
       "SDAT":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A Philips MR spectroscopy data file paired with an .SPAR header file."
       "SPAR":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "The header/parameter file of Philips MR spectroscopy data, paired with an .SDAT data file."
       "json":
+        meaning: NCIT:C184769
+        description: "A common open-standard file format and data interchange format that uses human-readable attribute-value pairs and arrays to store and transmit data."
+        annotations: {description_source: ontology}
       "prism":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C224010
+        description: "A GraphPad Prism project file format designed for complex statistics, publication-quality charts, and organizing experimental data."
       "rds":
+        meaning: NCIT:C209895
+        description: "A native binary file format used to save and load a single R object to and from a file."
+        annotations: {description_source: ontology}
       "sqlite":
+        meaning: EDAM:format_3621
+        description: "The data format used by SQLite, a self-contained, file-based relational database engine."
+        annotations: {description_source: ontology}
       "xml":
+        meaning: NCIT:C45967
+        description: "A general-purpose markup language for creating special-purpose markup languages, used to facilitate sharing of data across different systems."
+        annotations: {description_source: ontology}
       "yaml":
+        meaning: EDAM:format_3750
+        description: "YAML, a human-readable, tree-structured data-serialization format."
+        annotations: {description_source: ontology}
       "7z":
+        meaning: NCIT:C80224
+        description: "A compressed archive file format supporting several data compression, encryption, and pre-processing filters."
+        annotations: {description_source: ontology}
       "docker image":
+        meaning: EDAM:format_3973
+        description: "A file, comprised of multiple layers, used to execute code in a Docker container; built from instructions for a complete, executable version of an application."
+        annotations: {description_source: ontology}
       "gzip":
+        meaning: EDAM:format_3989
+        description: "GNU zip (GZIP) compressed file format, common on Unix-based operating systems."
+        annotations: {description_source: ontology}
       "tar":
+        meaning: NCIT:C190189
+        description: "A file format generated by the Unix tar (tape archive) utility, used for collecting multiple files into one archive."
+        annotations: {description_source: ontology}
       "zip":
+        meaning: NCIT:C190192
+        description: "An archive file format supporting lossless data compression, used to compress one or more files into a single archive."
+        annotations: {description_source: ontology}
       "ai":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary vector-graphics file format (Adobe Illustrator)."
       "doc":
+        meaning: NCIT:C210442
+        description: "A Microsoft proprietary binary file format used for word-processing documents, replaced by the DOCX format in 2007."
+        annotations: {description_source: ontology}
       "html":
+        meaning: EDAM:format_2331
+        description: "HyperText Markup Language (HTML) format, the standard markup language for documents displayed in a web browser."
+        annotations: {description_source: ontology}
       "hyperlink":
+        meaning: NCIT:C47919
+        description: "A reference (link) from a point in one hypertext document to another document, another place in the same document, or a website."
+        annotations: {description_source: ontology}
       "md":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A plain-text file written in Markdown, a lightweight markup syntax for formatting text."
       "pdf":
+        meaning: NCIT:C63805
+        description: "Portable Document Format, an open file format for representing two-dimensional documents in a device- and resolution-independent, fixed-layout form."
+        annotations: {description_source: ontology}
       "powerpoint":
+        meaning: EDAM:format_3838
+        description: "Microsoft PowerPoint presentation format."
+        annotations: {description_source: ontology}
       "txt":
+        meaning: NCIT:C85873
+        description: "A data format consisting of readable textual material maintained as a sequential file."
+        annotations: {description_source: ontology}
       "MPEG-4":
+        meaning: NCIT:C190180
+        description: "A multimedia container format commonly used to store video and audio data."
+        annotations: {description_source: ontology}
       "ab1":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A binary Sanger-sequencing chromatogram file format (Applied Biosystems)."
       "abf":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Axon Binary Format, a proprietary electrophysiology data file format used by Molecular Devices' pCLAMP software."
       "dna":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary sequence and annotation file format used by SnapGene software."
       "edat3":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A proprietary behavioral-task data file format produced by Psychology Software Tools' E-Prime software."
       "fcs":
+        meaning: OBI:0000327
+        description: "A format standard for a digital entity conformant with the Flow Cytometry Data File Standard."
+        annotations: {description_source: ontology}
       "fig":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A MATLAB figure file storing a saved plot or graphical figure object."
       "gb":
+        meaning: NCIT:C190174
+        description: "GenBank flat-file format, allowing storage of DNA or protein sequences with an annotation section and a sequence section."
+        annotations: {description_source: ontology}
       "h5":
+        meaning: EDAM:format_3590
+        description: "Hierarchical Data Format 5 (HDF5), a format representing data as a directed graph of groups, datasets, and named datatypes."
+        annotations: {description_source: ontology}
       "hdf5":
+        meaning: EDAM:format_3590
+        description: "Hierarchical Data Format 5 (HDF5), a format representing data as a directed graph of groups, datasets, and named datatypes."
+        annotations: {description_source: ontology}
       "idx":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A generic index file format; the specific structure depends on the instrument or software that produced it."
       "psydat":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A binary session-data file format produced by PsychoPy experiment software."
       "pzfx":
+        meaning: NCIT:C224011
+        description: "An XML-based file format used by GraphPad Prism to store project data."
+        annotations: {description_source: ontology}
       "rmd":
+        meaning: NCIT:C190187
+        description: "R Markdown format, a plain-text file for making dynamic documents that contain chunks of embedded R code."
+        annotations: {description_source: ontology}
       "sav":
+        meaning: NCIT:C219046
+        description: "A binary format used by IBM SPSS Statistics for storing data and associated metadata."
+        annotations: {description_source: ontology}
       "sdf":
+        meaning: EDAM:format_3814
+        description: "A family of chemical-data file formats (Structure-Data File) developed by MDL, intended for structural information."
+        annotations: {description_source: ontology}
       "sif":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Simple Interaction Format, a plain-text format for describing network edges between nodes (e.g. for import into Cytoscape)."
       "svg":
+        meaning: EDAM:format_3604
+        description: "Scalable Vector Graphics (SVG), an XML-based vector image format for two-dimensional graphics with support for interactivity and animation."
+        annotations: {description_source: ontology}
       "Unknown":
+        meaning: NCIT:C17998
+        description: "Not known, observed, recorded; or reported as unknown by the data contributor."
+        annotations: {description_source: ontology}
       "Ome-zarr":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: EDAM:format_3915
+        description: "The Zarr format, an implementation of chunked, compressed, N-dimensional arrays for storing data (OME-Zarr adds OME imaging metadata conventions on top of base Zarr)."
       "Github Repo":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A version-controlled software or data repository hosted on GitHub."
 
   DataCategoryEnum:
     description: Categorical label for data contained in a dataset.
     permissible_values:
       "aligned reads":
+        meaning: NCIT:C164052
+        description: "The determination of the order of a set of sequenced nucleic acid fragments via alignment to a reference genome."
+        annotations: {description_source: ontology}
       "annotated germline variants":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C17666
+        description: "Sequence variation occurring in the gametes (germline) that will be transmitted to progeny, here in an annotated form."
       "annotated somatic mutation":
+        meaning: NCIT:C184746
+        description: "Sequence variation data from non-germline cell or tissue samples that has been annotated."
+        annotations: {description_source: ontology}
       "audio transcript":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A written or textual record of the spoken content of an audio recording."
       "behavioral data":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C95084
+        description: "A subject domain for information, vocabulary, or records related to the examination of behavior."
       "capsid sequence":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "The nucleotide or protein sequence encoding a viral capsid, such as that of an AAV vector."
       "cellular physiology":
+        meaning: NCIT:C16405
+        description: "Characteristics and physiological processes of cells, from cell division to cell death."
+        annotations: {description_source: ontology}
       "characteristic":
+        meaning: COB:0000502
+        description: "A quality or attribute that distinguishes or describes an entity."
+        annotations: {description_source: inferred}
       "chromatin activity":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C19797
+        description: "Alterations of the content or activity of DNA-binding and chromatin-associated proteins that affect chromatin's higher-order conformational state and the activity of specific genes or regions."
       "clinical":
+        meaning: NCIT:C15783
+        description: "Data obtained through patient examination or treatment."
+        annotations: {description_source: ontology}
       "copy number variants":
+        meaning: EDAM:topic_3958
+        description: "DNA structural variation \u2014 specifically a duplication or deletion event \u2014 resulting in sections of the genome being repeated, or the number of repeats varying between individuals."
+        annotations: {description_source: ontology}
       "count matrix":
+        meaning: EDAM:data_3917
+        description: "A table of unnormalized values representing summarised read counts per genomic region (e.g. gene, transcript, peak)."
+        annotations: {description_source: ontology}
       "data index":
+        meaning: EDAM:data_0955
+        description: "An index of data of biological relevance."
+        annotations: {description_source: ontology}
       "data sharing plan":
+        meaning: NCIT:C219697
+        description: "A description of the rules governing data dissemination and publications."
+        annotations: {description_source: ontology}
       "demographics":
+        meaning: NCIT:C16495
+        description: "The statistical characterization of human populations or segments of human populations, e.g. by age, sex, race, or income."
+        annotations: {description_source: ontology}
       "drug combination screen":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Data from a screen testing combinations of two or more compounds to identify synergistic or antagonistic effects."
       "drug screen":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C15229
+        description: "Data from a technique used to assess the effectiveness of a potential therapeutic agent."
       "electrophysiology":
+        meaning: NCIT:C16540
+        description: "The branch of physiology concerned with the electric phenomena associated with living bodies and involved in their functional activity."
+        annotations: {description_source: ontology}
       "epidemiological data":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C16556
+        description: "Data on the causes, incidence, and distribution of disease in a population, and its application for prevention or control."
       "gene expression":
+        meaning: GO:0010467
+        description: "The process in which a gene's sequence is converted into a mature gene product (protein or RNA), including transcription, processing, and (for protein-coding genes) translation and maturation."
+        annotations: {description_source: ontology}
       "gene expression matrix":
+        meaning: EDAM:data_3112
+        description: "The final processed (normalised) data for a set of hybridisations in a microarray experiment."
+        annotations: {description_source: ontology}
       "quantified gene expression":
+        meaning: EDAM:data_0928
+        description: "Data quantifying the level of expression of typically multiple genes, derived for example from microarray or RNA-seq experiments."
+        annotations: {description_source: ontology}
       "genomic features":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: EDAM:data_1276
+        description: "An informative, machine-readable report on intrinsic positional features of a nucleotide sequence."
       "genomic variants":
+        meaning: NCIT:C179559
+        description: "All of the differences in the complete genomic sequence of an organism compared to a reference sequence."
+        annotations: {description_source: ontology}
       "germline variants":
+        meaning: NCIT:C17666
+        description: "Any mutation that appears in the gametes and will therefore be transmitted to progeny with some frequency."
+        annotations: {description_source: ontology}
       "guide RNA sequence":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: MESH:D000094704
+        description: "A component of CRISPR-Cas systems: Cas endonucleases assemble with a guide RNA complex (a hybrid of crRNA and tracrRNA, or a synthetically fused single guide RNA) to form an active complex that cleaves target DNA."
       "image":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C95650
+        description: "A data type comprised of encapsulated data in the form of an image."
       "immunoassay":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Data generated by an assay that uses the specific binding of an antibody to its antigen to detect or quantify a substance in a sample."
       "isoform expression":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "Data quantifying the expression levels of individual transcript isoforms of a gene."
       "kinomics":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C107139
+        description: "Data concerning the kinome, the set of all kinases expressed in a cell or encoded in a genome."
       "mask image":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: OBI:0003361
+        description: "An image data set in which voxel or pixel values encode the location of a region of interest (e.g. a lesion mask), with all other locations set to zero."
       "mass spectrometry data":
+        meaning: NCIT:C211501
+        description: "Data collected in a mass spectrometry study."
+        annotations: {description_source: ontology}
       "metabolomics":
+        meaning: NCIT:C49019
+        description: "The study of the biological metabolic profile of a cellular specimen in a specific environment at an isolated timepoint, focusing on carbohydrates, lipids, and other metabolites."
+        annotations: {description_source: ontology}
       "molecular property":
+        meaning: EDAM:data_2087
+        description: "A report on the physical (e.g. structural) or chemical properties of a molecule, or part of a molecule."
+        annotations: {description_source: ontology}
       "morphology parameter":
+        meaning: EDAM:data_3723
+        description: "An experimentally determined parameter of the morphology of an organism, e.g. size and shape."
+        annotations: {description_source: ontology}
       "network":
+        meaning: EDAM:data_2600
+        description: "Primary data about a specific biological pathway or network, i.e. the nodes and connections within it."
+        annotations: {description_source: ontology}
       "nucleic acid sequence record":
+        meaning: EDAM:data_2887
+        description: "A nucleic acid sequence and its associated metadata."
+        annotations: {description_source: ontology}
       "over-representation data":
+        meaning: EDAM:data_3753
+        description: "A ranked list of categories (usually ontology concepts), each associated with a statistical metric of over- or under-representation within the studied data."
+        annotations: {description_source: ontology}
       "particle characterization":
+        meaning: NCIT:C62317
+        description: "A series of analytical methods providing information about nanoscale entities such as composition, structure, and defects."
+        annotations: {description_source: ontology}
       "pharmacokinetics":
+        meaning: NCIT:C15299
+        description: "The quantitative analysis of the absorption, distribution, binding, biotransformation, elimination, and excretion of a drug within biological systems."
+        annotations: {description_source: ontology}
       "physiology parameter":
+        meaning: EDAM:data_3722
+        description: "An experimentally determined parameter of the physiology of an organism, e.g. substrate spectrum."
+        annotations: {description_source: ontology}
       "plasmid sequence":
+        meaning: EDAM:data_1286
+        description: "A sequence map of a plasmid (circular DNA)."
+        annotations: {description_source: ontology}
       "plot":
+        meaning: EDAM:data_2884
+        description: "Biological data that has been plotted as a graph of some type, or plotting instructions for rendering such a graph."
+        annotations: {description_source: ontology}
       "primer sequence":
+        meaning: EDAM:data_1240
+        description: "Oligonucleotide primer(s) for PCR and DNA amplification, e.g. a minimal primer set."
+        annotations: {description_source: ontology}
       "probe sequence":
+        meaning: SO:0000051
+        description: "A DNA sequence used experimentally to detect the presence or absence of a complementary nucleic acid."
+        annotations: {description_source: ontology}
       "promoter sequence":
+        meaning: SO:0000167
+        description: "The region on a DNA molecule involved in RNA polymerase binding to initiate transcription."
+        annotations: {description_source: ontology}
       "protein interaction data":
+        meaning: EDAM:data_0906
+        description: "Data concerning the interactions (predicted or known) within or between a protein, structural domain, or part of a protein, including interactions with other proteins and non-protein entities."
+        annotations: {description_source: ontology}
       "protein interaction raw data":
+        meaning: EDAM:data_0905
+        description: "Protein-protein interaction data from methods such as yeast two-hybrid analysis, protein microarrays, immunoaffinity chromatography with mass spectrometry, or phage display."
+        annotations: {description_source: ontology}
       "proteomics":
+        meaning: NCIT:C20085
+        description: "The global analysis of cellular proteins, using techniques such as 2D gel electrophoresis, mass spectrometry, and amino acid sequencing to resolve, quantify, and characterize a proteome."
+        annotations: {description_source: ontology}
       "raw counts":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C181340
+        description: "The number or amount of raw fragments of genetic material analyzed, prior to normalization."
       "reference sequence":
+        meaning: NCIT:C164388
+        description: "A published genetic sequence used as a reference against which other sequences are compared."
+        annotations: {description_source: ontology}
       "report":
+        meaning: IAO:0000088
+        description: "A document assembled by an author to provide information for an audience, produced as the output of a documenting process about something that has completed."
+        annotations: {description_source: ontology}
       "somatic variants":
+        meaning: NCIT:C18060
+        description: "Any mutation with an origin in cells that are not destined to become gametes, and so is not transmitted to progeny."
+        annotations: {description_source: ontology}
       "structural variants":
+        meaning: EDAM:topic_3175
+        description: "Variation in chromosome structure, including deletions, duplications, copy-number variants, insertions, inversions, and translocations."
+        annotations: {description_source: ontology}
       "survey data":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: OBI:0003725
+        description: "Data obtained from one or more participants using a survey or questionnaire instrument."
       "text data":
+        meaning: EDAM:data_2526
+        description: "Data concerning, extracted from, or derived from analysis of a scientific text or texts, such as a full-text journal article."
+        annotations: {description_source: ontology}
       "volume":
+        meaning: EFO:0001715
+        description: "A 3-dimensional extent quality inhering in an entity by virtue of the amount of 3-dimensional space it occupies."
+        annotations: {description_source: ontology}
       "weight":
+        meaning: NCIT:C92648
+        description: "A measurement of the body weight of a subject."
+        annotations: {description_source: ontology}
       "Unknown":
+        meaning: NCIT:C17998
+        description: "Not known, observed, recorded; or reported as unknown by the data contributor."
+        annotations: {description_source: ontology}
 
   ProcessLevelEnum:
     description: Level of data processing applied to the dataset.
     permissible_values:
       "Level 1":
         description: Raw or minimally processed data.
+        annotations: {ontology_verdict: partial}
+        meaning: NCIT:C142663
       "Level 2":
         description: Data that has undergone a basic or initial processing step, like quality control, alignment, or stitching.
+        annotations: {ontology_verdict: partial}
+        meaning: NCIT:C84340
       "Level 3":
        description: Files that contain summary counts, coverage files, or other processed representations of the data.
+       annotations: {ontology_verdict: partial}
+       meaning: EDAM:data_3917
       "Level 4":
         description: Files that contain data related to applied models or aggregate representations of the data.
+        annotations: {ontology_verdict: partial}
+        meaning: MAMO:0000023
       "Auxiliary":
         description: Additional files that contain information or experimental details, but do not contain data or processed derivatives.
+        annotations: {ontology_verdict: partial}
+        meaning: MESH:D058537
       "Not Applicable":
         description: Files that fall outside of the level structure or are uploaded as a package.
+        meaning: NCIT:C48660
       "Metadata":
        description: Files that are or will be stored and shared as metadata.
+       meaning: NCIT:C52095
 
   NamContextEnum:
     description: NAM application context associated with files in the dataset.
     permissible_values:
       "Biosamples":
+        meaning: NCIT:C43412
+        description: "Data or files pertaining to biological specimens collected from subjects, such as tissue, blood, or other biosamples."
+        annotations: {description_source: inferred}
       "Subjects / Donors":
+        annotations: {ontology_verdict: partial}
+        meaning: MESH:D035842
+        description: "Persons who are enrolled in research studies or who are otherwise the subjects of research."
       "Files / Data Types":
+        annotations: {ontology_verdict: partial}
+        meaning: EFO:0004095
+        description: "A file stored for use on a computer containing data."
       "In Chemico / Biomaterials":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "NAM application context covering in-chemico test methods (chemistry-based assays performed without a biological system) and biomaterials characterization."
       "Assays / Conditions":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C60819
+        description: "A qualitative or quantitative analysis performed to determine the amount of a constituent in a sample, or the biological or pharmacological properties of a substance."
       "Ontologies / Standards":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C21270
+        description: "A terminology that includes explicit formal specification of how to represent the objects, concepts, relationships, and other entities within it."
       "Imaging Metadata":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C17369
+        description: "Any technology or method that aids in the visualization of a biological process, cell, tissue, or organ for screening, diagnosis, or therapy."
       "Pharmacokinetics / ADMET":
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C15299
+        description: "The quantitative analysis of the absorption, distribution, binding, biotransformation, elimination, and excretion of a drug within biological systems."
       "Analytical Models":
+        annotations: {ontology_verdict: partial, description_source: inferred}
+        meaning: MAMO:0000023
+        description: "A mathematical or computational representation used to simulate, predict, or analyze biological or chemical processes."
 
   # ── Portal table enums ───────────────────────────────────────────────────────
 
@@ -464,20 +1603,38 @@ enums:
     description: Repository where a dataset is hosted.
     permissible_values:
       Synapse:
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C189151
+        description: "A database in which study data are stored for access and use by the scientific community."
       GEO:
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C189151
+        description: "A database in which study data are stored for access and use by the scientific community."
       SRA:
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C189151
+        description: "A database in which study data are stored for access and use by the scientific community."
       Zenodo:
+        annotations: {ontology_verdict: partial, description_source: ontology}
+        meaning: NCIT:C189151
+        description: "A database in which study data are stored for access and use by the scientific community."
       Other:
+        meaning: NCIT:C17649
+        description: "Different than the one(s) previously specified or mentioned."
 
   AccessTypeEnum:
     description: Data access level.
     permissible_values:
       Open:
         description: Publicly accessible without restrictions.
+        meaning: NCIT:C183346
       Controlled:
         description: Requires approval via Synapse Access Requirements.
+        annotations: {ontology_verdict: partial}
+        meaning: GENEPIO:0001810
       Embargoed:
         description: Temporarily restricted; will become open after embargo lifts.
+        meaning: NCIT:C183345
 
   DevelopmentStatusEnum:
     description: Current development stage of a NAM.
@@ -488,15 +1645,31 @@ enums:
         description: Method is being actively developed.
       Prototype:
         description: Early-stage implementation.
+        annotations: {ontology_verdict: partial}
+        meaning: MESH:D000075082
       Deprecated:
         description: Method is no longer actively maintained.
+        meaning: NCIT:C71491
 
   RoleEnum:
     description: Role of a person in the NAMHub program.
     permissible_values:
       "Principal Investigator":
+        meaning: NCIT:C19924
+        description: "An investigator who is responsible for all aspects of the conduct of a study."
       "Co-Investigator":
+        meaning: NCIT:C51812
+        description: "One of two or more scientists working together on a research project."
       "Collaborator":
+        meaning: NCIT:C84336
+        description: "Any of two or more parties working jointly towards a common goal."
       "Coordinating Center":
+        annotations: {ontology_verdict: partial}
+        meaning: NCIT:C48359
+        description: "A facility that is responsible for receiving, editing, processing, analyzing, and storing data generated in a study and that, in addition, has responsibility for coordination of activities required for execution of the study."
       "Trainee":
+        annotations: {ontology_verdict: no_match, description_source: inferred}
+        description: "A student or postdoctoral researcher participating in the NAMHub program under a mentor's supervision."
       Other:
+        meaning: NCIT:C17649
+        description: "Different than the one(s) previously specified or mentioned."
