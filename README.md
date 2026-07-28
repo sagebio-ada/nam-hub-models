@@ -11,19 +11,11 @@ Run `just` with no arguments for the full list. The common operations:
 | `just gen-model` | Rewrites the seven schemas in `json_schemas/` from the LinkML sources in `portal_schemas/`. |
 | `just gen-doc` | Regenerates `docs/elements/` and the merged schema at `docs/schema/namhub.yaml`. |
 
-##Helpers**
-| Command | Consequence |
-| --- | --- |
-| `just gen-csv` | Rewrites `namhub.model.csv` from the LinkML sources in `portal_schemas/`. |
-| `just gen-json` | Rewrites the seven schemas in `json_schemas/` from `namhub.model.csv`. |
-| `just gen-project` | Regenerates `project/` (Java, TypeScript, OWL) and the Python models in `src/namhub/datamodel/`. |
-
 **Checking your work**
 
 | Command | Consequence |
 | --- | --- |
-| `just lint` | Reports LinkML lint findings. Changes nothing. |
-| `just test` | Regenerates the Python models, runs pytest, and validates `tests/data/`. Writes `tmp/` and `examples/output/`. |
+| `just lint` | Reports LinkML lint findings. |
 | `just testdoc` | Rebuilds the docs, then serves them at http://127.0.0.1:8000 until interrupted. |
 
 **Housekeeping**
@@ -33,8 +25,16 @@ Run `just` with no arguments for the full list. The common operations:
 | `just install` | Syncs dev dependencies into `.venv`. |
 | `just update` | Upgrades `linkml` and `linkml-runtime` in `uv.lock`. |
 | `just clean-generated` | **Deletes** `namhub.model.csv` and `json_schemas/*.json`. |
-| `just clean` | Everything `clean-generated` does, plus `tmp/`, `docs/elements/*.md`, and the generated `project/` files. |
+| `just clean` | Everything `clean-generated` does, plus `docs/elements/*.md`. |
 | `just deploy` | **Publishes** the documentation site to GitHub Pages. |
+
+**Helpers**
+
+| Command | Consequence |
+| --- | --- |
+| `just gen-csv` | Rewrites `namhub.model.csv` from the LinkML sources in `portal_schemas/`. |
+| `just gen-json` | Rewrites the seven schemas in `json_schemas/` from `namhub.model.csv`. |
+
 
 ## Generate docs
 
