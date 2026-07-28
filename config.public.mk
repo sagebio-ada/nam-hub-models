@@ -17,7 +17,7 @@ LINKML_SCHEMA_SOURCE_DIR="portal_schemas"
 LINKML_GENERATORS_CONFIG_YAML=config.yaml
 
 ## pass args if gendoc ignores config.yaml (i.e. --no-mergeimports)
-LINKML_GENERATORS_DOC_ARGS=
+LINKML_GENERATORS_DOC_ARGS="--template-directory docs/templates-linkml"
 
 ## pass args to workaround genowl rdfs config bug (linkml#1453)
 ##   (i.e. --no-type-objects --no-metaclasses --metadata-profile=rdfs)
