@@ -43,6 +43,12 @@ source_schema_path := source_schema_dir / schema_name + ".yaml"
 docdir := "docs/elements"  # Directory for generated documentation
 distrib_schema_path := "docs/schema"  # Directory for publishing schema artifacts
 
+# Portal data model artifacts (see gen-model)
+model_csv := "namhub.model.csv"  # Intermediate CSV data model
+json_schema_dir := "json_schemas"  # Directory for generated portal JSON schemas
+# Must stay in sync with DATA_TYPES in create_json_from_model.py
+json_schema_names := "Landscape Studies Datasets People Grants NAMs Publications"
+
 # ============== Project recipes ==============
 
 # List all commands as default command. The prefix "_" hides the command.
@@ -92,15 +98,21 @@ _setup_part2: gen-project gen-doc
 install:
   uv sync --group dev
 
-# Updates project template and LinkML package
+# Updates the LinkML package
 [group('project management')]
-update: _update-template _update-linkml
+update: _update-linkml
 
 # Clean all generated files
 [group('project management')]
-clean: _wsl2_compat_check _clean_project
+clean: _wsl2_compat_check _clean_project clean-generated
   rm -rf tmp
   rm -rf {{docdir}}/*.md
+
+# Remove the generated CSV data model and portal JSON schemas
+[group('project management')]
+clean-generated:
+  rm -f {{model_csv}}
+  rm -f {{ prepend(json_schema_dir / "", append(".json", json_schema_names)) }}
 
 # (Re-)Generate project and documentation locally
 [group('model development')]
@@ -129,6 +141,25 @@ gen-doc: _gen-yaml && _add-artifacts
 [group('model development')]
 testdoc: gen-doc _serve
 
+# Regenerate the CSV data model and the portal JSON schemas
+[group('model development')]
+gen-model: gen-csv gen-json
+
+# Convert the LinkML schemas to the CSV data model
+[group('model development')]
+gen-csv:
+  uv run python linkml_to_csv.py \
+    --schema {{source_schema_path}} \
+    --enums {{ source_schema_dir / "enums.yaml" }} \
+    --output {{model_csv}}
+
+# Generate the portal JSON schemas from the CSV data model
+[group('model development')]
+gen-json:
+  uv run python create_json_from_model.py \
+    --source {{model_csv}} \
+    --output {{json_schema_dir}}
+
 # Generate the Python data models (dataclasses & pydantic)
 gen-python:
   uv run gen-project -d  {{pymodel}} -I python {{source_schema_path}}
@@ -155,37 +186,6 @@ gen-project:
   fi
   uv run gen-owl {{gen_owl_args}} {{source_schema_path}} > "{{dest}}/owl/{{schema_name}}.owl.ttl"
 
-# ============== Migrations recipes for Copier ==============
-
-# Hidden command to adjust the directory layout on upgrading a project
-# created with linkml-project-copier v0.1.x to v0.2.0 or newer.
-# Use with care! - It may not work for customized projects.
-_post_upgrade_v020: _wsl2_compat_check && _post_upgrade_v020py
-  mv docs/*.md docs/elements
-
-_post_upgrade_v020py:
-    #!{{shebang}}
-    import subprocess
-    from pathlib import Path
-    # Git move files from folder src to folder dest
-    tasks = [
-        (Path("src/docs/files"), Path("docs")),
-        (Path("src/docs/templates"), Path("docs/templates-linkml")),
-        (Path("src/data/examples"), Path("tests/data/")),
-    ]
-    for src, dest in tasks:
-        for path_obj in src.rglob("*"):
-            if not path_obj.is_file():
-                continue
-            file_dest = dest / path_obj.relative_to(src)
-            if not file_dest.parent.exists():
-                file_dest.parent.mkdir(parents=True)
-            print(f"Moving {path_obj} --> {file_dest}")
-            subprocess.run(["git", "mv", str(path_obj), str(file_dest)])
-    print(
-        "Migration to v0.2.x completed! Check the changes carefully before committing."
-    )
-
 # ============== Hidden internal recipes ==============
 
 # Show current project status
@@ -202,10 +202,6 @@ _check-config:
         print('**Project not configured**:\n - See \'.env.public\'')
         exit(1)
     print('Project-status: Ok')
-
-# Update project template
-_update-template:
-  copier update --trust --skip-answered
 
 # Update LinkML runtime and LinkML to latest versions
 _update-linkml:
