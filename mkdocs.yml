@@ -24,8 +24,6 @@ extra_javascript: []
 
 plugins:
   - search
-  - mknotebooks:
-      execute: false
   - mermaid2:
       version: 11.4.1
   # https://pypi.org/project/mkdocs-pymdownx-material-extras
@@ -67,5 +65,5 @@ nav:
 exclude_docs: |
   /templates-linkml/
 
-site_url: https://sagebio-ada.github.io/nam-hub-models
+#site_url: https://sagebio-ada.github.io/nam-hub-models
 repo_url: https://github.com/sagebio-ada/nam-hub-models

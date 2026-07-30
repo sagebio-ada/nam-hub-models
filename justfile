@@ -1,9 +1,3 @@
-# ============ Shell configuration for Windows ============
-
-# On Windows the "bash" shell from Git for Windows is used.
-# If Git is installed in a non-standard location, edit the path below.
-set windows-shell := ["C:/Program Files/Git/bin/bash", "-cu"]
-
 # ============ Variables used in recipes ============
 
 # Load environment variables from config.public.mk or specified file
@@ -32,15 +26,20 @@ json_schema_names := "Landscape Studies Datasets People Grants NAMs Publications
 _default: _status
     @just --list
 
-# Install project dependencies
+# Install the base dependencies needed to edit the schemas and run `just lint`
 [group('project management')]
 install:
-  uv sync --group dev
+  uv sync
 
-# Upgrade LinkML runtime and LinkML to the latest versions
+# Add the documentation toolchain on top of the base dependencies
 [group('project management')]
-update:
-  uv lock --upgrade-package linkml-runtime --upgrade-package linkml
+installdocs:
+  uv sync --group docs
+
+# Add the schema deployment toolchain on top of the base dependencies
+[group('project management')]
+installdeploy:
+  uv sync --group deploy
 
 # Clean all generated files
 [group('project management')]
@@ -74,7 +73,7 @@ gen-model: gen-csv gen-json
 # Convert the LinkML schemas to the CSV data model
 [group('model development')]
 gen-csv:
-  uv run python linkml_to_csv.py \
+  uv run --group deploy python linkml_to_csv.py \
     --schema {{source_schema_path}} \
     --enums {{ source_schema_dir / "enums.yaml" }} \
     --output {{model_csv}}
@@ -82,14 +81,9 @@ gen-csv:
 # Generate the portal JSON schemas from the CSV data model
 [group('model development')]
 gen-json:
-  uv run python create_json_from_model.py \
+  uv run --group deploy python create_json_from_model.py \
     --source {{model_csv}} \
     --output {{json_schema_dir}}
-
-# Deploy documentation site to Github Pages
-[group('deployment')]
-deploy: gen-doc
-  mkd-gh-deploy # NOTE: This doesn't currently work and probably won't
 
 # ============== Hidden internal recipes ==============
 
@@ -112,4 +106,4 @@ _gen-yaml:
 
 # Run documentation server
 _serve:
-  uv run mkdocs serve
+  uv run --group docs mkdocs serve
