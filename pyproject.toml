@@ -66,10 +66,6 @@ vcs = "git"
 style = "pep440"
 fallback-version = "0.0.0"
 
-# Ref.: https://docs.pytest.org/en/stable/reference/reference.html#configuration-options
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-
 # https://docs.astral.sh/ruff/configuration/
 [tool.ruff]
 exclude = [

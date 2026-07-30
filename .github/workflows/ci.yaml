@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Allow running the lint by hand from the Actions tab.
+  workflow_dispatch:
+
+concurrency:
+  # A new push to a branch cancels any run still in flight for it.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        # The base dependencies are enough: they supply linkml-lint and `just`.
+        run: uv sync
+
+      - name: Lint schemas
+        run: uv run just lint
