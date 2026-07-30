@@ -14,6 +14,13 @@ source_schema_path := source_schema_dir / schema_name + ".yaml"
 docdir := "docs/elements"  # Directory for generated documentation
 distrib_schema_path := "docs/schema"  # Directory for publishing schema artifacts
 
+# Confluence publishing. These recipes publish the docs that `just gen-doc` already
+# wrote, rather than having the publisher regenerate them.
+confluence_source := "--elements " + docdir
+
+confluence_config := env_var_or_default("CONFLUENCE_CONFIG", "")
+confluence_args := if confluence_config != "" { "--config " + confluence_config } else { "" }
+
 # Portal data model artifacts (see gen-model)
 model_csv := "namhub.model.csv"  # Intermediate CSV data model
 json_schema_dir := "json_schemas"  # Directory for generated portal JSON schemas
@@ -65,6 +72,32 @@ gen-doc: _gen-yaml
 # Build the docs and run a local preview server
 [group('model development')]
 testdoc: gen-doc _serve
+
+# Move the pinned confluence-publish-linkml commit up to the head of main
+[group('confluence')]
+confluence-update:
+  uv lock --upgrade-package confluence-publish-linkml
+  uv sync --group confluence
+
+# Show the Confluence page tree that would be published. Needs no credentials.
+[group('confluence')]
+confluence-plan: confluence-update gen-doc
+  uv run --group confluence python -m confluence_publish_linkml --print-plan {{confluence_source}}
+
+# Report what publishing would change, without writing anything to Confluence
+[group('confluence')]
+confluence-diff: confluence-update gen-doc
+  uv run --group confluence python -m confluence_publish_linkml --dry-run {{confluence_source}} {{confluence_args}}
+
+# Publish the docs to Confluence. Creates and updates real pages; never deletes.
+[group('confluence')]
+confluence-publish: confluence-update gen-doc
+  uv run --group confluence python -m confluence_publish_linkml {{confluence_source}} {{confluence_args}}
+
+# Rebuild the local page-id cache from Confluence, then publish
+[group('confluence')]
+confluence-republish: confluence-update gen-doc
+  uv run --group confluence python -m confluence_publish_linkml --refresh {{confluence_source}} {{confluence_args}}
 
 # Regenerate the CSV data model and the portal JSON schemas
 [group('model development')]

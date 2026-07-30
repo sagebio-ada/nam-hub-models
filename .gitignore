@@ -3,6 +3,12 @@
 # linkml-run-examples output (not useful to have in git in its current form)
 /examples/output/
 
+# Confluence publishing: local page-id cache, and any local destination config.
+/.confluence-manifest.json
+confluence.toml
+
+
+
 # Derived schemas, generated from the schema.yaml
 tmp/
 project/

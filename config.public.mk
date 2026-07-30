@@ -11,6 +11,8 @@ LINKML_SCHEMA_AUTHOR=""
 LINKML_SCHEMA_DESCRIPTION="A repository containing data models for NAMHub curation.."
 LINKML_SCHEMA_SOURCE_DIR="portal_schemas"
 
+CONFLUENCE_CONFIG=confluence.toml
+
 ###### linkml generator variables, used by justfile
 
 ## gen-project configuration file

@@ -8,19 +8,16 @@ description = "A repository containing data models for NAMHub curation.."
 authors = [
 
 ]
-license = "LicenseRef-Custom"
+license = "Apache-2.0"
 license-files = ["LICENSE"]
 readme = "README.md"
-requires-python = ">=3.10"
+
+requires-python = ">=3.11"
 dynamic = ["version"]
 
-# Everything needed to edit portal_schemas/*.yaml and run `just lint`. This is the
-# baseline for a normal contributor, so it lives here rather than in an opt-in group:
-# `uv sync` alone must produce a working editing-and-linting environment.
+# Everything needed to edit portal_schemas/*.yaml and run `just lint`. This is the baseline.
 dependencies = [
-  # Console scripts: linkml-lint (just lint), gen-doc, gen-yaml
   "linkml >=1.9.3",
-  # The `just` command runner itself, which fronts every recipe in the justfile
   "rust-just>=1.57.0",
 ]
 
@@ -28,13 +25,14 @@ dependencies = [
 # Rendering and serving the documentation site: `just installdocs`, then gen-doc /
 # testdoc. Builds on the base dependencies above, which supply gen-doc itself.
 docs = [
-    # Invoked directly as `mkdocs serve`; declared explicitly rather than relying on
-    # mkdocs-material to pull it in transitively. Capped below 2.0, which upstream has
-    # announced will remove the plugin system that mermaid2 and the extras rely on.
     "mkdocs>=1.6,<2",
     "mkdocs-material>=8.2.8",
     "mkdocs-mermaid2-plugin>=1.1.1",
     "mkdocs-pymdownx-material-extras>=2.5.6",
+]
+
+confluence = [
+    "confluence-publish-linkml",
 ]
 
 # Deploying the schema: the linkml_to_csv.py and create_json_from_model.py paths
@@ -45,14 +43,13 @@ deploy = [
     # Imported directly by linkml_to_csv.py and create_json_from_model.py
     "pyyaml>=6.0",
 ]
-# NOTE: create_json_from_model.py also exposes `--route schematic`, which is NOT
-# installable here and is left undeclared on purpose. Every published schematicpy
-# release caps synapseclient at <=4.8.0, so it cannot coexist with the
-# synapseclient[curator]>=4.13.0 that the default curator route requires. Adding it
-# to this group makes the group unresolvable.
 
-# See https://hatch.pypa.io/latest/config/build/#file-selection for how to
-# explicitly include files other than default into the build distributions.
+# Tracks main. NOTE: `branch` does not mean "latest" -- uv resolves it to a commit once
+# and pins that in uv.lock forever. Only `uv lock --upgrade-package` moves the pin;
+# `--refresh-package` does not, which is how this sat on the first commit for months.
+# The confluence-* justfile recipes run the upgrade for you, so use those.
+[tool.uv.sources]
+confluence-publish-linkml = { git = "ssh://git@github.com/sagebio-ada/confluence-publish-linkml", branch = "main" }
 
 [tool.hatch.version]
 source = "uv-dynamic-versioning"
@@ -72,7 +69,7 @@ exclude = [
 
 ]
 # Set oldest supported Python version
-target-version = "py310"
+target-version = "py311"
 
 # Ref.: https://github.com/codespell-project/codespell
 [tool.codespell]

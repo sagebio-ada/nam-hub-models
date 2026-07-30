@@ -22,6 +22,8 @@ theme:
 extra_css: []
 extra_javascript: []
 
+# Confluence publishing is not part of the MkDocs build. It reads the generated
+# docs/elements markdown directly -- see publish_schema_docs.py and `just confluence-*`.
 plugins:
   - search
   - mermaid2:
@@ -60,7 +62,6 @@ watch:
 nav:
   - Home: index.md
   - Schema: elements/index.md
-  - About: about.md
 
 exclude_docs: |
   /templates-linkml/
