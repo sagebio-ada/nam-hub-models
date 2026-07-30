@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "namhub"
 description = "A repository containing data models for NAMHub curation.."
 authors = [
-  {name = "Richard Abdill", email = "richard.abdill@sagebase.org"},
+
 ]
 license = "LicenseRef-Custom"
 license-files = ["LICENSE"]

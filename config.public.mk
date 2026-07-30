@@ -7,7 +7,7 @@
 # Note:
 # - just works fine with quoted variables of dot-env files like this one
 LINKML_SCHEMA_NAME="namhub"
-LINKML_SCHEMA_AUTHOR="Richard Abdill <richard.abdill@sagebase.org>"
+LINKML_SCHEMA_AUTHOR=""
 LINKML_SCHEMA_DESCRIPTION="A repository containing data models for NAMHub curation.."
 LINKML_SCHEMA_SOURCE_DIR="portal_schemas"
 
