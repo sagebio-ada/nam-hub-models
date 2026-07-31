@@ -362,6 +362,7 @@ enums:
       "svg":
       "Unknown":
       "Ome-zarr":
+      "Github Repo":
 
   DataCategoryEnum:
     description: Categorical label for data contained in a dataset.
@@ -430,12 +431,19 @@ enums:
     description: Level of data processing applied to the dataset.
     permissible_values:
       "Level 1":
+        description: Raw or minimally processed data.
       "Level 2":
+        description: Data that has undergone a basic or initial processing step, like quality control, alignment, or stitching.
       "Level 3":
+       description: Files that contain summary counts, coverage files, or other processed representations of the data.
       "Level 4":
+        description: Files that contain data related to applied models or aggregate representations of the data.
       "Auxiliary":
+        description: Additional files that contain information or experimental details, but do not contain data or processed derivatives.
       "Not Applicable":
+        description: Files that fall outside of the level structure or are uploaded as a package.
       "Metadata":
+       description: Files that are or will be stored and shared as metadata.
 
   NamContextEnum:
     description: NAM application context associated with files in the dataset.
@@ -489,6 +497,6 @@ enums:
       "Principal Investigator":
       "Co-Investigator":
       "Collaborator":
+      "Coordinating Center":
       "Trainee":
-      "Data Manager":
       Other:
