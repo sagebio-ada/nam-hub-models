@@ -355,7 +355,7 @@ slots:
 
   uploadByDate:
     description: Non-binding estimated date by which files are expected to be uploaded.
-    range: date
+    range: string
 
   dataContributionLead:
     description: Name of the individual responsible for uploading files.
