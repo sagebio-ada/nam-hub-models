@@ -34,8 +34,6 @@ Running `uv sync` once will install what is needed to **edit and lint the schema
 
 ### Documentation
 
-Templates can be edited in `docs/templates-limkml`. If the template you need to modify isn't already there, the defaults can be found in [the LinkML repository](https://github.com/linkml/linkml/tree/main/packages/linkml/src/linkml/generators/docgen/).
-
 | Command | Consequence |
 | --- | --- |
 | `just installdocs` | Re-runs `uv sync` to include dependencies for generating and deploying documentation |

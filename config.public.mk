@@ -19,7 +19,9 @@ CONFLUENCE_CONFIG=confluence.toml
 LINKML_GENERATORS_CONFIG_YAML=config.yaml
 
 ## pass args if gendoc ignores config.yaml (i.e. --no-mergeimports)
-LINKML_GENERATORS_DOC_ARGS="--template-directory docs/templates-linkml"
+## Note: --template-directory is supplied by the gen-doc recipe itself, which resolves
+## it from confluence-publish-linkml. Do not set it here.
+LINKML_GENERATORS_DOC_ARGS=
 
 ## pass args to workaround genowl rdfs config bug (linkml#1453)
 ##   (i.e. --no-type-objects --no-metaclasses --metadata-profile=rdfs)

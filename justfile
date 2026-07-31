@@ -18,6 +18,8 @@ distrib_schema_path := "docs/schema"  # Directory for publishing schema artifact
 # wrote, rather than having the publisher regenerate them.
 confluence_source := "--elements " + docdir
 
+doc_templates := "$(uv run --group confluence confluence-publish-linkml --template-dir)"
+
 confluence_config := env_var_or_default("CONFLUENCE_CONFIG", "")
 confluence_args := if confluence_config != "" { "--config " + confluence_config } else { "" }
 
@@ -67,7 +69,7 @@ lint:
 # Generate md documentation for the schema
 [group('model development')]
 gen-doc: _gen-yaml
-  uv run gen-doc {{gen_doc_args}} -d {{docdir}} {{source_schema_path}}
+  uv run --group confluence gen-doc --template-directory "{{doc_templates}}" {{gen_doc_args}} -d {{docdir}} {{source_schema_path}}
 
 # Build the docs and run a local preview server
 [group('model development')]
