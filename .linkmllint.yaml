@@ -1,0 +1,11 @@
+# Configuration for https://github.com/adrienverge/yamllint
+#   See also https://linkml.io/linkml/schemas/linter.html
+
+extends: recommended
+rules:
+  # Permissible values in enums.yaml are human-readable but violate
+  # the LinkML expectations
+  standard_naming:
+    level: disabled
+  canonical_prefixes:
+    level: disabled

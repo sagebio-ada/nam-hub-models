@@ -1,0 +1,97 @@
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[project]
+name = "namhub"
+description = "A repository containing data models for NAMHub curation.."
+authors = [
+
+]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+readme = "README.md"
+
+requires-python = ">=3.11"
+dynamic = ["version"]
+
+# Everything needed to edit portal_schemas/*.yaml and run `just lint`. This is the baseline.
+dependencies = [
+  "linkml >=1.9.3",
+  "rust-just>=1.57.0",
+]
+
+[dependency-groups]
+# Rendering and serving the documentation site: `just installdocs`, then gen-doc /
+# testdoc. Builds on the base dependencies above, which supply gen-doc itself.
+docs = [
+    "mkdocs>=1.6,<2",
+    "mkdocs-material>=8.2.8",
+    "mkdocs-mermaid2-plugin>=1.1.1",
+    "mkdocs-pymdownx-material-extras>=2.5.6",
+]
+
+confluence = [
+    "confluence-publish-linkml",
+]
+
+# Deploying the schema: the linkml_to_csv.py and create_json_from_model.py paths
+# behind `just gen-model` (gen-csv + gen-json), plus register_schema.py.
+deploy = [
+    # The "curator" extra provides generate_jsonschema, used by the gen-json route
+    "synapseclient[curator]>=4.13.0",
+    # Imported directly by linkml_to_csv.py and create_json_from_model.py
+    "pyyaml>=6.0",
+]
+
+# Tracks main. NOTE: `branch` does not mean "latest" -- uv resolves it to a commit once
+# and pins that in uv.lock forever. Only `uv lock --upgrade-package` moves the pin;
+# `--refresh-package` does not, which is how this sat on the first commit for months.
+# The confluence-* justfile recipes run the upgrade for you, so use those.
+[tool.uv.sources]
+confluence-publish-linkml = { git = "ssh://git@github.com/sagebio-ada/confluence-publish-linkml", branch = "main" }
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.hatch.build.targets.wheel]
+packages = ["portal_schemas"]
+
+# Ref.: https://github.com/ninoseki/uv-dynamic-versioning/
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "pep440"
+fallback-version = "0.0.0"
+
+# https://docs.astral.sh/ruff/configuration/
+[tool.ruff]
+exclude = [
+
+]
+# Set oldest supported Python version
+target-version = "py311"
+
+# Ref.: https://github.com/codespell-project/codespell
+[tool.codespell]
+skip = [
+  "LICENSE",
+  "pyproject.toml",
+  "uv.lock",
+  "project/*",
+]
+
+# Reminder: words have to be lowercased for the ignore-words-list
+ignore-words-list = "linke"
+quiet-level = 3
+
+# Ref.: https://github.com/crate-ci/typos (spell checker)
+[tool.typos.default.extend-words]
+linke = "linke"
+
+[tool.typos.files]
+extend-exclude = [
+  "LICENSE",
+  "uv.lock",
+  "pyproject.toml",
+  "project/*"
+]

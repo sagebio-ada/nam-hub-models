@@ -1,0 +1,7 @@
+[linkml_confluence]
+site = "sagebionetworks.jira.com"
+space = "NAMHub"
+root_page_id = "1234"
+publication_id = "namhub-schema-docs"
+email = "your-account-here"
+token = "your-token-here"
