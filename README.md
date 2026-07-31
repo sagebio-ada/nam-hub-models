@@ -30,6 +30,8 @@ Running `uv sync` once will install what is needed to **edit and lint the schema
 | Command | Consequence |
 | --- | --- |
 | `just lint` | Reports LinkML lint findings. |
+| `just lint-py` | Reports `ruff` findings for the Python scripts and `tests/`. |
+| `just test` | Lints the Python, then runs the integration tests in `tests/` — these regenerate the artifacts and validate the example corpus. |
 | `just gen-model` | Rewrites `namhub.model.csv` and the seven schemas in `json_schemas/` from the LinkML sources in `portal_schemas/`. |
 
 ### Documentation
@@ -39,7 +41,6 @@ Running `uv sync` once will install what is needed to **edit and lint the schema
 | `just installdocs` | Re-runs `uv sync` to include dependencies for generating and deploying documentation |
 | `just gen-doc` | Regenerates `docs/elements/` and the merged schema at `docs/schema/namhub.yaml`. |
 | `just testdoc` | Rebuilds the docs, then serves them at http://127.0.0.1:8000 until interrupted. |
-
 
 ### Housekeeping
 
@@ -64,3 +65,4 @@ These will generally not need to be run directly, but are available as utilities
 | *(base)* | `just install` | Editing `portal_schemas/*.yaml`, `just lint`, `just gen-doc` |
 | `docs` | `just installdocs` | Building and serving the documentation site (`just testdoc`) |
 | `deploy` | `just installdeploy` | Generating the CSV model and portal JSON schemas (`just gen-model`) |
+| `dev` | *(synced on demand)* | Linting and testing (`just lint-py`, `just test`) |

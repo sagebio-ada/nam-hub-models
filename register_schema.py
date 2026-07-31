@@ -38,7 +38,7 @@ def get_latest_version(service: JsonSchemaService) -> str:
     ]
     if not sem_versions:
         return CURRENT_VERSION
-    return sorted(sem_versions, key=lambda v: list(map(int, v.split("."))))[-1]
+    return max(sem_versions, key=lambda v: list(map(int, v.split("."))))
 
 
 def main() -> None:
@@ -69,13 +69,12 @@ def main() -> None:
     schema["$id"] = schema_id
 
     print(f"{'[dry-run] ' if args.dry_run else ''}Registering: {schema_id}")
-    result = service.create_json_schema(schema, dry_run=args.dry_run)
+    service.create_json_schema(schema, dry_run=args.dry_run)
 
     if args.dry_run:
         print("Dry-run validation passed.")
     else:
-        info = result.version_info if hasattr(result, "version_info") else result
-        print(f"Registered successfully.")
+        print("Registered successfully.")
         print(f"  $id:     {schema_id}")
         print(f"  version: {new_version}")
 

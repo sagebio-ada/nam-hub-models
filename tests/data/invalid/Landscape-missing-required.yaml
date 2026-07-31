@@ -1,0 +1,4 @@
+# MUST FAIL: omits most of the 15 slots Landscape marks required in slot_usage.
+# Only landscapeId and datasetName are supplied.
+landscapeId: LS-BAD-001
+datasetName: Incomplete landscape submission

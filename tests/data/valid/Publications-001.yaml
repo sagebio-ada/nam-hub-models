@@ -1,0 +1,23 @@
+# Publications row with every slot populated.
+pubMedId: "38123456"
+publicationTitle: >-
+  Concentration-dependent hepatotoxicity endpoints in primary human hepatocyte
+  organoids
+authors: Lovelace A, Hopper G, Johnson K
+journal: Toxicological Sciences
+publicationYear: 2026
+doi: https://doi.org/10.1234/example.pub.001
+pubMedLink: https://pubmed.ncbi.nlm.nih.gov/38123456/
+keywords:
+  - hepatotoxicity
+  - organoid
+  - new approach methods
+studyId: STUDY-001
+grantId: GRANT-001
+namId:
+  - NAM-001
+dataType:
+  - gene expression
+assay:
+  - RNA-seq
+synapseEntityId: syn75404744

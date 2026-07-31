@@ -1,0 +1,26 @@
+# Studies row with every slot populated, exercising the ^syn\d+$ pattern on
+# synapseProjectId and the uri range on studyDoi.
+studyId: STUDY-001
+studyName: Hepatic NAM Technology Development Center
+studyLeads:
+  - Ada Lovelace
+  - Grace Hopper
+summary: >-
+  Develops and validates liver-on-chip and hepatocyte organoid methods for
+  predicting drug-induced liver injury without animal models.
+institution:
+  - Example University
+  - Institute for Alternative Methods
+fundingAgency:
+  - NIH Common Fund
+synapseProjectId: syn74360399
+studyDoi: https://doi.org/10.1234/example.study.001
+diseaseFocus:
+  - Drug-induced liver injury
+  - Metabolic dysfunction-associated steatotic liver disease
+alternateName:
+  - HepNAM-TDC
+NAMsTechFocus:
+  - Organ-on-chip
+  - Organoid models
+grantId: GRANT-001
