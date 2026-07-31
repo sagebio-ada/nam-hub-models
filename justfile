@@ -26,8 +26,10 @@ confluence_args := if confluence_config != "" { "--config " + confluence_config 
 # Portal data model artifacts (see gen-model)
 model_csv := "namhub.model.csv"  # Intermediate CSV data model
 json_schema_dir := "json_schemas"  # Directory for generated portal JSON schemas
-# Must stay in sync with DATA_TYPES in create_json_from_model.py
-json_schema_names := "Landscape Studies Datasets People Grants NAMs Publications"
+
+# Output of the temporary schematicpy cross-check (see gen-json-schematic). Kept apart
+# from json_schema_dir because schematic names properties differently; gitignored.
+schematic_schema_dir := "json_schemas_schematic"
 
 # ============== Project recipes ==============
 
