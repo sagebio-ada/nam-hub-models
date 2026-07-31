@@ -1,17 +1,34 @@
 CSV     := namhub.model.csv
 SCHEMAS := portal_schemas/namhub.yaml portal_schemas/enums.yaml
 
+# curator (default) or schematic — must match between the two steps, since
+# each expects the CSV format the other produces.
+FORMAT  := curator
+ROUTE   := curator
+
 all: generate-csv generate-json
 
-# Convert LinkML portal_schemas/ → schematic-compatible CSV
+# Convert LinkML portal_schemas/ → CSV data model (--format curator|schematic)
 generate-csv: $(SCHEMAS)
-	@echo "Converting LinkML schemas to schematic CSV..."
-	python linkml_to_csv.py --output $(CSV)
+	@if [ "$(FORMAT)" = "schematic" ]; then \
+		python -c "import schematic" >/dev/null 2>&1 || { \
+			echo "schematic (schematicpy) is not available in this environment — cannot use FORMAT=schematic. Activate an environment with schematicpy installed and try again." >&2; \
+			exit 1; \
+		}; \
+	fi
+	@echo "Converting LinkML schemas to CSV ($(FORMAT) format)..."
+	python linkml_to_csv.py --format $(FORMAT) --output $(CSV)
 
-# Generate JSON Schema from the CSV via synapseclient curator
+# Generate JSON Schema from the CSV (--route curator|schematic)
 generate-json: $(CSV)
-	@echo "Generating JSON schemas..."
-	python create_json_from_model.py
+	@if [ "$(ROUTE)" = "schematic" ]; then \
+		python -c "import schematic" >/dev/null 2>&1 || { \
+			echo "schematic (schematicpy) is not available in this environment — cannot use ROUTE=schematic. Activate an environment with schematicpy installed and try again." >&2; \
+			exit 1; \
+		}; \
+	fi
+	@echo "Generating JSON schemas ($(ROUTE) route)..."
+	python create_json_from_model.py --route $(ROUTE)
 
 clean:
 	rm -f $(CSV)

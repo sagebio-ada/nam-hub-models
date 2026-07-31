@@ -3,72 +3,91 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "One row per Technology Development Center (TDC) study in the NAMHub program. Synapse table: syn75404711.",
   "properties": {
+    "AlternateName": {
+      "description": "Acronym or short name for the study.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Alternate Name",
+      "type": "array"
+    },
+    "DiseaseFocus": {
+      "description": "Disease areas or conditions the study addresses.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Disease Focus",
+      "type": "array"
+    },
+    "FundingAgency": {
+      "description": "Funding agency or agencies (e.g. NIH Common Fund).",
+      "items": {
+        "type": "string"
+      },
+      "title": "Funding Agency",
+      "type": "array"
+    },
+    "GrantId": {
+      "description": "Grant identifier linking to the Grants table (syn75404715).",
+      "title": "Grant_id",
+      "type": "string"
+    },
+    "Institution": {
+      "description": "Affiliated institution(s).",
+      "items": {
+        "type": "string"
+      },
+      "title": "Institution",
+      "type": "array"
+    },
     "NAMsTechFocus": {
       "description": "New Approach Methodology technology focus areas.",
-      "title": "NAMsTechFocus"
-    },
-    "alternateName": {
-      "description": "Acronym or short name for the study.",
-      "title": "alternateName"
-    },
-    "diseaseFocus": {
-      "description": "Disease areas or conditions the study addresses.",
-      "title": "diseaseFocus"
-    },
-    "fundingAgency": {
-      "description": "Funding agency or agencies (e.g. NIH Common Fund).",
-      "title": "fundingAgency"
-    },
-    "grantId": {
-      "description": "Grant identifier linking to the Grants table (syn75404715).",
-      "not": {
-        "type": "null"
+      "items": {
+        "type": "string"
       },
-      "title": "grantId"
+      "title": "NAMs Tech Focus",
+      "type": "array"
     },
-    "institution": {
-      "description": "Affiliated institution(s).",
-      "title": "institution"
-    },
-    "modelTypeDesc": {
-      "description": "Description of the key model type or approach used.",
-      "title": "modelTypeDesc"
-    },
-    "studyDoi": {
+    "StudyDoi": {
       "description": "Digital Object Identifier (DOI) for the study.",
-      "title": "studyDoi"
+      "format": "uri",
+      "title": "Study Doi",
+      "type": "string"
     },
-    "studyId": {
+    "StudyId": {
       "description": "Study identifier linking to the Studies table (syn75404711).",
-      "not": {
-        "type": "null"
-      },
-      "title": "studyId"
+      "title": "Study_id",
+      "type": "string"
     },
-    "studyLeads": {
+    "StudyLeads": {
       "description": "Principal investigators or study leads.",
-      "title": "studyLeads"
-    },
-    "studyName": {
-      "description": "Full display name of the study.",
-      "not": {
-        "type": "null"
+      "items": {
+        "type": "string"
       },
-      "title": "studyName"
+      "title": "Study Leads",
+      "type": "array"
     },
-    "summary": {
+    "StudyName": {
+      "description": "Full display name of the study.",
+      "title": "Study Name",
+      "type": "string"
+    },
+    "Summary": {
       "description": "Brief description of the study's goals and approach.",
-      "title": "summary"
+      "title": "Summary",
+      "type": "string"
     },
-    "synapseProjectId": {
+    "SynapseProjectId": {
       "description": "Synapse project entity ID housing the study's files.",
-      "title": "synapseProjectId"
+      "pattern": "^syn\\d+$",
+      "title": "Synapse Project_id",
+      "type": "string"
     }
   },
   "required": [
-    "grantId",
-    "studyId",
-    "studyName"
+    "GrantId",
+    "StudyId",
+    "StudyName"
   ],
   "title": "Studies",
   "type": "object"
