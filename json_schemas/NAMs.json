@@ -10,10 +10,22 @@
     },
     "AccessType": {
       "description": "Data access level.",
-      "enum": [
-        "Controlled",
-        "Embargoed",
-        "Open"
+      "oneOf": [
+        {
+          "const": "Controlled",
+          "description": "Requires approval via Synapse Access Requirements.",
+          "title": "Controlled"
+        },
+        {
+          "const": "Embargoed",
+          "description": "Temporarily restricted; will become open after embargo lifts.",
+          "title": "Embargoed"
+        },
+        {
+          "const": "Open",
+          "description": "Publicly accessible without restrictions.",
+          "title": "Open"
+        }
       ],
       "title": "Access Type"
     },
@@ -35,11 +47,27 @@
     },
     "DevelopmentStatus": {
       "description": "Current development stage of the NAM.",
-      "enum": [
-        "Deprecated",
-        "InDevelopment",
-        "Prototype",
-        "Validated"
+      "oneOf": [
+        {
+          "const": "Deprecated",
+          "description": "Method is no longer actively maintained.",
+          "title": "Deprecated"
+        },
+        {
+          "const": "InDevelopment",
+          "description": "Method is being actively developed.",
+          "title": "InDevelopment"
+        },
+        {
+          "const": "Prototype",
+          "description": "Early-stage implementation.",
+          "title": "Prototype"
+        },
+        {
+          "const": "Validated",
+          "description": "Method has been formally validated.",
+          "title": "Validated"
+        }
       ],
       "title": "Development Status"
     },

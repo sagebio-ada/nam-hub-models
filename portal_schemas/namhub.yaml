@@ -337,7 +337,9 @@ slots:
     range: FileFormatEnum
 
   datasetCategory:
-    description: Categorical label for data contained in the dataset.
+    description: >-
+      Type of data or scientific content represented in the dataset (e.g. gene
+      expression, imaging, clinical data) — see valid values for the full list.
     range: DataCategoryEnum
 
   datasetProcessingLevel:
@@ -346,7 +348,10 @@ slots:
 
   contextOfUse:
     description: >-
-      NAM application context(s) associated with files in the dataset.
+      Free-text statement of the intended context(s) of use for this dataset —
+      how and for what purpose the data is meant to be used, following the FDA
+      Biomarker Qualification Program's Context of Use framework
+      (https://www.fda.gov/drugs/biomarker-qualification-program/context-use).
       Multiple values permitted.
     multivalued: true
 
@@ -359,12 +364,15 @@ slots:
     range: integer
 
   expectedNumberOfSamples:
-    description: Number of biospecimens associated with the files in the dataset.
+    description: >-
+      Estimated total number of physical biospecimen samples represented in the
+      dataset (e.g. 200 participants at 3 time points = 600 total samples). Distinct
+      from expectedNumberOfFiles, which counts the files expected to be submitted.
     range: integer
 
   uploadByDate:
     description: Non-binding estimated date by which files are expected to be uploaded.
-    range: date
+    range: string
 
   dataContributionLead:
     description: Name of the individual responsible for uploading files.

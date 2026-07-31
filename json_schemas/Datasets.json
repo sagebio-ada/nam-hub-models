@@ -5,10 +5,22 @@
   "properties": {
     "AccessType": {
       "description": "Data access level.",
-      "enum": [
-        "Controlled",
-        "Embargoed",
-        "Open"
+      "oneOf": [
+        {
+          "const": "Controlled",
+          "description": "Requires approval via Synapse Access Requirements.",
+          "title": "Controlled"
+        },
+        {
+          "const": "Embargoed",
+          "description": "Temporarily restricted; will become open after embargo lifts.",
+          "title": "Embargoed"
+        },
+        {
+          "const": "Open",
+          "description": "Publicly accessible without restrictions.",
+          "title": "Open"
+        }
       ],
       "title": "Access Type"
     },
