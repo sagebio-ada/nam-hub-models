@@ -51,12 +51,12 @@
     "Role": {
       "description": "Role in the NAMHub program.",
       "enum": [
+        "Principal Investigator",
         "Co-Investigator",
         "Collaborator",
-        "CoordinatingCenter",
-        "Other",
-        "PrincipalInvestigator",
-        "Trainee"
+        "Coordinating Center",
+        "Trainee",
+        "Other"
       ],
       "title": "Role"
     },
@@ -73,9 +73,7 @@
   },
   "required": [
     "FirstName",
-    "GrantId",
-    "LastName",
-    "StudyId"
+    "LastName"
   ],
   "title": "People",
   "type": "object"
