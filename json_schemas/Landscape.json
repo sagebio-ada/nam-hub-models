@@ -195,7 +195,6 @@
         "Sangersequencing",
         "ScCGI-seq",
         "Scale",
-        "SecondEdition",
         "Single-cellRNA-seq",
         "Single-nucleusRNA-seq",
         "SinglecellATAC-seq",
@@ -204,6 +203,7 @@
         "Skindex-16",
         "Smallmoleculelibraryscreen",
         "SocialResponsivenessScale",
+        "SocialResponsivenessScaleSecondEdition",
         "SomaScan",
         "Sorbitoldehydrogenaseactivitylevelassay",
         "Spatialfrequencydomainimaging",
@@ -268,6 +268,7 @@
         "Maskimage",
         "Massspectrometrydata",
         "Metabolomics",
+        "Model",
         "Molecularproperty",
         "Morphologyparameter",
         "Network",
@@ -529,7 +530,6 @@
     },
     "UploadByDate": {
       "description": "Non-binding estimated date by which files are expected to be uploaded.",
-      "format": "date",
       "title": "Upload By Date",
       "type": "string"
     }
