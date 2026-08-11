@@ -1,0 +1,5 @@
+# MUST FAIL: `datasetOwner` is not a slot on Datasets. Required `title` is
+# present, so an undefined property is the only reason this should be rejected.
+title: Dataset carrying a slot that does not exist in the schema
+studyId: STUDY-001
+datasetOwner: Ada Lovelace

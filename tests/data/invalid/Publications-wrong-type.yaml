@@ -1,0 +1,6 @@
+# MUST FAIL: publicationYear has range integer but is given a string, and
+# keywords is multivalued but is given a scalar. Required publicationTitle is
+# present, so the type violations are the only reason this should be rejected.
+publicationTitle: Publication with a non-numeric year
+publicationYear: two thousand twenty-six
+keywords: hepatotoxicity

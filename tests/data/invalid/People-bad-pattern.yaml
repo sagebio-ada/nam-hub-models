@@ -1,0 +1,7 @@
+# MUST FAIL: orcidId is truncated (pattern requires four hyphen-separated
+# groups) and email has no domain part. Both required slots are present, so the
+# pattern violations are the only reason this should be rejected.
+firstName: Ada
+lastName: Lovelace
+orcidId: 0000-0002-1825
+email: ada.lovelace.example.edu

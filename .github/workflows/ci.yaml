@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-  # Allow running the lint by hand from the Actions tab.
+  # Allow running the checks by hand from the Actions tab.
   workflow_dispatch:
 
 concurrency:
@@ -24,8 +24,26 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        # The base dependencies are enough: they supply linkml-lint and `just`.
-        run: uv sync
+        run: uv sync --group dev
 
       - name: Lint schemas
         run: uv run just lint
+
+      - name: Lint Python
+        run: uv run just lint-py
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --group dev --group deploy
+
+      - name: Run tests
+        run: uv run just test

@@ -26,8 +26,10 @@ confluence_args := if confluence_config != "" { "--config " + confluence_config 
 # Portal data model artifacts (see gen-model)
 model_csv := "namhub.model.csv"  # Intermediate CSV data model
 json_schema_dir := "json_schemas"  # Directory for generated portal JSON schemas
-# Must stay in sync with DATA_TYPES in create_json_from_model.py
-json_schema_names := "Landscape Studies Datasets People Grants NAMs Publications"
+
+# Output of the temporary schematicpy cross-check (see gen-json-schematic). Kept apart
+# from json_schema_dir because schematic names properties differently; gitignored.
+schematic_schema_dir := "json_schemas_schematic"
 
 # ============== Project recipes ==============
 
@@ -59,12 +61,23 @@ clean: clean-generated
 [group('project management')]
 clean-generated:
   rm -f {{model_csv}}
-  rm -f {{ prepend(json_schema_dir / "", append(".json", json_schema_names)) }}
+  rm -f {{json_schema_dir}}/*.json
+  rm -rf {{schematic_schema_dir}}
 
 # Run linting
 [group('model development')]
 lint:
   uv run linkml-lint {{source_schema_dir}}
+
+# Lint the Python scripts
+[group('model development')]
+lint-py:
+  uv run --group dev ruff check .
+
+# Lint the Python, then run the integration tests
+[group('model development')]
+test: lint-py
+  uv run --group dev --group deploy pytest
 
 # Generate md documentation for the schema
 [group('model development')]
@@ -119,6 +132,22 @@ gen-json:
   uv run --group deploy python create_json_from_model.py \
     --source {{model_csv}} \
     --output {{json_schema_dir}}
+
+# Runs outside the project venv on purpose.  schematicpy can't live with a
+# curator-aware synapseclient. The pins are not optional; they're wrong in schematicpy
+
+# Cross-check gen-json against the legacy schematicpy pathway
+[group('model development')]
+gen-json-schematic:
+  uv run --no-project --python 3.11 \
+    --with 'schematicpy==25.8.1' \
+    --with 'pyyaml>=6.0' \
+    --with 'opentelemetry-sdk==1.38.0' \
+    --with 'opentelemetry-api==1.38.0' \
+    --with 'opentelemetry-exporter-otlp-proto-http==1.38.0' \
+    python schematic_route.py \
+    --source {{model_csv}} \
+    --output {{schematic_schema_dir}}
 
 # ============== Hidden internal recipes ==============
 

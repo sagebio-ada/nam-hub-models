@@ -1,0 +1,14 @@
+# Grants row with every slot populated.
+grantId: GRANT-001
+grantName: Hepatic New Approach Methods Technology Development Center
+grantNumber: UM1TR006029
+grantType: UM1
+grantInstitution: Example University
+abstract: >-
+  Establishes a technology development center for liver-focused new approach
+  methods, spanning organoid, organ-on-chip, and in silico modelling.
+investigator: Ada Lovelace
+fundingAgency:
+  - NIH Common Fund
+  - NCATS
+nihReporterLink: https://reporter.nih.gov/project-details/10000000

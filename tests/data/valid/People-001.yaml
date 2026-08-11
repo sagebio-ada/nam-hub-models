@@ -1,0 +1,14 @@
+# People row with every slot populated. orcidId and email both exercise
+# pattern constraints, and portalDisplay exercises the boolean range.
+investigatorId: PERSON-001
+firstName: Ada
+lastName: Lovelace
+institution:
+  - Example University
+role: Principal Investigator
+studyId: STUDY-001
+grantId: GRANT-001
+orcidId: 0000-0002-1825-0097
+synapseId: "3421234"
+email: ada.lovelace@example.edu
+portalDisplay: true

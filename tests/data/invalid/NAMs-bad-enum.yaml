@@ -1,0 +1,7 @@
+# MUST FAIL: "Under Review" is not a permissible value of DevelopmentStatusEnum
+# (Validated, In Development, Prototype, Deprecated). Both required slots are
+# present, so the enum violation is the only reason this should be rejected.
+namId:
+  - NAM-BAD-001
+namName: NAM with an out-of-vocabulary development status
+developmentStatus: Under Review

@@ -1,0 +1,29 @@
+# Landscape entry with every slot populated, including the optional ones.
+landscapeId: LS-001
+datasetName: Hepatocyte organoid dose-response transcriptomics
+datasetDescription: >-
+  Bulk RNA-seq of primary human hepatocyte organoids exposed to a panel of
+  reference hepatotoxicants across five concentrations and three time points.
+datasetAssay: RNA-seq
+datasetSpecies: Homo sapiens
+datasetFileFormats:
+  - fastq
+  - bam
+  - csv
+datasetCategory: gene expression
+datasetProcessingLevel: Level 2
+contextOfUse:
+  - >-
+    Supporting evidence for hepatotoxicity screening in early candidate
+    selection, not intended as a standalone regulatory endpoint.
+  - Benchmarking organoid response against existing in vivo reference data.
+applicableStandards: MIAME; NAMO; Croissant
+expectedNumberOfFiles: 480
+expectedNumberOfSamples: 160
+# Quoted: unquoted YAML dates are parsed into datetime.date objects, which the
+# validator rejects against the `date` range's underlying string type.
+uploadByDate: "2026-09-30"
+dataContributionLead: Ada Lovelace
+studyName: Hepatic NAM Technology Development Center
+studyAim: Aim 2 -- establish dose-response reproducibility across organoid batches
+comments: Sample-level metadata will be submitted alongside the first upload batch.

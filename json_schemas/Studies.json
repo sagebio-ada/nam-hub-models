@@ -85,7 +85,6 @@
     }
   },
   "required": [
-    "GrantId",
     "StudyId",
     "StudyName"
   ],

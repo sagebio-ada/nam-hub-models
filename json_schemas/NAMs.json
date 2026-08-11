@@ -12,6 +12,11 @@
       "description": "Data access level.",
       "oneOf": [
         {
+          "const": "Open",
+          "description": "Publicly accessible without restrictions.",
+          "title": "Open"
+        },
+        {
           "const": "Controlled",
           "description": "Requires approval via Synapse Access Requirements.",
           "title": "Controlled"
@@ -20,11 +25,6 @@
           "const": "Embargoed",
           "description": "Temporarily restricted; will become open after embargo lifts.",
           "title": "Embargoed"
-        },
-        {
-          "const": "Open",
-          "description": "Publicly accessible without restrictions.",
-          "title": "Open"
         }
       ],
       "title": "Access Type"
@@ -49,14 +49,14 @@
       "description": "Current development stage of the NAM.",
       "oneOf": [
         {
-          "const": "Deprecated",
-          "description": "Method is no longer actively maintained.",
-          "title": "Deprecated"
+          "const": "Validated",
+          "description": "Method has been formally validated.",
+          "title": "Validated"
         },
         {
-          "const": "InDevelopment",
+          "const": "In Development",
           "description": "Method is being actively developed.",
-          "title": "InDevelopment"
+          "title": "In Development"
         },
         {
           "const": "Prototype",
@@ -64,9 +64,9 @@
           "title": "Prototype"
         },
         {
-          "const": "Validated",
-          "description": "Method has been formally validated.",
-          "title": "Validated"
+          "const": "Deprecated",
+          "description": "Method is no longer actively maintained.",
+          "title": "Deprecated"
         }
       ],
       "title": "Development Status"
@@ -131,18 +131,18 @@
       "description": "Organism(s) the NAM is derived from or applicable to.",
       "items": {
         "enum": [
-          "Daniorerio",
-          "Drosophilamelanogaster",
-          "Gallusgallus",
-          "Homosapiens",
-          "Macacanemestrina",
-          "Musmusculus",
-          "Musmusculus(humanized)",
-          "Oryctolaguscuniculus",
-          "Pantroglodytes",
-          "Rattusnorvegicus",
-          "Rhesusmacaque",
-          "Susscrofa",
+          "Danio rerio",
+          "Drosophila melanogaster",
+          "Gallus gallus",
+          "Homo sapiens",
+          "Mus musculus",
+          "Macaca nemestrina",
+          "Mus musculus (humanized)",
+          "Oryctolagus cuniculus",
+          "Pan troglodytes",
+          "Rattus norvegicus",
+          "Rhesus macaque",
+          "Sus scrofa",
           "Unknown"
         ],
         "type": "string"
@@ -185,8 +185,7 @@
   },
   "required": [
     "NamId",
-    "NamName",
-    "StudyId"
+    "NamName"
   ],
   "title": "NAMs",
   "type": "object"

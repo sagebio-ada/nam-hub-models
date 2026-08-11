@@ -1,0 +1,39 @@
+# NAMs row with every slot populated. Note that namId is multivalued here while
+# the Datasets/Publications tables reference it the same way; namoId exercises
+# the ^NAMO:\d+$ pattern and synapseEntityId the ^syn\d+$ pattern.
+namId:
+  - NAM-001
+namName: Primary human hepatocyte organoid dose-response platform
+description: >-
+  Three-dimensional primary human hepatocyte organoid system for measuring
+  concentration-dependent hepatotoxicity endpoints.
+developmentStatus: In Development
+namoClass: Organoid
+namoCategory: InVitroBiological
+namoId: NAMO:0000123
+organism:
+  - Homo sapiens
+tissueOrCellType:
+  - Liver
+  - Primary hepatocyte
+endpointsMeasured:
+  - Cell viability
+  - ATP depletion
+  - Albumin secretion
+studyId: STUDY-001
+datasetId: syn75404801
+relatedPublications:
+  - "38123456"
+  - "38234567"
+externalLink: https://example.org/nams/hepatocyte-organoid
+synapseEntityId: syn75404716
+accessType: Open
+accessRequirements: None; data is released without an Access Requirement.
+duoCode:
+  - GRU
+  - HMB
+acknowledgementStatements: >-
+  Please cite the Hepatic NAM Technology Development Center and NIH Common Fund
+  award UM1TR006029.
+license: CC-BY-4.0
+portalDisplay: true

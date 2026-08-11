@@ -35,6 +35,14 @@ confluence = [
     "confluence-publish-linkml",
 ]
 
+# Linting and testing the Python scripts: `just lint-py` and `just test`. Config lives
+# in [tool.ruff] and [tool.pytest.ini_options] below. pytest arrives transitively via
+# linkml, but the test suite depends on it directly, so it is pinned here too.
+dev = [
+    "pytest>=8",
+    "ruff>=0.14",
+]
+
 # Deploying the schema: the linkml_to_csv.py and create_json_from_model.py paths
 # behind `just gen-model` (gen-csv + gen-json), plus register_schema.py.
 deploy = [
@@ -62,6 +70,16 @@ packages = ["portal_schemas"]
 vcs = "git"
 style = "pep440"
 fallback-version = "0.0.0"
+
+# https://docs.pytest.org/en/stable/reference/customize.html
+[tool.pytest.ini_options]
+# Confines collection to tests/, which holds the integration tests -- so `just test` is
+# "lint, then exercise the pipeline end to end". OTHERtesting/ holds the unit tier:
+# invariant checks that run nothing, plus per-module stubs. It has no recipe and is not
+# picked up here; run it by hand with
+#   uv run --group dev --group deploy pytest OTHERtesting
+testpaths = ["tests"]
+addopts = "-ra"
 
 # https://docs.astral.sh/ruff/configuration/
 [tool.ruff]

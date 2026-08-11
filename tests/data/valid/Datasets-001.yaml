@@ -1,0 +1,32 @@
+# Datasets row with every slot populated. Covers the boolean range
+# (hasCroissantMetadata), the integer ranges, and three multivalued enums.
+datasetId: syn75404801
+title: Hepatocyte organoid dose-response transcriptomics (Level 2)
+description: >-
+  Aligned reads and per-sample count matrices for the hepatotoxicant
+  dose-response series.
+studyId: STUDY-001
+studyName: Hepatic NAM Technology Development Center
+assay:
+  - RNA-seq
+  - single-cell RNA-seq
+dataType:
+  - gene expression
+  - count matrix
+species:
+  - Homo sapiens
+format:
+  - bam
+  - csv
+repository: Synapse
+externalLink: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE000000
+doi: https://doi.org/10.1234/example.dataset.001
+releaseDate: "2026-04-15"  # quoted; see the note in Landscape-001.yaml
+datasetItemCount: 480
+datasetSizeInBytes: 1099511627776
+hasCroissantMetadata: true
+croissantMetadataUrl: https://example.org/croissant/dataset-001.json
+accessType: Controlled
+namId:
+  - NAM-001
+  - NAM-002
