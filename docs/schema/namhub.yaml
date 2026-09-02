@@ -1,0 +1,2783 @@
+name: namhub
+description: "NAMHub portal data schemas \u2014 backend Synapse tables and the Landscape\
+  \ data collection form. Portal tables are backed by Synapse project syn74360399.\
+  \ NAM classification uses the New Approach Methods Ontology (NAMO) developed by\
+  \ the Monarch Initiative (https://github.com/monarch-initiative/namo)."
+id: https://namhub.synapse.org/portal_schemas
+imports:
+- linkml:types
+- enums
+license: https://creativecommons.org/publicdomain/zero/1.0/
+prefixes:
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  namhub:
+    prefix_prefix: namhub
+    prefix_reference: https://namhub.synapse.org/portal_schemas/
+  namo:
+    prefix_prefix: namo
+    prefix_reference: https://github.com/monarch-initiative/namo/
+  duo:
+    prefix_prefix: duo
+    prefix_reference: http://purl.obolibrary.org/obo/DUO_
+  schema:
+    prefix_prefix: schema
+    prefix_reference: http://schema.org/
+default_prefix: namhub
+default_range: string
+types:
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string. If you are authoring schemas in LinkML YAML, the type is referenced
+      with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+enums:
+  AssayEnum:
+    name: AssayEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/AssayEnum
+    description: Experimental method used to generate files in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      ATAC-seq:
+        text: ATAC-seq
+      CAPP-seq:
+        text: CAPP-seq
+      CUT&RUN:
+        text: CUT&RUN
+      ChIP-seq:
+        text: ChIP-seq
+      ERR bisulfite sequencing:
+        text: ERR bisulfite sequencing
+      HI-C:
+        text: HI-C
+      ISO-seq:
+        text: ISO-seq
+      NOMe-seq:
+        text: NOMe-seq
+      RNA array:
+        text: RNA array
+      RNA-seq:
+        text: RNA-seq
+      SNP array:
+        text: SNP array
+      SaferSeqS:
+        text: SaferSeqS
+      Sanger sequencing:
+        text: Sanger sequencing
+      T cell receptor repertoire sequencing:
+        text: T cell receptor repertoire sequencing
+      bisulfite sequencing:
+        text: bisulfite sequencing
+      jumping library:
+        text: jumping library
+      lncRNA-seq:
+        text: lncRNA-seq
+      methylation array:
+        text: methylation array
+      miRNA array:
+        text: miRNA array
+      miRNA-seq:
+        text: miRNA-seq
+      next-generation sequencing:
+        text: next-generation sequencing
+      next generation targeted sequencing:
+        text: next generation targeted sequencing
+      oxBS-seq:
+        text: oxBS-seq
+      ribo-seq:
+        text: ribo-seq
+      scCGI-seq:
+        text: scCGI-seq
+      single cell ATAC-seq:
+        text: single cell ATAC-seq
+      single-cell RNA-seq:
+        text: single-cell RNA-seq
+      single-nucleus RNA-seq:
+        text: single-nucleus RNA-seq
+      spatial transcriptomics:
+        text: spatial transcriptomics
+      targeted exome sequencing:
+        text: targeted exome sequencing
+      whole exome sequencing:
+        text: whole exome sequencing
+      whole genome sequencing:
+        text: whole genome sequencing
+      3D confocal imaging:
+        text: 3D confocal imaging
+      3D electron microscopy:
+        text: 3D electron microscopy
+      3D imaging:
+        text: 3D imaging
+      CODEX:
+        text: CODEX
+      DNA optical mapping:
+        text: DNA optical mapping
+      Fluorescence In Situ Hybridization:
+        text: Fluorescence In Situ Hybridization
+      Magnetization-Prepared Rapid Gradient Echo MRI:
+        text: Magnetization-Prepared Rapid Gradient Echo MRI
+      SUSHI:
+        text: SUSHI
+      atomic force microscopy:
+        text: atomic force microscopy
+      autoradiography:
+        text: autoradiography
+      brightfield microscopy:
+        text: brightfield microscopy
+      live imaging:
+        text: live imaging
+      histology:
+        text: histology
+      confocal microscopy:
+        text: confocal microscopy
+      conventional MRI:
+        text: conventional MRI
+      diffusion MRI:
+        text: diffusion MRI
+      fluorescence microscopy assay:
+        text: fluorescence microscopy assay
+      functional MRI:
+        text: functional MRI
+      gel filtration chromatography:
+        text: gel filtration chromatography
+      high content screen:
+        text: high content screen
+      high frequency ultrasound:
+        text: high frequency ultrasound
+      immunocytochemistry:
+        text: immunocytochemistry
+      immunofluorescence:
+        text: immunofluorescence
+      immunohistochemistry:
+        text: immunohistochemistry
+      in vivo bioluminescence:
+        text: in vivo bioluminescence
+      laser speckle imaging:
+        text: laser speckle imaging
+      magnetic resonance angiography:
+        text: magnetic resonance angiography
+      magnetic resonance spectroscopy:
+        text: magnetic resonance spectroscopy
+      optical coherence tomography:
+        text: optical coherence tomography
+      optical tomography:
+        text: optical tomography
+      phase-contrast microscopy:
+        text: phase-contrast microscopy
+      photograph:
+        text: photograph
+      positron emission tomography:
+        text: positron emission tomography
+      spatial frequency domain imaging:
+        text: spatial frequency domain imaging
+      traction force microscopy:
+        text: traction force microscopy
+      transcranial doppler ultrasonography:
+        text: transcranial doppler ultrasonography
+      western blot:
+        text: western blot
+      FIA-MSMS:
+        text: FIA-MSMS
+      FTIR spectroscopy:
+        text: FTIR spectroscopy
+      MIB/MS:
+        text: MIB/MS
+      MudPIT:
+        text: MudPIT
+      RPPA:
+        text: RPPA
+      TMT quantitation:
+        text: TMT quantitation
+      high-performance liquid chromatography/tandem mass spectrometry:
+        text: high-performance liquid chromatography/tandem mass spectrometry
+      label free mass spectrometry:
+        text: label free mass spectrometry
+      liquid chromatography-electrochemical detection:
+        text: liquid chromatography-electrochemical detection
+      liquid chromatography/mass spectrometry:
+        text: liquid chromatography/mass spectrometry
+      liquid chromatography/tandem mass spectrometry:
+        text: liquid chromatography/tandem mass spectrometry
+      mass spectrometry:
+        text: mass spectrometry
+      proximity extension assay:
+        text: proximity extension assay
+      SomaScan:
+        text: SomaScan
+      ultra high-performance liquid chromatography/tandem mass spectrometry:
+        text: ultra high-performance liquid chromatography/tandem mass spectrometry
+      AlgometRx Nociometer:
+        text: AlgometRx Nociometer
+      quantitative sensory testing:
+        text: quantitative sensory testing
+      Child Behavior Checklist for Ages 1.5-5:
+        text: Child Behavior Checklist for Ages 1.5-5
+      Child Behavior Checklist for Ages 6-18:
+        text: Child Behavior Checklist for Ages 6-18
+      Children's Dermatology Life Quality Index Questionnaire:
+        text: Children's Dermatology Life Quality Index Questionnaire
+      Corsi blocks:
+        text: Corsi blocks
+      FACE-Q Appearance-related Distress:
+        text: FACE-Q Appearance-related Distress
+      Focus group:
+        text: Focus group
+      Interview:
+        text: Interview
+      NIH Toolbox:
+        text: NIH Toolbox
+      PROMIS Cognitive Function:
+        text: PROMIS Cognitive Function
+      Riccardi and Ablon scales:
+        text: Riccardi and Ablon scales
+      Skindex-16:
+        text: Skindex-16
+      Social Responsiveness Scale:
+        text: Social Responsiveness Scale
+      Social Responsiveness Scale Second Edition:
+        text: Social Responsiveness Scale Second Edition
+      Von Frey test:
+        text: Von Frey test
+      actigraphy:
+        text: actigraphy
+      active avoidance learning behavior assay:
+        text: active avoidance learning behavior assay
+      auditory brainstem response:
+        text: auditory brainstem response
+      blood chemistry measurement:
+        text: blood chemistry measurement
+      body size trait measurement:
+        text: body size trait measurement
+      cNF-Skindex:
+        text: cNF-Skindex
+      clinical data:
+        text: clinical data
+      cognitive assessment:
+        text: cognitive assessment
+      contextual conditioning behavior assay:
+        text: contextual conditioning behavior assay
+      distortion product otoacoustic emissions:
+        text: distortion product otoacoustic emissions
+      elevated plus maze test:
+        text: elevated plus maze test
+      feeding assay:
+        text: feeding assay
+      gait measurement:
+        text: gait measurement
+      genotyping:
+        text: genotyping
+      grip strength:
+        text: grip strength
+      hand-held dynamometry:
+        text: hand-held dynamometry
+      metabolic screening:
+        text: metabolic screening
+      n-back task:
+        text: n-back task
+      neuropsychological assessment:
+        text: neuropsychological assessment
+      novelty response behavior assay:
+        text: novelty response behavior assay
+      open field test:
+        text: open field test
+      optokinetic reflex assay:
+        text: optokinetic reflex assay
+      pattern electroretinogram:
+        text: pattern electroretinogram
+      polysomnography:
+        text: polysomnography
+      pure tone average:
+        text: pure tone average
+      questionnaire:
+        text: questionnaire
+      rotarod performance test:
+        text: rotarod performance test
+      scale:
+        text: scale
+      six-minute walk test:
+        text: six-minute walk test
+      weight:
+        text: weight
+      survival:
+        text: survival
+      word recognition score:
+        text: word recognition score
+      2D AlamarBlue absorbance:
+        text: 2D AlamarBlue absorbance
+      2D AlamarBlue fluorescence:
+        text: 2D AlamarBlue fluorescence
+      3D microtissue viability:
+        text: 3D microtissue viability
+      ATPase activity assay:
+        text: ATPase activity assay
+      BrdU proliferation assay:
+        text: BrdU proliferation assay
+      ELISA:
+        text: ELISA
+      EdU proliferation assay:
+        text: EdU proliferation assay
+      FLIPR high-throughput cellular screening:
+        text: FLIPR high-throughput cellular screening
+      HPLC:
+        text: HPLC
+      Migration Assay:
+        text: Migration Assay
+      STR profile:
+        text: STR profile
+      TIDE:
+        text: TIDE
+      TriKinetics activity monitoring:
+        text: TriKinetics activity monitoring
+      array:
+        text: array
+      blue native PAGE:
+        text: blue native PAGE
+      SDS-PAGE:
+        text: SDS-PAGE
+      bone histomorphometry:
+        text: bone histomorphometry
+      cAMP-Glo Max Assay:
+        text: cAMP-Glo Max Assay
+      calcium retention capacity assay:
+        text: calcium retention capacity assay
+      cell competition:
+        text: cell competition
+      cell count:
+        text: cell count
+      cell painting:
+        text: cell painting
+      cell permeability assay:
+        text: cell permeability assay
+      cell proliferation:
+        text: cell proliferation
+      cell viability assay:
+        text: cell viability assay
+      combination library screen:
+        text: combination library screen
+      combination screen:
+        text: combination screen
+      complex II enzyme activity assay:
+        text: complex II enzyme activity assay
+      compound screen:
+        text: compound screen
+      current clamp assay:
+        text: current clamp assay
+      differential scanning calorimetry:
+        text: differential scanning calorimetry
+      dynamic light scattering:
+        text: dynamic light scattering
+      electrochemiluminescence:
+        text: electrochemiluminescence
+      electrophoretic light scattering:
+        text: electrophoretic light scattering
+      flow cytometry:
+        text: flow cytometry
+      focus forming assay:
+        text: focus forming assay
+      gel permeation chromatography:
+        text: gel permeation chromatography
+      immunoassay:
+        text: immunoassay
+      in silico synthesis:
+        text: in silico synthesis
+      in vitro tumorigenesis:
+        text: in vitro tumorigenesis
+      in vivo PDX viability:
+        text: in vivo PDX viability
+      in vivo tumor growth:
+        text: in vivo tumor growth
+      light scattering assay:
+        text: light scattering assay
+      local field potential recording:
+        text: local field potential recording
+      long term potentiation assay:
+        text: long term potentiation assay
+      massively parallel reporter assay:
+        text: massively parallel reporter assay
+      microrheology:
+        text: microrheology
+      multi-electrode array:
+        text: multi-electrode array
+      nanoparticle tracking analysis:
+        text: nanoparticle tracking analysis
+      oscillatory rheology:
+        text: oscillatory rheology
+      oxygen consumption assay:
+        text: oxygen consumption assay
+      perineurial cell thickness:
+        text: perineurial cell thickness
+      pharmocokinetic ADME assay:
+        text: pharmocokinetic ADME assay
+      polymerase chain reaction:
+        text: polymerase chain reaction
+      quantitative PCR:
+        text: quantitative PCR
+      reactive oxygen species assay:
+        text: reactive oxygen species assay
+      reporter gene assay:
+        text: reporter gene assay
+      split-GFP assay:
+        text: split-GFP assay
+      rheometry:
+        text: rheometry
+      sandwich ELISA:
+        text: sandwich ELISA
+      single molecule drug screen assay:
+        text: single molecule drug screen assay
+      small molecule library screen:
+        text: small molecule library screen
+      sorbitol dehydrogenase activity level assay:
+        text: sorbitol dehydrogenase activity level assay
+      static histomorphometry:
+        text: static histomorphometry
+      static light scattering:
+        text: static light scattering
+      trans-endothelial electrical resistance:
+        text: trans-endothelial electrical resistance
+      twin spot assay:
+        text: twin spot assay
+      whole-cell patch clamp:
+        text: whole-cell patch clamp
+      Unknown:
+        text: Unknown
+  SpeciesEnum:
+    name: SpeciesEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/SpeciesEnum
+    description: Species of origin.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      Danio rerio:
+        text: Danio rerio
+      Drosophila melanogaster:
+        text: Drosophila melanogaster
+      Gallus gallus:
+        text: Gallus gallus
+      Homo sapiens:
+        text: Homo sapiens
+      Mus musculus:
+        text: Mus musculus
+      Macaca nemestrina:
+        text: Macaca nemestrina
+      Mus musculus (humanized):
+        text: Mus musculus (humanized)
+      Oryctolagus cuniculus:
+        text: Oryctolagus cuniculus
+      Pan troglodytes:
+        text: Pan troglodytes
+      Rattus norvegicus:
+        text: Rattus norvegicus
+      Rhesus macaque:
+        text: Rhesus macaque
+      Sus scrofa:
+        text: Sus scrofa
+      Unknown:
+        text: Unknown
+  FileFormatEnum:
+    name: FileFormatEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/FileFormatEnum
+    description: File extension or format type.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      bai:
+        text: bai
+      bam:
+        text: bam
+      bcf:
+        text: bcf
+      bed:
+        text: bed
+      bed broadPeak:
+        text: bed broadPeak
+      bed gappedPeak:
+        text: bed gappedPeak
+      bed narrowPeak:
+        text: bed narrowPeak
+      bedgraph:
+        text: bedgraph
+      bgzip:
+        text: bgzip
+      cloupe:
+        text: cloupe
+      bigwig:
+        text: bigwig
+      cnn:
+        text: cnn
+      cnr:
+        text: cnr
+      cns:
+        text: cns
+      crai:
+        text: crai
+      cram:
+        text: cram
+      csi:
+        text: csi
+      ctab:
+        text: ctab
+      dup:
+        text: dup
+      fasta:
+        text: fasta
+      fastq:
+        text: fastq
+      flagstat:
+        text: flagstat
+      gct:
+        text: gct
+      gff3:
+        text: gff3
+      gtf:
+        text: gtf
+      hic:
+        text: hic
+      maf:
+        text: maf
+      mtx:
+        text: mtx
+      plink:
+        text: plink
+      recal:
+        text: recal
+      sam:
+        text: sam
+      seg:
+        text: seg
+      sf:
+        text: sf
+      sra:
+        text: sra
+      tagAlign:
+        text: tagAlign
+      tbi:
+        text: tbi
+      tranches:
+        text: tranches
+      vcf:
+        text: vcf
+      wiggle:
+        text: wiggle
+      DICOM:
+        text: DICOM
+      NWB:
+        text: NWB
+      PAR:
+        text: PAR
+      REC:
+        text: REC
+      aci:
+        text: aci
+      avi:
+        text: avi
+      bmp:
+        text: bmp
+      czi:
+        text: czi
+      dm3:
+        text: dm3
+      hdr:
+        text: hdr
+      img:
+        text: img
+      jpg:
+        text: jpg
+      lif:
+        text: lif
+      mov:
+        text: mov
+      nii:
+        text: nii
+      ome-tiff:
+        text: ome-tiff
+      png:
+        text: png
+      svs:
+        text: svs
+      sws:
+        text: sws
+      tif:
+        text: tif
+      tom:
+        text: tom
+      Sentrix descriptor file:
+        text: Sentrix descriptor file
+      bpm:
+        text: bpm
+      cel:
+        text: cel
+      chp:
+        text: chp
+      dat:
+        text: dat
+      idat:
+        text: idat
+      locs:
+        text: locs
+      msf:
+        text: msf
+      mzML:
+        text: mzML
+      raw:
+        text: raw
+      RCC:
+        text: RCC
+      csv:
+        text: csv
+      excel:
+        text: excel
+      parquet:
+        text: parquet
+      tsv:
+        text: tsv
+      MATLAB script:
+        text: MATLAB script
+      Python script:
+        text: Python script
+      R script:
+        text: R script
+      bash script:
+        text: bash script
+      js:
+        text: js
+      MATLAB data:
+        text: MATLAB data
+      RData:
+        text: RData
+      SDAT:
+        text: SDAT
+      SPAR:
+        text: SPAR
+      json:
+        text: json
+      prism:
+        text: prism
+      rds:
+        text: rds
+      sqlite:
+        text: sqlite
+      xml:
+        text: xml
+      yaml:
+        text: yaml
+      7z:
+        text: 7z
+      docker image:
+        text: docker image
+      gzip:
+        text: gzip
+      tar:
+        text: tar
+      zip:
+        text: zip
+      ai:
+        text: ai
+      doc:
+        text: doc
+      html:
+        text: html
+      hyperlink:
+        text: hyperlink
+      md:
+        text: md
+      pdf:
+        text: pdf
+      powerpoint:
+        text: powerpoint
+      txt:
+        text: txt
+      MPEG-4:
+        text: MPEG-4
+      ab1:
+        text: ab1
+      abf:
+        text: abf
+      dna:
+        text: dna
+      edat3:
+        text: edat3
+      fcs:
+        text: fcs
+      fig:
+        text: fig
+      gb:
+        text: gb
+      h5:
+        text: h5
+      hdf5:
+        text: hdf5
+      idx:
+        text: idx
+      psydat:
+        text: psydat
+      pzfx:
+        text: pzfx
+      rmd:
+        text: rmd
+      sav:
+        text: sav
+      sdf:
+        text: sdf
+      sif:
+        text: sif
+      svg:
+        text: svg
+      Unknown:
+        text: Unknown
+      Ome-zarr:
+        text: Ome-zarr
+      Github Repo:
+        text: Github Repo
+  DataCategoryEnum:
+    name: DataCategoryEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/DataCategoryEnum
+    description: Categorical label for data contained in a dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      aligned reads:
+        text: aligned reads
+      annotated germline variants:
+        text: annotated germline variants
+      annotated somatic mutation:
+        text: annotated somatic mutation
+      audio transcript:
+        text: audio transcript
+      behavioral data:
+        text: behavioral data
+      capsid sequence:
+        text: capsid sequence
+      cellular physiology:
+        text: cellular physiology
+      characteristic:
+        text: characteristic
+      chromatin activity:
+        text: chromatin activity
+      clinical:
+        text: clinical
+      copy number variants:
+        text: copy number variants
+      count matrix:
+        text: count matrix
+      data index:
+        text: data index
+      data sharing plan:
+        text: data sharing plan
+      demographics:
+        text: demographics
+      drug combination screen:
+        text: drug combination screen
+      drug screen:
+        text: drug screen
+      electrophysiology:
+        text: electrophysiology
+      epidemiological data:
+        text: epidemiological data
+      gene expression:
+        text: gene expression
+      gene expression matrix:
+        text: gene expression matrix
+      quantified gene expression:
+        text: quantified gene expression
+      genomic features:
+        text: genomic features
+      genomic variants:
+        text: genomic variants
+      germline variants:
+        text: germline variants
+      guide RNA sequence:
+        text: guide RNA sequence
+      image:
+        text: image
+      immunoassay:
+        text: immunoassay
+      isoform expression:
+        text: isoform expression
+      kinomics:
+        text: kinomics
+      mask image:
+        text: mask image
+      mass spectrometry data:
+        text: mass spectrometry data
+      metabolomics:
+        text: metabolomics
+      model:
+        text: model
+      molecular property:
+        text: molecular property
+      morphology parameter:
+        text: morphology parameter
+      network:
+        text: network
+      nucleic acid sequence record:
+        text: nucleic acid sequence record
+      over-representation data:
+        text: over-representation data
+      particle characterization:
+        text: particle characterization
+      pharmacokinetics:
+        text: pharmacokinetics
+      physiology parameter:
+        text: physiology parameter
+      plasmid sequence:
+        text: plasmid sequence
+      plot:
+        text: plot
+      primer sequence:
+        text: primer sequence
+      probe sequence:
+        text: probe sequence
+      promoter sequence:
+        text: promoter sequence
+      protein interaction data:
+        text: protein interaction data
+      protein interaction raw data:
+        text: protein interaction raw data
+      proteomics:
+        text: proteomics
+      raw counts:
+        text: raw counts
+      reference sequence:
+        text: reference sequence
+      report:
+        text: report
+      somatic variants:
+        text: somatic variants
+      structural variants:
+        text: structural variants
+      survey data:
+        text: survey data
+      text data:
+        text: text data
+      volume:
+        text: volume
+      weight:
+        text: weight
+      Unknown:
+        text: Unknown
+  ProcessLevelEnum:
+    name: ProcessLevelEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/ProcessLevelEnum
+    description: Level of data processing applied to the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      Level 1:
+        text: Level 1
+        description: Raw or minimally processed data.
+      Level 2:
+        text: Level 2
+        description: Data that has undergone a basic or initial processing step, like
+          quality control, alignment, or stitching.
+      Level 3:
+        text: Level 3
+        description: Files that contain summary counts, coverage files, or other processed
+          representations of the data.
+      Level 4:
+        text: Level 4
+        description: Files that contain data related to applied models or aggregate
+          representations of the data.
+      Auxiliary:
+        text: Auxiliary
+        description: Additional files that contain information or experimental details,
+          but do not contain data or processed derivatives.
+      Not Applicable:
+        text: Not Applicable
+        description: Files that fall outside of the level structure or are uploaded
+          as a package.
+      Metadata:
+        text: Metadata
+        description: Files that are or will be stored and shared as metadata.
+  NamContextEnum:
+    name: NamContextEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/NamContextEnum
+    description: NAM application context associated with files in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      Biosamples:
+        text: Biosamples
+      Subjects / Donors:
+        text: Subjects / Donors
+      Files / Data Types:
+        text: Files / Data Types
+      In Chemico / Biomaterials:
+        text: In Chemico / Biomaterials
+      Assays / Conditions:
+        text: Assays / Conditions
+      Ontologies / Standards:
+        text: Ontologies / Standards
+      Imaging Metadata:
+        text: Imaging Metadata
+      Pharmacokinetics / ADMET:
+        text: Pharmacokinetics / ADMET
+      Analytical Models:
+        text: Analytical Models
+  RepositoryEnum:
+    name: RepositoryEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/RepositoryEnum
+    description: Repository where a dataset is hosted.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      Synapse:
+        text: Synapse
+      GEO:
+        text: GEO
+      SRA:
+        text: SRA
+      Zenodo:
+        text: Zenodo
+      Other:
+        text: Other
+  AccessTypeEnum:
+    name: AccessTypeEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/AccessTypeEnum
+    description: Data access level.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      Open:
+        text: Open
+        description: Publicly accessible without restrictions.
+      Controlled:
+        text: Controlled
+        description: Requires approval via Synapse Access Requirements.
+      Embargoed:
+        text: Embargoed
+        description: Temporarily restricted; will become open after embargo lifts.
+  DevelopmentStatusEnum:
+    name: DevelopmentStatusEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/DevelopmentStatusEnum
+    description: Current development stage of a NAM.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      Validated:
+        text: Validated
+        description: Method has been formally validated.
+      In Development:
+        text: In Development
+        description: Method is being actively developed.
+      Prototype:
+        text: Prototype
+        description: Early-stage implementation.
+      Deprecated:
+        text: Deprecated
+        description: Method is no longer actively maintained.
+  RoleEnum:
+    name: RoleEnum
+    definition_uri: https://namhub.synapse.org/portal_schemas/enums/RoleEnum
+    description: Role of a person in the NAMHub program.
+    from_schema: https://namhub.synapse.org/portal_schemas/enums
+    permissible_values:
+      Principal Investigator:
+        text: Principal Investigator
+      Co-Investigator:
+        text: Co-Investigator
+      Collaborator:
+        text: Collaborator
+      Coordinating Center:
+        text: Coordinating Center
+      Trainee:
+        text: Trainee
+      Other:
+        text: Other
+slots:
+  studyId:
+    name: studyId
+    definition_uri: https://namhub.synapse.org/portal_schemas/studyId
+    description: Study identifier linking to the Studies table (syn75404711).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:studyId
+    owner: Publications
+    domain_of:
+    - Studies
+    - Datasets
+    - People
+    - NAMs
+    - Publications
+    range: string
+    multivalued: false
+  studyName:
+    name: studyName
+    definition_uri: https://namhub.synapse.org/portal_schemas/studyName
+    description: Full display name of the study.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:studyName
+    owner: Datasets
+    domain_of:
+    - Landscape
+    - Studies
+    - Datasets
+    range: string
+  institution:
+    name: institution
+    definition_uri: https://namhub.synapse.org/portal_schemas/institution
+    description: Affiliated institution(s).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:institution
+    owner: People
+    domain_of:
+    - Studies
+    - People
+    range: string
+    multivalued: true
+  fundingAgency:
+    name: fundingAgency
+    definition_uri: https://namhub.synapse.org/portal_schemas/fundingAgency
+    description: Funding agency or agencies (e.g. NIH Common Fund).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:fundingAgency
+    owner: Grants
+    domain_of:
+    - Studies
+    - Grants
+    range: string
+    multivalued: true
+  grantId:
+    name: grantId
+    definition_uri: https://namhub.synapse.org/portal_schemas/grantId
+    description: Grant identifier linking to the Grants table (syn75404715).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:grantId
+    owner: Publications
+    domain_of:
+    - Studies
+    - People
+    - Grants
+    - Publications
+    range: string
+    multivalued: false
+  description:
+    name: description
+    definition_uri: https://namhub.synapse.org/portal_schemas/description
+    description: Free-text description.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:description
+    owner: NAMs
+    domain_of:
+    - Datasets
+    - NAMs
+    range: string
+  doi:
+    name: doi
+    definition_uri: https://namhub.synapse.org/portal_schemas/doi
+    description: Digital Object Identifier (DOI).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:doi
+    owner: Publications
+    domain_of:
+    - Datasets
+    - Publications
+    range: uri
+  assay:
+    name: assay
+    definition_uri: https://namhub.synapse.org/portal_schemas/assay
+    description: Experimental assay or method.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:assay
+    owner: Publications
+    domain_of:
+    - Datasets
+    - Publications
+    range: AssayEnum
+    multivalued: true
+  dataType:
+    name: dataType
+    definition_uri: https://namhub.synapse.org/portal_schemas/dataType
+    description: Broad category of the data type.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:dataType
+    owner: Publications
+    domain_of:
+    - Datasets
+    - Publications
+    range: DataCategoryEnum
+    multivalued: true
+  species:
+    name: species
+    definition_uri: https://namhub.synapse.org/portal_schemas/species
+    description: Species of origin.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:species
+    owner: Datasets
+    domain_of:
+    - Datasets
+    range: SpeciesEnum
+    multivalued: true
+  accessType:
+    name: accessType
+    definition_uri: https://namhub.synapse.org/portal_schemas/accessType
+    description: Data access level.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:accessType
+    owner: NAMs
+    domain_of:
+    - Datasets
+    - NAMs
+    range: AccessTypeEnum
+  namId:
+    name: namId
+    definition_uri: https://namhub.synapse.org/portal_schemas/namId
+    description: NAM identifier(s) linking to the NAMs table (syn75404716).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:namId
+    owner: Publications
+    domain_of:
+    - Datasets
+    - NAMs
+    - Publications
+    range: string
+    multivalued: true
+  externalLink:
+    name: externalLink
+    definition_uri: https://namhub.synapse.org/portal_schemas/externalLink
+    description: External URL for additional resources.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:externalLink
+    owner: NAMs
+    domain_of:
+    - Datasets
+    - NAMs
+    range: uri
+  synapseEntityId:
+    name: synapseEntityId
+    definition_uri: https://namhub.synapse.org/portal_schemas/synapseEntityId
+    description: Synapse project or entity ID (syn-prefixed).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:synapseEntityId
+    owner: Publications
+    domain_of:
+    - NAMs
+    - Publications
+    range: string
+    pattern: ^syn\d+$
+  portalDisplay:
+    name: portalDisplay
+    definition_uri: https://namhub.synapse.org/portal_schemas/portalDisplay
+    description: Whether this record should be displayed on the public portal.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:portalDisplay
+    ifabsent: 'true'
+    owner: NAMs
+    domain_of:
+    - People
+    - NAMs
+    range: boolean
+  landscapeId:
+    name: landscapeId
+    definition_uri: https://namhub.synapse.org/portal_schemas/landscapeId
+    description: Unique identifier for the landscape entry.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:landscapeId
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+  datasetName:
+    name: datasetName
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetName
+    description: Name of the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetName
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+  datasetDescription:
+    name: datasetDescription
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetDescription
+    description: A text description of the files contained in this dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetDescription
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+  datasetAssay:
+    name: datasetAssay
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetAssay
+    description: Experimental method used to generate files in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetAssay
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: AssayEnum
+  datasetSpecies:
+    name: datasetSpecies
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetSpecies
+    description: Species of origin associated with files in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetSpecies
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: SpeciesEnum
+  datasetFileFormats:
+    name: datasetFileFormats
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetFileFormats
+    description: File extension(s) associated with files in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetFileFormats
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: FileFormatEnum
+    multivalued: true
+  expectedDataVolume:
+    name: expectedDataVolume
+    definition_uri: https://namhub.synapse.org/portal_schemas/expectedDataVolume
+    description: 'Approximate total storage the dataset is expected to occupy, as
+      a band rather than a figure: one of "under 1 GB", "GBs", "tens of GB", "hundreds
+      of GB", "TBs", "tens of TB", "hundreds of TB", "PBs", or "unknown". Pre-filled
+      with an estimate for the contributing team to confirm or correct; a band is
+      asked for because a precise size is not knowable before the data exists.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:expectedDataVolume
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+  datasetCategory:
+    name: datasetCategory
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetCategory
+    description: "Type of data or scientific content represented in the dataset (e.g.\
+      \ gene expression, imaging, clinical data) \u2014 see valid values for the full\
+      \ list."
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetCategory
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: DataCategoryEnum
+  contextOfUse:
+    name: contextOfUse
+    definition_uri: https://namhub.synapse.org/portal_schemas/contextOfUse
+    description: "Free-text statement of the intended context(s) of use for this dataset\
+      \ \u2014 how and for what purpose the data is meant to be used, following the\
+      \ FDA Biomarker Qualification Program's Context of Use framework (https://www.fda.gov/drugs/biomarker-qualification-program/context-use).\
+      \ Multiple values permitted."
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:contextOfUse
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+    multivalued: true
+  applicableStandards:
+    name: applicableStandards
+    definition_uri: https://namhub.synapse.org/portal_schemas/applicableStandards
+    description: Controlled vocabularies or data models used to organize and annotate
+      files.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:applicableStandards
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+  expectedNumberOfFiles:
+    name: expectedNumberOfFiles
+    definition_uri: https://namhub.synapse.org/portal_schemas/expectedNumberOfFiles
+    description: Number of files expected to be uploaded as part of this dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:expectedNumberOfFiles
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: integer
+  expectedNumberOfSamples:
+    name: expectedNumberOfSamples
+    definition_uri: https://namhub.synapse.org/portal_schemas/expectedNumberOfSamples
+    description: Estimated total number of physical biospecimen samples represented
+      in the dataset (e.g. 200 participants at 3 time points = 600 total samples).
+      Distinct from expectedNumberOfFiles, which counts the files expected to be submitted.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:expectedNumberOfSamples
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: integer
+  uploadByDate:
+    name: uploadByDate
+    definition_uri: https://namhub.synapse.org/portal_schemas/uploadByDate
+    description: Non-binding estimated date by which files are expected to be uploaded.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:uploadByDate
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+  dataContributionLead:
+    name: dataContributionLead
+    definition_uri: https://namhub.synapse.org/portal_schemas/dataContributionLead
+    description: Name of the individual responsible for uploading files.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:dataContributionLead
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+  studyAim:
+    name: studyAim
+    definition_uri: https://namhub.synapse.org/portal_schemas/studyAim
+    description: Key connecting the expected data to aims in the research proposal.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:studyAim
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+  comments:
+    name: comments
+    definition_uri: https://namhub.synapse.org/portal_schemas/comments
+    description: Additional information not captured in other fields.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:comments
+    owner: Landscape
+    domain_of:
+    - Landscape
+    range: string
+  studyLeads:
+    name: studyLeads
+    definition_uri: https://namhub.synapse.org/portal_schemas/studyLeads
+    description: Principal investigators or study leads.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:studyLeads
+    owner: Studies
+    domain_of:
+    - Studies
+    range: string
+    multivalued: true
+  summary:
+    name: summary
+    definition_uri: https://namhub.synapse.org/portal_schemas/summary
+    description: Brief description of the study's goals and approach.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:summary
+    owner: Studies
+    domain_of:
+    - Studies
+    range: string
+  synapseProjectId:
+    name: synapseProjectId
+    definition_uri: https://namhub.synapse.org/portal_schemas/synapseProjectId
+    description: Synapse project entity ID housing the study's files.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:synapseProjectId
+    owner: Studies
+    domain_of:
+    - Studies
+    range: string
+    pattern: ^syn\d+$
+  studyDoi:
+    name: studyDoi
+    definition_uri: https://namhub.synapse.org/portal_schemas/studyDoi
+    description: Digital Object Identifier (DOI) for the study.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:studyDoi
+    owner: Studies
+    domain_of:
+    - Studies
+    range: uri
+  diseaseFocus:
+    name: diseaseFocus
+    definition_uri: https://namhub.synapse.org/portal_schemas/diseaseFocus
+    description: Disease areas or conditions the study addresses.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:diseaseFocus
+    owner: Studies
+    domain_of:
+    - Studies
+    range: string
+    multivalued: true
+  alternateName:
+    name: alternateName
+    definition_uri: https://namhub.synapse.org/portal_schemas/alternateName
+    description: Acronym or short name for the study.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:alternateName
+    owner: Studies
+    domain_of:
+    - Studies
+    range: string
+    multivalued: true
+  NAMsTechFocus:
+    name: NAMsTechFocus
+    definition_uri: https://namhub.synapse.org/portal_schemas/NAMsTechFocus
+    description: New Approach Methodology technology focus areas.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:NAMsTechFocus
+    owner: Studies
+    domain_of:
+    - Studies
+    range: string
+    multivalued: true
+  datasetId:
+    name: datasetId
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetId
+    description: Synapse Dataset entity ID. Blank for externally hosted datasets.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetId
+    owner: NAMs
+    domain_of:
+    - Datasets
+    - NAMs
+    range: string
+    pattern: ^syn\d+$
+  title:
+    name: title
+    definition_uri: https://namhub.synapse.org/portal_schemas/title
+    description: Display title of the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:title
+    owner: Datasets
+    domain_of:
+    - Datasets
+    range: string
+  format:
+    name: format
+    definition_uri: https://namhub.synapse.org/portal_schemas/format
+    description: File formats contained in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:format
+    owner: Datasets
+    domain_of:
+    - Datasets
+    range: FileFormatEnum
+    multivalued: true
+  repository:
+    name: repository
+    definition_uri: https://namhub.synapse.org/portal_schemas/repository
+    description: Repository where the dataset is hosted.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:repository
+    owner: Datasets
+    domain_of:
+    - Datasets
+    range: RepositoryEnum
+  releaseDate:
+    name: releaseDate
+    definition_uri: https://namhub.synapse.org/portal_schemas/releaseDate
+    description: Date the dataset was made publicly available.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:releaseDate
+    owner: Datasets
+    domain_of:
+    - Datasets
+    range: date
+  datasetItemCount:
+    name: datasetItemCount
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetItemCount
+    description: Number of files or items in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetItemCount
+    owner: Datasets
+    domain_of:
+    - Datasets
+    range: integer
+  datasetSizeInBytes:
+    name: datasetSizeInBytes
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetSizeInBytes
+    description: Total size of the dataset in bytes.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetSizeInBytes
+    owner: Datasets
+    domain_of:
+    - Datasets
+    range: integer
+  hasCroissantMetadata:
+    name: hasCroissantMetadata
+    definition_uri: https://namhub.synapse.org/portal_schemas/hasCroissantMetadata
+    description: Whether the dataset has associated Croissant-format metadata.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:hasCroissantMetadata
+    owner: Datasets
+    domain_of:
+    - Datasets
+    range: boolean
+  croissantMetadataUrl:
+    name: croissantMetadataUrl
+    definition_uri: https://namhub.synapse.org/portal_schemas/croissantMetadataUrl
+    description: URL to the Croissant metadata file for this dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:croissantMetadataUrl
+    owner: Datasets
+    domain_of:
+    - Datasets
+    range: uri
+  investigatorId:
+    name: investigatorId
+    definition_uri: https://namhub.synapse.org/portal_schemas/investigatorId
+    description: Unique identifier for the investigator.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:investigatorId
+    owner: People
+    domain_of:
+    - People
+    range: string
+  firstName:
+    name: firstName
+    definition_uri: https://namhub.synapse.org/portal_schemas/firstName
+    description: First name.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:firstName
+    owner: People
+    domain_of:
+    - People
+    range: string
+  lastName:
+    name: lastName
+    definition_uri: https://namhub.synapse.org/portal_schemas/lastName
+    description: Last name.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:lastName
+    owner: People
+    domain_of:
+    - People
+    range: string
+  role:
+    name: role
+    definition_uri: https://namhub.synapse.org/portal_schemas/role
+    description: Role in the NAMHub program.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:role
+    owner: People
+    domain_of:
+    - People
+    range: RoleEnum
+  orcidId:
+    name: orcidId
+    definition_uri: https://namhub.synapse.org/portal_schemas/orcidId
+    description: ORCID persistent digital identifier.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:orcidId
+    owner: People
+    domain_of:
+    - People
+    range: string
+    pattern: ^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$
+  synapseId:
+    name: synapseId
+    definition_uri: https://namhub.synapse.org/portal_schemas/synapseId
+    description: Synapse user account ID.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:synapseId
+    owner: People
+    domain_of:
+    - People
+    range: string
+  email:
+    name: email
+    definition_uri: https://namhub.synapse.org/portal_schemas/email
+    description: Contact email address.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:email
+    owner: People
+    domain_of:
+    - People
+    range: string
+    pattern: ^[^@]+@[^@]+\.[^@]+$
+  grantName:
+    name: grantName
+    definition_uri: https://namhub.synapse.org/portal_schemas/grantName
+    description: Full title of the grant.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:grantName
+    owner: Grants
+    domain_of:
+    - Grants
+    range: string
+  grantNumber:
+    name: grantNumber
+    definition_uri: https://namhub.synapse.org/portal_schemas/grantNumber
+    description: NIH grant number (e.g. UM1TR006029).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:grantNumber
+    owner: Grants
+    domain_of:
+    - Grants
+    range: string
+  grantType:
+    name: grantType
+    definition_uri: https://namhub.synapse.org/portal_schemas/grantType
+    description: Grant mechanism type (e.g. UM1, R01).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:grantType
+    owner: Grants
+    domain_of:
+    - Grants
+    range: string
+  grantInstitution:
+    name: grantInstitution
+    definition_uri: https://namhub.synapse.org/portal_schemas/grantInstitution
+    description: Institution holding the grant.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:grantInstitution
+    owner: Grants
+    domain_of:
+    - Grants
+    range: string
+  abstract:
+    name: abstract
+    definition_uri: https://namhub.synapse.org/portal_schemas/abstract
+    description: Grant abstract.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:abstract
+    owner: Grants
+    domain_of:
+    - Grants
+    range: string
+  investigator:
+    name: investigator
+    definition_uri: https://namhub.synapse.org/portal_schemas/investigator
+    description: Name of the principal investigator.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:investigator
+    owner: Grants
+    domain_of:
+    - Grants
+    range: string
+  nihReporterLink:
+    name: nihReporterLink
+    definition_uri: https://namhub.synapse.org/portal_schemas/nihReporterLink
+    description: URL to the grant record on NIH Reporter.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:nihReporterLink
+    owner: Grants
+    domain_of:
+    - Grants
+    range: uri
+  namName:
+    name: namName
+    definition_uri: https://namhub.synapse.org/portal_schemas/namName
+    description: Display name of the NAM.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:namName
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+  developmentStatus:
+    name: developmentStatus
+    definition_uri: https://namhub.synapse.org/portal_schemas/developmentStatus
+    description: Current development stage of the NAM.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:developmentStatus
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: DevelopmentStatusEnum
+  namoClass:
+    name: namoClass
+    definition_uri: https://namhub.synapse.org/portal_schemas/namoClass
+    description: 'Specific class name from the New Approach Methods Ontology (NAMO).
+      Examples: Organoid, OrganOnChip, QSARModel, PBPKModel.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    see_also:
+    - https://github.com/monarch-initiative/namo
+    slot_uri: namhub:namoClass
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+  namoCategory:
+    name: namoCategory
+    definition_uri: https://namhub.synapse.org/portal_schemas/namoCategory
+    description: 'Top-level branch from the NAMO ontology. Examples: InVitroBiological,
+      InSilico, InChemico.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    see_also:
+    - https://github.com/monarch-initiative/namo
+    slot_uri: namhub:namoCategory
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+  namoId:
+    name: namoId
+    definition_uri: https://namhub.synapse.org/portal_schemas/namoId
+    description: 'NAMO ontology term identifier. Format: NAMO:XXXXXXX.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    see_also:
+    - https://github.com/monarch-initiative/namo
+    slot_uri: namhub:namoId
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+    pattern: ^NAMO:\d+$
+  organism:
+    name: organism
+    definition_uri: https://namhub.synapse.org/portal_schemas/organism
+    description: Organism(s) the NAM is derived from or applicable to.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:organism
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: SpeciesEnum
+    multivalued: true
+  tissueOrCellType:
+    name: tissueOrCellType
+    definition_uri: https://namhub.synapse.org/portal_schemas/tissueOrCellType
+    description: Tissue or cell type(s) used in the NAM.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:tissueOrCellType
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+    multivalued: true
+  endpointsMeasured:
+    name: endpointsMeasured
+    definition_uri: https://namhub.synapse.org/portal_schemas/endpointsMeasured
+    description: Biological or chemical endpoints the NAM measures.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:endpointsMeasured
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+    multivalued: true
+  datasetId_list:
+    name: datasetId_list
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetId_list
+    description: Dataset identifier(s) linking to the Datasets table (syn75404713).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:datasetId_list
+    range: string
+    multivalued: true
+  relatedPublications:
+    name: relatedPublications
+    definition_uri: https://namhub.synapse.org/portal_schemas/relatedPublications
+    description: PubMed IDs of publications describing or using this NAM.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:relatedPublications
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+    multivalued: true
+  accessRequirements:
+    name: accessRequirements
+    definition_uri: https://namhub.synapse.org/portal_schemas/accessRequirements
+    description: Description of any Synapse Access Requirements governing the underlying
+      data.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:accessRequirements
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+  duoCode:
+    name: duoCode
+    definition_uri: https://namhub.synapse.org/portal_schemas/duoCode
+    description: 'Data Use Ontology (GA4GH DUO) codes restricting data reuse. Examples:
+      GRU (General Research Use), HMB (Health/Medical/Biomedical), DS (Disease Specific).'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    see_also:
+    - http://purl.obolibrary.org/obo/duo.owl
+    slot_uri: namhub:duoCode
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+    multivalued: true
+  acknowledgementStatements:
+    name: acknowledgementStatements
+    definition_uri: https://namhub.synapse.org/portal_schemas/acknowledgementStatements
+    description: Required attribution or acknowledgement text for data reuse.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:acknowledgementStatements
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+  license:
+    name: license
+    definition_uri: https://namhub.synapse.org/portal_schemas/license
+    description: License governing reuse of the underlying data (e.g. CC-BY-4.0).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:license
+    owner: NAMs
+    domain_of:
+    - NAMs
+    range: string
+  pubMedId:
+    name: pubMedId
+    definition_uri: https://namhub.synapse.org/portal_schemas/pubMedId
+    description: PubMed identifier (PMID).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:pubMedId
+    owner: Publications
+    domain_of:
+    - Publications
+    range: string
+  publicationTitle:
+    name: publicationTitle
+    definition_uri: https://namhub.synapse.org/portal_schemas/publicationTitle
+    description: Full title of the publication.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:publicationTitle
+    owner: Publications
+    domain_of:
+    - Publications
+    range: string
+  authors:
+    name: authors
+    definition_uri: https://namhub.synapse.org/portal_schemas/authors
+    description: Author list.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:authors
+    owner: Publications
+    domain_of:
+    - Publications
+    range: string
+  journal:
+    name: journal
+    definition_uri: https://namhub.synapse.org/portal_schemas/journal
+    description: Journal name.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:journal
+    owner: Publications
+    domain_of:
+    - Publications
+    range: string
+  publicationYear:
+    name: publicationYear
+    definition_uri: https://namhub.synapse.org/portal_schemas/publicationYear
+    description: Year of publication.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:publicationYear
+    owner: Publications
+    domain_of:
+    - Publications
+    range: integer
+  pubMedLink:
+    name: pubMedLink
+    definition_uri: https://namhub.synapse.org/portal_schemas/pubMedLink
+    description: URL to the PubMed entry.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:pubMedLink
+    owner: Publications
+    domain_of:
+    - Publications
+    range: uri
+  keywords:
+    name: keywords
+    definition_uri: https://namhub.synapse.org/portal_schemas/keywords
+    description: Publication keywords or MeSH terms.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slot_uri: namhub:keywords
+    owner: Publications
+    domain_of:
+    - Publications
+    range: string
+    multivalued: true
+  Landscape_landscapeId:
+    name: Landscape_landscapeId
+    definition_uri: https://namhub.synapse.org/portal_schemas/landscapeId
+    description: Unique identifier for the landscape entry.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: landscapeId
+    domain: Landscape
+    slot_uri: namhub:landscapeId
+    alias: landscapeId
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: landscapeId
+    range: string
+    required: true
+  Landscape_datasetName:
+    name: Landscape_datasetName
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetName
+    description: Name of the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: datasetName
+    domain: Landscape
+    slot_uri: namhub:datasetName
+    alias: datasetName
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: datasetName
+    range: string
+    required: true
+  Landscape_datasetDescription:
+    name: Landscape_datasetDescription
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetDescription
+    description: A text description of the files contained in this dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: datasetDescription
+    domain: Landscape
+    slot_uri: namhub:datasetDescription
+    alias: datasetDescription
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: datasetDescription
+    range: string
+    required: true
+  Landscape_datasetAssay:
+    name: Landscape_datasetAssay
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetAssay
+    description: Experimental method used to generate files in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: datasetAssay
+    domain: Landscape
+    slot_uri: namhub:datasetAssay
+    alias: datasetAssay
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: datasetAssay
+    range: AssayEnum
+    required: true
+  Landscape_datasetSpecies:
+    name: Landscape_datasetSpecies
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetSpecies
+    description: Species of origin associated with files in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: datasetSpecies
+    domain: Landscape
+    slot_uri: namhub:datasetSpecies
+    alias: datasetSpecies
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: datasetSpecies
+    range: SpeciesEnum
+    required: true
+  Landscape_datasetFileFormats:
+    name: Landscape_datasetFileFormats
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetFileFormats
+    description: File extension(s) associated with files in the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: datasetFileFormats
+    domain: Landscape
+    slot_uri: namhub:datasetFileFormats
+    alias: datasetFileFormats
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: datasetFileFormats
+    range: FileFormatEnum
+    required: true
+    multivalued: true
+  Landscape_datasetCategory:
+    name: Landscape_datasetCategory
+    definition_uri: https://namhub.synapse.org/portal_schemas/datasetCategory
+    description: "Type of data or scientific content represented in the dataset (e.g.\
+      \ gene expression, imaging, clinical data) \u2014 see valid values for the full\
+      \ list."
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: datasetCategory
+    domain: Landscape
+    slot_uri: namhub:datasetCategory
+    alias: datasetCategory
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: datasetCategory
+    range: DataCategoryEnum
+    required: true
+  Landscape_contextOfUse:
+    name: Landscape_contextOfUse
+    definition_uri: https://namhub.synapse.org/portal_schemas/contextOfUse
+    description: "Free-text statement of the intended context(s) of use for this dataset\
+      \ \u2014 how and for what purpose the data is meant to be used, following the\
+      \ FDA Biomarker Qualification Program's Context of Use framework (https://www.fda.gov/drugs/biomarker-qualification-program/context-use).\
+      \ Multiple values permitted."
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: contextOfUse
+    domain: Landscape
+    slot_uri: namhub:contextOfUse
+    alias: contextOfUse
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: contextOfUse
+    range: string
+    required: true
+    multivalued: true
+  Landscape_expectedNumberOfFiles:
+    name: Landscape_expectedNumberOfFiles
+    definition_uri: https://namhub.synapse.org/portal_schemas/expectedNumberOfFiles
+    description: Number of files expected to be uploaded as part of this dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: expectedNumberOfFiles
+    domain: Landscape
+    slot_uri: namhub:expectedNumberOfFiles
+    alias: expectedNumberOfFiles
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: expectedNumberOfFiles
+    range: integer
+    required: true
+  Landscape_expectedNumberOfSamples:
+    name: Landscape_expectedNumberOfSamples
+    definition_uri: https://namhub.synapse.org/portal_schemas/expectedNumberOfSamples
+    description: Estimated total number of physical biospecimen samples represented
+      in the dataset (e.g. 200 participants at 3 time points = 600 total samples).
+      Distinct from expectedNumberOfFiles, which counts the files expected to be submitted.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: expectedNumberOfSamples
+    domain: Landscape
+    slot_uri: namhub:expectedNumberOfSamples
+    alias: expectedNumberOfSamples
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: expectedNumberOfSamples
+    range: integer
+    required: true
+  Landscape_expectedDataVolume:
+    name: Landscape_expectedDataVolume
+    definition_uri: https://namhub.synapse.org/portal_schemas/expectedDataVolume
+    description: 'Approximate total storage the dataset is expected to occupy, as
+      a band rather than a figure: one of "under 1 GB", "GBs", "tens of GB", "hundreds
+      of GB", "TBs", "tens of TB", "hundreds of TB", "PBs", or "unknown". Pre-filled
+      with an estimate for the contributing team to confirm or correct; a band is
+      asked for because a precise size is not knowable before the data exists.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: expectedDataVolume
+    domain: Landscape
+    slot_uri: namhub:expectedDataVolume
+    alias: expectedDataVolume
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: expectedDataVolume
+    range: string
+    required: false
+  Landscape_uploadByDate:
+    name: Landscape_uploadByDate
+    definition_uri: https://namhub.synapse.org/portal_schemas/uploadByDate
+    description: Non-binding estimated date by which files are expected to be uploaded.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: uploadByDate
+    domain: Landscape
+    slot_uri: namhub:uploadByDate
+    alias: uploadByDate
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: uploadByDate
+    range: string
+    required: true
+  Landscape_dataContributionLead:
+    name: Landscape_dataContributionLead
+    definition_uri: https://namhub.synapse.org/portal_schemas/dataContributionLead
+    description: Name of the individual responsible for uploading files.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: dataContributionLead
+    domain: Landscape
+    slot_uri: namhub:dataContributionLead
+    alias: dataContributionLead
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: dataContributionLead
+    range: string
+    required: true
+  Landscape_studyName:
+    name: Landscape_studyName
+    definition_uri: https://namhub.synapse.org/portal_schemas/studyName
+    description: Full display name of the study.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: studyName
+    domain: Landscape
+    slot_uri: namhub:studyName
+    alias: studyName
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: studyName
+    range: string
+    required: true
+  Landscape_studyAim:
+    name: Landscape_studyAim
+    definition_uri: https://namhub.synapse.org/portal_schemas/studyAim
+    description: Key connecting the expected data to aims in the research proposal.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: studyAim
+    domain: Landscape
+    slot_uri: namhub:studyAim
+    alias: studyAim
+    owner: Landscape
+    domain_of:
+    - Landscape
+    is_usage_slot: true
+    usage_slot_name: studyAim
+    range: string
+    required: true
+  Studies_studyId:
+    name: Studies_studyId
+    definition_uri: https://namhub.synapse.org/portal_schemas/studyId
+    description: Study identifier linking to the Studies table (syn75404711).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: studyId
+    domain: Studies
+    slot_uri: namhub:studyId
+    alias: studyId
+    owner: Studies
+    domain_of:
+    - Studies
+    is_usage_slot: true
+    usage_slot_name: studyId
+    range: string
+    required: true
+    multivalued: false
+  Studies_studyName:
+    name: Studies_studyName
+    definition_uri: https://namhub.synapse.org/portal_schemas/studyName
+    description: Full display name of the study.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: studyName
+    domain: Studies
+    slot_uri: namhub:studyName
+    alias: studyName
+    owner: Studies
+    domain_of:
+    - Studies
+    is_usage_slot: true
+    usage_slot_name: studyName
+    range: string
+    required: true
+  Datasets_title:
+    name: Datasets_title
+    definition_uri: https://namhub.synapse.org/portal_schemas/title
+    description: Display title of the dataset.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: title
+    domain: Datasets
+    slot_uri: namhub:title
+    alias: title
+    owner: Datasets
+    domain_of:
+    - Datasets
+    is_usage_slot: true
+    usage_slot_name: title
+    range: string
+    required: true
+  People_firstName:
+    name: People_firstName
+    definition_uri: https://namhub.synapse.org/portal_schemas/firstName
+    description: First name.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: firstName
+    domain: People
+    slot_uri: namhub:firstName
+    alias: firstName
+    owner: People
+    domain_of:
+    - People
+    is_usage_slot: true
+    usage_slot_name: firstName
+    range: string
+    required: true
+  People_lastName:
+    name: People_lastName
+    definition_uri: https://namhub.synapse.org/portal_schemas/lastName
+    description: Last name.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: lastName
+    domain: People
+    slot_uri: namhub:lastName
+    alias: lastName
+    owner: People
+    domain_of:
+    - People
+    is_usage_slot: true
+    usage_slot_name: lastName
+    range: string
+    required: true
+  Grants_grantId:
+    name: Grants_grantId
+    definition_uri: https://namhub.synapse.org/portal_schemas/grantId
+    description: Grant identifier linking to the Grants table (syn75404715).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: grantId
+    domain: Grants
+    slot_uri: namhub:grantId
+    alias: grantId
+    owner: Grants
+    domain_of:
+    - Grants
+    is_usage_slot: true
+    usage_slot_name: grantId
+    range: string
+    required: true
+    multivalued: false
+  NAMs_namId:
+    name: NAMs_namId
+    definition_uri: https://namhub.synapse.org/portal_schemas/namId
+    description: NAM identifier(s) linking to the NAMs table (syn75404716).
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: namId
+    domain: NAMs
+    slot_uri: namhub:namId
+    alias: namId
+    owner: NAMs
+    domain_of:
+    - NAMs
+    is_usage_slot: true
+    usage_slot_name: namId
+    range: string
+    required: true
+    multivalued: true
+  NAMs_namName:
+    name: NAMs_namName
+    definition_uri: https://namhub.synapse.org/portal_schemas/namName
+    description: Display name of the NAM.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: namName
+    domain: NAMs
+    slot_uri: namhub:namName
+    alias: namName
+    owner: NAMs
+    domain_of:
+    - NAMs
+    is_usage_slot: true
+    usage_slot_name: namName
+    range: string
+    required: true
+  Publications_publicationTitle:
+    name: Publications_publicationTitle
+    definition_uri: https://namhub.synapse.org/portal_schemas/publicationTitle
+    description: Full title of the publication.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    is_a: publicationTitle
+    domain: Publications
+    slot_uri: namhub:publicationTitle
+    alias: publicationTitle
+    owner: Publications
+    domain_of:
+    - Publications
+    is_usage_slot: true
+    usage_slot_name: publicationTitle
+    range: string
+    required: true
+classes:
+  Landscape:
+    name: Landscape
+    definition_uri: https://namhub.synapse.org/portal_schemas/Landscape
+    description: Preliminary information about datasets intended to be shared through
+      NAM Hub. Used by TDC teams to declare expected data uploads.
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slots:
+    - Landscape_landscapeId
+    - Landscape_datasetName
+    - Landscape_datasetDescription
+    - Landscape_datasetAssay
+    - Landscape_datasetSpecies
+    - Landscape_datasetFileFormats
+    - Landscape_datasetCategory
+    - Landscape_contextOfUse
+    - applicableStandards
+    - Landscape_expectedNumberOfFiles
+    - Landscape_expectedNumberOfSamples
+    - Landscape_expectedDataVolume
+    - Landscape_uploadByDate
+    - Landscape_dataContributionLead
+    - Landscape_studyName
+    - Landscape_studyAim
+    - comments
+    slot_usage:
+      landscapeId:
+        name: landscapeId
+        required: true
+      datasetName:
+        name: datasetName
+        required: true
+      datasetDescription:
+        name: datasetDescription
+        required: true
+      datasetAssay:
+        name: datasetAssay
+        required: true
+      datasetSpecies:
+        name: datasetSpecies
+        required: true
+      datasetFileFormats:
+        name: datasetFileFormats
+        required: true
+      datasetCategory:
+        name: datasetCategory
+        required: true
+      contextOfUse:
+        name: contextOfUse
+        required: true
+      expectedNumberOfFiles:
+        name: expectedNumberOfFiles
+        required: true
+      expectedNumberOfSamples:
+        name: expectedNumberOfSamples
+        required: true
+      expectedDataVolume:
+        name: expectedDataVolume
+        required: false
+      uploadByDate:
+        name: uploadByDate
+        required: true
+      dataContributionLead:
+        name: dataContributionLead
+        required: true
+      studyName:
+        name: studyName
+        required: true
+      studyAim:
+        name: studyAim
+        required: true
+    class_uri: namhub:Landscape
+  Studies:
+    name: Studies
+    definition_uri: https://namhub.synapse.org/portal_schemas/Studies
+    description: 'One row per Technology Development Center (TDC) study in the NAMHub
+      program. Synapse table: syn75404711.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slots:
+    - Studies_studyId
+    - Studies_studyName
+    - studyLeads
+    - summary
+    - institution
+    - fundingAgency
+    - synapseProjectId
+    - studyDoi
+    - diseaseFocus
+    - alternateName
+    - NAMsTechFocus
+    - grantId
+    slot_usage:
+      studyId:
+        name: studyId
+        required: true
+      studyName:
+        name: studyName
+        required: true
+    class_uri: namhub:Studies
+  Datasets:
+    name: Datasets
+    definition_uri: https://namhub.synapse.org/portal_schemas/Datasets
+    description: "One row per dataset \u2014 Synapse-hosted or external (e.g. GEO).\
+      \ Links to Studies and NAMs. Synapse table: syn75404713."
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slots:
+    - datasetId
+    - Datasets_title
+    - description
+    - studyId
+    - studyName
+    - assay
+    - dataType
+    - species
+    - format
+    - repository
+    - externalLink
+    - doi
+    - releaseDate
+    - datasetItemCount
+    - datasetSizeInBytes
+    - hasCroissantMetadata
+    - croissantMetadataUrl
+    - accessType
+    - namId
+    slot_usage:
+      title:
+        name: title
+        required: true
+    class_uri: namhub:Datasets
+  People:
+    name: People
+    definition_uri: https://namhub.synapse.org/portal_schemas/People
+    description: 'Investigators and contributors associated with NAMHub studies. Synapse
+      table: syn75404714.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slots:
+    - investigatorId
+    - People_firstName
+    - People_lastName
+    - institution
+    - role
+    - studyId
+    - grantId
+    - orcidId
+    - synapseId
+    - email
+    - portalDisplay
+    slot_usage:
+      firstName:
+        name: firstName
+        required: true
+      lastName:
+        name: lastName
+        required: true
+    class_uri: namhub:People
+  Grants:
+    name: Grants
+    definition_uri: https://namhub.synapse.org/portal_schemas/Grants
+    description: 'Backend grant records linked to Studies. Not directly surfaced on
+      the portal. Synapse table: syn75404715.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slots:
+    - Grants_grantId
+    - grantName
+    - grantNumber
+    - grantType
+    - grantInstitution
+    - abstract
+    - investigator
+    - fundingAgency
+    - nihReporterLink
+    slot_usage:
+      grantId:
+        name: grantId
+        required: true
+    class_uri: namhub:Grants
+  NAMs:
+    name: NAMs
+    definition_uri: https://namhub.synapse.org/portal_schemas/NAMs
+    description: 'One row per New Approach Method (NAM). Modelled after NF/MC2 Tools
+      tables. NAM type classification uses the New Approach Methods Ontology (NAMO)
+      from the Monarch Initiative (https://github.com/monarch-initiative/namo). Governance
+      fields follow Synapse/Sage portal conventions. Synapse table: syn75404716.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    see_also:
+    - https://github.com/monarch-initiative/namo
+    slots:
+    - NAMs_namId
+    - NAMs_namName
+    - description
+    - developmentStatus
+    - namoClass
+    - namoCategory
+    - namoId
+    - organism
+    - tissueOrCellType
+    - endpointsMeasured
+    - studyId
+    - datasetId
+    - relatedPublications
+    - externalLink
+    - synapseEntityId
+    - accessType
+    - accessRequirements
+    - duoCode
+    - acknowledgementStatements
+    - license
+    - portalDisplay
+    slot_usage:
+      namId:
+        name: namId
+        required: true
+      namName:
+        name: namName
+        required: true
+    class_uri: namhub:NAMs
+  Publications:
+    name: Publications
+    definition_uri: https://namhub.synapse.org/portal_schemas/Publications
+    description: 'Publications associated with NAMHub studies, grants, or NAMs. Synapse
+      table: syn75404744.'
+    from_schema: https://namhub.synapse.org/portal_schemas
+    slots:
+    - pubMedId
+    - Publications_publicationTitle
+    - authors
+    - journal
+    - publicationYear
+    - doi
+    - pubMedLink
+    - keywords
+    - studyId
+    - grantId
+    - namId
+    - dataType
+    - assay
+    - synapseEntityId
+    slot_usage:
+      publicationTitle:
+        name: publicationTitle
+        required: true
+    class_uri: namhub:Publications
+metamodel_version: 1.11.0
+source_file: namhub.yaml
+source_file_date: '2026-08-20T19:57:11'
+source_file_size: 16628
+generation_date: '2026-09-02T13:59:14'
+
