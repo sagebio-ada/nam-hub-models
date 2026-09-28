@@ -1,5 +1,6 @@
 id: https://namhub.synapse.org/portal_schemas
 name: namhub
+version: 1.2.0
 description: >-
   NAMHub portal data schemas — backend Synapse tables and the Landscape data
   collection form. Portal tables are backed by Synapse project syn74360399.
@@ -38,11 +39,11 @@ classes:
       - datasetSpecies
       - datasetFileFormats
       - datasetCategory
+      - datasetProcessingLevel
       - contextOfUse
       - applicableStandards
       - expectedNumberOfFiles
       - expectedNumberOfSamples
-      - expectedDataVolume
       - uploadByDate
       - dataContributionLead
       - studyName
@@ -63,14 +64,14 @@ classes:
         required: true
       datasetCategory:
         required: true
+      datasetProcessingLevel:
+        required: true
       contextOfUse:
         required: true
       expectedNumberOfFiles:
         required: true
       expectedNumberOfSamples:
         required: true
-      expectedDataVolume:
-        required: false
       uploadByDate:
         required: true
       dataContributionLead:
@@ -79,7 +80,7 @@ classes:
         required: true
       studyAim:
         required: true
-
+      
   # -- Portal tables -----------------------------------------------------------
 
   Studies:
@@ -336,20 +337,15 @@ slots:
     multivalued: true
     range: FileFormatEnum
 
-  expectedDataVolume:
-    description: >-
-      Approximate total storage the dataset is expected to occupy, as a band rather
-      than a figure: one of "under 1 GB", "GBs", "tens of GB", "hundreds of GB",
-      "TBs", "tens of TB", "hundreds of TB", "PBs", or "unknown". Pre-filled with an
-      estimate for the contributing team to confirm or correct; a band is asked for
-      because a precise size is not knowable before the data exists.
-    range: string
-
   datasetCategory:
     description: >-
       Type of data or scientific content represented in the dataset (e.g. gene
       expression, imaging, clinical data) — see valid values for the full list.
     range: DataCategoryEnum
+
+  datasetProcessingLevel:
+    description: Level of processing associated with the dataset.
+    range: ProcessLevelEnum
 
   contextOfUse:
     description: >-

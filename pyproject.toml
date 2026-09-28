@@ -1,82 +1,24 @@
-[build-system]
-requires = ["hatchling", "uv-dynamic-versioning"]
-build-backend = "hatchling.build"
-
 [project]
-name = "namhub"
-description = "A repository containing data models for NAMHub curation"
+name = "nam-hub-models"
+description = "LinkML data models for NAMHub curation"
 authors = [
-  {name = "Richard Abdill", email = "richard.abdill@sagebase.org"},
+  {name = "Sage Bionetworks", email = "richard.abdill@sagebase.org"},
 ]
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 readme = "README.md"
-requires-python = ">=3.10"
-dynamic = ["version"]
+requires-python = ">=3.12"
+version = "0.0.0"
 
-dependencies = [
-  "linkml-runtime >=1.9.4",
-]
+[tool.uv]
+# The repository holds a schema, not an installable package.
+package = false
 
 [dependency-groups]
 dev = [
     "linkml>=1.9.3",
-    "mkdocs-material>=8.2.8",
-    "mkdocs-mermaid2-plugin>=1.1.1",
-    "mkdocs-pymdownx-material-extras>=2.5.6",
-    "jupyter>=1.0.0",
-    "mknotebooks>= 0.8.0",
+    "linkml-to-curator",
 ]
 
-# See https://hatch.pypa.io/latest/config/build/#file-selection for how to
-# explicitly include files other than default into the build distributions.
-
-[tool.hatch.version]
-source = "uv-dynamic-versioning"
-
-# Ref.: https://github.com/ninoseki/uv-dynamic-versioning/
-[tool.uv-dynamic-versioning]
-vcs = "git"
-style = "pep440"
-fallback-version = "0.0.0"
-
-# Ref.: https://docs.pytest.org/en/stable/reference/reference.html#configuration-options
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-
-# https://docs.astral.sh/ruff/configuration/
-[tool.ruff]
-exclude = [
-    "src/namhub/_version.py",
-]
-# Set oldest supported Python version
-target-version = "py310"
-
-# Ref.: https://github.com/codespell-project/codespell
-[tool.codespell]
-skip = [
-  "LICENSE",
-  "pyproject.toml",
-  "uv.lock",
-  "project/*",
-  "src/namhub/datamodel/namhub_pydantic.py",
-  "src/namhub/datamodel/namhub.py",
-]
-
-# Reminder: words have to be lowercased for the ignore-words-list
-ignore-words-list = "linke"
-quiet-level = 3
-
-# Ref.: https://github.com/crate-ci/typos (spell checker)
-[tool.typos.default.extend-words]
-linke = "linke"
-
-[tool.typos.files]
-extend-exclude = [
-  "LICENSE",
-  "uv.lock",
-  "pyproject.toml",
-  "project/*",
-  "src/namhub/datamodel/namhub_pydantic.py",
-  "src/namhub/datamodel/namhub.py",
-]
+[tool.uv.sources]
+linkml-to-curator = { git = "https://github.com/sagebio-ada/linkml-to-curator", tag = "v0.1.0" }

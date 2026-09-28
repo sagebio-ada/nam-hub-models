@@ -1,34 +1,33 @@
-<a href="https://github.com/linkml/linkml-project-copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-teal.json" alt="Copier Badge" style="max-width:100%;"/></a>
-
 # nam-hub-models
 
-A repository containing data models for NAMHub curation
+LinkML data models for NAMHub curation: the Synapse portal tables and the Landscape data
+collection form.
 
-## Documentation Website
+## Repository structure
 
-[https://sagebio-ada.github.io/nam-hub-models](https://sagebio-ada.github.io/nam-hub-models)
+* [src/namhub/schema/](src/namhub/schema) - the LinkML schema
+  * `namhub.yaml` - classes and slots
+  * `enums.yaml` - shared enumerations, imported by `namhub.yaml`
 
-## Repository Structure
+Everything else is derived from those two files by
+[linkml-to-curator](https://github.com/sagebio-ada/linkml-to-curator).
 
-* [docs/](docs/) - mkdocs-managed documentation
-  * [elements/](docs/elements/) - generated schema documentation
-* [examples/](examples/) - Examples of using the schema
-* [project/](project/) - project files (these files are auto-generated, do not edit)
-* [src/](src/) - source files (edit these)
-  * [namhub](src/namhub)
-    * [schema/](src/namhub/schema) -- LinkML schema
-      (edit this)
-    * [datamodel/](src/namhub/datamodel) -- generated
-      Python datamodel
-* [tests/](tests/) - Python tests
-  * [data/](tests/data) - Example data
+## Working with the schema
 
-## Developer Tools
+Recipes are run with [just](https://github.com/casey/just/) and
+[uv](https://docs.astral.sh/uv/). `just` alone lists them.
 
-There are several pre-defined command-recipes available.
-They are written for the command runner [just](https://github.com/casey/just/).
-To list all pre-defined commands, run `just` or `just --list`.
+```bash
+just install          # install dependencies
+just test             # run linkml-lint and curator-lint
+just lint             # linkml-lint alone, with the rules in .linkmllint.yaml
+just gen-curator      # write one Curator JSON schema per class to project/curator
+just register-curator NAMhub --dry-run   # have Synapse validate the generated schemas
+just register-curator NAMhub             # register them under the model's version
+```
 
-## Credits
+Registration names the Synapse organization explicitly, reads a token from
+`SYNAPSE_AUTH_TOKEN` or `~/.synapseConfig`, and refuses to reuse a version, so a release
+starts with a bump of `version:` in `namhub.yaml`.
 
-This project uses the template [linkml-project-copier](https://github.com/linkml/linkml-project-copier).
+CI runs `just test` on every pull request.
