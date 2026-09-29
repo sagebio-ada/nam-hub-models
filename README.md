@@ -20,7 +20,7 @@ Recipes are run with [just](https://github.com/casey/just/) and
 ```bash
 just install          # install dependencies
 just test             # run linkml-lint and curator-lint
-just lint             # linkml-lint alone, with the rules in .linkmllint.yaml
+just lint             # linkml-lint alone
 just gen-curator      # write one Curator JSON schema per class to project/curator
 just register-curator NAMhub --dry-run   # have Synapse validate the generated schemas
 just register-curator NAMhub             # register them under the model's version

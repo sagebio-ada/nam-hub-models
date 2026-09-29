@@ -12,9 +12,9 @@ install:
 # Run all checks
 test: lint lint-curator
 
-# Run linkml-lint with the rules in .linkmllint.yaml
+# Run linkml-lint with its default rules
 lint:
-  uv run linkml-lint -c .linkmllint.yaml src/namhub/schema
+  uv run linkml-lint src/namhub/schema
 
 # Check the model against what Curator and Synapse accept
 lint-curator:
