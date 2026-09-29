@@ -1,6 +1,6 @@
 id: https://namhub.synapse.org/portal_schemas
 name: namhub
-version: 1.2.0
+version: 2.2.0
 description: >-
   NAMHub portal data schemas — backend Synapse tables and the Landscape data
   collection form. Portal tables are backed by Synapse project syn74360399.
