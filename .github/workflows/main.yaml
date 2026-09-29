@@ -1,0 +1,44 @@
+# Built from:
+# https://docs.github.com/en/actions/guides/building-and-testing-python
+---
+name: Build and test
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  FORCE_COLOR: "1"  # Make tools pretty.
+
+permissions: {}
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # https://github.com/actions/checkout
+      - name: Check out repository
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      # https://github.com/astral-sh/setup-uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install just
+        run: |
+          uv tool install rust-just
+
+      - name: Install project
+        run: uv sync --group dev
+
+      - name: Run test suite
+        run: just test

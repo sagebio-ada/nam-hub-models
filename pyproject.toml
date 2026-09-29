@@ -1,0 +1,24 @@
+[project]
+name = "nam-hub-models"
+description = "LinkML data models for NAMHub curation"
+authors = [
+  {name = "Sage Bionetworks", email = "richard.abdill@sagebase.org"},
+]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+readme = "README.md"
+requires-python = ">=3.12"
+version = "0.0.0"
+
+[tool.uv]
+# The repository holds a schema, not an installable package.
+package = false
+
+[dependency-groups]
+dev = [
+    "linkml>=1.9.3",
+    "linkml-to-curator",
+]
+
+[tool.uv.sources]
+linkml-to-curator = { git = "https://github.com/sagebio-ada/linkml-to-curator", tag = "v0.1.0" }
