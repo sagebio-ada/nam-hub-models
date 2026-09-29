@@ -1,6 +1,6 @@
 id: https://namhub.synapse.org/portal_schemas
 name: namhub
-version: 2.2.0
+version: 3.0.0
 description: >-
   NAMHub portal data schemas — backend Synapse tables and the Landscape data
   collection form. Portal tables are backed by Synapse project syn74360399.
@@ -34,16 +34,19 @@ classes:
     slots:
       - landscapeId
       - datasetName
+      - datasetGroup
+      - derivedFrom
       - datasetDescription
       - datasetAssay
       - datasetSpecies
-      - datasetFileFormats
+      - datasetFileFormat
       - datasetCategory
       - datasetProcessingLevel
       - contextOfUse
       - applicableStandards
-      - expectedNumberOfFiles
       - expectedNumberOfSamples
+      - fileRatio
+      - fileRatioUnit
       - uploadByDate
       - dataContributionLead
       - studyName
@@ -60,7 +63,7 @@ classes:
         required: true
       datasetSpecies:
         required: true
-      datasetFileFormats:
+      datasetFileFormat:
         required: true
       datasetCategory:
         required: true
@@ -68,9 +71,11 @@ classes:
         required: true
       contextOfUse:
         required: true
-      expectedNumberOfFiles:
-        required: true
       expectedNumberOfSamples:
+        required: true
+      fileRatio:
+        required: true
+      fileRatioUnit:
         required: true
       uploadByDate:
         required: true
@@ -80,7 +85,7 @@ classes:
         required: true
       studyAim:
         required: true
-      
+
   # -- Portal tables -----------------------------------------------------------
 
   Studies:
@@ -320,6 +325,19 @@ slots:
     description: Name of the dataset.
     range: string
 
+  datasetGroup:
+    description: >-
+      Identifier shared by every row that describes the same dataset, where the
+      dataset is split into one row per file type. Also set one on a single-row
+      dataset when another dataset's Derived From names it.
+    range: string
+
+  derivedFrom:
+    description: >-
+      Optional. Dataset Group of the dataset this row's files are processed
+      from, such as the FASTQ dataset a count matrix was produced from.
+    range: string
+
   datasetDescription:
     description: A text description of the files contained in this dataset.
     range: string
@@ -332,9 +350,12 @@ slots:
     description: Species of origin associated with files in the dataset.
     range: SpeciesEnum
 
-  datasetFileFormats:
-    description: File extension(s) associated with files in the dataset.
-    multivalued: true
+  datasetFileFormat:
+    description: >-
+      File type of the files this row describes. Each row covers one file type; a
+      dataset with several file types has one row for each, sharing a Dataset
+      Group. List only the file types required to process this data type
+      independently.
     range: FileFormatEnum
 
   datasetCategory:
@@ -344,7 +365,10 @@ slots:
     range: DataCategoryEnum
 
   datasetProcessingLevel:
-    description: Level of processing associated with the dataset.
+    description: >-
+      Level of processing associated with the dataset. Always list the raw
+      (Level 1) data; list processed levels only where agreed with the NAMHub
+      data team.
     range: ProcessLevelEnum
 
   contextOfUse:
@@ -357,26 +381,50 @@ slots:
     multivalued: true
 
   applicableStandards:
-    description: Controlled vocabularies or data models used to organize and annotate files.
+    description: >-
+      Optional. Controlled vocabularies, ontologies or data models your team
+      already uses to organize and annotate these files. Used to inform the
+      NAMHub metadata model.
     range: string
-
-  expectedNumberOfFiles:
-    description: Number of files expected to be uploaded as part of this dataset.
-    range: integer
 
   expectedNumberOfSamples:
     description: >-
       Estimated total number of physical biospecimen samples represented in the
-      dataset (e.g. 200 participants at 3 time points = 600 total samples). Distinct
-      from expectedNumberOfFiles, which counts the files expected to be submitted.
+      dataset (e.g. 200 participants at 3 time points = 600 total samples). Used
+      with File Ratio to work out how many files to expect, and to track
+      completeness: an estimate is fine, and a difference from what is eventually
+      uploaded is something to discuss, not a penalty.
     range: integer
 
+  fileRatio:
+    description: >-
+      Number of files of this row's file type, relative to its samples and read
+      according to File Ratio Unit. For example: 2 Files per sample for paired-end
+      FASTQs, 30 Samples per file for a count matrix covering 30 samples, or 1
+      Total files for a Docker image.
+    range: integer
+    minimum_value: 1
+
+  fileRatioUnit:
+    description: >-
+      How to read File Ratio: as files per sample, as samples per file, or as a
+      total count for data that isn't organized by sample.
+    range: FileRatioUnitEnum
+
   uploadByDate:
-    description: Non-binding estimated date by which files are expected to be uploaded.
+    description: >-
+      Deadline by which files for this dataset must be uploaded, within the
+      project period. Uploading earlier is welcome. Dates are expected to shift;
+      plan uploads in regular, small batches that roughly follow when the data
+      is generated.
     range: string
 
   dataContributionLead:
-    description: Name of the individual responsible for uploading files.
+    description: >-
+      Name of the one person responsible for uploading and curating this
+      dataset's files and metadata, usually a computational biologist or data
+      manager. They will be assigned the curation task. Name a single person,
+      and do not list the principal investigator.
     range: string
 
   studyAim:

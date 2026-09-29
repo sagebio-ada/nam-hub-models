@@ -158,6 +158,7 @@ enums:
       "EdU proliferation assay":
       "FLIPR high-throughput cellular screening":
       "HPLC":
+      "Luminex":
       "Migration Assay":
       "STR profile":
       "TIDE":
@@ -201,7 +202,7 @@ enums:
       "oscillatory rheology":
       "oxygen consumption assay":
       "perineurial cell thickness":
-      "pharmocokinetic ADME assay":
+      "pharmacokinetic ADME assay":
       "polymerase chain reaction":
       "quantitative PCR":
       "reactive oxygen species assay":
@@ -458,6 +459,16 @@ enums:
       "Imaging Metadata":
       "Pharmacokinetics / ADMET":
       "Analytical Models":
+
+  FileRatioUnitEnum:
+    description: How to read the File Ratio.
+    permissible_values:
+      "Files per sample":
+        description: The File Ratio is the number of files for each sample, such as 2 for paired-end FASTQs.
+      "Samples per file":
+        description: The File Ratio is the number of samples each file holds, for files that combine several samples, such as a count matrix.
+      "Total files":
+        description: The File Ratio is the total number of files, for data that isn't organized by sample, such as a model, code or a protocol.
 
   # ── Portal table enums ───────────────────────────────────────────────────────
 
