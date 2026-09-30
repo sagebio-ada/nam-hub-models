@@ -17,8 +17,8 @@ package = false
 [dependency-groups]
 dev = [
     "linkml>=1.9.3",
-    "linkml-to-curator",
+    "linkml-curator",
 ]
 
 [tool.uv.sources]
-linkml-to-curator = { git = "https://github.com/sagebio-ada/linkml-to-curator", tag = "v0.1.0" }
+linkml-curator = { git = "https://github.com/sagebio-ada/linkml-curator", tag = "v0.3.0" }

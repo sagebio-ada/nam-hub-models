@@ -641,6 +641,17 @@ wheels = [
 ]
 
 [[package]]
+name = "linkml-curator"
+version = "0.3.0"
+source = { git = "https://github.com/sagebio-ada/linkml-curator?tag=v0.3.0#0af912ca9de74e481eea57990dc151c17a998adc" }
+dependencies = [
+    { name = "click" },
+    { name = "linkml" },
+    { name = "linkml-runtime" },
+    { name = "synapseclient" },
+]
+
+[[package]]
 name = "linkml-runtime"
 version = "1.11.1"
 source = { registry = "https://pypi.org/simple" }
@@ -662,17 +673,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/d0/7c/36332b49226f37d05d0dbfa4fb1c8017963d62ae722102c9c11c1f530696/linkml_runtime-1.11.1.tar.gz", hash = "sha256:e71300b596c4f35aeccd9dca096806678402213dbdb2c5e8e68f507e21320754", size = 556549, upload-time = "2026-05-20T17:05:43.633Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/63/1d/600b0dd24aa61f03d35293a2e9a4695add1e94c03d8701436fb52d5daf4f/linkml_runtime-1.11.1-py3-none-any.whl", hash = "sha256:b22c77d8fd920d0f4f43a6ece31393dc0b28bb47790f3e1c114210318c36b3da", size = 654566, upload-time = "2026-05-20T17:05:40.526Z" },
-]
-
-[[package]]
-name = "linkml-to-curator"
-version = "0.1.0"
-source = { git = "https://github.com/sagebio-ada/linkml-to-curator?tag=v0.1.0#0e7f3c40ced3345f4969a6c35e31d1cb15f32b7d" }
-dependencies = [
-    { name = "click" },
-    { name = "linkml" },
-    { name = "linkml-runtime" },
-    { name = "synapseclient" },
 ]
 
 [[package]]
@@ -746,7 +746,7 @@ source = { virtual = "." }
 [package.dev-dependencies]
 dev = [
     { name = "linkml" },
-    { name = "linkml-to-curator" },
+    { name = "linkml-curator" },
 ]
 
 [package.metadata]
@@ -754,7 +754,7 @@ dev = [
 [package.metadata.requires-dev]
 dev = [
     { name = "linkml", specifier = ">=1.9.3" },
-    { name = "linkml-to-curator", git = "https://github.com/sagebio-ada/linkml-to-curator?tag=v0.1.0" },
+    { name = "linkml-curator", git = "https://github.com/sagebio-ada/linkml-curator?tag=v0.3.0" },
 ]
 
 [[package]]

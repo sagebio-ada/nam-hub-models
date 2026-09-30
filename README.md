@@ -10,7 +10,7 @@ collection form.
   * `enums.yaml` - shared enumerations, imported by `namhub.yaml`
 
 Everything else is derived from those two files by
-[linkml-to-curator](https://github.com/sagebio-ada/linkml-to-curator).
+[linkml-curator](https://github.com/sagebio-ada/linkml-curator).
 
 ## Working with the schema
 
