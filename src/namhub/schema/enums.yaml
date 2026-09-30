@@ -73,6 +73,8 @@ enums:
         title: "single-cell RNA-seq"
       single_nucleus_rna_seq:
         title: "single-nucleus RNA-seq"
+      single_nucleus_atac_seq:
+        title: "single-nucleus ATAC-seq"
       spatial_transcriptomics:
         title: "spatial transcriptomics"
       targeted_exome_sequencing:
@@ -102,11 +104,15 @@ enums:
       autoradiography:
       brightfield_microscopy:
         title: "brightfield microscopy"
+      calcium_imaging:
+        title: "calcium imaging"
       live_imaging:
         title: "live imaging"
       histology:
       confocal_microscopy:
         title: "confocal microscopy"
+      electron_microscopy:
+        title: "electron microscopy"
       conventional_mri:
         title: "conventional MRI"
       diffusion_mri:
@@ -138,6 +144,8 @@ enums:
         title: "optical tomography"
       phase_contrast_microscopy:
         title: "phase-contrast microscopy"
+      second_harmonic_generation_imaging:
+        title: "second harmonic generation imaging"
       photograph:
       positron_emission_tomography:
         title: "positron emission tomography"
@@ -467,6 +475,7 @@ enums:
       gtf:
       hic:
       maf:
+      h5ad:
       mtx:
       plink:
       recal:
@@ -517,7 +526,11 @@ enums:
       msf:
       mzml:
         title: "mzML"
+      bruker_d:
+        title: ".d"
       raw:
+      skyline:
+        title: "Skyline"
       rcc:
         title: "RCC"
       csv:
@@ -544,6 +557,8 @@ enums:
       json:
       prism:
       rds:
+      seurat_object:
+        title: "Seurat Object"
       sqlite:
       xml:
       yaml:
