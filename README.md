@@ -27,7 +27,17 @@ just register-curator NAMhub             # register them under the model's versi
 ```
 
 Registration names the Synapse organization explicitly, reads a token from
-`SYNAPSE_AUTH_TOKEN` or `~/.synapseConfig`, and refuses to reuse a version, so a release
-starts with a bump of `version:` in `namhub.yaml`.
+`SYNAPSE_AUTH_TOKEN` or `~/.synapseConfig`, and refuses to reuse a version.
 
-CI runs `just test` on every pull request.
+CI runs `just test` and `just gen-curator` on every pull request.
+
+## Releasing
+
+The generated Curator JSON schemas are release artifacts, attached to GitHub releases rather than tracked in git.
+
+1. Bump `version:` in `namhub.yaml` and merge to main.
+2. Check the schemas with `just register-curator NAMhub --dry-run`.
+3. Publish a GitHub release from main tagged `v` plus that version, such as `v3.0.0`. The release workflow checks the tag against `version:`, runs the tests, and attaches one JSON schema per class to the release.
+4. Register the same version with Synapse: `just register-curator NAMhub`.
+
+The latest release's schemas are at `https://github.com/sagebio-ada/nam-hub-models/releases/latest/download/<Class>.json`.
