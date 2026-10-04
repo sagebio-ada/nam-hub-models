@@ -45,3 +45,10 @@ jobs:
 
       - name: Generate Curator schemas
         run: just gen-curator
+
+      # https://github.com/actions/upload-artifact
+      - name: Upload Curator schemas
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: curator-schemas
+          path: project/curator/
