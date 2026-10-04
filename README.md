@@ -33,11 +33,11 @@ CI runs `just test` and `just gen-curator` on every pull request.
 
 ## Releasing
 
-The generated Curator JSON schemas are release artifacts, attached to GitHub releases rather than tracked in git.
+The generated Curator JSON schemas are release artifacts, attached to GitHub releases rather than tracked in git. Every push to main replaces the `latest` release, which the repository homepage shows, with schemas generated from that commit.
 
 1. Bump `version:` in `namhub.yaml` and merge to main.
 2. Check the schemas with `just register-curator NAMhub --dry-run`.
 3. Publish a GitHub release from main tagged `v` plus that version, such as `v3.0.0`. The release workflow checks the tag against `version:`, runs the tests, and attaches one JSON schema per class to the release.
 4. Register the same version with Synapse: `just register-curator NAMhub`.
 
-The latest release's schemas are at `https://github.com/sagebio-ada/nam-hub-models/releases/latest/download/<Class>.json`.
+Main's schemas are at `https://github.com/sagebio-ada/nam-hub-models/releases/latest/download/<Class>.json`, and a version's at `.../releases/download/v3.0.0/<Class>.json`.

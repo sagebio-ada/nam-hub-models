@@ -61,3 +61,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.release.tag_name }}
         run: gh release upload "$TAG" project/curator/*.json --clobber --repo "$GITHUB_REPOSITORY"
+
+      # Publishing makes this release Latest; the homepage keeps showing main's build.
+      - name: Keep main's build as latest
+        if: github.event.release.tag_name != 'latest'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release edit latest --latest --repo "$GITHUB_REPOSITORY" || true
