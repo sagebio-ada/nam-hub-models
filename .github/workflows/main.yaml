@@ -1,0 +1,85 @@
+# Built from:
+# https://docs.github.com/en/actions/guides/building-and-testing-python
+---
+name: Build and test
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  FORCE_COLOR: "1"  # Make tools pretty.
+
+permissions: {}
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # https://github.com/actions/checkout
+      - name: Check out repository
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      # https://github.com/astral-sh/setup-uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install just
+        run: |
+          uv tool install rust-just
+
+      - name: Install project
+        run: uv sync --group dev
+
+      - name: Run test suite
+        run: just test
+
+      - name: Generate Curator schemas
+        run: just gen-curator
+
+      # https://github.com/actions/upload-artifact
+      - name: Upload Curator schemas
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: curator-schemas
+          path: project/curator/
+
+  publish-latest:
+
+    if: github.event_name == 'push'
+    needs: test
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Replace the "latest" release and its tag.
+
+    steps:
+
+      # https://github.com/actions/download-artifact
+      - name: Download Curator schemas
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: curator-schemas
+          path: project/curator/
+
+      # Recreated on every push so assets for removed classes don't linger.
+      - name: Replace latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --cleanup-tag --yes --repo "$GITHUB_REPOSITORY" || true
+          gh release create latest project/curator/*.json \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --latest \
+            --title "Latest from main" \
+            --notes "Curator JSON schemas generated from ${GITHUB_SHA::7}, the head of main."
