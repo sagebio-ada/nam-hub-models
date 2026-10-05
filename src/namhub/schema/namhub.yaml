@@ -1,6 +1,6 @@
 id: https://namhub.synapse.org/portal_schemas
 name: namhub
-version: 2.2.0
+version: 3.0.0
 description: >-
   NAMHub portal data schemas — backend Synapse tables and the Landscape data
   collection form. Portal tables are backed by Synapse project syn74360399.
@@ -11,7 +11,7 @@ prefixes:
   linkml: https://w3id.org/linkml/
   namhub: https://namhub.synapse.org/portal_schemas/
   namo: https://github.com/monarch-initiative/namo/
-  duo: http://purl.obolibrary.org/obo/DUO_
+  DUO: http://purl.obolibrary.org/obo/DUO_
   schema: http://schema.org/
 
 default_prefix: namhub
@@ -32,55 +32,60 @@ classes:
       Preliminary information about datasets intended to be shared through
       NAM Hub. Used by TDC teams to declare expected data uploads.
     slots:
-      - landscapeId
-      - datasetName
-      - datasetDescription
-      - datasetAssay
-      - datasetSpecies
-      - datasetFileFormats
-      - datasetCategory
-      - datasetProcessingLevel
-      - contextOfUse
-      - applicableStandards
-      - expectedNumberOfFiles
-      - expectedNumberOfSamples
-      - uploadByDate
-      - dataContributionLead
-      - studyName
-      - studyAim
+      - landscape_id
+      - dataset_name
+      - dataset_group
+      - derived_from
+      - dataset_description
+      - dataset_assay
+      - dataset_species
+      - dataset_file_format
+      - dataset_category
+      - dataset_processing_level
+      - context_of_use
+      - applicable_standards
+      - expected_number_of_samples
+      - file_ratio
+      - file_ratio_unit
+      - upload_by_date
+      - data_contribution_lead
+      - study_name
+      - study_aim
       - comments
     slot_usage:
-      landscapeId:
+      landscape_id:
         required: true
-      datasetName:
+      dataset_name:
         required: true
-      datasetDescription:
+      dataset_description:
         required: true
-      datasetAssay:
+      dataset_assay:
         required: true
-      datasetSpecies:
+      dataset_species:
         required: true
-      datasetFileFormats:
+      dataset_file_format:
         required: true
-      datasetCategory:
+      dataset_category:
         required: true
-      datasetProcessingLevel:
+      dataset_processing_level:
         required: true
-      contextOfUse:
+      context_of_use:
         required: true
-      expectedNumberOfFiles:
+      expected_number_of_samples:
         required: true
-      expectedNumberOfSamples:
+      file_ratio:
         required: true
-      uploadByDate:
+      file_ratio_unit:
         required: true
-      dataContributionLead:
+      upload_by_date:
         required: true
-      studyName:
+      data_contribution_lead:
         required: true
-      studyAim:
+      study_name:
         required: true
-      
+      study_aim:
+        required: true
+
   # -- Portal tables -----------------------------------------------------------
 
   Studies:
@@ -88,22 +93,22 @@ classes:
       One row per Technology Development Center (TDC) study in the NAMHub
       program. Synapse table: syn75404711.
     slots:
-      - studyId
-      - studyName
-      - studyLeads
+      - study_id
+      - study_name
+      - study_leads
       - summary
       - institution
-      - fundingAgency
-      - synapseProjectId
-      - studyDoi
-      - diseaseFocus
-      - alternateName
-      - NAMsTechFocus
-      - grantId
+      - funding_agency
+      - synapse_project_id
+      - study_doi
+      - disease_focus
+      - alternate_name
+      - nams_tech_focus
+      - grant_id
     slot_usage:
-      studyId:
+      study_id:
         required: true
-      studyName:
+      study_name:
         required: true
 
   Datasets:
@@ -111,25 +116,25 @@ classes:
       One row per dataset — Synapse-hosted or external (e.g. GEO).
       Links to Studies and NAMs. Synapse table: syn75404713.
     slots:
-      - datasetId
+      - dataset_id
       - title
       - description
-      - studyId
-      - studyName
+      - study_id
+      - study_name
       - assay
-      - dataType
+      - data_type
       - species
       - format
       - repository
-      - externalLink
+      - external_link
       - doi
-      - releaseDate
-      - datasetItemCount
-      - datasetSizeInBytes
-      - hasCroissantMetadata
-      - croissantMetadataUrl
-      - accessType
-      - namId
+      - release_date
+      - dataset_item_count
+      - dataset_size_in_bytes
+      - has_croissant_metadata
+      - croissant_metadata_url
+      - access_type
+      - nam_id
     slot_usage:
       title:
         required: true
@@ -139,21 +144,21 @@ classes:
       Investigators and contributors associated with NAMHub studies.
       Synapse table: syn75404714.
     slots:
-      - investigatorId
-      - firstName
-      - lastName
+      - investigator_id
+      - first_name
+      - last_name
       - institution
       - role
-      - studyId
-      - grantId
-      - orcidId
-      - synapseId
+      - study_id
+      - grant_id
+      - orcid_id
+      - synapse_id
       - email
-      - portalDisplay
+      - portal_display
     slot_usage:
-      firstName:
+      first_name:
         required: true
-      lastName:
+      last_name:
         required: true
 
   Grants:
@@ -161,17 +166,17 @@ classes:
       Backend grant records linked to Studies. Not directly surfaced on the
       portal. Synapse table: syn75404715.
     slots:
-      - grantId
-      - grantName
-      - grantNumber
-      - grantType
-      - grantInstitution
+      - grant_id
+      - grant_name
+      - grant_number
+      - grant_type
+      - grant_institution
       - abstract
       - investigator
-      - fundingAgency
-      - nihReporterLink
+      - funding_agency
+      - nih_reporter_link
     slot_usage:
-      grantId:
+      grant_id:
         required: true
 
   NAMs:
@@ -184,31 +189,31 @@ classes:
     see_also:
       - https://github.com/monarch-initiative/namo
     slots:
-      - namId
-      - namName
+      - nam_id
+      - nam_name
       - description
-      - developmentStatus
-      - namoClass
-      - namoCategory
-      - namoId
+      - development_status
+      - namo_class
+      - namo_category
+      - namo_id
       - organism
-      - tissueOrCellType
-      - endpointsMeasured
-      - studyId
-      - datasetId
-      - relatedPublications
-      - externalLink
-      - synapseEntityId
-      - accessType
-      - accessRequirements
-      - duoCode
-      - acknowledgementStatements
+      - tissue_or_cell_type
+      - endpoints_measured
+      - study_id
+      - dataset_id
+      - related_publications
+      - external_link
+      - synapse_entity_id
+      - access_type
+      - access_requirements
+      - duo_code
+      - acknowledgement_statements
       - license
-      - portalDisplay
+      - portal_display
     slot_usage:
-      namId:
+      nam_id:
         required: true
-      namName:
+      nam_name:
         required: true
 
   Publications:
@@ -216,22 +221,22 @@ classes:
       Publications associated with NAMHub studies, grants, or NAMs.
       Synapse table: syn75404744.
     slots:
-      - pubMedId
-      - publicationTitle
+      - pub_med_id
+      - publication_title
       - authors
       - journal
-      - publicationYear
+      - publication_year
       - doi
-      - pubMedLink
+      - pub_med_link
       - keywords
-      - studyId
-      - grantId
-      - namId
-      - dataType
+      - study_id
+      - grant_id
+      - nam_id
+      - data_type
       - assay
-      - synapseEntityId
+      - synapse_entity_id
     slot_usage:
-      publicationTitle:
+      publication_title:
         required: true
 
 # ── Slots ──────────────────────────────────────────────────────────────────────
@@ -240,114 +245,159 @@ slots:
 
   # -- Shared / cross-table ----------------------------------------------------
 
-  studyId:
+  study_id:
+    title: Study_id
     description: Study identifier linking to the Studies table (syn75404711).
     multivalued: false
     range: string
 
-  studyName:
+  study_name:
+    title: Study Name
     description: Full display name of the study.
     range: string
 
   institution:
+    title: Institution
     description: Affiliated institution(s).
     multivalued: true
     range: string
 
-  fundingAgency:
+  funding_agency:
+    title: Funding Agency
     description: Funding agency or agencies (e.g. NIH Common Fund).
     multivalued: true
     range: string
 
-  grantId:
+  grant_id:
+    title: Grant_id
     description: Grant identifier linking to the Grants table (syn75404715).
     multivalued: false
     range: string
 
   description:
+    title: Description
     description: Free-text description.
     range: string
 
   doi:
+    title: Doi
     description: Digital Object Identifier (DOI).
     range: uri
 
   assay:
+    title: Assay
     description: Experimental assay or method.
     multivalued: true
     range: AssayEnum
 
-  dataType:
+  data_type:
+    title: Data Type
     description: Broad category of the data type.
     multivalued: true
     range: DataCategoryEnum
 
   species:
+    title: Species
     description: Species of origin.
     multivalued: true
     range: SpeciesEnum
 
-  accessType:
+  access_type:
+    title: Access Type
     description: Data access level.
     range: AccessTypeEnum
 
-  namId:
+  nam_id:
+    title: Nam_id
     description: NAM identifier(s) linking to the NAMs table (syn75404716).
     multivalued: true
     range: string
 
-  externalLink:
+  external_link:
+    title: External Link
     description: External URL for additional resources.
     range: uri
 
-  synapseEntityId:
+  synapse_entity_id:
+    title: Synapse Entity_id
     description: Synapse project or entity ID (syn-prefixed).
     range: string
     pattern: "^syn\\d+$"
 
-  portalDisplay:
+  portal_display:
+    title: Portal Display
     description: Whether this record should be displayed on the public portal.
     range: boolean
     ifabsent: "true"
 
   # -- Landscape slots ---------------------------------------------------------
 
-  landscapeId:
+  landscape_id:
+    title: Landscape_id
     description: Unique identifier for the landscape entry.
     range: string
 
-  datasetName:
+  dataset_name:
+    title: Dataset Name
     description: Name of the dataset.
     range: string
 
-  datasetDescription:
+  dataset_group:
+    title: Dataset Group
+    description: >-
+      Identifier shared by every row that describes the same dataset, where the
+      dataset is split into one row per file type. Also set one on a single-row
+      dataset when another dataset's Derived From names it.
+    range: string
+
+  derived_from:
+    title: Derived From
+    description: >-
+      Optional. Dataset Group of the dataset this row's files are processed
+      from, such as the FASTQ dataset a count matrix was produced from.
+    range: string
+
+  dataset_description:
+    title: Dataset Description
     description: A text description of the files contained in this dataset.
     range: string
 
-  datasetAssay:
+  dataset_assay:
+    title: Dataset Assay
     description: Experimental method used to generate files in the dataset.
     range: AssayEnum
 
-  datasetSpecies:
+  dataset_species:
+    title: Dataset Species
     description: Species of origin associated with files in the dataset.
     range: SpeciesEnum
 
-  datasetFileFormats:
-    description: File extension(s) associated with files in the dataset.
-    multivalued: true
+  dataset_file_format:
+    title: Dataset File Format
+    description: >-
+      File type of the files this row describes. Each row covers one file type; a
+      dataset with several file types has one row for each, sharing a Dataset
+      Group. List only the file types required to process this data type
+      independently.
     range: FileFormatEnum
 
-  datasetCategory:
+  dataset_category:
+    title: Dataset Category
     description: >-
       Type of data or scientific content represented in the dataset (e.g. gene
       expression, imaging, clinical data) — see valid values for the full list.
     range: DataCategoryEnum
 
-  datasetProcessingLevel:
-    description: Level of processing associated with the dataset.
+  dataset_processing_level:
+    title: Dataset Processing Level
+    description: >-
+      Level of processing associated with the dataset. Always list the raw
+      (Level 1) data; list processed levels only where agreed with the NAMHub
+      data team.
     range: ProcessLevelEnum
 
-  contextOfUse:
+  context_of_use:
+    title: Context Of Use
     description: >-
       Free-text statement of the intended context(s) of use for this dataset —
       how and for what purpose the data is meant to be used, following the FDA
@@ -356,186 +406,251 @@ slots:
       Multiple values permitted.
     multivalued: true
 
-  applicableStandards:
-    description: Controlled vocabularies or data models used to organize and annotate files.
+  applicable_standards:
+    title: Applicable Standards
+    description: >-
+      Optional. Controlled vocabularies, ontologies or data models your team
+      already uses to organize and annotate these files. Used to inform the
+      NAMHub metadata model.
     range: string
 
-  expectedNumberOfFiles:
-    description: Number of files expected to be uploaded as part of this dataset.
-    range: integer
-
-  expectedNumberOfSamples:
+  expected_number_of_samples:
+    title: Expected Number Of Samples
     description: >-
       Estimated total number of physical biospecimen samples represented in the
-      dataset (e.g. 200 participants at 3 time points = 600 total samples). Distinct
-      from expectedNumberOfFiles, which counts the files expected to be submitted.
+      dataset (e.g. 200 participants at 3 time points = 600 total samples). Used
+      with File Ratio to work out how many files to expect, and to track
+      completeness: an estimate is fine, and a difference from what is eventually
+      uploaded is something to discuss, not a penalty.
     range: integer
 
-  uploadByDate:
-    description: Non-binding estimated date by which files are expected to be uploaded.
+  file_ratio:
+    title: File Ratio
+    description: >-
+      Number of files of this row's file type, relative to its samples and read
+      according to File Ratio Unit. For example: 2 Files per sample for paired-end
+      FASTQs, 30 Samples per file for a count matrix covering 30 samples, or 1
+      Total files for a Docker image.
+    range: integer
+    minimum_value: 1
+
+  file_ratio_unit:
+    title: File Ratio Unit
+    description: >-
+      How to read File Ratio: as files per sample, as samples per file, or as a
+      total count for data that isn't organized by sample.
+    range: FileRatioUnitEnum
+
+  upload_by_date:
+    title: Upload By Date
+    description: >-
+      Deadline by which files for this dataset must be uploaded, within the
+      project period. Uploading earlier is welcome. Dates are expected to shift;
+      plan uploads in regular, small batches that roughly follow when the data
+      is generated.
     range: string
 
-  dataContributionLead:
-    description: Name of the individual responsible for uploading files.
+  data_contribution_lead:
+    title: Data Contribution Lead
+    description: >-
+      Name of the one person responsible for uploading and curating this
+      dataset's files and metadata, usually a computational biologist or data
+      manager. They will be assigned the curation task. Name a single person,
+      and do not list the principal investigator.
     range: string
 
-  studyAim:
+  study_aim:
+    title: Study Aim
     description: Key connecting the expected data to aims in the research proposal.
     range: string
 
   comments:
+    title: Comments
     description: Additional information not captured in other fields.
     range: string
 
   # -- Studies slots -----------------------------------------------------------
 
-  studyLeads:
+  study_leads:
+    title: Study Leads
     description: Principal investigators or study leads.
     multivalued: true
     range: string
 
   summary:
+    title: Summary
     description: Brief description of the study's goals and approach.
     range: string
 
-  synapseProjectId:
+  synapse_project_id:
+    title: Synapse Project_id
     description: Synapse project entity ID housing the study's files.
     range: string
     pattern: "^syn\\d+$"
 
-  studyDoi:
+  study_doi:
+    title: Study Doi
     description: Digital Object Identifier (DOI) for the study.
     range: uri
 
-  diseaseFocus:
+  disease_focus:
+    title: Disease Focus
     description: Disease areas or conditions the study addresses.
     multivalued: true
     range: string
 
-  alternateName:
+  alternate_name:
+    title: Alternate Name
     description: Acronym or short name for the study.
     multivalued: true
     range: string
 
-  NAMsTechFocus:
+  nams_tech_focus:
+    title: NAMs Tech Focus
     description: New Approach Methodology technology focus areas.
     multivalued: true
     range: string
 
   # -- Datasets slots ----------------------------------------------------------
 
-  datasetId:
+  dataset_id:
+    title: Dataset_id
     description: >-
       Synapse Dataset entity ID. Blank for externally hosted datasets.
     range: string
     pattern: "^syn\\d+$"
 
   title:
+    title: Title
     description: Display title of the dataset.
     range: string
 
   format:
+    title: Format
     description: File formats contained in the dataset.
     multivalued: true
     range: FileFormatEnum
 
   repository:
+    title: Repository
     description: Repository where the dataset is hosted.
     range: RepositoryEnum
 
-  releaseDate:
+  release_date:
+    title: Release Date
     description: Date the dataset was made publicly available.
     range: date
 
-  datasetItemCount:
+  dataset_item_count:
+    title: Dataset Item Count
     description: Number of files or items in the dataset.
     range: integer
 
-  datasetSizeInBytes:
+  dataset_size_in_bytes:
+    title: Dataset Size In Bytes
     description: Total size of the dataset in bytes.
     range: integer
 
-  hasCroissantMetadata:
+  has_croissant_metadata:
+    title: Has Croissant Metadata
     description: Whether the dataset has associated Croissant-format metadata.
     range: boolean
 
-  croissantMetadataUrl:
+  croissant_metadata_url:
+    title: Croissant Metadata Url
     description: URL to the Croissant metadata file for this dataset.
     range: uri
 
   # -- People slots ------------------------------------------------------------
 
-  investigatorId:
+  investigator_id:
+    title: Investigator_id
     description: Unique identifier for the investigator.
     range: string
 
-  firstName:
+  first_name:
+    title: First Name
     description: First name.
     range: string
 
-  lastName:
+  last_name:
+    title: Last Name
     description: Last name.
     range: string
 
   role:
+    title: Role
     description: Role in the NAMHub program.
     range: RoleEnum
 
-  orcidId:
+  orcid_id:
+    title: Orcid_id
     description: ORCID persistent digital identifier.
     range: string
     pattern: "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$"
 
-  synapseId:
+  synapse_id:
+    title: Synapse_id
     description: Synapse user account ID.
     range: string
 
   email:
+    title: Email
     description: Contact email address.
     range: string
     pattern: "^[^@]+@[^@]+\\.[^@]+$"
 
   # -- Grants slots ------------------------------------------------------------
 
-  grantName:
+  grant_name:
+    title: Grant Name
     description: Full title of the grant.
     range: string
 
-  grantNumber:
+  grant_number:
+    title: Grant Number
     description: NIH grant number (e.g. UM1TR006029).
     range: string
 
-  grantType:
+  grant_type:
+    title: Grant Type
     description: Grant mechanism type (e.g. UM1, R01).
     range: string
 
-  grantInstitution:
+  grant_institution:
+    title: Grant Institution
     description: Institution holding the grant.
     range: string
 
   abstract:
+    title: Abstract
     description: Grant abstract.
     range: string
 
   investigator:
+    title: Investigator
     description: Name of the principal investigator.
     range: string
 
-  nihReporterLink:
+  nih_reporter_link:
+    title: Nih Reporter Link
     description: URL to the grant record on NIH Reporter.
     range: uri
 
   # -- NAMs slots --------------------------------------------------------------
 
-  namName:
+  nam_name:
+    title: Nam Name
     description: Display name of the NAM.
     range: string
 
-  developmentStatus:
+  development_status:
+    title: Development Status
     description: Current development stage of the NAM.
     range: DevelopmentStatusEnum
 
-  namoClass:
+  namo_class:
+    title: Namo Class
     description: >-
       Specific class name from the New Approach Methods Ontology (NAMO).
       Examples: Organoid, OrganOnChip, QSARModel, PBPKModel.
@@ -543,7 +658,8 @@ slots:
     see_also:
       - https://github.com/monarch-initiative/namo
 
-  namoCategory:
+  namo_category:
+    title: Namo Category
     description: >-
       Top-level branch from the NAMO ontology.
       Examples: InVitroBiological, InSilico, InChemico.
@@ -551,7 +667,8 @@ slots:
     see_also:
       - https://github.com/monarch-initiative/namo
 
-  namoId:
+  namo_id:
+    title: Namo_id
     description: >-
       NAMO ontology term identifier. Format: NAMO:XXXXXXX.
     range: string
@@ -560,36 +677,43 @@ slots:
       - https://github.com/monarch-initiative/namo
 
   organism:
+    title: Organism
     description: Organism(s) the NAM is derived from or applicable to.
     multivalued: true
     range: SpeciesEnum
 
-  tissueOrCellType:
+  tissue_or_cell_type:
+    title: Tissue Or Cell Type
     description: Tissue or cell type(s) used in the NAM.
     multivalued: true
     range: string
 
-  endpointsMeasured:
+  endpoints_measured:
+    title: Endpoints Measured
     description: Biological or chemical endpoints the NAM measures.
     multivalued: true
     range: string
 
-  datasetId_list:
+  dataset_id_list:
+    title: Dataset Id_list
     description: Dataset identifier(s) linking to the Datasets table (syn75404713).
     multivalued: true
     range: string
 
-  relatedPublications:
+  related_publications:
+    title: Related Publications
     description: PubMed IDs of publications describing or using this NAM.
     multivalued: true
     range: string
 
-  accessRequirements:
+  access_requirements:
+    title: Access Requirements
     description: >-
       Description of any Synapse Access Requirements governing the underlying data.
     range: string
 
-  duoCode:
+  duo_code:
+    title: Duo Code
     description: >-
       Data Use Ontology (GA4GH DUO) codes restricting data reuse.
       Examples: GRU (General Research Use), HMB (Health/Medical/Biomedical),
@@ -599,41 +723,50 @@ slots:
     see_also:
       - http://purl.obolibrary.org/obo/duo.owl
 
-  acknowledgementStatements:
+  acknowledgement_statements:
+    title: Acknowledgement Statements
     description: Required attribution or acknowledgement text for data reuse.
     range: string
 
   license:
+    title: License
     description: License governing reuse of the underlying data (e.g. CC-BY-4.0).
     range: string
 
   # -- Publications slots ------------------------------------------------------
 
-  pubMedId:
+  pub_med_id:
+    title: Pub Med_id
     description: PubMed identifier (PMID).
     range: string
 
-  publicationTitle:
+  publication_title:
+    title: Publication Title
     description: Full title of the publication.
     range: string
 
   authors:
+    title: Authors
     description: Author list.
     range: string
 
   journal:
+    title: Journal
     description: Journal name.
     range: string
 
-  publicationYear:
+  publication_year:
+    title: Publication Year
     description: Year of publication.
     range: integer
 
-  pubMedLink:
+  pub_med_link:
+    title: Pub Med Link
     description: URL to the PubMed entry.
     range: uri
 
   keywords:
+    title: Keywords
     description: Publication keywords or MeSH terms.
     multivalued: true
     range: string

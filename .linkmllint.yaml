@@ -1,7 +1,0 @@
-extends: recommended
-
-rules:
-  standard_naming:
-    level: disabled
-  canonical_prefixes:
-    level: disabled  # flags the duo prefix

@@ -17,487 +17,817 @@ enums:
   AssayEnum:
     description: Experimental method used to generate files in the dataset.
     permissible_values:
-      "ATAC-seq":
-      "CAPP-seq":
-      "CUT&RUN":
-      "ChIP-seq":
-      "ERR bisulfite sequencing":
-      "HI-C":
-      "ISO-seq":
-      "NOMe-seq":
-      "RNA array":
-      "RNA-seq":
-      "SNP array":
-      "SaferSeqS":
-      "Sanger sequencing":
-      "T cell receptor repertoire sequencing":
-      "bisulfite sequencing":
-      "jumping library":
-      "lncRNA-seq":
-      "methylation array":
-      "miRNA array":
-      "miRNA-seq":
-      "next-generation sequencing":
-      "next generation targeted sequencing":
-      "oxBS-seq":
-      "ribo-seq":
-      "scCGI-seq":
-      "single cell ATAC-seq":
-      "single-cell RNA-seq":
-      "single-nucleus RNA-seq":
-      "spatial transcriptomics":
-      "targeted exome sequencing":
-      "whole exome sequencing":
-      "whole genome sequencing":
-      "3D confocal imaging":
-      "3D electron microscopy":
-      "3D imaging":
-      "CODEX":
-      "DNA optical mapping":
-      "Fluorescence In Situ Hybridization":
-      "Magnetization-Prepared Rapid Gradient Echo MRI":
-      "SUSHI":
-      "atomic force microscopy":
-      "autoradiography":
-      "brightfield microscopy":
-      "live imaging":
-      "histology":
-      "confocal microscopy":
-      "conventional MRI":
-      "diffusion MRI":
-      "fluorescence microscopy assay":
-      "functional MRI":
-      "gel filtration chromatography":
-      "high content screen":
-      "high frequency ultrasound":
-      "immunocytochemistry":
-      "immunofluorescence":
-      "immunohistochemistry":
-      "in vivo bioluminescence":
-      "laser speckle imaging":
-      "magnetic resonance angiography":
-      "magnetic resonance spectroscopy":
-      "optical coherence tomography":
-      "optical tomography":
-      "phase-contrast microscopy":
-      "photograph":
-      "positron emission tomography":
-      "spatial frequency domain imaging":
-      "traction force microscopy":
-      "transcranial doppler ultrasonography":
-      "western blot":
-      "FIA-MSMS":
-      "FTIR spectroscopy":
-      "MIB/MS":
-      "MudPIT":
-      "RPPA":
-      "TMT quantitation":
-      "high-performance liquid chromatography/tandem mass spectrometry":
-      "label free mass spectrometry":
-      "liquid chromatography-electrochemical detection":
-      "liquid chromatography/mass spectrometry":
-      "liquid chromatography/tandem mass spectrometry":
-      "mass spectrometry":
-      "proximity extension assay":
-      "SomaScan":
-      "ultra high-performance liquid chromatography/tandem mass spectrometry":
-      "AlgometRx Nociometer":
-      "quantitative sensory testing":
-      "Child Behavior Checklist for Ages 1.5-5":
-      "Child Behavior Checklist for Ages 6-18":
-      "Children's Dermatology Life Quality Index Questionnaire":
-      "Corsi blocks":
-      "FACE-Q Appearance-related Distress":
-      "Focus group":
-      "Interview":
-      "NIH Toolbox":
-      "PROMIS Cognitive Function":
-      "Riccardi and Ablon scales":
-      "Skindex-16":
-      "Social Responsiveness Scale":
-      "Social Responsiveness Scale Second Edition":
-      "Von Frey test":
-      "actigraphy":
-      "active avoidance learning behavior assay":
-      "auditory brainstem response":
-      "blood chemistry measurement":
-      "body size trait measurement":
-      "cNF-Skindex":
-      "clinical data":
-      "cognitive assessment":
-      "contextual conditioning behavior assay":
-      "distortion product otoacoustic emissions":
-      "elevated plus maze test":
-      "feeding assay":
-      "gait measurement":
-      "genotyping":
-      "grip strength":
-      "hand-held dynamometry":
-      "metabolic screening":
-      "n-back task":
-      "neuropsychological assessment":
-      "novelty response behavior assay":
-      "open field test":
-      "optokinetic reflex assay":
-      "pattern electroretinogram":
-      "polysomnography":
-      "pure tone average":
-      "questionnaire":
-      "rotarod performance test":
-      "scale":
-      "six-minute walk test":
-      "weight":
-      "survival":
-      "word recognition score":
-      "2D AlamarBlue absorbance":
-      "2D AlamarBlue fluorescence":
-      "3D microtissue viability":
-      "ATPase activity assay":
-      "BrdU proliferation assay":
-      "ELISA":
-      "EdU proliferation assay":
-      "FLIPR high-throughput cellular screening":
-      "HPLC":
-      "Migration Assay":
-      "STR profile":
-      "TIDE":
-      "TriKinetics activity monitoring":
-      "array":
-      "blue native PAGE":
-      "SDS-PAGE":
-      "bone histomorphometry":
-      "cAMP-Glo Max Assay":
-      "calcium retention capacity assay":
-      "cell competition":
-      "cell count":
-      "cell painting":
-      "cell permeability assay":
-      "cell proliferation":
-      "cell viability assay":
-      "combination library screen":
-      "combination screen":
-      "complex II enzyme activity assay":
-      "compound screen":
-      "current clamp assay":
-      "differential scanning calorimetry":
-      "dynamic light scattering":
-      "electrochemiluminescence":
-      "electrophoretic light scattering":
-      "flow cytometry":
-      "focus forming assay":
-      "gel permeation chromatography":
-      "immunoassay":
-      "in silico synthesis":
-      "in vitro tumorigenesis":
-      "in vivo PDX viability":
-      "in vivo tumor growth":
-      "light scattering assay":
-      "local field potential recording":
-      "long term potentiation assay":
-      "massively parallel reporter assay":
-      "microrheology":
-      "multi-electrode array":
-      "nanoparticle tracking analysis":
-      "oscillatory rheology":
-      "oxygen consumption assay":
-      "perineurial cell thickness":
-      "pharmocokinetic ADME assay":
-      "polymerase chain reaction":
-      "quantitative PCR":
-      "reactive oxygen species assay":
-      "reporter gene assay":
-      "split-GFP assay":
-      "rheometry":
-      "sandwich ELISA":
-      "single molecule drug screen assay":
-      "small molecule library screen":
-      "sorbitol dehydrogenase activity level assay":
-      "static histomorphometry":
-      "static light scattering":
-      "trans-endothelial electrical resistance":
-      "twin spot assay":
-      "whole-cell patch clamp":
-      "Unknown":
+      atac_seq:
+        title: "ATAC-seq"
+      capp_seq:
+        title: "CAPP-seq"
+      cut_run:
+        title: "CUT&RUN"
+      chip_seq:
+        title: "ChIP-seq"
+      err_bisulfite_sequencing:
+        title: "ERR bisulfite sequencing"
+      hi_c:
+        title: "HI-C"
+      iso_seq:
+        title: "ISO-seq"
+      nome_seq:
+        title: "NOMe-seq"
+      rna_array:
+        title: "RNA array"
+      rna_seq:
+        title: "RNA-seq"
+      snp_array:
+        title: "SNP array"
+      safer_seqs:
+        title: "SaferSeqS"
+      sanger_sequencing:
+        title: "Sanger sequencing"
+      t_cell_receptor_repertoire_sequencing:
+        title: "T cell receptor repertoire sequencing"
+      bisulfite_sequencing:
+        title: "bisulfite sequencing"
+      jumping_library:
+        title: "jumping library"
+      lncrna_seq:
+        title: "lncRNA-seq"
+      methylation_array:
+        title: "methylation array"
+      mirna_array:
+        title: "miRNA array"
+      mirna_seq:
+        title: "miRNA-seq"
+      next_generation_sequencing:
+        title: "next-generation sequencing"
+      next_generation_targeted_sequencing:
+        title: "next generation targeted sequencing"
+      oxbs_seq:
+        title: "oxBS-seq"
+      ribo_seq:
+        title: "ribo-seq"
+      sccgi_seq:
+        title: "scCGI-seq"
+      single_cell_atac_seq:
+        title: "single cell ATAC-seq"
+      single_cell_rna_seq:
+        title: "single-cell RNA-seq"
+      single_nucleus_rna_seq:
+        title: "single-nucleus RNA-seq"
+      single_nucleus_atac_seq:
+        title: "single-nucleus ATAC-seq"
+      spatial_transcriptomics:
+        title: "spatial transcriptomics"
+      targeted_exome_sequencing:
+        title: "targeted exome sequencing"
+      whole_exome_sequencing:
+        title: "whole exome sequencing"
+      whole_genome_sequencing:
+        title: "whole genome sequencing"
+      three_d_confocal_imaging:
+        title: "3D confocal imaging"
+      three_d_electron_microscopy:
+        title: "3D electron microscopy"
+      three_d_imaging:
+        title: "3D imaging"
+      codex:
+        title: "CODEX"
+      dna_optical_mapping:
+        title: "DNA optical mapping"
+      fluorescence_in_situ_hybridization:
+        title: "Fluorescence In Situ Hybridization"
+      magnetization_prepared_rapid_gradient_echo_mri:
+        title: "Magnetization-Prepared Rapid Gradient Echo MRI"
+      sushi:
+        title: "SUSHI"
+      atomic_force_microscopy:
+        title: "atomic force microscopy"
+      autoradiography:
+      brightfield_microscopy:
+        title: "brightfield microscopy"
+      calcium_imaging:
+        title: "calcium imaging"
+      live_imaging:
+        title: "live imaging"
+      histology:
+      confocal_microscopy:
+        title: "confocal microscopy"
+      electron_microscopy:
+        title: "electron microscopy"
+      conventional_mri:
+        title: "conventional MRI"
+      diffusion_mri:
+        title: "diffusion MRI"
+      fluorescence_microscopy_assay:
+        title: "fluorescence microscopy assay"
+      functional_mri:
+        title: "functional MRI"
+      gel_filtration_chromatography:
+        title: "gel filtration chromatography"
+      high_content_screen:
+        title: "high content screen"
+      high_frequency_ultrasound:
+        title: "high frequency ultrasound"
+      immunocytochemistry:
+      immunofluorescence:
+      immunohistochemistry:
+      in_vivo_bioluminescence:
+        title: "in vivo bioluminescence"
+      laser_speckle_imaging:
+        title: "laser speckle imaging"
+      magnetic_resonance_angiography:
+        title: "magnetic resonance angiography"
+      magnetic_resonance_spectroscopy:
+        title: "magnetic resonance spectroscopy"
+      optical_coherence_tomography:
+        title: "optical coherence tomography"
+      optical_tomography:
+        title: "optical tomography"
+      phase_contrast_microscopy:
+        title: "phase-contrast microscopy"
+      second_harmonic_generation_imaging:
+        title: "second harmonic generation imaging"
+      photograph:
+      positron_emission_tomography:
+        title: "positron emission tomography"
+      spatial_frequency_domain_imaging:
+        title: "spatial frequency domain imaging"
+      traction_force_microscopy:
+        title: "traction force microscopy"
+      transcranial_doppler_ultrasonography:
+        title: "transcranial doppler ultrasonography"
+      western_blot:
+        title: "western blot"
+      fia_msms:
+        title: "FIA-MSMS"
+      ftir_spectroscopy:
+        title: "FTIR spectroscopy"
+      mib_ms:
+        title: "MIB/MS"
+      mudpit:
+        title: "MudPIT"
+      rppa:
+        title: "RPPA"
+      tmt_quantitation:
+        title: "TMT quantitation"
+      high_performance_liquid_chromatography_tandem_mass_spectrometry:
+        title: "high-performance liquid chromatography/tandem mass spectrometry"
+      label_free_mass_spectrometry:
+        title: "label free mass spectrometry"
+      liquid_chromatography_electrochemical_detection:
+        title: "liquid chromatography-electrochemical detection"
+      liquid_chromatography_mass_spectrometry:
+        title: "liquid chromatography/mass spectrometry"
+      liquid_chromatography_tandem_mass_spectrometry:
+        title: "liquid chromatography/tandem mass spectrometry"
+      mass_spectrometry:
+        title: "mass spectrometry"
+      proximity_extension_assay:
+        title: "proximity extension assay"
+      soma_scan:
+        title: "SomaScan"
+      ultra_high_performance_liquid_chromatography_tandem_mass_spectrometry:
+        title: "ultra high-performance liquid chromatography/tandem mass spectrometry"
+      algomet_rx_nociometer:
+        title: "AlgometRx Nociometer"
+      quantitative_sensory_testing:
+        title: "quantitative sensory testing"
+      child_behavior_checklist_for_ages_1_5_5:
+        title: "Child Behavior Checklist for Ages 1.5-5"
+      child_behavior_checklist_for_ages_6_18:
+        title: "Child Behavior Checklist for Ages 6-18"
+      children_s_dermatology_life_quality_index_questionnaire:
+        title: "Children's Dermatology Life Quality Index Questionnaire"
+      corsi_blocks:
+        title: "Corsi blocks"
+      face_q_appearance_related_distress:
+        title: "FACE-Q Appearance-related Distress"
+      focus_group:
+        title: "Focus group"
+      interview:
+        title: "Interview"
+      nih_toolbox:
+        title: "NIH Toolbox"
+      promis_cognitive_function:
+        title: "PROMIS Cognitive Function"
+      riccardi_and_ablon_scales:
+        title: "Riccardi and Ablon scales"
+      skindex_16:
+        title: "Skindex-16"
+      social_responsiveness_scale:
+        title: "Social Responsiveness Scale"
+      social_responsiveness_scale_second_edition:
+        title: "Social Responsiveness Scale Second Edition"
+      von_frey_test:
+        title: "Von Frey test"
+      actigraphy:
+      active_avoidance_learning_behavior_assay:
+        title: "active avoidance learning behavior assay"
+      auditory_brainstem_response:
+        title: "auditory brainstem response"
+      blood_chemistry_measurement:
+        title: "blood chemistry measurement"
+      body_size_trait_measurement:
+        title: "body size trait measurement"
+      cnf_skindex:
+        title: "cNF-Skindex"
+      clinical_data:
+        title: "clinical data"
+      cognitive_assessment:
+        title: "cognitive assessment"
+      contextual_conditioning_behavior_assay:
+        title: "contextual conditioning behavior assay"
+      distortion_product_otoacoustic_emissions:
+        title: "distortion product otoacoustic emissions"
+      elevated_plus_maze_test:
+        title: "elevated plus maze test"
+      feeding_assay:
+        title: "feeding assay"
+      gait_measurement:
+        title: "gait measurement"
+      genotyping:
+      grip_strength:
+        title: "grip strength"
+      hand_held_dynamometry:
+        title: "hand-held dynamometry"
+      metabolic_screening:
+        title: "metabolic screening"
+      n_back_task:
+        title: "n-back task"
+      neuropsychological_assessment:
+        title: "neuropsychological assessment"
+      novelty_response_behavior_assay:
+        title: "novelty response behavior assay"
+      open_field_test:
+        title: "open field test"
+      optokinetic_reflex_assay:
+        title: "optokinetic reflex assay"
+      pattern_electroretinogram:
+        title: "pattern electroretinogram"
+      polysomnography:
+      pure_tone_average:
+        title: "pure tone average"
+      questionnaire:
+      rotarod_performance_test:
+        title: "rotarod performance test"
+      scale:
+      six_minute_walk_test:
+        title: "six-minute walk test"
+      weight:
+      survival:
+      word_recognition_score:
+        title: "word recognition score"
+      two_d_alamar_blue_absorbance:
+        title: "2D AlamarBlue absorbance"
+      two_d_alamar_blue_fluorescence:
+        title: "2D AlamarBlue fluorescence"
+      three_d_microtissue_viability:
+        title: "3D microtissue viability"
+      atpase_activity_assay:
+        title: "ATPase activity assay"
+      brdu_proliferation_assay:
+        title: "BrdU proliferation assay"
+      elisa:
+        title: "ELISA"
+      edu_proliferation_assay:
+        title: "EdU proliferation assay"
+      flipr_high_throughput_cellular_screening:
+        title: "FLIPR high-throughput cellular screening"
+      hplc:
+        title: "HPLC"
+      luminex:
+        title: "Luminex"
+      migration_assay:
+        title: "Migration Assay"
+      str_profile:
+        title: "STR profile"
+      tide:
+        title: "TIDE"
+      tri_kinetics_activity_monitoring:
+        title: "TriKinetics activity monitoring"
+      array:
+      blue_native_page:
+        title: "blue native PAGE"
+      sds_page:
+        title: "SDS-PAGE"
+      bone_histomorphometry:
+        title: "bone histomorphometry"
+      camp_glo_max_assay:
+        title: "cAMP-Glo Max Assay"
+      calcium_retention_capacity_assay:
+        title: "calcium retention capacity assay"
+      cell_competition:
+        title: "cell competition"
+      cell_count:
+        title: "cell count"
+      cell_painting:
+        title: "cell painting"
+      cell_permeability_assay:
+        title: "cell permeability assay"
+      cell_proliferation:
+        title: "cell proliferation"
+      cell_viability_assay:
+        title: "cell viability assay"
+      combination_library_screen:
+        title: "combination library screen"
+      combination_screen:
+        title: "combination screen"
+      complex_ii_enzyme_activity_assay:
+        title: "complex II enzyme activity assay"
+      compound_screen:
+        title: "compound screen"
+      current_clamp_assay:
+        title: "current clamp assay"
+      differential_scanning_calorimetry:
+        title: "differential scanning calorimetry"
+      dynamic_light_scattering:
+        title: "dynamic light scattering"
+      electrochemiluminescence:
+      electrophoretic_light_scattering:
+        title: "electrophoretic light scattering"
+      flow_cytometry:
+        title: "flow cytometry"
+      focus_forming_assay:
+        title: "focus forming assay"
+      gel_permeation_chromatography:
+        title: "gel permeation chromatography"
+      immunoassay:
+      in_silico_synthesis:
+        title: "in silico synthesis"
+      in_vitro_tumorigenesis:
+        title: "in vitro tumorigenesis"
+      in_vivo_pdx_viability:
+        title: "in vivo PDX viability"
+      in_vivo_tumor_growth:
+        title: "in vivo tumor growth"
+      light_scattering_assay:
+        title: "light scattering assay"
+      local_field_potential_recording:
+        title: "local field potential recording"
+      long_term_potentiation_assay:
+        title: "long term potentiation assay"
+      massively_parallel_reporter_assay:
+        title: "massively parallel reporter assay"
+      microrheology:
+      multi_electrode_array:
+        title: "multi-electrode array"
+      nanoparticle_tracking_analysis:
+        title: "nanoparticle tracking analysis"
+      oscillatory_rheology:
+        title: "oscillatory rheology"
+      oxygen_consumption_assay:
+        title: "oxygen consumption assay"
+      perineurial_cell_thickness:
+        title: "perineurial cell thickness"
+      pharmacokinetic_adme_assay:
+        title: "pharmacokinetic ADME assay"
+      polymerase_chain_reaction:
+        title: "polymerase chain reaction"
+      quantitative_pcr:
+        title: "quantitative PCR"
+      reactive_oxygen_species_assay:
+        title: "reactive oxygen species assay"
+      reporter_gene_assay:
+        title: "reporter gene assay"
+      split_gfp_assay:
+        title: "split-GFP assay"
+      rheometry:
+      sandwich_elisa:
+        title: "sandwich ELISA"
+      single_molecule_drug_screen_assay:
+        title: "single molecule drug screen assay"
+      small_molecule_library_screen:
+        title: "small molecule library screen"
+      sorbitol_dehydrogenase_activity_level_assay:
+        title: "sorbitol dehydrogenase activity level assay"
+      static_histomorphometry:
+        title: "static histomorphometry"
+      static_light_scattering:
+        title: "static light scattering"
+      trans_endothelial_electrical_resistance:
+        title: "trans-endothelial electrical resistance"
+      twin_spot_assay:
+        title: "twin spot assay"
+      whole_cell_patch_clamp:
+        title: "whole-cell patch clamp"
+      unknown:
+        title: "Unknown"
 
   SpeciesEnum:
     description: Species of origin.
     permissible_values:
-      "Danio rerio":
-      "Drosophila melanogaster":
-      "Gallus gallus":
-      "Homo sapiens":
-      "Mus musculus":
-      "Macaca nemestrina":
-      "Mus musculus (humanized)":
-      "Oryctolagus cuniculus":
-      "Pan troglodytes":
-      "Rattus norvegicus":
-      "Rhesus macaque":
-      "Sus scrofa":
-      "Unknown":
+      danio_rerio:
+        title: "Danio rerio"
+      drosophila_melanogaster:
+        title: "Drosophila melanogaster"
+      gallus_gallus:
+        title: "Gallus gallus"
+      homo_sapiens:
+        title: "Homo sapiens"
+      mus_musculus:
+        title: "Mus musculus"
+      macaca_nemestrina:
+        title: "Macaca nemestrina"
+      mus_musculus_humanized:
+        title: "Mus musculus (humanized)"
+      oryctolagus_cuniculus:
+        title: "Oryctolagus cuniculus"
+      pan_troglodytes:
+        title: "Pan troglodytes"
+      rattus_norvegicus:
+        title: "Rattus norvegicus"
+      rhesus_macaque:
+        title: "Rhesus macaque"
+      sus_scrofa:
+        title: "Sus scrofa"
+      unknown:
+        title: "Unknown"
 
   FileFormatEnum:
     description: File extension or format type.
     permissible_values:
-      "bai":
-      "bam":
-      "bcf":
-      "bed":
-      "bed broadPeak":
-      "bed gappedPeak":
-      "bed narrowPeak":
-      "bedgraph":
-      "bgzip":
-      "cloupe":
-      "bigwig":
-      "cnn":
-      "cnr":
-      "cns":
-      "crai":
-      "cram":
-      "csi":
-      "ctab":
-      "dup":
-      "fasta":
-      "fastq":
-      "flagstat":
-      "gct":
-      "gff3":
-      "gtf":
-      "hic":
-      "maf":
-      "mtx":
-      "plink":
-      "recal":
-      "sam":
-      "seg":
-      "sf":
-      "sra":
-      "tagAlign":
-      "tbi":
-      "tranches":
-      "vcf":
-      "wiggle":
-      "DICOM":
-      "NWB":
-      "PAR":
-      "REC":
-      "aci":
-      "avi":
-      "bmp":
-      "czi":
-      "dm3":
-      "hdr":
-      "img":
-      "jpg":
-      "lif":
-      "mov":
-      "nii":
-      "ome-tiff":
-      "png":
-      "svs":
-      "sws":
-      "tif":
-      "tom":
-      "Sentrix descriptor file":
-      "bpm":
-      "cel":
-      "chp":
-      "dat":
-      "idat":
-      "locs":
-      "msf":
-      "mzML":
-      "raw":
-      "RCC":
-      "csv":
-      "excel":
-      "parquet":
-      "tsv":
-      "MATLAB script":
-      "Python script":
-      "R script":
-      "bash script":
-      "js":
-      "MATLAB data":
-      "RData":
-      "SDAT":
-      "SPAR":
-      "json":
-      "prism":
-      "rds":
-      "sqlite":
-      "xml":
-      "yaml":
-      "7z":
-      "docker image":
-      "gzip":
-      "tar":
-      "zip":
-      "ai":
-      "doc":
-      "html":
-      "hyperlink":
-      "md":
-      "pdf":
-      "powerpoint":
-      "txt":
-      "MPEG-4":
-      "ab1":
-      "abf":
-      "dna":
-      "edat3":
-      "fcs":
-      "fig":
-      "gb":
-      "h5":
-      "hdf5":
-      "idx":
-      "psydat":
-      "pzfx":
-      "rmd":
-      "sav":
-      "sdf":
-      "sif":
-      "svg":
-      "Unknown":
-      "Ome-zarr":
-      "Github Repo":
+      bai:
+      bam:
+      bcf:
+      bed:
+      bed_broad_peak:
+        title: "bed broadPeak"
+      bed_gapped_peak:
+        title: "bed gappedPeak"
+      bed_narrow_peak:
+        title: "bed narrowPeak"
+      bedgraph:
+      bgzip:
+      cloupe:
+      bigwig:
+      cnn:
+      cnr:
+      cns:
+      crai:
+      cram:
+      csi:
+      ctab:
+      dup:
+      fasta:
+      fastq:
+      flagstat:
+      gct:
+      gff3:
+      gtf:
+      hic:
+      maf:
+      h5ad:
+      mtx:
+      plink:
+      recal:
+      sam:
+      seg:
+      sf:
+      sra:
+      tag_align:
+        title: "tagAlign"
+      tbi:
+      tranches:
+      vcf:
+      wiggle:
+      dicom:
+        title: "DICOM"
+      nwb:
+        title: "NWB"
+      par:
+        title: "PAR"
+      rec:
+        title: "REC"
+      aci:
+      avi:
+      bmp:
+      czi:
+      dm3:
+      hdr:
+      img:
+      jpg:
+      lif:
+      mov:
+      nii:
+      ome_tiff:
+        title: "ome-tiff"
+      png:
+      svs:
+      sws:
+      tif:
+      tom:
+      sentrix_descriptor_file:
+        title: "Sentrix descriptor file"
+      bpm:
+      cel:
+      chp:
+      dat:
+      idat:
+      locs:
+      msf:
+      mzml:
+        title: "mzML"
+      bruker_d:
+        title: ".d"
+      raw:
+      skyline:
+        title: "Skyline"
+      rcc:
+        title: "RCC"
+      csv:
+      excel:
+      parquet:
+      tsv:
+      matlab_script:
+        title: "MATLAB script"
+      python_script:
+        title: "Python script"
+      r_script:
+        title: "R script"
+      bash_script:
+        title: "bash script"
+      js:
+      matlab_data:
+        title: "MATLAB data"
+      rdata:
+        title: "RData"
+      sdat:
+        title: "SDAT"
+      spar:
+        title: "SPAR"
+      json:
+      prism:
+      rds:
+      seurat_object:
+        title: "Seurat Object"
+      sqlite:
+      xml:
+      yaml:
+      seven_z:
+        title: "7z"
+      docker_image:
+        title: "docker image"
+      gzip:
+      tar:
+      zip:
+      ai:
+      doc:
+      html:
+      hyperlink:
+      md:
+      pdf:
+      powerpoint:
+      txt:
+      mpeg_4:
+        title: "MPEG-4"
+      ab1:
+      abf:
+      dna:
+      edat3:
+      fcs:
+      fig:
+      gb:
+      h5:
+      hdf5:
+      idx:
+      psydat:
+      pzfx:
+      rmd:
+      sav:
+      sdf:
+      sif:
+      svg:
+      unknown:
+        title: "Unknown"
+      ome_zarr:
+        title: "Ome-zarr"
+      github_repo:
+        title: "Github Repo"
 
   DataCategoryEnum:
     description: Categorical label for data contained in a dataset.
     permissible_values:
-      "aligned reads":
-      "annotated germline variants":
-      "annotated somatic mutation":
-      "audio transcript":
-      "behavioral data":
-      "capsid sequence":
-      "cellular physiology":
-      "characteristic":
-      "chromatin activity":
-      "clinical":
-      "copy number variants":
-      "count matrix":
-      "data index":
-      "data sharing plan":
-      "demographics":
-      "drug combination screen":
-      "drug screen":
-      "electrophysiology":
-      "epidemiological data":
-      "gene expression":
-      "gene expression matrix":
-      "quantified gene expression":
-      "genomic features":
-      "genomic variants":
-      "germline variants":
-      "guide RNA sequence":
-      "image":
-      "immunoassay":
-      "isoform expression":
-      "kinomics":
-      "mask image":
-      "mass spectrometry data":
-      "metabolomics":
-      "model":
-      "molecular property":
-      "morphology parameter":
-      "network":
-      "nucleic acid sequence record":
-      "over-representation data":
-      "particle characterization":
-      "pharmacokinetics":
-      "physiology parameter":
-      "plasmid sequence":
-      "plot":
-      "primer sequence":
-      "probe sequence":
-      "promoter sequence":
-      "protein interaction data":
-      "protein interaction raw data":
-      "proteomics":
-      "raw counts":
-      "reference sequence":
-      "report":
-      "somatic variants":
-      "structural variants":
-      "survey data":
-      "text data":
-      "volume":
-      "weight":
-      "Unknown":
+      aligned_reads:
+        title: "aligned reads"
+      annotated_germline_variants:
+        title: "annotated germline variants"
+      annotated_somatic_mutation:
+        title: "annotated somatic mutation"
+      audio_transcript:
+        title: "audio transcript"
+      behavioral_data:
+        title: "behavioral data"
+      capsid_sequence:
+        title: "capsid sequence"
+      cellular_physiology:
+        title: "cellular physiology"
+      characteristic:
+      chromatin_activity:
+        title: "chromatin activity"
+      clinical:
+      copy_number_variants:
+        title: "copy number variants"
+      count_matrix:
+        title: "count matrix"
+      data_index:
+        title: "data index"
+      data_sharing_plan:
+        title: "data sharing plan"
+      demographics:
+      drug_combination_screen:
+        title: "drug combination screen"
+      drug_screen:
+        title: "drug screen"
+      electrophysiology:
+      epidemiological_data:
+        title: "epidemiological data"
+      gene_expression:
+        title: "gene expression"
+      gene_expression_matrix:
+        title: "gene expression matrix"
+      quantified_gene_expression:
+        title: "quantified gene expression"
+      genomic_features:
+        title: "genomic features"
+      genomic_variants:
+        title: "genomic variants"
+      germline_variants:
+        title: "germline variants"
+      guide_rna_sequence:
+        title: "guide RNA sequence"
+      image:
+      immunoassay:
+      isoform_expression:
+        title: "isoform expression"
+      kinomics:
+      mask_image:
+        title: "mask image"
+      mass_spectrometry_data:
+        title: "mass spectrometry data"
+      metabolomics:
+      model:
+      molecular_property:
+        title: "molecular property"
+      morphology_parameter:
+        title: "morphology parameter"
+      network:
+      nucleic_acid_sequence_record:
+        title: "nucleic acid sequence record"
+      over_representation_data:
+        title: "over-representation data"
+      particle_characterization:
+        title: "particle characterization"
+      pharmacokinetics:
+      physiology_parameter:
+        title: "physiology parameter"
+      plasmid_sequence:
+        title: "plasmid sequence"
+      plot:
+      primer_sequence:
+        title: "primer sequence"
+      probe_sequence:
+        title: "probe sequence"
+      promoter_sequence:
+        title: "promoter sequence"
+      protein_interaction_data:
+        title: "protein interaction data"
+      protein_interaction_raw_data:
+        title: "protein interaction raw data"
+      proteomics:
+      raw_counts:
+        title: "raw counts"
+      reference_sequence:
+        title: "reference sequence"
+      report:
+      somatic_variants:
+        title: "somatic variants"
+      structural_variants:
+        title: "structural variants"
+      survey_data:
+        title: "survey data"
+      text_data:
+        title: "text data"
+      volume:
+      weight:
+      unknown:
+        title: "Unknown"
 
   ProcessLevelEnum:
     description: Level of data processing applied to the dataset.
     permissible_values:
-      "Level 1":
+      level_1:
+        title: "Level 1"
         description: Raw or minimally processed data.
-      "Level 2":
+      level_2:
+        title: "Level 2"
         description: Data that has undergone a basic or initial processing step, like quality control, alignment, or stitching.
-      "Level 3":
-       description: Files that contain summary counts, coverage files, or other processed representations of the data.
-      "Level 4":
+      level_3:
+        title: "Level 3"
+        description: Files that contain summary counts, coverage files, or other processed representations of the data.
+      level_4:
+        title: "Level 4"
         description: Files that contain data related to applied models or aggregate representations of the data.
-      "Auxiliary":
+      auxiliary:
+        title: "Auxiliary"
         description: Additional files that contain information or experimental details, but do not contain data or processed derivatives.
-      "Not Applicable":
+      not_applicable:
+        title: "Not Applicable"
         description: Files that fall outside of the level structure or are uploaded as a package.
-      "Metadata":
-       description: Files that are or will be stored and shared as metadata.
+      metadata:
+        title: "Metadata"
+        description: Files that are or will be stored and shared as metadata.
 
   NamContextEnum:
     description: NAM application context associated with files in the dataset.
     permissible_values:
-      "Biosamples":
-      "Subjects / Donors":
-      "Files / Data Types":
-      "In Chemico / Biomaterials":
-      "Assays / Conditions":
-      "Ontologies / Standards":
-      "Imaging Metadata":
-      "Pharmacokinetics / ADMET":
-      "Analytical Models":
+      biosamples:
+        title: "Biosamples"
+      subjects_donors:
+        title: "Subjects / Donors"
+      files_data_types:
+        title: "Files / Data Types"
+      in_chemico_biomaterials:
+        title: "In Chemico / Biomaterials"
+      assays_conditions:
+        title: "Assays / Conditions"
+      ontologies_standards:
+        title: "Ontologies / Standards"
+      imaging_metadata:
+        title: "Imaging Metadata"
+      pharmacokinetics_admet:
+        title: "Pharmacokinetics / ADMET"
+      analytical_models:
+        title: "Analytical Models"
+
+  FileRatioUnitEnum:
+    description: How to read the File Ratio.
+    permissible_values:
+      files_per_sample:
+        title: "Files per sample"
+        description: The File Ratio is the number of files for each sample, such as 2 for paired-end FASTQs.
+      samples_per_file:
+        title: "Samples per file"
+        description: The File Ratio is the number of samples each file holds, for files that combine several samples, such as a count matrix.
+      total_files:
+        title: "Total files"
+        description: The File Ratio is the total number of files, for data that isn't organized by sample, such as a model, code or a protocol.
 
   # ── Portal table enums ───────────────────────────────────────────────────────
 
   RepositoryEnum:
     description: Repository where a dataset is hosted.
     permissible_values:
-      Synapse:
-      GEO:
-      SRA:
-      Zenodo:
-      Other:
+      synapse:
+        title: "Synapse"
+      geo:
+        title: "GEO"
+      sra:
+        title: "SRA"
+      zenodo:
+        title: "Zenodo"
+      other:
+        title: "Other"
 
   AccessTypeEnum:
     description: Data access level.
     permissible_values:
-      Open:
+      open:
+        title: "Open"
         description: Publicly accessible without restrictions.
-      Controlled:
+      controlled:
+        title: "Controlled"
         description: Requires approval via Synapse Access Requirements.
-      Embargoed:
+      embargoed:
+        title: "Embargoed"
         description: Temporarily restricted; will become open after embargo lifts.
 
   DevelopmentStatusEnum:
     description: Current development stage of a NAM.
     permissible_values:
-      Validated:
+      validated:
+        title: "Validated"
         description: Method has been formally validated.
-      "In Development":
+      in_development:
+        title: "In Development"
         description: Method is being actively developed.
-      Prototype:
+      prototype:
+        title: "Prototype"
         description: Early-stage implementation.
-      Deprecated:
+      deprecated:
+        title: "Deprecated"
         description: Method is no longer actively maintained.
 
   RoleEnum:
     description: Role of a person in the NAMHub program.
     permissible_values:
-      "Principal Investigator":
-      "Co-Investigator":
-      "Collaborator":
-      "Coordinating Center":
-      "Trainee":
-      Other:
+      principal_investigator:
+        title: "Principal Investigator"
+      co_investigator:
+        title: "Co-Investigator"
+      collaborator:
+        title: "Collaborator"
+      coordinating_center:
+        title: "Coordinating Center"
+      trainee:
+        title: "Trainee"
+      other:
+        title: "Other"
