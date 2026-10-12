@@ -1,0 +1,70 @@
+---
+name: Release
+
+on:  # yamllint disable-line rule:truthy
+  release:
+    types: [published]
+
+env:
+  FORCE_COLOR: "1"  # Make tools pretty.
+
+permissions: {}
+
+jobs:
+  curator-schemas:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Upload release assets.
+
+    steps:
+
+      # https://github.com/actions/checkout
+      - name: Check out repository
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      # https://github.com/astral-sh/setup-uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install just
+        run: |
+          uv tool install rust-just
+
+      - name: Install project
+        run: uv sync --group dev
+
+      - name: Check tag matches schema version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          version=$(uv run python -c "import yaml; print(yaml.safe_load(open('src/namhub/schema/namhub.yaml'))['version'])")
+          if [ "$TAG" != "v$version" ]; then
+            echo "::error::Release tag $TAG does not match namhub.yaml version $version"
+            exit 1
+          fi
+
+      - name: Run test suite
+        run: just test
+
+      - name: Generate Curator schemas
+        run: just gen-curator
+
+      - name: Attach schemas to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$TAG" project/curator/*.json --clobber --repo "$GITHUB_REPOSITORY"
+
+      # Publishing makes this release Latest; the homepage keeps showing main's build.
+      - name: Keep main's build as latest
+        if: github.event.release.tag_name != 'latest'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release edit latest --latest --repo "$GITHUB_REPOSITORY" || true
