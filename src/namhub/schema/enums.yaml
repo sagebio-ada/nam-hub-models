@@ -831,3 +831,215 @@ enums:
         title: "Trainee"
       other:
         title: "Other"
+
+  # ── File annotation vocabulary (snRNA-seq / snATAC-seq) ──────────────────────
+
+  IBDDiagnosisEnum:
+    description: Primary clinical diagnosis relevant to inflammatory bowel disease studies.
+    permissible_values:
+      crohns_disease:
+        title: "Crohn's disease"
+      ulcerative_colitis:
+        title: "Ulcerative colitis"
+      ibd_unclassified:
+        title: "IBD-unclassified"
+      healthy_control:
+        title: "Healthy control"
+      not_reported:
+        title: "Not reported"
+
+  GITissueEnum:
+    description: Anatomic site of gastrointestinal tissue collected.
+    permissible_values:
+      colon:
+        title: "colon"
+      ileum:
+        title: "ileum"
+      terminal_ileum:
+        title: "terminal ileum"
+      rectum:
+        title: "rectum"
+      sigmoid_colon:
+        title: "sigmoid colon"
+      cecum:
+        title: "cecum"
+      ascending_colon:
+        title: "ascending colon"
+      transverse_colon:
+        title: "transverse colon"
+      descending_colon:
+        title: "descending colon"
+      duodenum:
+        title: "duodenum"
+      jejunum:
+        title: "jejunum"
+      stomach:
+        title: "stomach"
+      not_reported:
+        title: "Not reported"
+
+  EndoscopicStatusEnum:
+    description: Endoscopic inflammation status of tissue at time of collection.
+    permissible_values:
+      not_inflamed:
+        title: "not inflamed"
+      inflamed:
+        title: "inflamed"
+      not_reported:
+        title: "Not reported"
+
+  NucleicAcidSourceEnum:
+    description: Source and type of nucleic acid used to construct the sequencing library.
+    permissible_values:
+      single_nucleus:
+        title: "single nucleus"
+      single_cell:
+        title: "single cell"
+      bulk_nuclei:
+        title: "bulk nuclei"
+      bulk_cells:
+        title: "bulk cells"
+
+  LibraryPrepMethodEnum:
+    description: Library preparation kit or method used.
+    permissible_values:
+      ten_x_multiome:
+        title: "10x Chromium Multiome ATAC + Gene Expression"
+      ten_x_3prime_v3_1:
+        title: "10x Chromium Single Cell 3' Gene Expression v3.1"
+      ten_x_3prime_v3:
+        title: "10x Chromium Single Cell 3' Gene Expression v3"
+      ten_x_3prime_v2:
+        title: "10x Chromium Single Cell 3' Gene Expression v2"
+      ten_x_5prime:
+        title: "10x Chromium Single Cell 5' Gene Expression"
+      ten_x_atac_v2:
+        title: "10x Chromium Next GEM Single Cell ATAC v2"
+      ten_x_atac_v1_1:
+        title: "10x Chromium Single Cell ATAC v1.1"
+      ten_x_gem_x_epi_multiome:
+        title: "10x GEM-X Epi Multiome"
+      omni_atac:
+        title: "Omni-ATAC"
+      smart_seq2:
+        title: "Smart-seq2"
+      smart_seq4:
+        title: "Smart-seq4"
+      drop_seq:
+        title: "Drop-seq"
+      other:
+        title: "Other"
+
+  SeqPlatformEnum:
+    description: Sequencing instrument used to generate the data.
+    permissible_values:
+      illumina_novaseq_x_plus:
+        title: "Illumina NovaSeq X Plus"
+      illumina_novaseq_x:
+        title: "Illumina NovaSeq X"
+      illumina_novaseq_6000:
+        title: "Illumina NovaSeq 6000"
+      illumina_nextseq_2000:
+        title: "Illumina NextSeq 2000"
+      illumina_nextseq_500:
+        title: "Illumina NextSeq 500"
+      illumina_hiseq_4000:
+        title: "Illumina HiSeq 4000"
+      ten_x_chromium:
+        title: "10x Chromium"
+      not_reported:
+        title: "Not reported"
+
+  DataSubtypeEnum:
+    description: Processing state of the data.
+    permissible_values:
+      raw:
+        title: "raw"
+      processed:
+        title: "processed"
+      normalized:
+        title: "normalized"
+      quantified:
+        title: "quantified"
+      derived:
+        title: "derived"
+
+  RunTypeEnum:
+    description: Whether reads are paired-end or single-end.
+    permissible_values:
+      paired_end:
+        title: "pairedEnd"
+      single_end:
+        title: "singleEnd"
+
+  ReadIndicatorEnum:
+    description: Which read file this is.
+    permissible_values:
+      r1:
+        title: "R1"
+      r2:
+        title: "R2"
+      i1:
+        title: "I1"
+      i2:
+        title: "I2"
+
+  SexEnum:
+    description: Biological sex of the individual.
+    permissible_values:
+      male:
+        title: "Male"
+      female:
+        title: "Female"
+      unknown:
+        title: "Unknown"
+
+  AgeUnitEnum:
+    description: Unit for the age field.
+    permissible_values:
+      years:
+        title: "years"
+      months:
+        title: "months"
+      days:
+        title: "days"
+
+  BooleanReportedEnum:
+    description: Yes/No/Not reported for optional clinical fields.
+    permissible_values:
+      yes:
+        title: "Yes"
+      no:
+        title: "No"
+      not_reported:
+        title: "Not reported"
+
+  ResourceTypeEnum:
+    description: The type of resource a file represents.
+    permissible_values:
+      experimental_data:
+        title: "experimentalData"
+      metadata:
+        title: "metadata"
+      protocol:
+        title: "protocol"
+      report:
+        title: "report"
+
+  SeqDataTypeEnum:
+    description: Type of data represented by a sequencing file.
+    permissible_values:
+      gene_expression:
+        title: "gene expression"
+      chromatin_activity:
+        title: "chromatin activity"
+      count_matrix:
+        title: "count matrix"
+      aligned_reads:
+        title: "aligned reads"
+      raw_counts:
+        title: "raw counts"
+      normalized_intensities:
+        title: "normalized intensities"
+      metadata:
+        title: "metadata"

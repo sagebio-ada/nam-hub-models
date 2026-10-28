@@ -239,6 +239,113 @@ classes:
       publication_title:
         required: true
 
+  # -- File annotation classes -------------------------------------------------
+
+  SnRNASeqFile:
+    description: >-
+      File-level annotation template for single-nucleus RNA-seq data in NAMHub.
+      Covers raw FASTQ files and processed outputs (count matrices, RDS objects)
+      from snRNA-seq experiments on gastrointestinal tissue.
+    slots:
+      - file_format
+      - data_subtype
+      - individual_id
+      - specimen_id
+      - diagnosis
+      - tissue
+      - sex
+      - age
+      - age_unit
+      - species
+      - seq_platform
+      - nucleic_acid_source
+      - library_preparation_method
+      - run_type
+      - read_indicator
+      - endoscopic_status
+      - aild
+      - reported_ancestry
+      - ethnicity
+      - sample_title
+      - md5
+      - batch_id
+      - seq_data_type
+      - assay
+    slot_usage:
+      assay:
+        multivalued: false
+        ifabsent: "single-nucleus RNA-seq"
+        description: >-
+          The experimental assay. For this template, always "single-nucleus RNA-seq".
+      file_format:
+        required: true
+      data_subtype:
+        required: true
+      individual_id:
+        required: true
+      diagnosis:
+        required: true
+      tissue:
+        required: true
+      species:
+        required: true
+      seq_platform:
+        required: true
+      nucleic_acid_source:
+        required: true
+      library_preparation_method:
+        required: true
+
+  SnATACseqFile:
+    description: >-
+      File-level annotation template for single-nucleus ATAC-seq data in NAMHub.
+      Covers raw FASTQ files (fragments files, etc.) and processed outputs from
+      snATAC-seq and multiome experiments on gastrointestinal tissue.
+    slots:
+      - file_format
+      - data_subtype
+      - individual_id
+      - specimen_id
+      - diagnosis
+      - tissue
+      - sex
+      - age
+      - age_unit
+      - species
+      - seq_platform
+      - nucleic_acid_source
+      - library_preparation_method
+      - run_type
+      - read_indicator
+      - endoscopic_status
+      - aild
+      - reported_ancestry
+      - ethnicity
+      - sample_title
+      - md5
+      - batch_id
+      - seq_data_type
+      - assay
+    slot_usage:
+      file_format:
+        required: true
+      data_subtype:
+        required: true
+      individual_id:
+        required: true
+      diagnosis:
+        required: true
+      tissue:
+        required: true
+      species:
+        required: true
+      seq_platform:
+        required: true
+      nucleic_acid_source:
+        required: true
+      library_preparation_method:
+        required: true
+
 # ── Slots ──────────────────────────────────────────────────────────────────────
 
 slots:
@@ -769,4 +876,122 @@ slots:
     title: Keywords
     description: Publication keywords or MeSH terms.
     multivalued: true
+    range: string
+
+  # -- File annotation slots (snRNA-seq / snATAC-seq) --------------------------
+
+  file_format:
+    title: File Format
+    description: Format of the file.
+    range: FileFormatEnum
+
+  data_subtype:
+    title: Data Subtype
+    description: Processing state of the data (raw, processed, normalized, etc.).
+    range: DataSubtypeEnum
+
+  resource_type:
+    title: Resource Type
+    description: The type of resource this file represents.
+    range: ResourceTypeEnum
+
+  individual_id:
+    title: Individual ID
+    description: Unique non-PII identifier for the individual (donor/patient) from which data were generated.
+    range: string
+
+  specimen_id:
+    title: Specimen ID
+    description: Unique non-PII identifier for the specimen (sample) from which data were generated.
+    range: string
+
+  diagnosis:
+    title: Diagnosis
+    description: Primary clinical diagnosis of the individual.
+    range: IBDDiagnosisEnum
+
+  tissue:
+    title: Tissue
+    description: Anatomic site of the GI tissue collected.
+    range: GITissueEnum
+
+  sex:
+    title: Sex
+    description: Biological sex of the individual.
+    range: SexEnum
+
+  age:
+    title: Age
+    description: Age of the individual at time of sample collection. Use with age_unit.
+    range: float
+
+  age_unit:
+    title: Age Unit
+    description: Unit for the age field.
+    range: AgeUnitEnum
+
+  nucleic_acid_source:
+    title: Nucleic Acid Source
+    description: Source and type of nucleic acid used to construct the sequencing library.
+    range: NucleicAcidSourceEnum
+
+  library_preparation_method:
+    title: Library Preparation Method
+    description: Library preparation kit or method used.
+    range: LibraryPrepMethodEnum
+
+  seq_platform:
+    title: Sequencing Platform
+    description: Sequencing instrument used to generate the data.
+    range: SeqPlatformEnum
+
+  run_type:
+    title: Run Type
+    description: Whether reads are paired-end or single-end.
+    range: RunTypeEnum
+
+  read_indicator:
+    title: Read Indicator
+    description: Which read file this is (R1, R2, I1, I2).
+    range: ReadIndicatorEnum
+
+  endoscopic_status:
+    title: Endoscopic Status
+    description: Endoscopic inflammation status of the tissue at time of collection.
+    range: EndoscopicStatusEnum
+
+  aild:
+    title: AILD
+    description: Auto-immune liver disease status associated with IBD.
+    range: BooleanReportedEnum
+
+  reported_ancestry:
+    title: Reported Ancestry
+    description: Self-reported or clinically recorded ancestry of the individual.
+    range: string
+
+  ethnicity:
+    title: Ethnicity
+    description: Self-reported ethnicity of the individual.
+    range: string
+
+  sample_title:
+    title: Sample Title
+    description: Sample title from the submitting investigator (e.g. GEO Sample_title field).
+    range: string
+
+  md5:
+    title: MD5
+    description: MD5 checksum of the file for integrity verification.
+    range: string
+    pattern: "^[0-9a-f]{32}$"
+
+  seq_data_type:
+    title: Data Type
+    description: Type of data represented by this sequencing file.
+    range: SeqDataTypeEnum
+
+  batch_id:
+    title: Batch ID
+    description: Batch identifier for sequencing run or processing batch.
     range: string
