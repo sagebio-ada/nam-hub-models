@@ -4,6 +4,11 @@ description: Shared enumeration definitions for NAMHub portal schemas.
 
 prefixes:
   linkml: https://w3id.org/linkml/
+  EDAM: http://identifiers.org/edam/
+  MONDO: http://purl.obolibrary.org/obo/MONDO_
+  NCBITaxon: http://purl.obolibrary.org/obo/NCBITaxon_
+  NCIT: http://purl.obolibrary.org/obo/NCIT_
+  UBERON: http://purl.obolibrary.org/obo/UBERON_
 
 default_prefix: https://namhub.synapse.org/portal_schemas/enums/
 
@@ -417,28 +422,39 @@ enums:
     permissible_values:
       danio_rerio:
         title: "Danio rerio"
+        meaning: NCBITaxon:7955
       drosophila_melanogaster:
         title: "Drosophila melanogaster"
+        meaning: NCBITaxon:7227
       gallus_gallus:
         title: "Gallus gallus"
+        meaning: NCBITaxon:9031
       homo_sapiens:
         title: "Homo sapiens"
+        meaning: NCBITaxon:9606
       mus_musculus:
         title: "Mus musculus"
+        meaning: NCBITaxon:10090
       macaca_nemestrina:
         title: "Macaca nemestrina"
+        meaning: NCBITaxon:9545
       mus_musculus_humanized:
         title: "Mus musculus (humanized)"
       oryctolagus_cuniculus:
         title: "Oryctolagus cuniculus"
+        meaning: NCBITaxon:9986
       pan_troglodytes:
         title: "Pan troglodytes"
+        meaning: NCBITaxon:9598
       rattus_norvegicus:
         title: "Rattus norvegicus"
+        meaning: NCBITaxon:10116
       rhesus_macaque:
         title: "Rhesus macaque"
+        meaning: NCBITaxon:9544
       sus_scrofa:
         title: "Sus scrofa"
+        meaning: NCBITaxon:9823
       unknown:
         title: "Unknown"
 
@@ -832,49 +848,66 @@ enums:
       other:
         title: "Other"
 
-  # ── File annotation vocabulary (snRNA-seq / snATAC-seq) ──────────────────────
+  # ── Record vocabulary (Individual, Diagnosis, Biospecimen) ───────────────────
 
-  IBDDiagnosisEnum:
-    description: Primary clinical diagnosis relevant to inflammatory bowel disease studies.
+  DiagnosisEnum:
+    description: Clinical diagnosis of an individual, mapped to MONDO where a term exists.
     permissible_values:
       crohns_disease:
         title: "Crohn's disease"
+        meaning: MONDO:0005011
       ulcerative_colitis:
         title: "Ulcerative colitis"
+        meaning: MONDO:0005101
       ibd_unclassified:
         title: "IBD-unclassified"
+        description: Inflammatory bowel disease that can't be classified as Crohn's disease or ulcerative colitis; formerly indeterminate colitis.
+        meaning: MONDO:0006038
       healthy_control:
         title: "Healthy control"
+        meaning: NCIT:C94342
       not_reported:
         title: "Not reported"
 
-  GITissueEnum:
-    description: Anatomic site of gastrointestinal tissue collected.
+  AnatomicSiteEnum:
+    description: Anatomic site a biospecimen was collected from, mapped to UBERON (NCIT where UBERON has no term).
     permissible_values:
       colon:
         title: "colon"
-      ileum:
-        title: "ileum"
-      terminal_ileum:
-        title: "terminal ileum"
-      rectum:
-        title: "rectum"
-      sigmoid_colon:
-        title: "sigmoid colon"
-      cecum:
-        title: "cecum"
+        meaning: UBERON:0001155
       ascending_colon:
         title: "ascending colon"
+        meaning: UBERON:0001156
       transverse_colon:
         title: "transverse colon"
+        meaning: UBERON:0001157
       descending_colon:
         title: "descending colon"
-      duodenum:
-        title: "duodenum"
+        meaning: UBERON:0001158
+      sigmoid_colon:
+        title: "sigmoid colon"
+        meaning: UBERON:0001159
+      cecum:
+        title: "cecum"
+        meaning: UBERON:0001153
+      rectum:
+        title: "rectum"
+        meaning: UBERON:0001052
+      ileum:
+        title: "ileum"
+        meaning: UBERON:0002116
+      terminal_ileum:
+        title: "terminal ileum"
+        meaning: NCIT:C33757
       jejunum:
         title: "jejunum"
+        meaning: UBERON:0002115
+      duodenum:
+        title: "duodenum"
+        meaning: UBERON:0002114
       stomach:
         title: "stomach"
+        meaning: UBERON:0000945
       not_reported:
         title: "Not reported"
 
@@ -887,6 +920,98 @@ enums:
         title: "inflamed"
       not_reported:
         title: "Not reported"
+
+  SexEnum:
+    description: Biological sex of the individual.
+    permissible_values:
+      male:
+        title: "Male"
+      female:
+        title: "Female"
+      unknown:
+        title: "Unknown"
+
+  AgeUnitEnum:
+    description: Unit for age fields.
+    permissible_values:
+      years:
+        title: "years"
+      months:
+        title: "months"
+      days:
+        title: "days"
+
+  BooleanReportedEnum:
+    description: Yes/No/Not reported for optional clinical fields.
+    permissible_values:
+      "yes":
+        title: "Yes"
+      "no":
+        title: "No"
+      not_reported:
+        title: "Not reported"
+
+  # ── Sequencing file vocabulary ───────────────────────────────────────────────
+  # File format values reuse FileFormatEnum's titles, narrowed to what each
+  # processing level produces.
+
+  SnRNASeqAssayEnum:
+    description: Assay for single-nucleus RNA-seq file templates.
+    permissible_values:
+      single_nucleus_rna_seq:
+        title: "single-nucleus RNA-seq"
+
+  SnATACSeqAssayEnum:
+    description: Assay for single-nucleus ATAC-seq file templates.
+    permissible_values:
+      single_nucleus_atac_seq:
+        title: "single-nucleus ATAC-seq"
+
+  SequencingLevel1FileFormatEnum:
+    description: File formats of raw sequencing reads.
+    permissible_values:
+      fastq:
+        meaning: EDAM:format_1930
+
+  SnRNASeqLevel2FileFormatEnum:
+    description: File formats of aligned single-nucleus RNA-seq reads.
+    permissible_values:
+      bam:
+        meaning: EDAM:format_2572
+      cram:
+        meaning: EDAM:format_3462
+
+  SnATACSeqLevel2FileFormatEnum:
+    description: File formats of aligned single-nucleus ATAC-seq reads and fragments files.
+    permissible_values:
+      bam:
+        meaning: EDAM:format_2572
+      cram:
+        meaning: EDAM:format_3462
+      tsv:
+        description: Fragments file.
+        meaning: EDAM:format_3475
+      tbi:
+        description: Tabix index of a fragments file.
+        meaning: EDAM:format_3616
+
+  SingleNucleusLevel3and4FileFormatEnum:
+    description: File formats of single-nucleus matrices, peak calls and analysis objects.
+    permissible_values:
+      h5ad: {}
+      h5: {}
+      mtx:
+        meaning: EDAM:format_3916
+      rds: {}
+      seurat_object:
+        title: "Seurat Object"
+      csv: {}
+      tsv:
+        meaning: EDAM:format_3475
+      bed:
+        meaning: EDAM:format_3003
+      bed_narrow_peak:
+        title: "bed narrowPeak"
 
   NucleicAcidSourceEnum:
     description: Source and type of nucleic acid used to construct the sequencing library.
@@ -930,7 +1055,7 @@ enums:
       other:
         title: "Other"
 
-  SeqPlatformEnum:
+  SequencingPlatformEnum:
     description: Sequencing instrument used to generate the data.
     permissible_values:
       illumina_novaseq_x_plus:
@@ -945,32 +1070,16 @@ enums:
         title: "Illumina NextSeq 500"
       illumina_hiseq_4000:
         title: "Illumina HiSeq 4000"
-      ten_x_chromium:
-        title: "10x Chromium"
       not_reported:
         title: "Not reported"
 
-  DataSubtypeEnum:
-    description: Processing state of the data.
-    permissible_values:
-      raw:
-        title: "raw"
-      processed:
-        title: "processed"
-      normalized:
-        title: "normalized"
-      quantified:
-        title: "quantified"
-      derived:
-        title: "derived"
-
-  RunTypeEnum:
+  LibraryLayoutEnum:
     description: Whether reads are paired-end or single-end.
     permissible_values:
       paired_end:
-        title: "pairedEnd"
+        title: "paired-end"
       single_end:
-        title: "singleEnd"
+        title: "single-end"
 
   ReadIndicatorEnum:
     description: Which read file this is.
@@ -984,62 +1093,28 @@ enums:
       i2:
         title: "I2"
 
-  SexEnum:
-    description: Biological sex of the individual.
+  GenomicReferenceEnum:
+    description: Reference genome assembly reads were aligned to.
     permissible_values:
-      male:
-        title: "Male"
-      female:
-        title: "Female"
-      unknown:
-        title: "Unknown"
+      grch38:
+        title: "GRCh38"
+      grch37:
+        title: "GRCh37"
+      grcm39:
+        title: "GRCm39"
+      grcm38:
+        title: "GRCm38"
+      other:
+        title: "Other"
 
-  AgeUnitEnum:
-    description: Unit for the age field.
+  MatrixTypeEnum:
+    description: Type of values stored in a matrix.
     permissible_values:
-      years:
-        title: "years"
-      months:
-        title: "months"
-      days:
-        title: "days"
-
-  BooleanReportedEnum:
-    description: Yes/No/Not reported for optional clinical fields.
-    permissible_values:
-      yes:
-        title: "Yes"
-      no:
-        title: "No"
-      not_reported:
-        title: "Not reported"
-
-  ResourceTypeEnum:
-    description: The type of resource a file represents.
-    permissible_values:
-      experimental_data:
-        title: "experimentalData"
-      metadata:
-        title: "metadata"
-      protocol:
-        title: "protocol"
-      report:
-        title: "report"
-
-  SeqDataTypeEnum:
-    description: Type of data represented by a sequencing file.
-    permissible_values:
-      gene_expression:
-        title: "gene expression"
-      chromatin_activity:
-        title: "chromatin activity"
-      count_matrix:
-        title: "count matrix"
-      aligned_reads:
-        title: "aligned reads"
       raw_counts:
         title: "raw counts"
-      normalized_intensities:
-        title: "normalized intensities"
-      metadata:
-        title: "metadata"
+      normalized_counts:
+        title: "normalized counts"
+      batch_corrected_counts:
+        title: "batch corrected counts"
+      scaled_counts:
+        title: "scaled counts"
