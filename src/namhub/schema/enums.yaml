@@ -5,9 +5,11 @@ description: Shared enumeration definitions for NAMHub portal schemas.
 prefixes:
   linkml: https://w3id.org/linkml/
   EDAM: http://identifiers.org/edam/
+  EFO: http://identifiers.org/efo/
   MONDO: http://purl.obolibrary.org/obo/MONDO_
   NCBITaxon: http://purl.obolibrary.org/obo/NCBITaxon_
   NCIT: http://purl.obolibrary.org/obo/NCIT_
+  OBI: http://purl.obolibrary.org/obo/OBI_
   UBERON: http://purl.obolibrary.org/obo/UBERON_
 
 default_prefix: https://namhub.synapse.org/portal_schemas/enums/
@@ -960,12 +962,14 @@ enums:
     permissible_values:
       single_nucleus_rna_seq:
         title: "single-nucleus RNA-seq"
+        meaning: EFO:0009809
 
   SnATACSeqAssayEnum:
     description: Assay for single-nucleus ATAC-seq file templates.
     permissible_values:
       single_nucleus_atac_seq:
         title: "single-nucleus ATAC-seq"
+        meaning: OBI:0002762
 
   SequencingLevel1FileFormatEnum:
     description: File formats of raw sequencing reads.
@@ -999,13 +1003,15 @@ enums:
     description: File formats of single-nucleus matrices, peak calls and analysis objects.
     permissible_values:
       h5ad: {}
-      h5: {}
+      h5:
+        meaning: EDAM:format_3590
       mtx:
         meaning: EDAM:format_3916
       rds: {}
       seurat_object:
         title: "Seurat Object"
-      csv: {}
+      csv:
+        meaning: EDAM:format_3752
       tsv:
         meaning: EDAM:format_3475
       bed:
