@@ -831,3 +831,13 @@ enums:
         title: "Trainee"
       other:
         title: "Other"
+
+  PublicationAccessibilityEnum:
+    description: Whether there are non-monetary restrictions on accessing a publication.
+    permissible_values:
+      open_access:
+        title: "Open Access"
+        description: Freely accessible without a subscription or paywall.
+      restricted_access:
+        title: "Restricted Access"
+        description: Access requires a subscription, purchase, or other restriction.
