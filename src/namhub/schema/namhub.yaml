@@ -239,6 +239,274 @@ classes:
       publication_title:
         required: true
 
+  # -- Record classes ----------------------------------------------------------
+  # Records are entered once and referenced by ID from the files generated from
+  # them, so a correction is made in one place.
+
+  Individual:
+    description: >-
+      One row per individual (donor or patient) whose biospecimens produced
+      data in NAMHub, with their demographics.
+    unique_keys:
+      individual_key:
+        unique_key_slots:
+          - study_id
+          - individual_id
+    slots:
+      - study_id
+      - individual_id
+      - species
+      - sex
+      - ethnicity
+      - reported_ancestry
+    slot_usage:
+      study_id:
+        required: true
+      individual_id:
+        required: true
+      species:
+        required: true
+        multivalued: false
+
+  Diagnosis:
+    description: >-
+      One row per diagnosis of an individual. An individual with more than one
+      diagnosis has one row for each.
+    slots:
+      - study_id
+      - individual_id
+      - diagnosis
+      - age_at_diagnosis
+      - age_unit
+    slot_usage:
+      study_id:
+        required: true
+      individual_id:
+        required: true
+      diagnosis:
+        required: true
+
+  IBDDiagnosis:
+    is_a: Diagnosis
+    description: >-
+      Diagnosis of an individual in an inflammatory bowel disease study, with
+      IBD-specific clinical details.
+    slots:
+      - aild
+
+  Biospecimen:
+    description: >-
+      One row per biospecimen (sample) collected from an individual. Files
+      reference the biospecimens they were generated from by Biospecimen ID.
+    unique_keys:
+      biospecimen_key:
+        unique_key_slots:
+          - study_id
+          - biospecimen_id
+    slots:
+      - study_id
+      - biospecimen_id
+      - individual_id
+      - parent_biospecimen_id
+      - tissue
+      - timepoint
+      - age_at_collection
+      - age_unit
+      - endoscopic_status
+      - sample_title
+    slot_usage:
+      study_id:
+        required: true
+      biospecimen_id:
+        required: true
+      individual_id:
+        required: true
+      tissue:
+        required: true
+        multivalued: false
+        range: TissueEnum
+        description: Tissue or anatomic site the biospecimen was collected from.
+
+  # -- File classes ------------------------------------------------------------
+  # Organized by processing level, following the NIH Genomic Data Sharing
+  # levels and the HTAN2 sequencing model. Abstract classes hold attributes
+  # shared across assays and are not Curator templates themselves.
+
+  File:
+    abstract: true
+    description: Attributes shared by every data file.
+    slots:
+      - study_id
+      - filename
+      - file_format
+      - assay
+      - biospecimen_id
+      - md5
+    slot_usage:
+      study_id:
+        required: true
+      filename:
+        required: true
+      file_format:
+        required: true
+      assay:
+        required: true
+        multivalued: false
+      biospecimen_id:
+        required: true
+        multivalued: true
+        description: >-
+          Biospecimen ID(s) of the biospecimen(s) the file was generated from.
+          A file aggregating several biospecimens lists each of them.
+
+  SequencingLevel1:
+    abstract: true
+    is_a: File
+    description: Raw sequencing reads (Level 1).
+    slots:
+      - sequencing_platform
+      - library_layout
+      - sequencing_batch_id
+      - technical_replicate_group
+      - protocol_link
+    slot_usage:
+      sequencing_platform:
+        required: true
+      library_layout:
+        required: true
+
+  SequencingLevel2:
+    abstract: true
+    is_a: SequencingLevel1
+    description: Reads aligned to a reference, and the workflow that aligned them (Level 2).
+    slots:
+      - genomic_reference
+      - workflow_name
+      - workflow_version
+      - workflow_link
+      - parent_file_id
+    slot_usage:
+      genomic_reference:
+        required: true
+      workflow_name:
+        required: true
+      workflow_version:
+        required: true
+
+  SequencingLevel3and4:
+    abstract: true
+    is_a: SequencingLevel2
+    description: >-
+      Processed outputs such as count matrices (Level 3) and analysis results
+      such as clustered or annotated objects (Level 4).
+    slots:
+      - workflow_parameters_description
+
+  SingleNucleusLevel1:
+    abstract: true
+    is_a: SequencingLevel1
+    description: Library preparation attributes shared by single-nucleus Level 1 files.
+    slots:
+      - nucleic_acid_source
+      - library_preparation_method
+      - read_indicator
+    slot_usage:
+      file_format:
+        range: SequencingLevel1FileFormatEnum
+      nucleic_acid_source:
+        required: true
+      library_preparation_method:
+        required: true
+      read_indicator:
+        required: true
+
+  SnRNASeqLevel1:
+    is_a: SingleNucleusLevel1
+    description: Raw FASTQ files from single-nucleus RNA-seq.
+    slot_usage:
+      assay:
+        range: SnRNASeqAssayEnum
+
+  SnRNASeqLevel2:
+    is_a: SequencingLevel2
+    description: Aligned reads from single-nucleus RNA-seq.
+    slots:
+      - cell_barcode_tag
+      - umi_tag
+    slot_usage:
+      assay:
+        range: SnRNASeqAssayEnum
+      file_format:
+        range: SnRNASeqLevel2FileFormatEnum
+
+  SnRNASeqLevel3and4:
+    is_a: SequencingLevel3and4
+    description: >-
+      Gene expression matrices and analysis objects from single-nucleus
+      RNA-seq.
+    slots:
+      - matrix_type
+      - cell_total
+    slot_usage:
+      assay:
+        range: SnRNASeqAssayEnum
+      file_format:
+        range: SingleNucleusLevel3and4FileFormatEnum
+      matrix_type:
+        required: true
+
+  SnATACSeqLevel1:
+    is_a: SingleNucleusLevel1
+    description: Raw FASTQ files from single-nucleus ATAC-seq.
+    slot_usage:
+      assay:
+        range: SnATACSeqAssayEnum
+
+  SnATACSeqLevel2:
+    is_a: SequencingLevel2
+    description: >-
+      Aligned reads and fragments files from single-nucleus ATAC-seq.
+    slot_usage:
+      assay:
+        range: SnATACSeqAssayEnum
+      file_format:
+        range: SnATACSeqLevel2FileFormatEnum
+
+  SnATACSeqLevel3and4:
+    is_a: SequencingLevel3and4
+    description: >-
+      Peak calls, peak-by-cell matrices and analysis objects from
+      single-nucleus ATAC-seq.
+    slots:
+      - matrix_type
+      - cell_total
+      - peak_calling_software
+    slot_usage:
+      assay:
+        range: SnATACSeqAssayEnum
+      file_format:
+        range: SingleNucleusLevel3and4FileFormatEnum
+
+  MultiomeLevel3and4:
+    is_a: SequencingLevel3and4
+    description: >-
+      Joint gene expression and chromatin accessibility outputs from
+      single-nucleus multiome experiments, such as a combined gene-and-peak
+      matrix or a Seurat/Signac object holding both assays. Level 1 and 2
+      multiome files hold one modality each and use the snRNA-seq and
+      snATAC-seq templates.
+    slots:
+      - matrix_type
+      - cell_total
+      - peak_calling_software
+    slot_usage:
+      assay:
+        range: MultiomeAssayEnum
+        multivalued: true
+        description: Assays whose data the file combines.
+      file_format:
+        range: SingleNucleusLevel3and4FileFormatEnum
+
 # ── Slots ──────────────────────────────────────────────────────────────────────
 
 slots:
@@ -769,4 +1037,211 @@ slots:
     title: Keywords
     description: Publication keywords or MeSH terms.
     multivalued: true
+    range: string
+
+  # -- Record slots (Individual, Diagnosis, Biospecimen) -----------------------
+
+  individual_id:
+    title: Individual ID
+    description: Unique non-PII identifier for the individual (donor/patient) from which data were generated.
+    range: string
+
+  sex:
+    title: Sex
+    description: Biological sex of the individual.
+    range: SexEnum
+
+  ethnicity:
+    title: Ethnicity
+    description: Self-reported ethnicity of the individual.
+    range: string
+
+  reported_ancestry:
+    title: Reported Ancestry
+    description: Self-reported or clinically recorded ancestry of the individual.
+    range: string
+
+  diagnosis:
+    title: Diagnosis
+    description: Clinical diagnosis of the individual.
+    range: DiagnosisEnum
+
+  age_at_diagnosis:
+    title: Age at Diagnosis
+    description: Age of the individual when diagnosed. Use with Age Unit.
+    range: float
+    minimum_value: 0
+
+  aild:
+    title: AILD
+    description: Whether the individual has auto-immune liver disease associated with IBD.
+    range: BooleanReportedEnum
+
+  biospecimen_id:
+    title: Biospecimen ID
+    description: Unique non-PII identifier for the biospecimen (sample).
+    range: string
+
+  tissue:
+    title: Tissue
+    description: Tissue or cell type(s).
+    multivalued: true
+    range: string
+
+  age_at_collection:
+    title: Age at Collection
+    description: Age of the individual when the biospecimen was collected. Use with Age Unit.
+    range: float
+    minimum_value: 0
+
+  age_unit:
+    title: Age Unit
+    description: Unit for the age fields.
+    range: AgeUnitEnum
+
+  endoscopic_status:
+    title: Endoscopic Status
+    description: Endoscopic inflammation status of the tissue at time of collection.
+    range: EndoscopicStatusEnum
+
+  sample_title:
+    title: Sample Title
+    description: Sample title from the submitting investigator (e.g. GEO Sample_title field).
+    range: string
+
+  parent_biospecimen_id:
+    title: Parent Biospecimen ID
+    description: >-
+      Biospecimen ID of the biospecimen this one was derived from, such as the
+      biopsy a nuclei suspension was prepared from.
+    range: string
+
+  timepoint:
+    title: Timepoint
+    description: >-
+      When the biospecimen was collected relative to the study design, such
+      as baseline or week 8. Leave empty for studies with one collection.
+    range: string
+
+  # -- File slots --------------------------------------------------------------
+
+  filename:
+    title: Filename
+    description: Name of the file, including its extension.
+    range: string
+
+  file_format:
+    title: File Format
+    description: Format of the file.
+    range: FileFormatEnum
+
+  md5:
+    title: MD5
+    description: MD5 checksum of the file for integrity verification.
+    range: string
+    pattern: "^[0-9a-f]{32}$"
+
+  parent_file_id:
+    title: Parent File ID
+    description: >-
+      Synapse ID(s) of the file(s) this file was produced from, such as the
+      FASTQs an alignment was made from.
+    multivalued: true
+    range: string
+    pattern: "^syn[0-9]+$"
+
+  sequencing_platform:
+    title: Sequencing Platform
+    description: Sequencing instrument used to generate the data.
+    range: SequencingPlatformEnum
+
+  library_layout:
+    title: Library Layout
+    description: Whether reads are paired-end or single-end.
+    range: LibraryLayoutEnum
+
+  sequencing_batch_id:
+    title: Sequencing Batch ID
+    description: Identifier of the sequencing run or batch.
+    range: string
+
+  technical_replicate_group:
+    title: Technical Replicate Group
+    description: >-
+      Identifier shared by files that are technical replicates of one another,
+      such as libraries sequenced from the same biospecimen more than once.
+    range: string
+
+  protocol_link:
+    title: Protocol Link
+    description: Link to the protocol used to prepare and sequence the library.
+    range: uri
+
+  read_indicator:
+    title: Read Indicator
+    description: Which read file this is (R1, R2, I1, I2).
+    range: ReadIndicatorEnum
+
+  nucleic_acid_source:
+    title: Nucleic Acid Source
+    description: Source and type of nucleic acid used to construct the sequencing library.
+    range: NucleicAcidSourceEnum
+
+  library_preparation_method:
+    title: Library Preparation Method
+    description: Library preparation kit or method used.
+    range: LibraryPrepMethodEnum
+
+  genomic_reference:
+    title: Genomic Reference
+    description: Reference genome assembly the reads were aligned to.
+    range: GenomicReferenceEnum
+
+  workflow_name:
+    title: Workflow Name
+    description: Name of the workflow or software that produced the file (e.g. Cell Ranger ARC).
+    range: string
+
+  workflow_version:
+    title: Workflow Version
+    description: Version of the workflow or software that produced the file.
+    range: string
+
+  workflow_link:
+    title: Workflow Link
+    description: Link to the workflow, code or command used to produce the file.
+    range: uri
+
+  workflow_parameters_description:
+    title: Workflow Parameters Description
+    description: >-
+      Parameters and steps used to produce the file, such as filtering
+      thresholds, normalization, dimensionality reduction and clustering
+      settings.
+    range: string
+
+  matrix_type:
+    title: Matrix Type
+    description: Type of values stored in the matrix.
+    range: MatrixTypeEnum
+
+  cell_total:
+    title: Cell Total
+    description: Number of cells or nuclei that passed filtering.
+    range: integer
+    minimum_value: 0
+
+  cell_barcode_tag:
+    title: Cell Barcode Tag
+    description: BAM tag holding the cell barcode (e.g. CB).
+    range: string
+
+  umi_tag:
+    title: UMI Tag
+    description: BAM tag holding the UMI (e.g. UB).
+    range: string
+
+  peak_calling_software:
+    title: Peak Calling Software
+    description: Software and version used to call peaks (e.g. MACS2 2.2.7.1).
     range: string
