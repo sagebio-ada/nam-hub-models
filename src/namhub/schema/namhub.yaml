@@ -247,15 +247,22 @@ classes:
     description: >-
       One row per individual (donor or patient) whose biospecimens produced
       data in NAMHub, with their demographics.
+    unique_keys:
+      individual_key:
+        unique_key_slots:
+          - study_id
+          - individual_id
     slots:
+      - study_id
       - individual_id
       - species
       - sex
       - ethnicity
       - reported_ancestry
     slot_usage:
+      study_id:
+        required: true
       individual_id:
-        identifier: true
         required: true
       species:
         required: true
@@ -266,11 +273,14 @@ classes:
       One row per diagnosis of an individual. An individual with more than one
       diagnosis has one row for each.
     slots:
+      - study_id
       - individual_id
       - diagnosis
       - age_at_diagnosis
       - age_unit
     slot_usage:
+      study_id:
+        required: true
       individual_id:
         required: true
       diagnosis:
@@ -288,17 +298,26 @@ classes:
     description: >-
       One row per biospecimen (sample) collected from an individual. Files
       reference the biospecimens they were generated from by Biospecimen ID.
+    unique_keys:
+      biospecimen_key:
+        unique_key_slots:
+          - study_id
+          - biospecimen_id
     slots:
+      - study_id
       - biospecimen_id
       - individual_id
+      - parent_biospecimen_id
       - tissue
+      - timepoint
       - age_at_collection
       - age_unit
       - endoscopic_status
       - sample_title
     slot_usage:
+      study_id:
+        required: true
       biospecimen_id:
-        identifier: true
         required: true
       individual_id:
         required: true
@@ -317,12 +336,15 @@ classes:
     abstract: true
     description: Attributes shared by every data file.
     slots:
+      - study_id
       - filename
       - file_format
       - assay
       - biospecimen_id
       - md5
     slot_usage:
+      study_id:
+        required: true
       filename:
         required: true
       file_format:
@@ -345,6 +367,8 @@ classes:
       - sequencing_platform
       - library_layout
       - sequencing_batch_id
+      - technical_replicate_group
+      - protocol_link
     slot_usage:
       sequencing_platform:
         required: true
@@ -460,6 +484,26 @@ classes:
     slot_usage:
       assay:
         range: SnATACSeqAssayEnum
+      file_format:
+        range: SingleNucleusLevel3and4FileFormatEnum
+
+  MultiomeLevel3and4:
+    is_a: SequencingLevel3and4
+    description: >-
+      Joint gene expression and chromatin accessibility outputs from
+      single-nucleus multiome experiments, such as a combined gene-and-peak
+      matrix or a Seurat/Signac object holding both assays. Level 1 and 2
+      multiome files hold one modality each and use the snRNA-seq and
+      snATAC-seq templates.
+    slots:
+      - matrix_type
+      - cell_total
+      - peak_calling_software
+    slot_usage:
+      assay:
+        range: MultiomeAssayEnum
+        multivalued: true
+        description: Assays whose data the file combines.
       file_format:
         range: SingleNucleusLevel3and4FileFormatEnum
 
@@ -1065,6 +1109,20 @@ slots:
     description: Sample title from the submitting investigator (e.g. GEO Sample_title field).
     range: string
 
+  parent_biospecimen_id:
+    title: Parent Biospecimen ID
+    description: >-
+      Biospecimen ID of the biospecimen this one was derived from, such as the
+      biopsy a nuclei suspension was prepared from.
+    range: string
+
+  timepoint:
+    title: Timepoint
+    description: >-
+      When the biospecimen was collected relative to the study design, such
+      as baseline or week 8. Leave empty for studies with one collection.
+    range: string
+
   # -- File slots --------------------------------------------------------------
 
   filename:
@@ -1106,6 +1164,18 @@ slots:
     title: Sequencing Batch ID
     description: Identifier of the sequencing run or batch.
     range: string
+
+  technical_replicate_group:
+    title: Technical Replicate Group
+    description: >-
+      Identifier shared by files that are technical replicates of one another,
+      such as libraries sequenced from the same biospecimen more than once.
+    range: string
+
+  protocol_link:
+    title: Protocol Link
+    description: Link to the protocol used to prepare and sequence the library.
+    range: uri
 
   read_indicator:
     title: Read Indicator

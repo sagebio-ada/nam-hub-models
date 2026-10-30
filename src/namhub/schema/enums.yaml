@@ -971,6 +971,16 @@ enums:
         title: "single-nucleus ATAC-seq"
         meaning: OBI:0002762
 
+  MultiomeAssayEnum:
+    description: Assays combined in single-nucleus multiome file templates.
+    permissible_values:
+      single_nucleus_rna_seq:
+        title: "single-nucleus RNA-seq"
+        meaning: EFO:0009809
+      single_nucleus_atac_seq:
+        title: "single-nucleus ATAC-seq"
+        meaning: OBI:0002762
+
   SequencingLevel1FileFormatEnum:
     description: File formats of raw sequencing reads.
     permissible_values:
