@@ -291,7 +291,7 @@ classes:
     slots:
       - biospecimen_id
       - individual_id
-      - anatomic_site
+      - tissue
       - age_at_collection
       - age_unit
       - endoscopic_status
@@ -302,8 +302,11 @@ classes:
         required: true
       individual_id:
         required: true
-      anatomic_site:
+      tissue:
         required: true
+        multivalued: false
+        range: TissueEnum
+        description: Tissue or anatomic site the biospecimen was collected from.
 
   # -- File classes ------------------------------------------------------------
   # Organized by processing level, following the NIH Genomic Data Sharing
@@ -1035,10 +1038,11 @@ slots:
     description: Unique non-PII identifier for the biospecimen (sample).
     range: string
 
-  anatomic_site:
-    title: Anatomic Site
-    description: Anatomic site the biospecimen was collected from.
-    range: AnatomicSiteEnum
+  tissue:
+    title: Tissue
+    description: Tissue or cell type(s).
+    multivalued: true
+    range: string
 
   age_at_collection:
     title: Age at Collection

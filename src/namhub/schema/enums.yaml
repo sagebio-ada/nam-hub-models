@@ -869,8 +869,8 @@ enums:
       not_reported:
         title: "Not reported"
 
-  AnatomicSiteEnum:
-    description: Anatomic site a biospecimen was collected from, mapped to UBERON (NCIT where UBERON has no term).
+  TissueEnum:
+    description: Tissue or anatomic site a biospecimen was collected from, mapped to UBERON (NCIT where UBERON has no term).
     permissible_values:
       colon:
         title: "colon"
