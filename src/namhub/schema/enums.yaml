@@ -546,6 +546,8 @@ enums:
       bash_script:
         title: "bash script"
       js:
+      jupyter_notebook:
+        title: "Jupyter notebook"
       matlab_data:
         title: "MATLAB data"
       rdata:
