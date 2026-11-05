@@ -1,6 +1,6 @@
 id: https://namhub.synapse.org/portal_schemas
 name: namhub
-version: 3.0.0
+version: 3.2.0
 description: >-
   NAMHub portal data schemas — backend Synapse tables and the Landscape data
   collection form. Portal tables are backed by Synapse project syn74360399.
@@ -423,6 +423,7 @@ slots:
       completeness: an estimate is fine, and a difference from what is eventually
       uploaded is something to discuss, not a penalty.
     range: integer
+    minimum_value: 0
 
   file_ratio:
     title: File Ratio
