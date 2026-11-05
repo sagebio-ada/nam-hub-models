@@ -228,13 +228,15 @@ classes:
       - publication_year
       - doi
       - pub_med_link
+      - abstract
       - keywords
       - study_id
       - grant_id
       - nam_id
-      - data_type
       - assay
-      - synapse_entity_id
+      - tissue
+      - dataset_alias
+      - publication_accessibility
     slot_usage:
       publication_title:
         required: true
@@ -624,7 +626,7 @@ slots:
 
   abstract:
     title: Abstract
-    description: Grant abstract.
+    description: Abstract or summary text.
     range: string
 
   investigator:
@@ -770,3 +772,22 @@ slots:
     description: Publication keywords or MeSH terms.
     multivalued: true
     range: string
+
+  tissue:
+    title: Tissue
+    description: Tissue or cell type(s) discussed in the publication.
+    multivalued: true
+    range: string
+
+  dataset_alias:
+    title: Dataset Alias
+    description: >-
+      Accession(s) (e.g. GEO, SRA, dbGaP) of dataset(s) generated for this
+      publication, as opposed to datasets it merely cites or reuses.
+    multivalued: true
+    range: string
+
+  publication_accessibility:
+    title: Publication Accessibility
+    description: Whether there are non-monetary restrictions on accessing a publication.
+    range: PublicationAccessibilityEnum
