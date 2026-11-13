@@ -402,10 +402,10 @@ classes:
       biospecimen_id:
         required: false
 
-  SequencingLevel1:
+  Sequencing:
     abstract: true
     is_a: File
-    description: Raw sequencing reads (Level 1).
+    description: Attributes shared by sequencing data files at every processing level.
     slots:
       - sequencing_platform
       - library_layout
@@ -418,9 +418,27 @@ classes:
       library_layout:
         required: true
 
+  SequencingLevel1:
+    abstract: true
+    is_a: Sequencing
+    description: Raw sequencing reads (Level 1) and how their library was made.
+    slots:
+      - nucleic_acid_source
+      - library_preparation_method
+      - read_indicator
+    slot_usage:
+      file_format:
+        range: SequencingLevel1FileFormatEnum
+      nucleic_acid_source:
+        required: true
+      library_preparation_method:
+        required: true
+      read_indicator:
+        required: true
+
   SequencingLevel2:
     abstract: true
-    is_a: SequencingLevel1
+    is_a: Sequencing
     description: Reads aligned to a reference, and the workflow that aligned them (Level 2).
     slots:
       - genomic_reference
@@ -441,112 +459,172 @@ classes:
     is_a: SequencingLevel2
     description: >-
       Processed outputs such as count matrices (Level 3) and analysis results
-      such as clustered or annotated objects (Level 4).
+      such as clustered or annotated objects and differential tables (Level 4).
     slots:
       - workflow_parameters_description
+      - matrix_type
 
-  SingleNucleusLevel1:
-    abstract: true
-    is_a: SequencingLevel1
-    description: Library preparation attributes shared by single-nucleus Level 1 files.
+  # Mixins add fields that belong to an assay family rather than a level.
+
+  SingleCellMixin:
+    mixin: true
+    description: Fields for outputs that resolve individual cells or nuclei.
     slots:
-      - nucleic_acid_source
-      - library_preparation_method
-      - read_indicator
-    slot_usage:
-      file_format:
-        range: SequencingLevel1FileFormatEnum
-      nucleic_acid_source:
-        required: true
-      library_preparation_method:
-        required: true
-      read_indicator:
-        required: true
+      - cell_total
 
-  SnRNASeqLevel1:
-    is_a: SingleNucleusLevel1
-    description: Raw FASTQ files from single-nucleus RNA-seq.
+  PeakCallingMixin:
+    mixin: true
+    description: Fields for chromatin accessibility outputs built from called peaks.
+    slots:
+      - peak_calling_software
+
+  # -- Single-cell and single-nucleus RNA-seq --
+
+  SingleCellRNASeqLevel1:
+    is_a: SequencingLevel1
+    description: Raw FASTQ files from single-cell or single-nucleus RNA-seq.
     slot_usage:
       assay:
-        range: SnRNASeqAssayEnum
+        range: SingleCellRNASeqAssayEnum
 
-  SnRNASeqLevel2:
+  SingleCellRNASeqLevel2:
     is_a: SequencingLevel2
-    description: Aligned reads from single-nucleus RNA-seq.
+    description: Aligned reads from single-cell or single-nucleus RNA-seq.
     slots:
       - cell_barcode_tag
       - umi_tag
     slot_usage:
       assay:
-        range: SnRNASeqAssayEnum
+        range: SingleCellRNASeqAssayEnum
       file_format:
-        range: SnRNASeqLevel2FileFormatEnum
+        range: AlignedReadsFileFormatEnum
 
-  SnRNASeqLevel3and4:
+  SingleCellRNASeqLevel3and4:
     is_a: SequencingLevel3and4
+    mixins:
+      - SingleCellMixin
     description: >-
       Gene expression matrices, analysis objects and analysis results (e.g.
-      differential expression tables) from single-nucleus RNA-seq.
-    slots:
-      - matrix_type
-      - cell_total
+      differential expression tables) from single-cell or single-nucleus RNA-seq.
     slot_usage:
       assay:
-        range: SnRNASeqAssayEnum
+        range: SingleCellRNASeqAssayEnum
       file_format:
-        range: SingleNucleusLevel3and4FileFormatEnum
+        range: SingleCellLevel3and4FileFormatEnum
 
-  SnATACSeqLevel1:
-    is_a: SingleNucleusLevel1
-    description: Raw FASTQ files from single-nucleus ATAC-seq.
+  # -- Single-cell and single-nucleus ATAC-seq --
+
+  SingleCellATACSeqLevel1:
+    is_a: SequencingLevel1
+    description: Raw FASTQ files from single-cell or single-nucleus ATAC-seq.
     slot_usage:
       assay:
-        range: SnATACSeqAssayEnum
+        range: SingleCellATACSeqAssayEnum
 
-  SnATACSeqLevel2:
+  SingleCellATACSeqLevel2:
     is_a: SequencingLevel2
     description: >-
-      Aligned reads and fragments files from single-nucleus ATAC-seq.
+      Aligned reads and fragments files from single-cell or single-nucleus ATAC-seq.
     slot_usage:
       assay:
-        range: SnATACSeqAssayEnum
+        range: SingleCellATACSeqAssayEnum
       file_format:
-        range: SnATACSeqLevel2FileFormatEnum
+        range: SingleCellATACSeqLevel2FileFormatEnum
 
-  SnATACSeqLevel3and4:
+  SingleCellATACSeqLevel3and4:
     is_a: SequencingLevel3and4
+    mixins:
+      - SingleCellMixin
+      - PeakCallingMixin
     description: >-
-      Peak calls, peak-by-cell matrices and analysis objects from
-      single-nucleus ATAC-seq.
-    slots:
-      - matrix_type
-      - cell_total
-      - peak_calling_software
+      Peak calls, peak-by-cell matrices and analysis objects from single-cell
+      or single-nucleus ATAC-seq.
     slot_usage:
       assay:
-        range: SnATACSeqAssayEnum
+        range: SingleCellATACSeqAssayEnum
       file_format:
-        range: SingleNucleusLevel3and4FileFormatEnum
+        range: SingleCellLevel3and4FileFormatEnum
+
+  # -- Multiome --
 
   MultiomeLevel3and4:
     is_a: SequencingLevel3and4
+    mixins:
+      - SingleCellMixin
+      - PeakCallingMixin
     description: >-
       Joint gene expression and chromatin accessibility outputs from
       single-nucleus multiome experiments, such as a combined gene-and-peak
       matrix or a Seurat/Signac object holding both assays. Level 1 and 2
-      multiome files hold one modality each and use the snRNA-seq and
-      snATAC-seq templates.
-    slots:
-      - matrix_type
-      - cell_total
-      - peak_calling_software
+      multiome files hold one modality each and use the single-cell RNA-seq
+      and ATAC-seq templates.
     slot_usage:
       assay:
         range: MultiomeAssayEnum
         multivalued: true
         description: Assays whose data the file combines.
       file_format:
-        range: SingleNucleusLevel3and4FileFormatEnum
+        range: SingleCellLevel3and4FileFormatEnum
+
+  # -- Bulk RNA-seq --
+
+  BulkRNASeqLevel1:
+    is_a: SequencingLevel1
+    description: Raw FASTQ files from bulk RNA-seq.
+    slot_usage:
+      assay:
+        range: BulkRNASeqAssayEnum
+
+  BulkRNASeqLevel2:
+    is_a: SequencingLevel2
+    description: Aligned reads from bulk RNA-seq.
+    slot_usage:
+      assay:
+        range: BulkRNASeqAssayEnum
+      file_format:
+        range: AlignedReadsFileFormatEnum
+
+  BulkRNASeqLevel3and4:
+    is_a: SequencingLevel3and4
+    description: >-
+      Gene or transcript quantifications, count matrices and analysis results
+      (e.g. differential expression tables) from bulk RNA-seq.
+    slot_usage:
+      assay:
+        range: BulkRNASeqAssayEnum
+      file_format:
+        range: BulkRNASeqLevel3and4FileFormatEnum
+
+  # -- Bulk ATAC-seq --
+
+  BulkATACSeqLevel1:
+    is_a: SequencingLevel1
+    description: Raw FASTQ files from bulk ATAC-seq.
+    slot_usage:
+      assay:
+        range: BulkATACSeqAssayEnum
+
+  BulkATACSeqLevel2:
+    is_a: SequencingLevel2
+    description: Aligned reads from bulk ATAC-seq.
+    slot_usage:
+      assay:
+        range: BulkATACSeqAssayEnum
+      file_format:
+        range: AlignedReadsFileFormatEnum
+
+  BulkATACSeqLevel3and4:
+    is_a: SequencingLevel3and4
+    mixins:
+      - PeakCallingMixin
+    description: >-
+      Peak calls, coverage tracks, count matrices and differential
+      accessibility results from bulk ATAC-seq.
+    slot_usage:
+      assay:
+        range: BulkATACSeqAssayEnum
+      file_format:
+        range: BulkATACSeqLevel3and4FileFormatEnum
 
 # ── Slots ──────────────────────────────────────────────────────────────────────
 

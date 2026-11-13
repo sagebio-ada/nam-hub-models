@@ -1005,16 +1005,22 @@ enums:
   # File format values reuse FileFormatEnum's titles, narrowed to what each
   # processing level produces.
 
-  SnRNASeqAssayEnum:
-    description: Assay for single-nucleus RNA-seq file templates.
+  SingleCellRNASeqAssayEnum:
+    description: Assays for single-cell and single-nucleus RNA-seq file templates.
     permissible_values:
+      single_cell_rna_seq:
+        title: "single-cell RNA-seq"
+        meaning: EFO:0008913
       single_nucleus_rna_seq:
         title: "single-nucleus RNA-seq"
         meaning: EFO:0009809
 
-  SnATACSeqAssayEnum:
-    description: Assay for single-nucleus ATAC-seq file templates.
+  SingleCellATACSeqAssayEnum:
+    description: Assays for single-cell and single-nucleus ATAC-seq file templates.
     permissible_values:
+      single_cell_atac_seq:
+        title: "single cell ATAC-seq"
+        meaning: OBI:0002764
       single_nucleus_atac_seq:
         title: "single-nucleus ATAC-seq"
         meaning: OBI:0002762
@@ -1029,22 +1035,36 @@ enums:
         title: "single-nucleus ATAC-seq"
         meaning: OBI:0002762
 
+  BulkRNASeqAssayEnum:
+    description: Assay for bulk RNA-seq file templates.
+    permissible_values:
+      rna_seq:
+        title: "RNA-seq"
+        meaning: EFO:0008896
+
+  BulkATACSeqAssayEnum:
+    description: Assay for bulk ATAC-seq file templates.
+    permissible_values:
+      atac_seq:
+        title: "ATAC-seq"
+        meaning: EFO:0007045
+
   SequencingLevel1FileFormatEnum:
     description: File formats of raw sequencing reads.
     permissible_values:
       fastq:
         meaning: EDAM:format_1930
 
-  SnRNASeqLevel2FileFormatEnum:
-    description: File formats of aligned single-nucleus RNA-seq reads.
+  AlignedReadsFileFormatEnum:
+    description: File formats of aligned sequencing reads.
     permissible_values:
       bam:
         meaning: EDAM:format_2572
       cram:
         meaning: EDAM:format_3462
 
-  SnATACSeqLevel2FileFormatEnum:
-    description: File formats of aligned single-nucleus ATAC-seq reads and fragments files.
+  SingleCellATACSeqLevel2FileFormatEnum:
+    description: File formats of aligned single-cell ATAC-seq reads and fragments files.
     permissible_values:
       bam:
         meaning: EDAM:format_2572
@@ -1057,8 +1077,8 @@ enums:
         description: Tabix index of a fragments file.
         meaning: EDAM:format_3616
 
-  SingleNucleusLevel3and4FileFormatEnum:
-    description: File formats of single-nucleus matrices, peak calls and analysis objects.
+  SingleCellLevel3and4FileFormatEnum:
+    description: File formats of single-cell matrices, peak calls and analysis objects.
     permissible_values:
       h5ad: {}
       h5:
@@ -1076,6 +1096,39 @@ enums:
         meaning: EDAM:format_3003
       bed_narrow_peak:
         title: "bed narrowPeak"
+
+  BulkRNASeqLevel3and4FileFormatEnum:
+    description: File formats of bulk RNA-seq quantifications, matrices and analysis results.
+    permissible_values:
+      tsv:
+        meaning: EDAM:format_3475
+      csv:
+        meaning: EDAM:format_3752
+      txt: {}
+      excel: {}
+      rds: {}
+      h5ad: {}
+
+  BulkATACSeqLevel3and4FileFormatEnum:
+    description: File formats of bulk ATAC-seq peak calls, coverage tracks and analysis results.
+    permissible_values:
+      bed:
+        meaning: EDAM:format_3003
+      bed_narrow_peak:
+        title: "bed narrowPeak"
+      bed_broad_peak:
+        title: "bed broadPeak"
+      bigwig:
+        meaning: EDAM:format_3006
+      bedgraph:
+        meaning: EDAM:format_3583
+      tsv:
+        meaning: EDAM:format_3475
+      csv:
+        meaning: EDAM:format_3752
+      txt: {}
+      excel: {}
+      rds: {}
 
   NucleicAcidSourceEnum:
     description: Source and type of nucleic acid used to construct the sequencing library.
@@ -1116,6 +1169,18 @@ enums:
         title: "Smart-seq4"
       drop_seq:
         title: "Drop-seq"
+      ten_x_3prime_version_not_reported:
+        title: "10x Chromium Single Cell 3' Gene Expression, version not reported"
+      illumina_truseq:
+        title: "Illumina TruSeq"
+      nebnext_ultra_ii_rna:
+        title: "NEBNext Ultra II RNA"
+      kapa:
+        title: "KAPA"
+        description: Roche KAPA library preparation kit, version not reported.
+      atac_seq_buenrostro:
+        title: "ATAC-seq (Buenrostro et al.)"
+        description: Standard ATAC-seq protocol (Buenrostro et al. 2013, 2015).
       other:
         title: "Other"
 
