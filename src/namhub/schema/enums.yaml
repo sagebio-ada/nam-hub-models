@@ -1365,3 +1365,48 @@ enums:
         title: "Adolescent"
       adult:
         title: "Adult"
+      prenatal:
+        title: "Prenatal"
+        description: Embryonic or fetal individuals.
+
+  DiseaseFocusEnum:
+    description: >-
+      Disease or research areas of NAMHub studies and datasets, taken from the
+      Studies table (syn75404711). Mapped to MONDO where a term covers the area.
+    permissible_values:
+      gastrointestinal_diseases:
+        title: "Gastrointestinal diseases"
+        meaning: MONDO:0004335
+      musculoskeletal_disorders:
+        title: "Musculoskeletal disorders"
+        meaning: MONDO:0002081
+      cardiac_disease:
+        title: "Cardiac disease"
+        meaning: MONDO:0005267
+      fibrotic_diseases:
+        title: "Fibrotic diseases"
+      gynecological_diseases:
+        title: "Gynecological diseases"
+        meaning: MONDO:0002263
+      endometriosis:
+        title: "Endometriosis"
+        meaning: MONDO:0005133
+      neurology:
+        title: "Neurology"
+      neurotoxicology:
+        title: "Neurotoxicology"
+      alzheimers_disease:
+        title: "Alzheimer's disease"
+        meaning: MONDO:0004975
+      neurodevelopmental_disorders:
+        title: "Neurodevelopmental disorders"
+        meaning: MONDO:0700092
+      chemical_toxicology:
+        title: "Chemical toxicology"
+      chemical_safety:
+        title: "Chemical safety"
+      leukemia:
+        title: "Leukemia"
+        meaning: MONDO:0005059
+      other:
+        title: "Other"

@@ -190,8 +190,6 @@ classes:
         required: true
       disease_focus:
         required: true
-        range: DiagnosisEnum
-        description: Diseases studied in the dataset.
       funder:
         required: true
       license:
@@ -965,9 +963,9 @@ slots:
 
   disease_focus:
     title: Disease Focus
-    description: Disease areas or conditions the study addresses.
+    description: Disease areas or research areas the study or dataset addresses.
     multivalued: true
-    range: string
+    range: DiseaseFocusEnum
 
   alternate_name:
     title: Alternate Name
