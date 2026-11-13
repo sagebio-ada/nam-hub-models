@@ -245,8 +245,10 @@ classes:
 
   Individual:
     description: >-
-      One row per individual (donor or patient) whose biospecimens produced
-      data in NAMHub, with their demographics.
+      One row per individual (donor, patient or animal) whose biospecimens
+      produced data in NAMHub, with their demographics. For an established
+      cell line, the individual is the line's donor (e.g. H9 for WA09 hESCs);
+      the line itself is recorded on the Biospecimen.
     unique_keys:
       individual_key:
         unique_key_slots:
@@ -259,6 +261,8 @@ classes:
       - sex
       - ethnicity
       - reported_ancestry
+      - strain
+      - genotype
     slot_usage:
       study_id:
         required: true
@@ -322,8 +326,10 @@ classes:
 
   Biospecimen:
     description: >-
-      One row per biospecimen (sample) collected from an individual. Files
-      reference the biospecimens they were generated from by Biospecimen ID.
+      One row per biospecimen (sample) collected from an individual or derived
+      from one, including cell lines, differentiated cells, organoids and
+      engineered tissues. Files reference the biospecimens they were generated
+      from by Biospecimen ID.
     unique_keys:
       biospecimen_key:
         unique_key_slots:
@@ -334,7 +340,14 @@ classes:
       - biospecimen_id
       - individual_id
       - parent_biospecimen_id
+      - biospecimen_type
       - tissue
+      - cell_type
+      - cell_line
+      - cellosaurus_id
+      - culture_condition
+      - culture_duration
+      - culture_duration_unit
       - timepoint
       - age_at_collection
       - age_unit
@@ -347,11 +360,15 @@ classes:
         required: true
       individual_id:
         required: true
+      biospecimen_type:
+        required: true
       tissue:
         required: true
         multivalued: false
         range: TissueEnum
-        description: Tissue or anatomic site the biospecimen was collected from.
+        description: >-
+          Anatomic site the biospecimen was collected from or, for an in vitro
+          model, the tissue it models. Biospecimen Type says which.
 
   # -- File classes ------------------------------------------------------------
   # Organized by processing level, following the NIH Genomic Data Sharing
@@ -1276,6 +1293,62 @@ slots:
     description: >-
       When the biospecimen was collected relative to the study design, such
       as baseline or week 8. Leave empty for studies with one collection.
+    range: string
+
+  biospecimen_type:
+    title: Biospecimen Type
+    description: >-
+      What kind of biospecimen this is: tissue taken from an individual, or
+      cells or a model grown or derived in vitro.
+    range: BiospecimenTypeEnum
+
+  cell_type:
+    title: Cell Type
+    description: Cell type(s) the biospecimen consists of or was enriched for.
+    multivalued: true
+    range: CellTypeEnum
+
+  cell_line:
+    title: Cell Line
+    description: >-
+      Name of the cell line the biospecimen was grown or derived from, e.g.
+      WA09 (H9) or a patient-derived iPSC line.
+    range: string
+
+  cellosaurus_id:
+    title: Cellosaurus ID
+    description: Cellosaurus accession of the cell line, e.g. CVCL_9773 for WA09 (H9).
+    range: string
+    pattern: "^CVCL_[0-9A-Z]{4}$"
+
+  culture_condition:
+    title: Culture Condition
+    description: >-
+      In vitro culture, differentiation or exposure conditions, e.g. "TGFB3
+      for 2 weeks, then BMP4 for 4 weeks".
+    range: string
+
+  culture_duration:
+    title: Culture Duration
+    description: Total time in culture under Culture Condition. Use with Culture Duration Unit.
+    range: float
+    minimum_value: 0
+
+  culture_duration_unit:
+    title: Culture Duration Unit
+    description: Unit of Culture Duration.
+    range: TimeUnitEnum
+
+  strain:
+    title: Strain
+    description: >-
+      Strain or line of a non-human individual, in official nomenclature where
+      one exists (e.g. JAX/MGI for mice).
+    range: string
+
+  genotype:
+    title: Genotype
+    description: Genotype or genetic modification of the individual, e.g. a reporter allele or knockout.
     range: string
 
   # -- File slots --------------------------------------------------------------

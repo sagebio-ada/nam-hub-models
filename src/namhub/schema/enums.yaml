@@ -4,6 +4,7 @@ description: Shared enumeration definitions for NAMHub portal schemas.
 
 prefixes:
   linkml: https://w3id.org/linkml/
+  CL: http://purl.obolibrary.org/obo/CL_
   EDAM: http://identifiers.org/edam/
   EFO: http://identifiers.org/efo/
   MONDO: http://purl.obolibrary.org/obo/MONDO_
@@ -910,6 +911,25 @@ enums:
       stomach:
         title: "stomach"
         meaning: UBERON:0000945
+      cartilage_tissue:
+        title: "cartilage tissue"
+        meaning: UBERON:0002418
+      articular_cartilage:
+        title: "articular cartilage"
+        meaning: UBERON:0010996
+      epiphyseal_plate:
+        title: "epiphyseal plate"
+        description: Growth plate.
+        meaning: UBERON:0002516
+      epiphysis:
+        title: "epiphysis"
+        meaning: UBERON:0001437
+      distal_epiphysis_of_femur:
+        title: "distal epiphysis of femur"
+        meaning: UBERON:0004406
+      femur:
+        title: "femur"
+        meaning: UBERON:0000981
       not_reported:
         title: "Not reported"
 
@@ -942,6 +962,9 @@ enums:
         title: "months"
       days:
         title: "days"
+      days_post_conception:
+        title: "days post-conception"
+        description: Prenatal age, e.g. embryonic day 59 (E59) is 59.
 
   AILDEnum:
     description: Autoimmune liver disease associated with IBD, mapped to MONDO.
@@ -1247,3 +1270,53 @@ enums:
         title: "batch corrected counts"
       scaled_counts:
         title: "scaled counts"
+
+  BiospecimenTypeEnum:
+    description: What kind of biospecimen a sample is.
+    permissible_values:
+      tissue:
+        title: "tissue"
+        description: Tissue collected from an individual, e.g. a biopsy or resection.
+      primary_cells:
+        title: "primary cells"
+        description: Cells isolated from an individual's tissue, with or without short-term culture.
+      cell_line:
+        title: "cell line"
+        description: An established cell line grown without directed differentiation.
+      in_vitro_differentiated_cells:
+        title: "in vitro differentiated cells"
+        description: Cells differentiated in vitro from stem or progenitor cells, e.g. hPSC-derived chondrocytes.
+      organoid:
+        title: "organoid"
+      engineered_tissue:
+        title: "engineered tissue or microphysiological system"
+        description: Bioengineered tissue constructs, organs-on-chips and other microphysiological systems.
+      other:
+        title: "Other"
+
+  CellTypeEnum:
+    description: Cell types, mapped to the Cell Ontology.
+    permissible_values:
+      chondrocyte:
+        title: "chondrocyte"
+        meaning: CL:0000138
+      hypertrophic_chondrocyte:
+        title: "hypertrophic chondrocyte"
+        meaning: CL:0000743
+      embryonic_stem_cell:
+        title: "embryonic stem cell"
+        meaning: CL:0002322
+      other:
+        title: "Other"
+      not_reported:
+        title: "Not reported"
+
+  TimeUnitEnum:
+    description: Units of time for durations.
+    permissible_values:
+      hours:
+        title: "hours"
+      days:
+        title: "days"
+      weeks:
+        title: "weeks"
