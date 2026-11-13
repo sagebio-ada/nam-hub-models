@@ -4,6 +4,14 @@ description: Shared enumeration definitions for NAMHub portal schemas.
 
 prefixes:
   linkml: https://w3id.org/linkml/
+  CL: http://purl.obolibrary.org/obo/CL_
+  EDAM: http://identifiers.org/edam/
+  EFO: http://identifiers.org/efo/
+  MONDO: http://purl.obolibrary.org/obo/MONDO_
+  NCBITaxon: http://purl.obolibrary.org/obo/NCBITaxon_
+  NCIT: http://purl.obolibrary.org/obo/NCIT_
+  OBI: http://purl.obolibrary.org/obo/OBI_
+  UBERON: http://purl.obolibrary.org/obo/UBERON_
 
 default_prefix: https://namhub.synapse.org/portal_schemas/enums/
 
@@ -417,28 +425,39 @@ enums:
     permissible_values:
       danio_rerio:
         title: "Danio rerio"
+        meaning: NCBITaxon:7955
       drosophila_melanogaster:
         title: "Drosophila melanogaster"
+        meaning: NCBITaxon:7227
       gallus_gallus:
         title: "Gallus gallus"
+        meaning: NCBITaxon:9031
       homo_sapiens:
         title: "Homo sapiens"
+        meaning: NCBITaxon:9606
       mus_musculus:
         title: "Mus musculus"
+        meaning: NCBITaxon:10090
       macaca_nemestrina:
         title: "Macaca nemestrina"
+        meaning: NCBITaxon:9545
       mus_musculus_humanized:
         title: "Mus musculus (humanized)"
       oryctolagus_cuniculus:
         title: "Oryctolagus cuniculus"
+        meaning: NCBITaxon:9986
       pan_troglodytes:
         title: "Pan troglodytes"
+        meaning: NCBITaxon:9598
       rattus_norvegicus:
         title: "Rattus norvegicus"
+        meaning: NCBITaxon:10116
       rhesus_macaque:
         title: "Rhesus macaque"
+        meaning: NCBITaxon:9544
       sus_scrofa:
         title: "Sus scrofa"
+        meaning: NCBITaxon:9823
       unknown:
         title: "Unknown"
 
@@ -833,3 +852,473 @@ enums:
         title: "Trainee"
       other:
         title: "Other"
+
+  # ── Record vocabulary (Individual, Diagnosis, Biospecimen) ───────────────────
+
+  DiagnosisEnum:
+    description: Clinical diagnosis of an individual, mapped to MONDO where a term exists.
+    permissible_values:
+      crohns_disease:
+        title: "Crohn's disease"
+        meaning: MONDO:0005011
+      ulcerative_colitis:
+        title: "Ulcerative colitis"
+        meaning: MONDO:0005101
+      ibd_unclassified:
+        title: "IBD-unclassified"
+        description: Inflammatory bowel disease that can't be classified as Crohn's disease or ulcerative colitis; formerly indeterminate colitis.
+        meaning: MONDO:0006038
+      healthy_control:
+        title: "Healthy control"
+        meaning: NCIT:C94342
+      not_reported:
+        title: "Not reported"
+
+  TissueEnum:
+    description: Tissue or anatomic site a biospecimen was collected from, mapped to UBERON (NCIT where UBERON has no term).
+    permissible_values:
+      colon:
+        title: "colon"
+        meaning: UBERON:0001155
+      ascending_colon:
+        title: "ascending colon"
+        meaning: UBERON:0001156
+      transverse_colon:
+        title: "transverse colon"
+        meaning: UBERON:0001157
+      descending_colon:
+        title: "descending colon"
+        meaning: UBERON:0001158
+      sigmoid_colon:
+        title: "sigmoid colon"
+        meaning: UBERON:0001159
+      cecum:
+        title: "cecum"
+        meaning: UBERON:0001153
+      rectum:
+        title: "rectum"
+        meaning: UBERON:0001052
+      ileum:
+        title: "ileum"
+        meaning: UBERON:0002116
+      terminal_ileum:
+        title: "terminal ileum"
+        meaning: NCIT:C33757
+      jejunum:
+        title: "jejunum"
+        meaning: UBERON:0002115
+      duodenum:
+        title: "duodenum"
+        meaning: UBERON:0002114
+      stomach:
+        title: "stomach"
+        meaning: UBERON:0000945
+      cartilage_tissue:
+        title: "cartilage tissue"
+        meaning: UBERON:0002418
+      articular_cartilage:
+        title: "articular cartilage"
+        meaning: UBERON:0010996
+      epiphyseal_plate:
+        title: "epiphyseal plate"
+        description: Growth plate.
+        meaning: UBERON:0002516
+      epiphysis:
+        title: "epiphysis"
+        meaning: UBERON:0001437
+      distal_epiphysis_of_femur:
+        title: "distal epiphysis of femur"
+        meaning: UBERON:0004406
+      femur:
+        title: "femur"
+        meaning: UBERON:0000981
+      not_reported:
+        title: "Not reported"
+
+  EndoscopicStatusEnum:
+    description: Endoscopic inflammation status of tissue at time of collection.
+    permissible_values:
+      not_inflamed:
+        title: "not inflamed"
+      inflamed:
+        title: "inflamed"
+      not_reported:
+        title: "Not reported"
+
+  SexEnum:
+    description: Biological sex of the individual.
+    permissible_values:
+      male:
+        title: "Male"
+      female:
+        title: "Female"
+      unknown:
+        title: "Unknown"
+
+  AgeUnitEnum:
+    description: Unit for age fields.
+    permissible_values:
+      years:
+        title: "years"
+      months:
+        title: "months"
+      days:
+        title: "days"
+      days_post_conception:
+        title: "days post-conception"
+        description: Prenatal age, e.g. embryonic day 59 (E59) is 59.
+
+  AILDEnum:
+    description: Autoimmune liver disease associated with IBD, mapped to MONDO.
+    permissible_values:
+      "no":
+        title: "No"
+      autoimmune_hepatitis:
+        title: "Autoimmune hepatitis"
+        meaning: MONDO:0016264
+      primary_sclerosing_cholangitis:
+        title: "Primary sclerosing cholangitis"
+        meaning: MONDO:0013433
+      aild_type_not_reported:
+        title: "Yes, type not reported"
+        description: Individual has autoimmune liver disease but the type isn't reported.
+      not_reported:
+        title: "Not reported"
+
+  TherapeuticAgentEnum:
+    description: Therapeutic agents, mapped to NCIT. Add agents as datasets need them.
+    permissible_values:
+      adalimumab:
+        title: "Adalimumab"
+        meaning: NCIT:C65216
+      infliximab:
+        title: "Infliximab"
+        meaning: NCIT:C1789
+      mesalamine:
+        title: "Mesalamine"
+        meaning: NCIT:C29249
+      other:
+        title: "Other"
+      not_reported:
+        title: "Not reported"
+
+  TherapeuticResponseEnum:
+    description: Response to a therapeutic agent.
+    permissible_values:
+      responder:
+        title: "Responder"
+      non_responder:
+        title: "Non-responder"
+      not_reported:
+        title: "Not reported"
+
+  SupportingFileTypeEnum:
+    description: Content of a supporting (non-data) file.
+    permissible_values:
+      readme:
+        title: "README"
+      sample_metadata:
+        title: "Sample or clinical metadata table"
+      protocol:
+        title: "Protocol"
+      data_dictionary:
+        title: "Data dictionary"
+      other:
+        title: "Other"
+
+  # ── Sequencing file vocabulary ───────────────────────────────────────────────
+  # File format values reuse FileFormatEnum's titles, narrowed to what each
+  # processing level produces.
+
+  SingleCellRNASeqAssayEnum:
+    description: Assays for single-cell and single-nucleus RNA-seq file templates.
+    permissible_values:
+      single_cell_rna_seq:
+        title: "single-cell RNA-seq"
+        meaning: EFO:0008913
+      single_nucleus_rna_seq:
+        title: "single-nucleus RNA-seq"
+        meaning: EFO:0009809
+
+  SingleCellATACSeqAssayEnum:
+    description: Assays for single-cell and single-nucleus ATAC-seq file templates.
+    permissible_values:
+      single_cell_atac_seq:
+        title: "single cell ATAC-seq"
+        meaning: OBI:0002764
+      single_nucleus_atac_seq:
+        title: "single-nucleus ATAC-seq"
+        meaning: OBI:0002762
+
+  MultiomeAssayEnum:
+    description: Assays combined in single-nucleus multiome file templates.
+    permissible_values:
+      single_nucleus_rna_seq:
+        title: "single-nucleus RNA-seq"
+        meaning: EFO:0009809
+      single_nucleus_atac_seq:
+        title: "single-nucleus ATAC-seq"
+        meaning: OBI:0002762
+
+  BulkRNASeqAssayEnum:
+    description: Assay for bulk RNA-seq file templates.
+    permissible_values:
+      rna_seq:
+        title: "RNA-seq"
+        meaning: EFO:0008896
+
+  BulkATACSeqAssayEnum:
+    description: Assay for bulk ATAC-seq file templates.
+    permissible_values:
+      atac_seq:
+        title: "ATAC-seq"
+        meaning: EFO:0007045
+
+  SequencingLevel1FileFormatEnum:
+    description: File formats of raw sequencing reads.
+    permissible_values:
+      fastq:
+        meaning: EDAM:format_1930
+
+  AlignedReadsFileFormatEnum:
+    description: File formats of aligned sequencing reads.
+    permissible_values:
+      bam:
+        meaning: EDAM:format_2572
+      cram:
+        meaning: EDAM:format_3462
+
+  SingleCellATACSeqLevel2FileFormatEnum:
+    description: File formats of aligned single-cell ATAC-seq reads and fragments files.
+    permissible_values:
+      bam:
+        meaning: EDAM:format_2572
+      cram:
+        meaning: EDAM:format_3462
+      tsv:
+        description: Fragments file.
+        meaning: EDAM:format_3475
+      tbi:
+        description: Tabix index of a fragments file.
+        meaning: EDAM:format_3616
+
+  SingleCellLevel3and4FileFormatEnum:
+    description: File formats of single-cell matrices, peak calls and analysis objects.
+    permissible_values:
+      h5ad: {}
+      h5:
+        meaning: EDAM:format_3590
+      mtx:
+        meaning: EDAM:format_3916
+      rds: {}
+      seurat_object:
+        title: "Seurat Object"
+      csv:
+        meaning: EDAM:format_3752
+      tsv:
+        meaning: EDAM:format_3475
+      bed:
+        meaning: EDAM:format_3003
+      bed_narrow_peak:
+        title: "bed narrowPeak"
+
+  BulkRNASeqLevel3and4FileFormatEnum:
+    description: File formats of bulk RNA-seq quantifications, matrices and analysis results.
+    permissible_values:
+      tsv:
+        meaning: EDAM:format_3475
+      csv:
+        meaning: EDAM:format_3752
+      txt: {}
+      excel: {}
+      rds: {}
+      h5ad: {}
+
+  BulkATACSeqLevel3and4FileFormatEnum:
+    description: File formats of bulk ATAC-seq peak calls, coverage tracks and analysis results.
+    permissible_values:
+      bed:
+        meaning: EDAM:format_3003
+      bed_narrow_peak:
+        title: "bed narrowPeak"
+      bed_broad_peak:
+        title: "bed broadPeak"
+      bigwig:
+        meaning: EDAM:format_3006
+      bedgraph:
+        meaning: EDAM:format_3583
+      tsv:
+        meaning: EDAM:format_3475
+      csv:
+        meaning: EDAM:format_3752
+      txt: {}
+      excel: {}
+      rds: {}
+
+  NucleicAcidSourceEnum:
+    description: Source and type of nucleic acid used to construct the sequencing library.
+    permissible_values:
+      single_nucleus:
+        title: "single nucleus"
+      single_cell:
+        title: "single cell"
+      bulk_nuclei:
+        title: "bulk nuclei"
+      bulk_cells:
+        title: "bulk cells"
+
+  LibraryPrepMethodEnum:
+    description: Library preparation kit or method used.
+    permissible_values:
+      ten_x_multiome:
+        title: "10x Chromium Multiome ATAC + Gene Expression"
+      ten_x_3prime_v3_1:
+        title: "10x Chromium Single Cell 3' Gene Expression v3.1"
+      ten_x_3prime_v3:
+        title: "10x Chromium Single Cell 3' Gene Expression v3"
+      ten_x_3prime_v2:
+        title: "10x Chromium Single Cell 3' Gene Expression v2"
+      ten_x_5prime:
+        title: "10x Chromium Single Cell 5' Gene Expression"
+      ten_x_atac_v2:
+        title: "10x Chromium Next GEM Single Cell ATAC v2"
+      ten_x_atac_v1_1:
+        title: "10x Chromium Single Cell ATAC v1.1"
+      ten_x_gem_x_epi_multiome:
+        title: "10x GEM-X Epi Multiome"
+      omni_atac:
+        title: "Omni-ATAC"
+      smart_seq2:
+        title: "Smart-seq2"
+      smart_seq4:
+        title: "Smart-seq4"
+      drop_seq:
+        title: "Drop-seq"
+      ten_x_3prime_version_not_reported:
+        title: "10x Chromium Single Cell 3' Gene Expression, version not reported"
+      illumina_truseq:
+        title: "Illumina TruSeq"
+      nebnext_ultra_ii_rna:
+        title: "NEBNext Ultra II RNA"
+      kapa:
+        title: "KAPA"
+        description: Roche KAPA library preparation kit, version not reported.
+      atac_seq_buenrostro:
+        title: "ATAC-seq (Buenrostro et al.)"
+        description: Standard ATAC-seq protocol (Buenrostro et al. 2013, 2015).
+      other:
+        title: "Other"
+
+  SequencingPlatformEnum:
+    description: Sequencing instrument used to generate the data.
+    permissible_values:
+      illumina_novaseq_x_plus:
+        title: "Illumina NovaSeq X Plus"
+      illumina_novaseq_x:
+        title: "Illumina NovaSeq X"
+      illumina_novaseq_6000:
+        title: "Illumina NovaSeq 6000"
+      illumina_nextseq_2000:
+        title: "Illumina NextSeq 2000"
+      illumina_nextseq_500:
+        title: "Illumina NextSeq 500"
+      illumina_hiseq_4000:
+        title: "Illumina HiSeq 4000"
+      not_reported:
+        title: "Not reported"
+
+  LibraryLayoutEnum:
+    description: Whether reads are paired-end or single-end.
+    permissible_values:
+      paired_end:
+        title: "paired-end"
+      single_end:
+        title: "single-end"
+
+  ReadIndicatorEnum:
+    description: Which read file this is.
+    permissible_values:
+      r1:
+        title: "R1"
+      r2:
+        title: "R2"
+      i1:
+        title: "I1"
+      i2:
+        title: "I2"
+
+  GenomicReferenceEnum:
+    description: Reference genome assembly reads were aligned to.
+    permissible_values:
+      grch38:
+        title: "GRCh38"
+      grch37:
+        title: "GRCh37"
+      grcm39:
+        title: "GRCm39"
+      grcm38:
+        title: "GRCm38"
+      other:
+        title: "Other"
+
+  MatrixTypeEnum:
+    description: Type of values stored in a matrix.
+    permissible_values:
+      raw_counts:
+        title: "raw counts"
+      normalized_counts:
+        title: "normalized counts"
+      batch_corrected_counts:
+        title: "batch corrected counts"
+      scaled_counts:
+        title: "scaled counts"
+
+  BiospecimenTypeEnum:
+    description: What kind of biospecimen a sample is.
+    permissible_values:
+      tissue:
+        title: "tissue"
+        description: Tissue collected from an individual, e.g. a biopsy or resection.
+      primary_cells:
+        title: "primary cells"
+        description: Cells isolated from an individual's tissue, with or without short-term culture.
+      cell_line:
+        title: "cell line"
+        description: An established cell line grown without directed differentiation.
+      in_vitro_differentiated_cells:
+        title: "in vitro differentiated cells"
+        description: Cells differentiated in vitro from stem or progenitor cells, e.g. hPSC-derived chondrocytes.
+      organoid:
+        title: "organoid"
+      engineered_tissue:
+        title: "engineered tissue or microphysiological system"
+        description: Bioengineered tissue constructs, organs-on-chips and other microphysiological systems.
+      other:
+        title: "Other"
+
+  CellTypeEnum:
+    description: Cell types, mapped to the Cell Ontology.
+    permissible_values:
+      chondrocyte:
+        title: "chondrocyte"
+        meaning: CL:0000138
+      hypertrophic_chondrocyte:
+        title: "hypertrophic chondrocyte"
+        meaning: CL:0000743
+      embryonic_stem_cell:
+        title: "embryonic stem cell"
+        meaning: CL:0002322
+      other:
+        title: "Other"
+      not_reported:
+        title: "Not reported"
+
+  TimeUnitEnum:
+    description: Units of time for durations.
+    permissible_values:
+      hours:
+        title: "hours"
+      days:
+        title: "days"
+      weeks:
+        title: "weeks"
