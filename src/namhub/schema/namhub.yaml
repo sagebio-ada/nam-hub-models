@@ -294,6 +294,32 @@ classes:
     slots:
       - aild
 
+  Treatment:
+    description: >-
+      One row per therapeutic agent an individual was receiving at the time
+      relevant to the study, with their response to it.
+    unique_keys:
+      treatment_key:
+        unique_key_slots:
+          - study_id
+          - individual_id
+          - therapeutic_agent
+    slots:
+      - study_id
+      - individual_id
+      - therapeutic_agent
+      - therapeutic_response
+      - therapeutic_response_criteria
+      - therapeutic_drug_level
+      - therapeutic_drug_level_unit
+    slot_usage:
+      study_id:
+        required: true
+      individual_id:
+        required: true
+      therapeutic_agent:
+        required: true
+
   Biospecimen:
     description: >-
       One row per biospecimen (sample) collected from an individual. Files
@@ -358,6 +384,23 @@ classes:
         description: >-
           Biospecimen ID(s) of the biospecimen(s) the file was generated from.
           A file aggregating several biospecimens lists each of them.
+
+  SupportingFile:
+    is_a: File
+    description: >-
+      Files that document a dataset rather than hold assay data, such as a
+      README, a sample or clinical metadata table, or a protocol.
+    slots:
+      - supporting_file_type
+    slot_usage:
+      supporting_file_type:
+        required: true
+      assay:
+        required: false
+        multivalued: true
+        description: Assay(s) of the data the file documents, if specific to some.
+      biospecimen_id:
+        required: false
 
   SequencingLevel1:
     abstract: true
@@ -442,8 +485,8 @@ classes:
   SnRNASeqLevel3and4:
     is_a: SequencingLevel3and4
     description: >-
-      Gene expression matrices and analysis objects from single-nucleus
-      RNA-seq.
+      Gene expression matrices, analysis objects and analysis results (e.g.
+      differential expression tables) from single-nucleus RNA-seq.
     slots:
       - matrix_type
       - cell_total
@@ -452,8 +495,6 @@ classes:
         range: SnRNASeqAssayEnum
       file_format:
         range: SingleNucleusLevel3and4FileFormatEnum
-      matrix_type:
-        required: true
 
   SnATACSeqLevel1:
     is_a: SingleNucleusLevel1
@@ -1074,8 +1115,44 @@ slots:
 
   aild:
     title: AILD
-    description: Whether the individual has auto-immune liver disease associated with IBD.
-    range: BooleanReportedEnum
+    description: >-
+      Autoimmune liver disease(s) associated with IBD that the individual has,
+      or "No". List both for autoimmune hepatitis / primary sclerosing
+      cholangitis overlap.
+    range: AILDEnum
+    multivalued: true
+
+  therapeutic_agent:
+    title: Therapeutic Agent
+    description: Drug the individual was receiving at the time relevant to the study.
+    range: TherapeuticAgentEnum
+
+  therapeutic_response:
+    title: Therapeutic Response
+    description: >-
+      Response to the therapeutic agent. Describe how response was defined
+      (e.g. mucosal healing on endoscopy) in Therapeutic Response Criteria.
+    range: TherapeuticResponseEnum
+
+  therapeutic_response_criteria:
+    title: Therapeutic Response Criteria
+    description: How therapeutic response was defined, e.g. "endoscopic remission (SES-CD 0-2 or Mayo 0)".
+    range: string
+
+  therapeutic_drug_level:
+    title: Therapeutic Drug Level
+    description: Most recent measured drug level (e.g. anti-TNF trough level), in Therapeutic Drug Level Unit.
+    range: float
+
+  therapeutic_drug_level_unit:
+    title: Therapeutic Drug Level Unit
+    description: Unit of Therapeutic Drug Level, e.g. "ug/mL".
+    range: string
+
+  supporting_file_type:
+    title: Supporting File Type
+    description: What a supporting (non-data) file contains.
+    range: SupportingFileTypeEnum
 
   biospecimen_id:
     title: Biospecimen ID
@@ -1222,7 +1299,9 @@ slots:
 
   matrix_type:
     title: Matrix Type
-    description: Type of values stored in the matrix.
+    description: >-
+      Type of values stored in the matrix. Leave empty for outputs that aren't
+      matrices, such as differential expression or accessibility results.
     range: MatrixTypeEnum
 
   cell_total:

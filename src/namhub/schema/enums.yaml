@@ -943,15 +943,63 @@ enums:
       days:
         title: "days"
 
-  BooleanReportedEnum:
-    description: Yes/No/Not reported for optional clinical fields.
+  AILDEnum:
+    description: Autoimmune liver disease associated with IBD, mapped to MONDO.
     permissible_values:
-      "yes":
-        title: "Yes"
       "no":
         title: "No"
+      autoimmune_hepatitis:
+        title: "Autoimmune hepatitis"
+        meaning: MONDO:0016264
+      primary_sclerosing_cholangitis:
+        title: "Primary sclerosing cholangitis"
+        meaning: MONDO:0013433
+      aild_type_not_reported:
+        title: "Yes, type not reported"
+        description: Individual has autoimmune liver disease but the type isn't reported.
       not_reported:
         title: "Not reported"
+
+  TherapeuticAgentEnum:
+    description: Therapeutic agents, mapped to NCIT. Add agents as datasets need them.
+    permissible_values:
+      adalimumab:
+        title: "Adalimumab"
+        meaning: NCIT:C65216
+      infliximab:
+        title: "Infliximab"
+        meaning: NCIT:C1789
+      mesalamine:
+        title: "Mesalamine"
+        meaning: NCIT:C29249
+      other:
+        title: "Other"
+      not_reported:
+        title: "Not reported"
+
+  TherapeuticResponseEnum:
+    description: Response to a therapeutic agent.
+    permissible_values:
+      responder:
+        title: "Responder"
+      non_responder:
+        title: "Non-responder"
+      not_reported:
+        title: "Not reported"
+
+  SupportingFileTypeEnum:
+    description: Content of a supporting (non-data) file.
+    permissible_values:
+      readme:
+        title: "README"
+      sample_metadata:
+        title: "Sample or clinical metadata table"
+      protocol:
+        title: "Protocol"
+      data_dictionary:
+        title: "Data dictionary"
+      other:
+        title: "Other"
 
   # ── Sequencing file vocabulary ───────────────────────────────────────────────
   # File format values reuse FileFormatEnum's titles, narrowed to what each
