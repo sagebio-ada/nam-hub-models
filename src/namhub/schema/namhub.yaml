@@ -139,6 +139,70 @@ classes:
       title:
         required: true
 
+  NAMPortalDataset:
+    description: >-
+      Annotations on a Synapse Dataset entity, one set per dataset. Follows
+      the fields of the NF-OSI PortalDataset schema
+      (org.synapse.nf-portaldataset) used for MC2 datasets, with NAM Hub
+      vocabularies in place of the NF-specific ones. The NF-only fields
+      manifestation and series are left out.
+    slots:
+      - title
+      - description
+      - alternate_name
+      - study_id
+      - creator
+      - contributor
+      - funder
+      - citation
+      - doi
+      - access_type
+      - conditions_of_access
+      - data_use_modifiers
+      - license
+      - data_type
+      - measurement_technique
+      - species
+      - disease_focus
+      - age_group
+      - country_of_origin
+      - individual_count
+      - specimen_count
+      - keywords
+      - subject
+      - year_processed
+      - date_published
+      - hosting
+      - repository
+      - external_repository_uri
+      - external_url
+      - included_in_data_catalog
+      - visualize_data_on
+      - croissant_file_s3_object
+    slot_usage:
+      title:
+        required: true
+      creator:
+        required: true
+      access_type:
+        required: true
+      data_type:
+        required: true
+      disease_focus:
+        required: true
+      funder:
+        required: true
+      license:
+        required: true
+      study_id:
+        required: true
+      alternate_name:
+        description: Other names for the dataset, such as its source accession (e.g. GSE274451).
+      repository:
+        description: >-
+          External repository the dataset is mirrored from or hosted in, shown as
+          a label on the dataset card.
+
   People:
     description: >-
       Investigators and contributors associated with NAMHub studies.
@@ -899,9 +963,9 @@ slots:
 
   disease_focus:
     title: Disease Focus
-    description: Disease areas or conditions the study addresses.
+    description: Disease areas or research areas the study or dataset addresses.
     multivalued: true
-    range: string
+    range: DiseaseFocusEnum
 
   alternate_name:
     title: Alternate Name
@@ -963,6 +1027,129 @@ slots:
   croissant_metadata_url:
     title: Croissant Metadata Url
     description: URL to the Croissant metadata file for this dataset.
+    range: uri
+
+  # -- NAMPortalDataset slots -------------------------------------------------
+
+  creator:
+    title: Creator
+    description: People or organizations who created the dataset, in "Last, First" or GEO contributor form.
+    multivalued: true
+    range: string
+
+  contributor:
+    title: Contributor
+    description: People or organizations who contributed to the dataset but aren't creators.
+    multivalued: true
+    range: string
+
+  funder:
+    title: Funder
+    description: Funding agency for the work that produced the dataset.
+    multivalued: true
+    range: FunderEnum
+
+  citation:
+    title: Citation
+    description: Citation for the publication describing the dataset.
+    range: string
+
+  conditions_of_access:
+    title: Conditions Of Access
+    description: >-
+      Requirements beyond data use modifiers, such as registration, joining a
+      Synapse Team, or 2FA. Leave empty if not applicable.
+    range: string
+
+  data_use_modifiers:
+    title: Data Use Modifiers
+    description: GA4GH Data Use Ontology (DUO) terms that limit reuse of the data.
+    multivalued: true
+    range: string
+    see_also:
+      - http://purl.obolibrary.org/obo/duo.owl
+
+  measurement_technique:
+    title: Measurement Technique
+    description: Assays used to generate the data in the dataset.
+    multivalued: true
+    range: AssayEnum
+
+  age_group:
+    title: Age Group
+    description: >-
+      Age groups of the individuals in the dataset: Infant (≤1 year), Child
+      (≤11), Adolescent (≤17), Adult.
+    multivalued: true
+    range: AgeGroupEnum
+
+  country_of_origin:
+    title: Country Of Origin
+    description: Countries where the samples or individuals came from.
+    multivalued: true
+    range: string
+
+  individual_count:
+    title: Individual Count
+    description: Number of unique individuals in the dataset.
+    range: integer
+    minimum_value: 0
+
+  specimen_count:
+    title: Specimen Count
+    description: Number of unique biospecimens in the dataset.
+    range: integer
+    minimum_value: 0
+
+  subject:
+    title: Subject
+    description: Subject headings or topics the dataset is about.
+    multivalued: true
+    range: string
+
+  year_processed:
+    title: Year Processed
+    description: Year the data were generated or processed.
+    range: integer
+
+  date_published:
+    title: Date Published
+    description: Year the data were published or made available on Synapse. Can be set automatically.
+    range: integer
+
+  hosting:
+    title: Hosting
+    description: >-
+      Where the dataset's files live and whether they can be downloaded through
+      Synapse. Separate from access type. Empty means synapse.
+    range: HostingEnum
+
+  external_repository_uri:
+    title: External Repository Uri
+    description: Reference to the dataset in an external repository as a CURIE, e.g. geo:GSE274451.
+    range: string
+    pattern: "^[A-Za-z][A-Za-z0-9.-]*:\\S+$"
+
+  external_url:
+    title: External Url
+    description: URL the dataset card links to for externally hosted datasets (a landing page, record or DOI).
+    range: uri
+
+  included_in_data_catalog:
+    title: Included In Data Catalog
+    description: Data catalogs or portals the dataset is listed in.
+    multivalued: true
+    range: uri
+
+  visualize_data_on:
+    title: Visualize Data On
+    description: Tools or sites where the dataset can be visualized.
+    multivalued: true
+    range: string
+
+  croissant_file_s3_object:
+    title: Croissant File S3 Object
+    description: Link to the Croissant metadata file for the dataset.
     range: uri
 
   # -- People slots ------------------------------------------------------------
