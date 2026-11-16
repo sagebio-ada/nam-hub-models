@@ -165,6 +165,7 @@ classes:
       - license
       - data_type
       - measurement_technique
+      - format
       - species
       - disease_focus
       - age_group
@@ -201,6 +202,14 @@ classes:
         required: true
       study_id:
         required: true
+      measurement_technique:
+        description: >-
+          Assays used to generate the data in the dataset. Calculated from the
+          Assay of every file in the dataset, not entered by hand.
+      format:
+        description: >-
+          File formats of the files in the dataset. Calculated from the File
+          Format of every file in the dataset, not entered by hand.
       alternate_name:
         description: Other names for the dataset, such as its source accession (e.g. GSE274451).
       repository:
