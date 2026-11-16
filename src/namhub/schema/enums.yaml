@@ -4,16 +4,23 @@ description: Shared enumeration definitions for NAMHub portal schemas.
 
 prefixes:
   linkml: https://w3id.org/linkml/
+  namhub_enums: https://namhub.synapse.org/portal_schemas/enums/
   CL: http://purl.obolibrary.org/obo/CL_
+  CLO: http://purl.obolibrary.org/obo/CLO_
+  DUO: http://purl.obolibrary.org/obo/DUO_
   EDAM: http://identifiers.org/edam/
   EFO: http://identifiers.org/efo/
   MONDO: http://purl.obolibrary.org/obo/MONDO_
   NCBITaxon: http://purl.obolibrary.org/obo/NCBITaxon_
   NCIT: http://purl.obolibrary.org/obo/NCIT_
   OBI: http://purl.obolibrary.org/obo/OBI_
+  PATO: http://purl.obolibrary.org/obo/PATO_
   UBERON: http://purl.obolibrary.org/obo/UBERON_
+  UO: http://purl.obolibrary.org/obo/UO_
+  insdc.gcf: https://www.ncbi.nlm.nih.gov/datasets/genome/
+  spdx: https://spdx.org/licenses/
 
-default_prefix: https://namhub.synapse.org/portal_schemas/enums/
+default_prefix: namhub_enums
 
 imports:
   - linkml:types
@@ -443,6 +450,8 @@ enums:
         meaning: NCBITaxon:9545
       mus_musculus_humanized:
         title: "Mus musculus (humanized)"
+        narrow_mappings:
+          - EFO:0021426
       oryctolagus_cuniculus:
         title: "Oryctolagus cuniculus"
         meaning: NCBITaxon:9986
@@ -942,6 +951,7 @@ enums:
         title: "not inflamed"
       inflamed:
         title: "inflamed"
+        meaning: PATO:0002104
       not_reported:
         title: "Not reported"
 
@@ -950,8 +960,10 @@ enums:
     permissible_values:
       male:
         title: "Male"
+        meaning: PATO:0000384
       female:
         title: "Female"
+        meaning: PATO:0000383
       unknown:
         title: "Unknown"
 
@@ -960,13 +972,18 @@ enums:
     permissible_values:
       years:
         title: "years"
+        meaning: UO:0000036
       months:
         title: "months"
+        meaning: UO:0000035
       days:
         title: "days"
+        meaning: UO:0000033
       days_post_conception:
         title: "days post-conception"
         description: Prenatal age, e.g. embryonic day 59 (E59) is 59.
+        broad_mappings:
+          - UO:0000033
 
   AILDEnum:
     description: Autoimmune liver disease associated with IBD, mapped to MONDO.
@@ -1021,6 +1038,7 @@ enums:
         title: "Sample or clinical metadata table"
       protocol:
         title: "Protocol"
+        meaning: OBI:0000272
       data_dictionary:
         title: "Data dictionary"
       other:
@@ -1105,12 +1123,15 @@ enums:
   SingleCellLevel3and4FileFormatEnum:
     description: File formats of single-cell matrices, peak calls and analysis objects.
     permissible_values:
-      h5ad: {}
+      h5ad:
+        broad_mappings:
+          - EDAM:format_3590
       h5:
         meaning: EDAM:format_3590
       mtx:
         meaning: EDAM:format_3916
-      rds: {}
+      rds:
+        meaning: NCIT:C209895
       seurat_object:
         title: "Seurat Object"
       csv:
@@ -1121,6 +1142,7 @@ enums:
         meaning: EDAM:format_3003
       bed_narrow_peak:
         title: "bed narrowPeak"
+        meaning: EDAM:format_3613
 
   BulkRNASeqLevel3and4FileFormatEnum:
     description: File formats of bulk RNA-seq quantifications, matrices and analysis results.
@@ -1129,10 +1151,17 @@ enums:
         meaning: EDAM:format_3475
       csv:
         meaning: EDAM:format_3752
-      txt: {}
-      excel: {}
-      rds: {}
-      h5ad: {}
+      txt:
+        broad_mappings:
+          - EDAM:format_1964
+      excel:
+        narrow_mappings:
+          - EDAM:format_3620
+      rds:
+        meaning: NCIT:C209895
+      h5ad:
+        broad_mappings:
+          - EDAM:format_3590
 
   BulkATACSeqLevel3and4FileFormatEnum:
     description: File formats of bulk ATAC-seq peak calls, coverage tracks and analysis results.
@@ -1141,8 +1170,10 @@ enums:
         meaning: EDAM:format_3003
       bed_narrow_peak:
         title: "bed narrowPeak"
+        meaning: EDAM:format_3613
       bed_broad_peak:
         title: "bed broadPeak"
+        meaning: EDAM:format_3614
       bigwig:
         meaning: EDAM:format_3006
       bedgraph:
@@ -1151,17 +1182,24 @@ enums:
         meaning: EDAM:format_3475
       csv:
         meaning: EDAM:format_3752
-      txt: {}
-      excel: {}
-      rds: {}
+      txt:
+        broad_mappings:
+          - EDAM:format_1964
+      excel:
+        narrow_mappings:
+          - EDAM:format_3620
+      rds:
+        meaning: NCIT:C209895
 
   NucleicAcidSourceEnum:
     description: Source and type of nucleic acid used to construct the sequencing library.
     permissible_values:
       single_nucleus:
         title: "single nucleus"
+        meaning: NCIT:C178227
       single_cell:
         title: "single cell"
+        meaning: NCIT:C178226
       bulk_nuclei:
         title: "bulk nuclei"
       bulk_cells:
@@ -1172,32 +1210,50 @@ enums:
     permissible_values:
       ten_x_multiome:
         title: "10x Chromium Multiome ATAC + Gene Expression"
+        meaning: EFO:0030059
       ten_x_3prime_v3_1:
         title: "10x Chromium Single Cell 3' Gene Expression v3.1"
+        meaning: EFO:0022980
       ten_x_3prime_v3:
         title: "10x Chromium Single Cell 3' Gene Expression v3"
+        meaning: EFO:0009922
       ten_x_3prime_v2:
         title: "10x Chromium Single Cell 3' Gene Expression v2"
+        meaning: EFO:0009899
       ten_x_5prime:
         title: "10x Chromium Single Cell 5' Gene Expression"
+        meaning: EFO:0030004
       ten_x_atac_v2:
         title: "10x Chromium Next GEM Single Cell ATAC v2"
+        broad_mappings:
+          - EFO:0030007
       ten_x_atac_v1_1:
         title: "10x Chromium Single Cell ATAC v1.1"
+        broad_mappings:
+          - EFO:0030007
       ten_x_gem_x_epi_multiome:
         title: "10x GEM-X Epi Multiome"
+        broad_mappings:
+          - EFO:0030059
       omni_atac:
         title: "Omni-ATAC"
+        meaning: EFO:0010014
       smart_seq2:
         title: "Smart-seq2"
+        meaning: EFO:0008931
       smart_seq4:
         title: "Smart-seq4"
+        broad_mappings:
+          - EFO:0008930
       drop_seq:
         title: "Drop-seq"
+        meaning: EFO:0008722
       ten_x_3prime_version_not_reported:
         title: "10x Chromium Single Cell 3' Gene Expression, version not reported"
+        meaning: EFO:0030003
       illumina_truseq:
         title: "Illumina TruSeq"
+        meaning: EFO:0022396
       nebnext_ultra_ii_rna:
         title: "NEBNext Ultra II RNA"
       kapa:
@@ -1206,6 +1262,8 @@ enums:
       atac_seq_buenrostro:
         title: "ATAC-seq (Buenrostro et al.)"
         description: Standard ATAC-seq protocol (Buenrostro et al. 2013, 2015).
+        broad_mappings:
+          - EFO:0007045
       other:
         title: "Other"
 
@@ -1214,16 +1272,22 @@ enums:
     permissible_values:
       illumina_novaseq_x_plus:
         title: "Illumina NovaSeq X Plus"
+        meaning: EFO:0022841
       illumina_novaseq_x:
         title: "Illumina NovaSeq X"
+        meaning: EFO:0022840
       illumina_novaseq_6000:
         title: "Illumina NovaSeq 6000"
+        meaning: EFO:0008637
       illumina_nextseq_2000:
         title: "Illumina NextSeq 2000"
+        meaning: EFO:0010963
       illumina_nextseq_500:
         title: "Illumina NextSeq 500"
+        meaning: EFO:0009173
       illumina_hiseq_4000:
         title: "Illumina HiSeq 4000"
+        meaning: EFO:0008563
       not_reported:
         title: "Not reported"
 
@@ -1232,6 +1296,7 @@ enums:
     permissible_values:
       paired_end:
         title: "paired-end"
+        meaning: NCIT:C150423
       single_end:
         title: "single-end"
 
@@ -1252,12 +1317,16 @@ enums:
     permissible_values:
       grch38:
         title: "GRCh38"
+        meaning: insdc.gcf:GCF_000001405.26
       grch37:
         title: "GRCh37"
+        meaning: insdc.gcf:GCF_000001405.13
       grcm39:
         title: "GRCm39"
+        meaning: insdc.gcf:GCF_000001635.27
       grcm38:
         title: "GRCm38"
+        meaning: insdc.gcf:GCF_000001635.20
       other:
         title: "Other"
 
@@ -1266,6 +1335,8 @@ enums:
     permissible_values:
       raw_counts:
         title: "raw counts"
+        broad_mappings:
+          - EDAM:data_3917
       normalized_counts:
         title: "normalized counts"
       batch_corrected_counts:
@@ -1279,17 +1350,21 @@ enums:
       tissue:
         title: "tissue"
         description: Tissue collected from an individual, e.g. a biopsy or resection.
+        meaning: NCIT:C12801
       primary_cells:
         title: "primary cells"
         description: Cells isolated from an individual's tissue, with or without short-term culture.
+        meaning: EFO:0002660
       cell_line:
         title: "cell line"
         description: An established cell line grown without directed differentiation.
+        meaning: CLO:0000031
       in_vitro_differentiated_cells:
         title: "in vitro differentiated cells"
         description: Cells differentiated in vitro from stem or progenitor cells, e.g. hPSC-derived chondrocytes.
       organoid:
         title: "organoid"
+        meaning: NCIT:C172259
       engineered_tissue:
         title: "engineered tissue or microphysiological system"
         description: Bioengineered tissue constructs, organs-on-chips and other microphysiological systems.
@@ -1318,7 +1393,234 @@ enums:
     permissible_values:
       hours:
         title: "hours"
+        meaning: UO:0000032
       days:
         title: "days"
+        meaning: UO:0000033
       weeks:
         title: "weeks"
+        meaning: UO:0000034
+
+  DataUseModifierEnum:
+    description: GA4GH Data Use Ontology (DUO) permissions and modifiers.
+    permissible_values:
+      gru:
+        title: "GRU"
+        description: general research use
+        meaning: DUO:0000042
+      hmb:
+        title: "HMB"
+        description: health or medical or biomedical research
+        meaning: DUO:0000006
+      ds:
+        title: "DS"
+        description: disease specific research
+        meaning: DUO:0000007
+      poa:
+        title: "POA"
+        description: population origins or ancestry research only
+        meaning: DUO:0000011
+      nres:
+        title: "NRES"
+        description: no restriction
+        meaning: DUO:0000004
+      cc:
+        title: "CC"
+        description: clinical care use
+        meaning: DUO:0000043
+      gso:
+        title: "GSO"
+        description: genetic studies only
+        meaning: DUO:0000016
+      nmds:
+        title: "NMDS"
+        description: no general methods research
+        meaning: DUO:0000015
+      rs:
+        title: "RS"
+        description: research specific restrictions
+        meaning: DUO:0000012
+      col:
+        title: "COL"
+        description: collaboration required
+        meaning: DUO:0000020
+      irb:
+        title: "IRB"
+        description: ethics approval required
+        meaning: DUO:0000021
+      gs:
+        title: "GS"
+        description: geographical restriction
+        meaning: DUO:0000022
+      is:
+        title: "IS"
+        description: institution specific restriction
+        meaning: DUO:0000028
+      ncu:
+        title: "NCU"
+        description: non-commercial use only
+        meaning: DUO:0000046
+      npuncu:
+        title: "NPUNCU"
+        description: not for profit, non commercial use only
+        meaning: DUO:0000018
+      npu:
+        title: "NPU"
+        description: not for profit organisation use only
+        meaning: DUO:0000045
+      ps:
+        title: "PS"
+        description: project specific restriction
+        meaning: DUO:0000027
+      mor:
+        title: "MOR"
+        description: publication moratorium
+        meaning: DUO:0000024
+      pub:
+        title: "PUB"
+        description: publication required
+        meaning: DUO:0000019
+      rtn:
+        title: "RTN"
+        description: return to database or resource
+        meaning: DUO:0000029
+      ts:
+        title: "TS"
+        description: time limit on use
+        meaning: DUO:0000025
+      us:
+        title: "US"
+        description: user specific restriction
+        meaning: DUO:0000026
+
+  LicenseEnum:
+    description: >-
+      License for reuse of the data. Values follow the NF-OSI PortalDataset
+      schema. Versioned licenses map to SPDX license identifiers.
+    permissible_values:
+      cc_by_nc:
+        title: "CC BY-NC"
+      cc_by_nc_1_0:
+        title: "CC BY-NC 1.0"
+        meaning: spdx:CC-BY-NC-1.0
+      cc_by_nc_2_0:
+        title: "CC BY-NC 2.0"
+        meaning: spdx:CC-BY-NC-2.0
+      cc_by_nc_2_5:
+        title: "CC BY-NC 2.5"
+        meaning: spdx:CC-BY-NC-2.5
+      cc_by_nc_3_0:
+        title: "CC BY-NC 3.0"
+        meaning: spdx:CC-BY-NC-3.0
+      cc_by_nc_4_0:
+        title: "CC BY-NC 4.0"
+        meaning: spdx:CC-BY-NC-4.0
+      cc_by_nc_nd:
+        title: "CC BY-NC-ND"
+      cc_by_nc_nd_1_0:
+        title: "CC BY-NC-ND 1.0"
+        meaning: spdx:CC-BY-NC-ND-1.0
+      cc_by_nc_nd_2_0:
+        title: "CC BY-NC-ND 2.0"
+        meaning: spdx:CC-BY-NC-ND-2.0
+      cc_by_nc_nd_2_5:
+        title: "CC BY-NC-ND 2.5"
+        meaning: spdx:CC-BY-NC-ND-2.5
+      cc_by_nc_nd_3_0:
+        title: "CC BY-NC-ND 3.0"
+        meaning: spdx:CC-BY-NC-ND-3.0
+      cc_by_nc_nd_4_0:
+        title: "CC BY-NC-ND 4.0"
+        meaning: spdx:CC-BY-NC-ND-4.0
+      cc_by_nc_sa:
+        title: "CC BY-NC-SA"
+      cc_by_nc_sa_1_0:
+        title: "CC BY-NC-SA 1.0"
+        meaning: spdx:CC-BY-NC-SA-1.0
+      cc_by_nc_sa_2_0:
+        title: "CC BY-NC-SA 2.0"
+        meaning: spdx:CC-BY-NC-SA-2.0
+      cc_by_nc_sa_2_5:
+        title: "CC BY-NC-SA 2.5"
+        meaning: spdx:CC-BY-NC-SA-2.5
+      cc_by_nc_sa_3_0:
+        title: "CC BY-NC-SA 3.0"
+        meaning: spdx:CC-BY-NC-SA-3.0
+      cc_by_nc_sa_4_0:
+        title: "CC BY-NC-SA 4.0"
+        meaning: spdx:CC-BY-NC-SA-4.0
+      cc_by_nd:
+        title: "CC BY-ND"
+      cc_by_nd_1_0:
+        title: "CC BY-ND 1.0"
+        meaning: spdx:CC-BY-ND-1.0
+      cc_by_nd_2_0:
+        title: "CC BY-ND 2.0"
+        meaning: spdx:CC-BY-ND-2.0
+      cc_by_nd_2_5:
+        title: "CC BY-ND 2.5"
+        meaning: spdx:CC-BY-ND-2.5
+      cc_by_nd_3_0:
+        title: "CC BY-ND 3.0"
+        meaning: spdx:CC-BY-ND-3.0
+      cc_by_nd_4_0:
+        title: "CC BY-ND 4.0"
+        meaning: spdx:CC-BY-ND-4.0
+      cc_by_sa:
+        title: "CC BY-SA"
+      cc_by_sa_1_0:
+        title: "CC BY-SA 1.0"
+        meaning: spdx:CC-BY-SA-1.0
+      cc_by_sa_2_0:
+        title: "CC BY-SA 2.0"
+        meaning: spdx:CC-BY-SA-2.0
+      cc_by_sa_2_5:
+        title: "CC BY-SA 2.5"
+        meaning: spdx:CC-BY-SA-2.5
+      cc_by_sa_3_0:
+        title: "CC BY-SA 3.0"
+        meaning: spdx:CC-BY-SA-3.0
+      cc_by_sa_4_0:
+        title: "CC BY-SA 4.0"
+        meaning: spdx:CC-BY-SA-4.0
+      cc_0:
+        title: "CC-0"
+      cc_by:
+        title: "CC-BY"
+      cc_by_1_0:
+        title: "CC-BY 1.0"
+        meaning: spdx:CC-BY-1.0
+      cc_by_2_0:
+        title: "CC-BY 2.0"
+        meaning: spdx:CC-BY-2.0
+      cc_by_2_5:
+        title: "CC-BY 2.5"
+        meaning: spdx:CC-BY-2.5
+      cc_by_3_0:
+        title: "CC-BY 3.0"
+        meaning: spdx:CC-BY-3.0
+      cc_by_4_0:
+        title: "CC-BY 4.0"
+        meaning: spdx:CC-BY-4.0
+      cc0_1_0:
+        title: "CC0 1.0"
+        meaning: spdx:CC0-1.0
+      odc_by:
+        title: "ODC-BY"
+      odc_by_1_0:
+        title: "ODC-BY 1.0"
+        meaning: spdx:ODC-By-1.0
+      odc_odbl:
+        title: "ODC-ODbL"
+      odc_odbl_1_0:
+        title: "ODC-ODbL 1.0"
+        meaning: spdx:ODbL-1.0
+      odc_pddl:
+        title: "ODC-PDDL"
+      odc_pddl_1_0:
+        title: "ODC-PDDL 1.0"
+        meaning: spdx:PDDL-1.0
+      public_domain:
+        title: "Public Domain"
+      unknown:
+        title: "UNKNOWN"

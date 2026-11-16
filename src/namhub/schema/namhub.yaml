@@ -1,6 +1,6 @@
 id: https://namhub.synapse.org/portal_schemas
 name: namhub
-version: 3.2.0
+version: 4.0.0
 description: >-
   NAMHub portal data schemas — backend Synapse tables and the Landscape data
   collection form. Portal tables are backed by Synapse project syn74360399.
@@ -10,7 +10,7 @@ description: >-
 prefixes:
   linkml: https://w3id.org/linkml/
   namhub: https://namhub.synapse.org/portal_schemas/
-  namo: https://github.com/monarch-initiative/namo/
+  namo: https://w3id.org/monarch-initiative/namo/
   DUO: http://purl.obolibrary.org/obo/DUO_
   schema: http://schema.org/
 
@@ -91,7 +91,8 @@ classes:
   Studies:
     description: >-
       One row per Technology Development Center (TDC) study in the NAMHub
-      program. Synapse table: syn75404711.
+      program. Synapse table: syn75404711; the portal reads it through the
+      materialized view syn75904610.
     slots:
       - study_id
       - study_name
@@ -200,19 +201,20 @@ classes:
       - tissue_or_cell_type
       - endpoints_measured
       - study_id
-      - dataset_id
       - related_publications
       - external_link
       - synapse_entity_id
       - access_type
       - access_requirements
-      - duo_code
+      - data_use_modifiers
       - acknowledgement_statements
       - license
       - portal_display
     slot_usage:
       nam_id:
         required: true
+        multivalued: false
+        description: Unique identifier of the NAM.
       nam_name:
         required: true
 
@@ -276,6 +278,12 @@ classes:
     description: >-
       One row per diagnosis of an individual. An individual with more than one
       diagnosis has one row for each.
+    unique_keys:
+      diagnosis_key:
+        unique_key_slots:
+          - study_id
+          - individual_id
+          - diagnosis
     slots:
       - study_id
       - individual_id
@@ -364,8 +372,6 @@ classes:
         required: true
       tissue:
         required: true
-        multivalued: false
-        range: TissueEnum
         description: >-
           Anatomic site the biospecimen was collected from or, for an in vitro
           model, the tissue it models. Biospecimen Type says which.
@@ -650,7 +656,7 @@ slots:
   # -- Shared / cross-table ----------------------------------------------------
 
   study_id:
-    title: Study_id
+    title: Study ID
     description: Study identifier linking to the Studies table (syn75404711).
     multivalued: false
     range: string
@@ -673,7 +679,7 @@ slots:
     range: string
 
   grant_id:
-    title: Grant_id
+    title: Grant ID
     description: Grant identifier linking to the Grants table (syn75404715).
     multivalued: false
     range: string
@@ -712,7 +718,7 @@ slots:
     range: AccessTypeEnum
 
   nam_id:
-    title: Nam_id
+    title: NAM ID
     description: NAM identifier(s) linking to the NAMs table (syn75404716).
     multivalued: true
     range: string
@@ -723,7 +729,7 @@ slots:
     range: uri
 
   synapse_entity_id:
-    title: Synapse Entity_id
+    title: Synapse Entity ID
     description: Synapse project or entity ID (syn-prefixed).
     range: string
     pattern: "^syn\\d+$"
@@ -737,7 +743,7 @@ slots:
   # -- Landscape slots ---------------------------------------------------------
 
   landscape_id:
-    title: Landscape_id
+    title: Landscape ID
     description: Unique identifier for the landscape entry.
     range: string
 
@@ -888,7 +894,7 @@ slots:
     range: string
 
   synapse_project_id:
-    title: Synapse Project_id
+    title: Synapse Project ID
     description: Synapse project entity ID housing the study's files.
     range: string
     pattern: "^syn\\d+$"
@@ -919,7 +925,7 @@ slots:
   # -- Datasets slots ----------------------------------------------------------
 
   dataset_id:
-    title: Dataset_id
+    title: Dataset ID
     description: >-
       Synapse Dataset entity ID. Blank for externally hosted datasets.
     range: string
@@ -969,7 +975,7 @@ slots:
   # -- People slots ------------------------------------------------------------
 
   investigator_id:
-    title: Investigator_id
+    title: Investigator ID
     description: Unique identifier for the investigator.
     range: string
 
@@ -989,13 +995,13 @@ slots:
     range: RoleEnum
 
   orcid_id:
-    title: Orcid_id
+    title: ORCID ID
     description: ORCID persistent digital identifier.
     range: string
     pattern: "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$"
 
   synapse_id:
-    title: Synapse_id
+    title: Synapse ID
     description: Synapse user account ID.
     range: string
 
@@ -1073,11 +1079,10 @@ slots:
       - https://github.com/monarch-initiative/namo
 
   namo_id:
-    title: Namo_id
-    description: >-
-      NAMO ontology term identifier. Format: NAMO:XXXXXXX.
+    title: NAMO ID
+    description: NAMO class as a CURIE, e.g. namo:Organoid.
     range: string
-    pattern: "^NAMO:\\d+$"
+    pattern: "^namo:[A-Za-z]+$"
     see_also:
       - https://github.com/monarch-initiative/namo
 
@@ -1099,12 +1104,6 @@ slots:
     multivalued: true
     range: string
 
-  dataset_id_list:
-    title: Dataset Id_list
-    description: Dataset identifier(s) linking to the Datasets table (syn75404713).
-    multivalued: true
-    range: string
-
   related_publications:
     title: Related Publications
     description: PubMed IDs of publications describing or using this NAM.
@@ -1117,16 +1116,11 @@ slots:
       Description of any Synapse Access Requirements governing the underlying data.
     range: string
 
-  duo_code:
-    title: Duo Code
-    description: >-
-      Data Use Ontology (GA4GH DUO) codes restricting data reuse.
-      Examples: GRU (General Research Use), HMB (Health/Medical/Biomedical),
-      DS (Disease Specific).
+  data_use_modifiers:
+    title: Data Use Modifiers
+    description: GA4GH Data Use Ontology (DUO) terms that limit reuse of the data.
     multivalued: true
-    range: string
-    see_also:
-      - http://purl.obolibrary.org/obo/duo.owl
+    range: DataUseModifierEnum
 
   acknowledgement_statements:
     title: Acknowledgement Statements
@@ -1135,13 +1129,13 @@ slots:
 
   license:
     title: License
-    description: License governing reuse of the underlying data (e.g. CC-BY-4.0).
-    range: string
+    description: License governing reuse of the underlying data.
+    range: LicenseEnum
 
   # -- Publications slots ------------------------------------------------------
 
   pub_med_id:
-    title: Pub Med_id
+    title: PubMed ID
     description: PubMed identifier (PMID).
     range: string
 
@@ -1257,9 +1251,9 @@ slots:
 
   tissue:
     title: Tissue
-    description: Tissue or cell type(s).
+    description: Tissue(s) the biospecimen came from or models.
     multivalued: true
-    range: string
+    range: TissueEnum
 
   age_at_collection:
     title: Age at Collection
@@ -1285,8 +1279,10 @@ slots:
   parent_biospecimen_id:
     title: Parent Biospecimen ID
     description: >-
-      Biospecimen ID of the biospecimen this one was derived from, such as the
-      biopsy a nuclei suspension was prepared from.
+      Biospecimen ID(s) of the biospecimen(s) this one was derived from, such
+      as the biopsy a nuclei suspension was prepared from, or each cell
+      population combined in a co-culture.
+    multivalued: true
     range: string
 
   timepoint:
@@ -1373,11 +1369,11 @@ slots:
   parent_file_id:
     title: Parent File ID
     description: >-
-      Synapse ID(s) of the file(s) this file was produced from, such as the
-      FASTQs an alignment was made from.
+      Synapse ID, CURIE (e.g. sra:SRR123) or URL of each file this file was
+      produced from, such as the FASTQs an alignment was made from.
     multivalued: true
     range: string
-    pattern: "^syn[0-9]+$"
+    pattern: "^(syn\\d+|[A-Za-z][A-Za-z0-9._-]*:\\S+)$"
 
   sequencing_platform:
     title: Sequencing Platform
