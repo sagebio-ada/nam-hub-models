@@ -1714,3 +1714,41 @@ enums:
         meaning: MONDO:0005059
       other:
         title: "Other"
+
+  DataStatusEnum:
+    description: Availability of a dataset's files.
+    permissible_values:
+      data_fully_available:
+        title: "data fully available"
+        description: All files can be downloaded, subject to any access requirements.
+      data_partially_available:
+        title: "data partially available"
+        description: Some files can be downloaded; others are still pending or embargoed.
+      data_under_embargo:
+        title: "data under embargo"
+        description: Files are in Synapse but not accessible outside the study team yet.
+      data_pending:
+        title: "data pending"
+        description: The dataset is registered but its files haven't been uploaded yet.
+      data_not_expected:
+        title: "data not expected"
+        description: The dataset is registered but no files will be uploaded.
+
+  AnnotationStatusEnum:
+    description: >-
+      Progress of the Synapse Curator tasks for a dataset's files and records.
+      A task counts as done when its state is COMPLETED; CANCELED tasks are
+      ignored.
+    permissible_values:
+      curation_tasks_not_ready:
+        title: "curation tasks not ready"
+        description: No data has been uploaded yet, so there is nothing to curate.
+      annotation_not_started:
+        title: "annotation not started"
+        description: Data is uploaded but none of its curation tasks are completed, or none have been created.
+      annotation_partially_complete:
+        title: "annotation partially complete"
+        description: Some, but not all, of the dataset's curation tasks are completed.
+      annotation_complete:
+        title: "annotation complete"
+        description: All of the dataset's curation tasks are completed.

@@ -158,6 +158,8 @@ classes:
       - citation
       - doi
       - access_type
+      - data_status
+      - annotation_status
       - conditions_of_access
       - data_use_modifiers
       - license
@@ -186,6 +188,8 @@ classes:
       creator:
         required: true
       access_type:
+        required: true
+      data_status:
         required: true
       data_type:
         required: true
@@ -1123,6 +1127,22 @@ slots:
     title: Date Published
     description: Year the data were published or made available on Synapse. Can be set automatically.
     range: integer
+
+  data_status:
+    title: Data Status
+    description: >-
+      Whether the dataset's files are available yet. Set by a curator. Access
+      Type says who can get them once they are.
+    range: DataStatusEnum
+
+  annotation_status:
+    title: Annotation Status
+    description: >-
+      How far curation of the dataset's files and records has got. Calculated,
+      not entered by hand: "curation tasks not ready" if no data is uploaded;
+      otherwise from the dataset's Synapse Curator tasks (ignoring canceled
+      ones), by whether none, some or all are completed.
+    range: AnnotationStatusEnum
 
   hosting:
     title: Hosting
