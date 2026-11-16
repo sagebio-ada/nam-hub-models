@@ -152,6 +152,7 @@ classes:
       - description
       - alternate_name
       - study_id
+      - nam_id
       - creator
       - contributor
       - funder
@@ -754,6 +755,8 @@ slots:
     description: Funding agency or agencies (e.g. NIH Common Fund).
     multivalued: true
     range: string
+    close_mappings:
+      - namhub:funder
 
   grant_id:
     title: Grant ID
@@ -776,6 +779,8 @@ slots:
     description: Experimental assay or method.
     multivalued: true
     range: AssayEnum
+    exact_mappings:
+      - namhub:measurement_technique
 
   data_type:
     title: Data Type
@@ -788,6 +793,8 @@ slots:
     description: Species of origin.
     multivalued: true
     range: SpeciesEnum
+    close_mappings:
+      - namhub:organism
 
   access_type:
     title: Access Type
@@ -804,6 +811,8 @@ slots:
     title: External Link
     description: External URL for additional resources.
     range: uri
+    close_mappings:
+      - namhub:external_url
 
   synapse_entity_id:
     title: Synapse Entity ID
@@ -1028,6 +1037,8 @@ slots:
     title: Release Date
     description: Date the dataset was made publicly available.
     range: date
+    close_mappings:
+      - namhub:date_published
 
   dataset_item_count:
     title: Dataset Item Count
@@ -1048,6 +1059,8 @@ slots:
     title: Croissant Metadata Url
     description: URL to the Croissant metadata file for this dataset.
     range: uri
+    exact_mappings:
+      - namhub:croissant_file_s3_object
 
   # -- NAMPortalDataset slots -------------------------------------------------
 
@@ -1056,6 +1069,8 @@ slots:
     description: People or organizations who created the dataset, in "Last, First" or GEO contributor form.
     multivalued: true
     range: string
+    close_mappings:
+      - namhub:authors
 
   contributor:
     title: Contributor
@@ -1068,6 +1083,8 @@ slots:
     description: Funding agency for the work that produced the dataset.
     multivalued: true
     range: FunderEnum
+    close_mappings:
+      - namhub:funding_agency
 
   citation:
     title: Citation
@@ -1080,20 +1097,16 @@ slots:
       Requirements beyond data use modifiers, such as registration, joining a
       Synapse Team, or 2FA. Leave empty if not applicable.
     range: string
-
-  data_use_modifiers:
-    title: Data Use Modifiers
-    description: GA4GH Data Use Ontology (DUO) terms that limit reuse of the data.
-    multivalued: true
-    range: string
-    see_also:
-      - http://purl.obolibrary.org/obo/duo.owl
+    close_mappings:
+      - namhub:access_requirements
 
   measurement_technique:
     title: Measurement Technique
     description: Assays used to generate the data in the dataset.
     multivalued: true
     range: AssayEnum
+    exact_mappings:
+      - namhub:assay
 
   age_group:
     title: Age Group
@@ -1136,6 +1149,8 @@ slots:
     title: Date Published
     description: Year the data were published or made available on Synapse. Can be set automatically.
     range: integer
+    close_mappings:
+      - namhub:release_date
 
   data_status:
     title: Data Status
@@ -1170,6 +1185,8 @@ slots:
     title: External Url
     description: URL the dataset card links to for externally hosted datasets (a landing page, record or DOI).
     range: uri
+    close_mappings:
+      - namhub:external_link
 
   included_in_data_catalog:
     title: Included In Data Catalog
@@ -1187,6 +1204,8 @@ slots:
     title: Croissant File S3 Object
     description: Link to the Croissant metadata file for the dataset.
     range: uri
+    exact_mappings:
+      - namhub:croissant_metadata_url
 
   # -- People slots ------------------------------------------------------------
 
@@ -1307,6 +1326,8 @@ slots:
     description: Organism(s) the NAM is derived from or applicable to.
     multivalued: true
     range: SpeciesEnum
+    close_mappings:
+      - namhub:species
 
   tissue_or_cell_type:
     title: Tissue Or Cell Type
@@ -1331,6 +1352,8 @@ slots:
     description: >-
       Description of any Synapse Access Requirements governing the underlying data.
     range: string
+    close_mappings:
+      - namhub:conditions_of_access
 
   data_use_modifiers:
     title: Data Use Modifiers
@@ -1364,6 +1387,8 @@ slots:
     title: Authors
     description: Author list.
     range: string
+    close_mappings:
+      - namhub:creator
 
   journal:
     title: Journal

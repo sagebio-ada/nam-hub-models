@@ -18,6 +18,7 @@ prefixes:
   UBERON: http://purl.obolibrary.org/obo/UBERON_
   UO: http://purl.obolibrary.org/obo/UO_
   insdc.gcf: https://www.ncbi.nlm.nih.gov/datasets/genome/
+  ror: https://ror.org/
   spdx: https://spdx.org/licenses/
 
 default_prefix: namhub_enums
@@ -1631,6 +1632,7 @@ enums:
       ncats:
         title: "NCATS"
         description: National Center for Advancing Translational Sciences (NIH).
+        meaning: ror:04pw6fb54
       other:
         title: "Other"
 
@@ -1663,15 +1665,20 @@ enums:
     permissible_values:
       infant:
         title: "Infant"
+        meaning: NCIT:C27956
       child:
         title: "Child"
+        meaning: NCIT:C16423
       adolescent:
         title: "Adolescent"
+        meaning: NCIT:C27954
       adult:
         title: "Adult"
+        meaning: NCIT:C17600
       prenatal:
         title: "Prenatal"
         description: Embryonic or fetal individuals.
+        meaning: NCIT:C81318
 
   DiseaseFocusEnum:
     description: >-
@@ -1680,7 +1687,7 @@ enums:
     permissible_values:
       gastrointestinal_diseases:
         title: "Gastrointestinal diseases"
-        meaning: MONDO:0004335
+        meaning: EFO:0010282
       musculoskeletal_disorders:
         title: "Musculoskeletal disorders"
         meaning: MONDO:0002081
@@ -1689,6 +1696,8 @@ enums:
         meaning: MONDO:0005267
       fibrotic_diseases:
         title: "Fibrotic diseases"
+        broad_mappings:
+          - EFO:0006890
       gynecological_diseases:
         title: "Gynecological diseases"
         meaning: MONDO:0002263
@@ -1697,6 +1706,8 @@ enums:
         meaning: MONDO:0005133
       neurology:
         title: "Neurology"
+        broad_mappings:
+          - NCIT:C16908
       neurotoxicology:
         title: "Neurotoxicology"
       alzheimers_disease:
@@ -1707,6 +1718,8 @@ enums:
         meaning: MONDO:0700092
       chemical_toxicology:
         title: "Chemical toxicology"
+        broad_mappings:
+          - NCIT:C17206
       chemical_safety:
         title: "Chemical safety"
       leukemia:
