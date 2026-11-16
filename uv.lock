@@ -642,8 +642,8 @@ wheels = [
 
 [[package]]
 name = "linkml-curator"
-version = "0.3.0"
-source = { git = "https://github.com/sagebio-ada/linkml-curator?tag=v0.3.0#0af912ca9de74e481eea57990dc151c17a998adc" }
+version = "0.4.0"
+source = { git = "https://github.com/Sage-Bionetworks/linkml-curator?tag=v0.4.0#ea89320924555b7fc643a04a1508c31df4f74b07" }
 dependencies = [
     { name = "click" },
     { name = "linkml" },
@@ -754,7 +754,7 @@ dev = [
 [package.metadata.requires-dev]
 dev = [
     { name = "linkml", specifier = ">=1.9.3" },
-    { name = "linkml-curator", git = "https://github.com/sagebio-ada/linkml-curator?tag=v0.3.0" },
+    { name = "linkml-curator", git = "https://github.com/Sage-Bionetworks/linkml-curator?tag=v0.4.0" },
 ]
 
 [[package]]

@@ -21,4 +21,4 @@ dev = [
 ]
 
 [tool.uv.sources]
-linkml-curator = { git = "https://github.com/sagebio-ada/linkml-curator", tag = "v0.3.0" }
+linkml-curator = { git = "https://github.com/Sage-Bionetworks/linkml-curator", tag = "v0.4.0" }
