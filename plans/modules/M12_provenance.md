@@ -1,6 +1,6 @@
 # M12 provenance: evidence for metadata values
 
-**Decisions (README section 4):** D4, D11, D26, D27, D29, D31, D32
+**Decisions (README section 4):** D4, D11, D26, D27, D29, D31, D32, D33, D37, D41
 
 ## Scope
 
@@ -54,20 +54,29 @@ One row for each value that a run read, computed or reviewed.
 | `value_origin` (required) | Stated in the source, inferred from the source, or computed from data | enum |
 | `computed_by_protocol_id` | For a computed value: the `ComputationalProtocol` (tool and version) that computed it (M7, M10) | `protocol_id` |
 | `assertion_method` (required) | ECO assertion method: manual (`ECO:0000218`) or automatic (`ECO:0000203`) | enum |
-| `planning_state` | Planned, observed, or cannot tell (for example a planned sample count against the observed one) | enum |
-| `resolution_state` (required) | Resolved, ambiguous, conflicting, or not found | enum |
-| `review_state` (required) | Unreviewed, machine proposed, curator accepted, curator amended, curator rejected | enum |
-| `confidence` | High, medium or low, as the tool or curator gives it. Not a calibrated probability. | enum |
+| `planning_state` | planned, observed, cannot_tell (for example a planned sample count against the observed one) | enum |
+| `resolution_state` (required) | resolved, provisional, gap, not_attempted | enum |
+| `review_state` (required) | unreviewed, machine_parsed, curator_accepted, curator_amended, curator_rejected | enum |
+| `confidence` | high, medium, low, provisional, as the tool or curator gives it. Not a calibrated probability. | enum |
 | `reviewer` | ORCID of the curator who reviewed the assertion | ORCID pattern |
+
+The values of `resolution_state`, `review_state`, `planning_state` and
+`confidence` are the values of the FUSION (NDHCC) LinkML model, version
+1.2.0-wave2r4, used verbatim (D37). The FUSION missing-value tokens
+(`not_stated`, `not_assessed`, `not_applicable`) map to the D29 set in SSSOM.
+The NAMHub enums keep the D29 values.
 
 Rules:
 
 - When an extraction finds no value, the record field holds the D29 missing
-  value, and the assertion holds `resolution_state` not found, ambiguous or
-  conflicting. Thus the reason for the gap stays visible.
-- Two sources that state different values give two assertions for one
-  field. Both stay. The `resolution_state` is conflicting until a curator
-  accepts one. No value wins without review.
+  value, and the assertion holds `resolution_state` `gap` or `not_attempted`.
+  Thus the reason for the gap stays visible.
+- A value with two or more candidate concepts stays `gap` until a curator
+  selects one candidate.
+- Two sources that state different values give two assertions for the same
+  target field with different values. Both stay. A check reports the
+  conflict, and the curator sets `review_state` on each assertion. No value
+  wins without review.
 - A computed value (for example a read count from FASTQ files) has
   `value_origin` computed and names its protocol. It is not presented as a
   value read from a document.
@@ -80,14 +89,14 @@ Rules:
 |---|---|---|
 | `curation_run_id` | Key | string |
 | `run_method` (required) | Manual, automatic or mixed | enum |
-| `agent` (required) | The curator (ORCID) or the tool (name) | string |
+| `curation_agent` (required) | The curator (ORCID) or the tool (name). The name is not `agent`, because M8 `TestArticle.agent` is an enum. | string |
 | `agent_version` | The tool version | string |
 | `run_date` (required) | — | date |
 | `schema_version` (required) | The NAMHub model version that the run filled | string |
 | `profile_id` (required) | The curation profiles that the run used. With `schema_version`, they are the resolved curation specification of the run. | `profile_id`, multivalued |
 | `study_id` | The study that the run covered, when it covered one study | `study_id` |
 
-PROV-O anchor: `prov:Activity`, with `prov:wasAssociatedWith` the agent.
+PROV-O anchor: `prov:Activity`, with `prov:wasAssociatedWith` the `curation_agent`.
 
 ### `CurationProfile` (new; global `profile_id`)
 
@@ -98,7 +107,7 @@ PROV-O anchor: `prov:Activity`, with `prov:wasAssociatedWith` the agent.
 | `profile_kind` (required) | Common, program, NAM, assay, processing level, or source format | enum |
 | `profile_version` (required) | — | text |
 | `previous_version_profile_id` | `prov:wasRevisionOf`. A new version is a new row. | `profile_id` |
-| `applies_to_assay`, `applies_to_nam_type`, `applies_to_level`, `applies_to_source_type` | Where the profile applies. Empty means all. | enums (reuse `AssayEnum`, the M3 `nam_type` enum, the processing levels, the source document types) |
+| `applies_to_assay`, `applies_to_nam_kind`, `applies_to_level`, `applies_to_source_type` | Where the profile applies. Empty means all. | enums (reuse `AssayEnum`, the FUSION `NAMKindEnum` (D41), the processing levels, the source document types) |
 | `instructions_link` (required) | The extraction protocol: which sources to read, how to tell entities apart, what may be inferred, how to record gaps | uri |
 | `extends_profile_id` | The profiles that this profile builds on | `profile_id`, multivalued |
 | `precedence` | When two profiles set the same rule, the higher value wins | integer |
@@ -112,11 +121,18 @@ run reports the conflict and does not choose.
 
 ### Mappings to the FUSION knowledge base
 
-Add rows to `docs/mappings.sssom.tsv` (D31) from these templates and from
-the record templates to the FUSION (NDHCC) model at a pinned version. For
-example: `Assertion` → NDHCC `ControlledValue`, `SourceLocator` and
-`EvidenceRecord`; `CurationRun` → `AssertionActivity`; `review_state` →
-NDHCC `ReviewStateEnum`. Add the NDHCC prefix.
+Add rows to `docs/mappings.sssom.tsv` (D31, D33) from these templates to the
+FUSION (NDHCC) LinkML model, version 1.2.0-wave2r4. Add the NDHCC prefix.
+
+| NAMHub record | FUSION class | Relation |
+|---|---|---|
+| `Assertion` | `ndhcc:ControlledValue` with `ndhcc:SourceLocator` (and `ndhcc:EvidenceRecord`) | close |
+| `CurationRun` | `ndhcc:AssertionActivity` | close |
+| `CurationProfile` | none | — |
+
+D37 rule: use the FUSION enum values verbatim for `resolution_state`,
+`review_state`, `planning_state` and `confidence`. Model a conflict as two
+`Assertion` rows and a check finding, not as a value.
 
 **Reason:** The FUSION knowledge base keeps the evidence for each value.
 Curator and Curie produce that evidence when they extract the values. If

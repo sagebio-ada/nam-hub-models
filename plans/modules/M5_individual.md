@@ -1,6 +1,6 @@
 # M5 individual: Individual, Diagnosis, Treatment (plus `ext_ibd`)
 
-**Decisions (README section 4):** D4, D6, D10, D11, D15, D23, D29, D30
+**Decisions (README section 4):** D4, D6, D10, D11, D15, D23, D29, D30, D33
 
 ## Scope
 
@@ -47,6 +47,17 @@ One PR. The Curator output changes (major version: a value changes).
 | Treatment descriptions | Move usage guidance (for example "add agents as datasets need them") to the decision log. | — |
 
 M0 PR 2 adds the anchors of the classes and the other slots.
+
+### FUSION mapping (D33)
+
+Source: the FUSION (NDHCC) LinkML model, version 1.2.0-wave2r4.
+
+- `Individual` is an exact mapping to `ndhcc:Source`.
+- `Diagnosis`, `IBDDiagnosis` and `Treatment` are close mappings to
+  `ndhcc:ClinicalObservation`. Use `observation_kind` diagnosis for the
+  diagnosis templates and therapy for `Treatment`.
+- `age_at_diagnosis` maps to `age_at_event`.
+- `diagnosis` maps to `observed_value`.
 
 ## Checks
 

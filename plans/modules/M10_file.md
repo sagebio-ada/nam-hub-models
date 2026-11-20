@@ -1,7 +1,7 @@
 # M10 file: shared File and sequencing templates
 
 **Decisions (README section 4):** D4, D5, D6, D11, D19, D21, D22, D24,
-D25a, D27
+D25a, D27, D33, D39
 
 Other assay families (imaging, plate readouts, mass spectrometry, in silico
 outputs and code, and others) get one plan for each family, after this
@@ -64,10 +64,10 @@ the generated files.
 
 | Change | Source and anchor (candidate) |
 |---|---|
-| `File` gains `dataset_id` | C2M2 `file_in_collection` |
+| `File` gains `dataset_id`. It names the Synapse Dataset entity, that is the `NAMPortalDataset` record. The `Datasets` table is retired (D39). | C2M2 `file_in_collection` |
 | `File` gains `size_in_bytes` | C2M2 `size_in_bytes` |
-| `File` gains `sha256` (optional; `md5` stays required) | C2M2 `sha256` |
-| `File` gains `data_type` (optional) | EDAM `data:` (C2M2 `data_type`) |
+| `File` gains `sha256` (optional, as `md5` is) | C2M2 `sha256` |
+| `File` gains `file_data_type` (optional). The name is not `data_type`, because `main` uses `data_type` for `DataCategoryEnum` (Datasets, NAMPortalDataset, Publications), and one slot name has one range. | EDAM `data:` (C2M2 `data_type`, exact mapping) |
 | `File` gains `compression_format` | EDAM format (C2M2 `compression_format`) |
 | `sequencing_platform` and `library_layout` move from `Sequencing` to `SequencingLevel1`. Reason: Level 2 and above can describe files that hold many samples (for example a multi-sample `.h5ad`), so they must not require Level 1 fields. | HTAN2 and GDC `read_group` hold them with the reads (check at the pinned HTAN2 commit) |
 | `SequencingLevel1` gains `paired_file_id` (D19) | Same nuclei, other modality. The predicate needs an OLS check. |
@@ -131,6 +131,28 @@ ISA models data processing as a process that runs a protocol.
 - No `suspension_type` slot. `nucleic_acid_source` holds cell or nucleus.
   M0 PR 2 maps its values to CELLxGENE `suspension_type`.
 
+## FUSION mapping
+
+Add these rows to `docs/mappings.sssom.tsv` (D31, D33). The target is the
+FUSION (NDHCC) LinkML model, version 1.2.0-wave2r4.
+
+| NAMHub record | FUSION class | Relation |
+|---|---|---|
+| `SupportingFile` and the sequencing file templates | `ndhcc:DataFile` | exact |
+| `ComputationalProtocol` | `ndhcc:ProtocolVersion` | exact |
+
+| NAMHub slot | FUSION slot |
+|---|---|
+| `md5` | `sha256` (not exact; only `sha256` maps exact) |
+| `sha256` | `sha256` (exact) |
+| `file_format` | `file_format` |
+| `size_in_bytes` | `size_in_bytes` |
+| `parent_file_id` and `protocol_id` together | `produced_by` (a `ndhcc:DataProcessing`) |
+| `umi_tag` | `SequencingLibraryFacts` `umi_tag` |
+| `cell_barcode_tag` | `SequencingLibraryFacts` `cell_barcode_tag` |
+| `barcode_whitelist_link` | `SequencingLibraryFacts` `cell_barcode_whitelist` |
+| `ComputationalProtocol.software` | `ndhcc:Software` |
+
 ## Checks
 
 Do the standard checks (README section 2).
@@ -140,6 +162,9 @@ Do the standard checks (README section 2).
   templates and enum values. PR 2 and PR 3 remove columns from Level 2 and
   above (major version). PR 4 adds optional columns and enum values (minor
   version).
+- The `assay` value of a file equals the `assay` of the Assay that the file
+  reaches through `dataset_id`. The per-template enum narrowing of `assay`
+  stays.
 
 ## Assumptions
 

@@ -1,6 +1,6 @@
 # M7 protocol: Protocol
 
-**Decisions (README section 4):** D4, D11, D24, D26, D27
+**Decisions (README section 4):** D4, D11, D24, D26, D27, D33
 
 ## Scope
 
@@ -68,6 +68,17 @@ direction, README section 2).
 record stores its type, version and parameters once, and a correction is
 made once (D27). Before this module, the only protocol data was a URL that
 repeats on every sequencing file.
+
+### FUSION mapping (D33)
+
+Source: the FUSION (NDHCC) LinkML model, version 1.2.0-wave2r4. FUSION
+projects its NF protocol template the same way.
+
+- `Protocol` is an exact mapping to `ndhcc:ProtocolVersion`. One row is one
+  version.
+- `protocol_version` maps to `version_label`.
+- `protocol_link` maps to `protocol_uri`.
+- `protocol_type` maps to Protocol `protocol_type`.
 
 ## Checks
 

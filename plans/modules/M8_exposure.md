@@ -1,6 +1,6 @@
 # M8 exposure: TestArticle, Exposure, reference compounds
 
-**Decisions (README section 4):** D4, D6, D8, D10, D11, D24, D27, D29, D30
+**Decisions (README section 4):** D4, D6, D10, D11, D24, D27, D29, D30, D33, D37
 
 ## Scope
 
@@ -55,7 +55,7 @@ animal.
 | `dosing_frequency` | FDA C.1 | text |
 | `exposure_duration`, `exposure_duration_unit` | FDA C.1; UO | float and `TimeUnitEnum` |
 | `timepoint_offset`, `timepoint_offset_unit`, `timepoint_reference_event` | Reuse the M6 slots. They give the start of the exposure, so that a mixture and a sequence of exposures are different (assumption 2). | float and enums |
-| `control_role` (required, D8) | FDA C.7; OBI and BAO control terms | enum: test, positive control, negative control, vehicle control, untreated control, reference material |
+| `control_role` | FDA C.7; OBI and BAO control terms. Values from the FUSION (NDHCC) LinkML model, version 1.2.0-wave2r4, `ControlKindEnum` (D37). Optional. A blank value means a test exposure. | enum: negative_control, positive_control, vehicle_control, untreated_control, reference_material, spike_in, blank, calibration_standard |
 | `control_justification` | FDA C.7 | text |
 | `protocol_id` | The treatment protocol (M7), with `protocol_type` treatment. For a physical stimulation it holds the stimulation parameters. | `protocol_id` |
 
@@ -92,7 +92,7 @@ One row for each compound in a set (a link record, M0 key conventions).
 | `test_article_id` | The compound | `test_article_id` |
 | `expected_outcome` | FDA C.7. The known result of this compound for the endpoint of the set | text |
 
-M9 `ValidationAssessment` links to `reference_compound_set_id`.
+M9 `CredibilityEvidence` links to `reference_compound_set_id`.
 
 **Reason for one row per compound:** Each compound has its own expected
 outcome. M9 compares the NAM result with the expected outcome for each
@@ -102,6 +102,32 @@ compound. A single description for the whole set cannot hold this.
 
 Do the standard checks (README section 2). The PR adds four templates. No
 existing template changes.
+
+- `control_role` holds only the listed values. A blank value is valid and
+  means a test exposure.
+
+## FUSION mapping
+
+Add these rows to `docs/mappings.sssom.tsv` (D31, D33). The target is the
+FUSION (NDHCC) LinkML model, version 1.2.0-wave2r4.
+
+| NAMHub record | FUSION class | Relation |
+|---|---|---|
+| `TestArticle` | the `agent` of `ndhcc:Exposure` (a `ControlledValue` bound to CHEBI, with `dsstox_id`) | close |
+| `Exposure` | `ndhcc:Exposure`; `ndhcc:Intervention` when `exposure_type` is not chemical | close |
+| `ReferenceCompoundSet`, `ReferenceCompound` | `ndhcc:ReferenceOrComparator` (a reference chemical set) | broad |
+
+| NAMHub slot | FUSION slot |
+|---|---|
+| `dose` | `dose` |
+| `exposure_duration` | `duration` |
+| `route_of_administration` | `route` |
+| `vehicle` | `vehicle` |
+| `dtxsid` | `dsstox_id` |
+| `chebi_id` | `agent` (`maps_to`) |
+
+FUSION has no `test` value in `ControlKindEnum`. For this reason a blank
+`control_role` means a test exposure.
 
 ## Assumptions
 

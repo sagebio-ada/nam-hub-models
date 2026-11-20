@@ -1,7 +1,7 @@
 # M0 core: module split, anchors, key conventions
 
 **Decisions (README section 4):** D3, D4, D6, D11, D13, D25a, D26, D27, D28,
-D29, D30, D31
+D29, D30, D31, D34, D36, D39
 
 ## Scope
 
@@ -185,12 +185,13 @@ Later module PRs apply the same rule to the enums that they add.
 Every module plan uses these conventions.
 
 - **Records:** use `<entity>_id`. It is unique within a study
-  (`unique_keys` with `study_id`).
+  (`unique_keys` with `study_id`). `assay_id` (M2) is a study-scoped ID.
 - **Link records with no ID of their own** (Diagnosis, Treatment): use a
   composite key. The key has `study_id`, the ID of the linked record and
   the linked value.
 - **Catalog entries that studies share:** use a global `<entity>_id`. Today
-  this is `nam_id`. Later plans add `device_id` (M4), `test_article_id`
+  this is `nam_id`. Later plans add `investigation_id` (M1),
+  `model_system_id` and `device_id` (M4), `test_article_id`
   and `reference_compound_set_id` (M8), `access_requirement_id` (M11),
   `protocol_id` (M7), `context_of_use_id` and `acceptance_criterion_id`
   (M9), and `curation_run_id` and `profile_id` (M12). Open question 1
@@ -209,14 +210,16 @@ Every module plan uses these conventions.
 - **File sources:** a file links to its most specific source:
   `biospecimen_id`; `individual_id` when no biospecimen exists (for example
   in vivo imaging); or `in_silico_model_id` for a model output. A file
-  links to its dataset with `dataset_id`, to its study with `study_id`, and
+  links to its dataset with `dataset_id` (the Synapse Dataset entity ID,
+  D39), to its study with `study_id`, and
   to the protocol that made it with `protocol_id` (M7).
   The file reaches its individual, NAM, licence and grant through these
   keys (D26, D27).
 - **Source versus modeled (D30):** a descriptor slot has one role. Origin
   values (species, tissue, donor diagnosis) are on Individual and on source
-  Biospecimen rows. Modeled values are on NAMs. A model Biospecimen row
-  gives its modeled tissue, and its parent rows give the origin. Input
+  Biospecimen rows. Modeled values are on `ModelSystem` (M4). A model
+  Biospecimen row reaches them through `model_system_id`, and its parent
+  rows give the origin. Input
   values (cells and chemicals put into a model) are on Biospecimen and
   `TestArticle`. Observed values (cells and analytes that an assay
   measures) belong to the assay file templates. Each description says the
@@ -239,12 +242,12 @@ mixin of FAIR fields.
 | 1, 4 Identifier | The key of each record (see Identifiers above); `doi` where one exists | — |
 | 5 Program | Waits for D13 | — |
 | 6 Project (grant) | Studies `grant_id` → Grants | `study_id` |
-| 7 Institution | Studies `institution` (`InstitutionEnum`, ROR terms, M1) | `study_id` |
+| 7 Institution | Investigation `institution` (`InstitutionEnum`, ROR terms, M1) | `study_id` → `investigation_id` |
 | 8 Landing page | The Synapse ID, which resolves to the Synapse page. External datasets: NAMPortalDataset `external_url` | `dataset_id` |
 | 9 Access protocol | Each `RepositoryEnum` value, once (a `see_also` to the access documentation of the repository) | `repository` |
 | 10 to 15 Ontology terms | `assay` (OBI with BAO mappings, D5), `tissue` (UBERON), `diagnosis` and `disease_focus` (MONDO), `file_format` (EDAM), `species` (NCBITaxon), `cellosaurus_id` | — |
 | 16 Contact for creators | NAMPortalDataset `creator` (names); People `email` | `study_id` |
-| 17 Resource licence | NAMPortalDataset `license`; NAMs `license` | Files: `dataset_id` |
+| 17 Resource licence | NAMPortalDataset `license` | Files: `dataset_id` |
 | 18 Metadata licence | Studies `metadata_license` (D28, M1) | `study_id` |
 
 ## Checks

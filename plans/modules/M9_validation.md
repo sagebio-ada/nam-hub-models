@@ -1,7 +1,7 @@
 # M9 validation: context of use, validation, credibility and results
 
 **Decisions (README section 4):** D4, D8, D9, D11, D16, D17, D24, D26, D27,
-D29, D30, D32
+D29, D30, D32, D33, D37, D38, D40
 
 ## Scope
 
@@ -10,13 +10,14 @@ the results can be trusted:
 
 1. `ContextOfUse`: the question and the role of a NAM in a decision (FDA
    NAM guidance section A; FDA CDRH 2023 and FDA AI draft, steps 1 and 2).
-2. `ValidationAssessment`: the validation evidence for a NAM in one context
-   of use (FDA NAM guidance C.3, C.4 and D).
-3. `CredibilityAssessment`, `AICredibilityAssessment` and
-   `CredibilityEvidence`: the credibility of an in silico model for one
-   context of use (FDA CDRH 2023 for mechanistic models; FDA AI draft for
-   data-driven models).
-4. `AcceptanceCriterion` and `AssessmentResult`: thresholds and results as
+   It also holds the decision supported, the model influence and the
+   decision consequence (D38).
+2. `CredibilityAssessment`, `AICredibilityAssessment` and
+   `CredibilityEvidence`: the validation evidence and the credibility of a
+   NAM for one context of use (D40). The FDA NAM guidance (C.3, C.4 and D)
+   covers in vitro and other non-computational NAMs. FDA CDRH 2023 covers
+   mechanistic models. FDA AI draft covers data-driven models.
+3. `AcceptanceCriterion` and `AssessmentResult`: thresholds and results as
    rows (D17). QC, reproducibility, concordance and performance results
    all use these two templates.
 
@@ -36,15 +37,16 @@ that the FDA guidance draws on (README section 2, source rule).
   `model_form` and the training and calibration datasets.
 - `ReferenceCompoundSet` and `ReferenceCompound` (M8) hold benchmark
   compounds and their expected outcomes.
-- `comparator_dataset_id` (M2) names the reference datasets of a dataset.
+- The dataset record (M2) holds no comparator link (D40). Only
+  `CredibilityEvidence` names comparator datasets.
 - `Protocol` and `ComputationalProtocol` (M7, M10) hold methods and tools.
 - `Assertion` (M12) holds the evidence for each value.
 - `main` holds context of use only as free text in the Landscape form.
 
 ## Changes
 
-Four PRs. Put the templates in a new `modules/validation.yaml`. Each PR adds
-templates (minor version), except PR 4, which also adds optional columns
+Three PRs. Put the templates in a new `modules/validation.yaml`. Each PR adds
+templates (minor version), except PR 3, which also adds optional columns
 to `InSilicoModel`.
 
 ### PR 1: `ContextOfUse`, `AcceptanceCriterion`, `AssessmentResult`
@@ -61,6 +63,10 @@ studies, so its ID is global (D11).
 | `question_of_interest` (required) | The question that the NAM helps to answer. FDA CDRH 2023; FDA AI draft, step 1 | text |
 | `cou_statement` (required) | The role and scope of the NAM in answering the question. FDA NAM guidance A; FDA AI draft, step 2 | text |
 | `cou_category` | The examples in FDA NAM guidance A: patient monitoring, dose selection, mechanism of an adverse event, justification for not using an animal species, weight of evidence for risks not measured in humans; other | enum |
+| `decision_supported` | The decision that the NAM output informs. FUSION `DecisionSupported.decision_text` | text |
+| `model_influence`, `decision_consequence` | The weight of the NAM output in the decision, and the consequence of a wrong decision. FDA CDRH 2023; FDA AI draft, step 3. Each is low, medium or high (D16), with the D29 missing values (D37). They depend only on the context of use (D38). FUSION `DecisionSupported.model_influence`, `.decision_consequence` | enum |
+| `biomarker_category` | The FDA-NIH BEST glossary categories: susceptibility/risk, diagnostic, monitoring, prognostic, predictive, pharmacodynamic/response, safety; with the D29 missing values. FUSION `biomarker_category` | enum |
+| `use_tags` | The intended uses, as the FUSION (NDHCC) LinkML model, version 1.2.0-wave2r4, gives them in `UseTagEnum`: drug efficacy testing, disease modeling, toxicity prediction, drug safety assessment, drug discovery screening, mechanism elucidation, biomarker discovery, model development or characterisation, regulatory qualification, data infrastructure, training or dissemination. FUSION `use_tags` | enum, multivalued |
 | `drug_development_objective` | FDA NAM guidance D: replace, fill a data gap, confirm or complement | enum, multivalued |
 | `regulatory_purpose` | FDA NAM guidance A | text |
 | `target_population` | The population or system that the decision is about | text |
@@ -68,6 +74,9 @@ studies, so its ID is global (D11).
 | `oecd_test_guideline` | The OECD test guideline that the method follows, if any (D9) | text |
 | `adverse_outcome_pathway` | AOP-Wiki ID | pattern `^AOP:\d+$`, multivalued |
 | `previous_version_context_of_use_id` | `prov:wasRevisionOf`. A changed context of use is a new row. | `context_of_use_id` |
+
+FUSION plans to add values to `UseTagEnum` in its next release. NAMHub
+adds them when FUSION releases them.
 
 #### `AcceptanceCriterion` (new; global `acceptance_criterion_id`)
 
@@ -95,11 +104,11 @@ result is a true/false column. Several results for one target can coexist.
 |---|---|---|
 | `assessment_result_id` | Key, unique with `study_id` | string |
 | `study_id` (required) | — | `study_id` |
-| `target_template`, `target_id` (required) | What was assessed: any record (for example a Biospecimen, a file, a dataset, a `ValidationAssessment` or a `CredibilityEvidence` row). Reuse the M12 slots. | enum and string |
+| `target_template`, `target_id` (required) | What was assessed: any record (for example a Biospecimen, a file, a dataset, a `CredibilityAssessment` or a `CredibilityEvidence` row). Reuse the M12 slots. | enum and string |
 | `assessment_dimension` (required) | The `AssessmentDimensionEnum` (below) | enum |
 | `metric` (required) | `MetricEnum` | enum |
 | `data_split` | training, tuning, test, external (FDA AI draft), with the D29 missing values | enum |
-| `value` | The numeric result | float |
+| `result_value` | The numeric result. The name is not `value`, because M12 `Assertion.value` is text. | float |
 | `value_text` | A categorical result (for example "pass" for a STR profile match) | text |
 | `unit` | UO, or dimensionless | enum |
 | `ci_lower`, `ci_upper`, `ci_level` | FDA AI draft: performance estimates come with confidence intervals | float |
@@ -114,15 +123,15 @@ result is a true/false column. Several results for one target can coexist.
 | `status` (required) | draft, issued, superseded, withdrawn | enum |
 | `supersedes_assessment_result_id` | The result that this row replaces | `assessment_result_id` |
 
-Which results are rows: a result that a context of use, a validation
-claim or a credibility claim depends on is a row. High-volume values (for
+Which results are rows: a result that a context of use or a credibility
+claim depends on is a row. High-volume values (for
 example the RNA integrity number of each biospecimen) stay in a QC report
 file. Add the value `qc_report` to `SupportingFileTypeEnum` for these
 files. A summary result row can name the file in `results_file_id`.
 
 **Reason for `outcome`:** A categorical result cannot be compared with a
 threshold by a check, so a person states the outcome. For a numeric result,
-the check in README section 8 compares `value`, the criterion and `outcome`.
+the check in README section 8 compares `result_value`, the criterion and `outcome`.
 
 `AssessmentDimensionEnum`:
 
@@ -149,57 +158,47 @@ assay as needed (D6a; for example RNA integrity number, mapping rate, cell
 viability). Give each value a STATO, OBI or BAO `meaning` after the OLS
 check.
 
-### PR 2: `ValidationAssessment` (new; study-scoped `validation_assessment_id`)
+### PR 2: `CredibilityAssessment` and `CredibilityEvidence` (all NAMs)
 
-One row for each NAM, context of use and evidence package.
+`ValidationAssessment` is not a separate template (D40). `CredibilityAssessment`
+holds the validation fields and the credibility fields of every NAM. FUSION
+has one modality-neutral `CredibilityAssessment` in the same way.
 
-`ValidationAssessment` and `CredibilityAssessment` (PR 3) stay separate
-templates. **Reason:** the FDA NAM guidance and the FDA credibility
-guidances ask for different fields, and a submitter fills only the
-template that fits the NAM.
+#### `CredibilityAssessment` (new; study-scoped `credibility_assessment_id`)
+
+One row for each NAM, context of use and framework. A hybrid model has one
+row under each framework. The NAM is reached through `context_of_use_id`
+and `ContextOfUse.nam_id` (D27).
 
 | Slot | Source and anchor (candidate) | Range |
 |---|---|---|
-| `validation_assessment_id` | Key, unique with `study_id` | string |
-| `study_id`, `nam_id`, `context_of_use_id` (required) | — | keys |
-| `validation_status` (required) | FDA NAM guidance: formally validated; fit for purpose, not formally validated; qualified (FDA DDT or ISTAND); with the D29 missing values | enum |
-| `comparator_method` | What the NAM was compared with (for example an animal study, clinical data, a reference method) | text |
-| `comparator_dataset_id` | Reuse the M2 slot | string, multivalued |
-| `reference_compound_set_id` | The benchmark set (M8) | `reference_compound_set_id` |
-| `limitations`, `benefits`, `contribution_to_risk_assessment` | FDA NAM guidance D | text |
+| `credibility_assessment_id` | Key, unique with `study_id` | string |
+| `study_id`, `context_of_use_id` (required) | — | keys |
+| `in_silico_model_id` | The in silico model. Required when `credibility_framework` is an in silico framework (see Checks). | `in_silico_model_id` |
+| `credibility_framework` (required) | FDA NAM guidance (in vitro and other non-computational NAMs); FDA CDRH 2023 (mechanistic); FDA AI draft 2025 (data-driven); OECD (Q)SAR principles and QAF as secondary sources for (Q)SAR models (D9). The value is "FDA NAM guidance" for the first. | enum |
+| `validation_status` | FDA NAM guidance: formally validated; fit for purpose, not formally validated; qualified (FDA DDT or ISTAND); with the D29 missing values | enum |
+| `other_evidence_used` | The in vitro, in vivo, clinical or process evidence used with the model. FDA CDRH 2023 and FDA AI draft | text |
+| `model_risk`, `model_risk_rationale` | FDA CDRH 2023; FDA AI draft, step 3. `model_risk` is low, medium or high (D16), with the D29 missing values (D37). `model_risk` is required only for an in silico framework (see Checks). `model_risk_rationale` is optional. The rationale gives the reason for the rating. The FDA AI draft says that decision consequence considers the question of interest and both the severity and the probability of an adverse outcome. FUSION `ModelRisk.risk_level`, `.rationale` | enum and text |
+| `credibility_plan_file_id`, `credibility_report_file_id` | Synapse IDs of the plan and the report (`SupportingFile`) | string |
+| `report_availability` | Submitted, or held and available to FDA on request (FDA AI draft, step 6) | enum |
+| `plan_deviations` | FDA AI draft, step 6 | text |
+| `adequacy_outcome` | Adequate, or one of the FDA AI draft's options when it is not: reduce model influence with more evidence; increase rigor or add development data; establish risk controls; change the modeling approach; reject or revise the context of use (step 7). The FDA CDRH 2023 options fall in this set. | enum |
+| `adequacy_rationale` | FDA CDRH 2023; FDA AI draft | text |
+| `limitations`, `benefits`, `contribution_to_risk_assessment` | FDA NAM guidance D. `limitations` replaces `model_limitations`. FUSION `Limitation` | text |
 
 The values of the assessment (performance, reproducibility, concordance,
 lot-to-lot stability) are `AssessmentResult` rows whose target is this row
 (D17, D27).
 
-### PR 3: `CredibilityAssessment` and `CredibilityEvidence` (mechanistic models)
-
-#### `CredibilityAssessment` (new; study-scoped `credibility_assessment_id`)
-
-One row for each in silico model, context of use and framework. A hybrid
-model has one row under each framework.
-
-| Slot | Source and anchor (candidate) | Range |
-|---|---|---|
-| `credibility_assessment_id` | Key, unique with `study_id` | string |
-| `study_id`, `in_silico_model_id`, `context_of_use_id` (required) | — | keys |
-| `credibility_framework` (required) | FDA CDRH 2023 (mechanistic); FDA AI draft 2025 (data-driven); OECD (Q)SAR principles and QAF as secondary sources for (Q)SAR models (D9) | enum |
-| `other_evidence_used` | The in vitro, in vivo, clinical or process evidence used with the model. FDA CDRH 2023 and FDA AI draft | text |
-| `model_influence`, `decision_consequence`, `model_risk` (required) | FDA CDRH 2023; FDA AI draft, step 3. Each is low, medium or high (D16). | enum |
-| `model_risk_rationale` | The reason for each rating. The FDA AI draft says that decision consequence considers the question of interest and both the severity and the probability of an adverse outcome. | text |
-| `credibility_plan_file_id`, `credibility_report_file_id` | Synapse IDs of the plan and the report (`SupportingFile`) | string |
-| `report_availability` | Submitted, or held and available to FDA on request (FDA AI draft, step 6) | enum |
-| `plan_deviations` | FDA AI draft, step 6 | text |
-| `adequacy_outcome` | Adequate, or one of the FDA AI draft's options when it is not: reduce model influence with more evidence; increase rigor or add development data; establish risk controls; change the modeling approach; reject or revise the context of use (step 7). The FDA CDRH 2023 options fall in this set. | enum |
-| `adequacy_rationale`, `model_limitations` | FDA CDRH 2023; FDA AI draft | text |
-
-**Reason for storing `model_risk` beside its two inputs:** Both FDA
+**Reason for storing `model_risk` beside the context of use:** Both FDA
 guidances show the risk matrix as an example, not as a fixed rule. Thus
-model risk is a judgment, not a value that the two inputs fix.
+model risk is a judgment, not a value that `model_influence` and
+`decision_consequence` (on `ContextOfUse`) fix.
 
 #### `CredibilityEvidence` (new; study-scoped `credibility_evidence_id`)
 
-One row for each evidence item of a mechanistic model (FDA CDRH 2023).
+One row for each evidence item of any NAM (FDA CDRH 2023 for a mechanistic
+model; FDA NAM guidance for other NAMs).
 
 | Slot | Source and anchor (candidate) | Range |
 |---|---|---|
@@ -209,7 +208,9 @@ One row for each evidence item of a mechanistic model (FDA CDRH 2023).
 | `credibility_factor` | Free text. The factor names come from a proprietary standard and are not listed (source rule). | text |
 | `relevance_to_cou` | FDA CDRH 2023 asks for it for every evidence item | text |
 | `credibility_goal`, `achieved_level`, `rationale_if_below_risk` | Gradations that the submitter sets | text |
-| `comparator_dataset_id` | Reuse the M2 slot | string, multivalued |
+| `comparator_method` | What the NAM was compared with (for example an animal study, clinical data, a reference method) | text |
+| `comparator_dataset_id` | The comparator data. Accepts a Synapse Dataset ID, a CURIE or a URL. This is the only place for it (D40). | string, multivalued |
+| `reference_compound_set_id` | The benchmark set (M8) | `reference_compound_set_id` |
 | `comparator_data_timing` | Prospective, retrospective or literature (FDA CDRH 2023 Table 3) | enum |
 | `analyst_blinded` | yes, no, with the D29 missing values | enum |
 | `method_protocol_id` | The protocol that produced the evidence | `protocol_id` |
@@ -217,7 +218,7 @@ One row for each evidence item of a mechanistic model (FDA CDRH 2023).
 The values of an evidence item are `AssessmentResult` rows whose target is
 this row.
 
-### PR 4: `AICredibilityAssessment` (data-driven models) and `InSilicoModel` additions
+### PR 3: `AICredibilityAssessment` (data-driven models) and `InSilicoModel` additions
 
 #### `AICredibilityAssessment` (new; is_a `CredibilityAssessment`)
 
@@ -232,12 +233,13 @@ under the FDA AI draft.
 | Evaluation | `reference_method`, `evaluation_method_rationale`, `uncertainty_estimation_method`, `human_ai_team_evaluated` (yes, no, D29) | FDA AI draft 4.b |
 | Explainability and communication | `explainability_approach`, `explainability_summary`, `plain_language_summary` (optional; D9) | FDA–EMA principles 7 and 10 |
 | Standards and controls | `gxp_context` (GLP, GCP, GMP, GVP, not applicable), `risk_controls_description` | FDA–EMA principles 2 and 3 |
-| Life cycle | `self_evolving`, `data_drift_monitored` (yes, no, D29), `monitoring_metrics`, `monitoring_frequency`, `retest_triggers`, `quality_management_reference` | FDA AI draft IV.B; FDA–EMA principle 9 |
+| Life cycle | `self_evolving` and `data_drift_monitored` (each yes, no, D29), `monitoring_metrics`, `monitoring_frequency`, `retest_triggers`, `quality_management_reference` | FDA AI draft IV.B; FDA–EMA principle 9 |
 
 The performance of the model, its agreement with the reference method and
 its reproducibility are `AssessmentResult` rows with `data_split` set
 (D17). Code QA is `InSilicoModel.software_qa_description` (M4). A new model
-version is a new `InSilicoModel` row.
+version is a new `InSilicoModel` row. The FDA AI draft fields stay here (FDA
+is the primary source, D9). FUSION `ModelCard` maps close to them.
 
 #### `InSilicoModel` additions (optional)
 
@@ -250,26 +252,64 @@ These are development data of the model, so they go on the model with
 `training_dataset_id` and `calibration_dataset_id` (M4). Test data depends
 on the context of use, so it goes on `AICredibilityAssessment`.
 
+## FUSION mapping
+
+Add these rows to `docs/mappings.sssom.tsv` (D31, D33). The target is the
+FUSION (NDHCC) LinkML model, version 1.2.0-wave2r4. The v2 context-of-use
+module is version 1.3.0-wave3f1.1.
+
+| NAMHub record | FUSION class | Relation |
+|---|---|---|
+| `ContextOfUse` | `ndhcc:ContextOfUse` | exact |
+| `AcceptanceCriterion` | `ndhcc:AcceptanceCriterion` (`ndhcc:QCThreshold` when scoped to an assay and level) | exact |
+| `AssessmentResult` | `ndhcc:AssessmentResult` (`ndhcc:QualityAssessment` for QC rows) | exact |
+| `CredibilityAssessment` | `ndhcc:CredibilityAssessment` | exact |
+| `AICredibilityAssessment` | `ndhcc:InSilicoCredibility` | close |
+| `CredibilityEvidence` | `ndhcc:CredibilityEvidence` | exact |
+
+| NAMHub slot | FUSION slot |
+|---|---|
+| `ContextOfUse.question_of_interest` | `QuestionOfInterest.question_text` |
+| `ContextOfUse.cou_statement` | `narrative_verbatim` |
+| `ContextOfUse.target_population` | `TargetPopulation.population_text` |
+| `ContextOfUse.applicability_domain` | `ApplicabilityDomain.domain_text` |
+| `ContextOfUse.regulatory_purpose` | `regulatory_frame` (close) |
+| `ContextOfUse.decision_supported` | `DecisionSupported.decision_text` |
+| `ContextOfUse.model_influence`, `.decision_consequence` | `DecisionSupported.model_influence`, `.decision_consequence` |
+| `ContextOfUse.biomarker_category` | `biomarker_category` |
+| `ContextOfUse.use_tags` | `use_tags` |
+| `CredibilityAssessment.model_risk`, `.model_risk_rationale` | `ModelRisk.risk_level`, `.rationale` |
+| `CredibilityAssessment.limitations` | `Limitation` |
+
+The FUSION value `not_assessed` maps to the D29 missing values of
+`model_influence`, `decision_consequence` and `model_risk` in SSSOM (D37).
+The NAMHub enums keep the D29 values.
+
 ## Checks
 
 - The checks in README section 2.
 - Each PR's Curator diff shows only its new templates. PR 1 also shows the
-  `qc_report` value of `SupportingFileTypeEnum`. PR 4 also shows the three
+  `qc_report` value of `SupportingFileTypeEnum`. PR 3 also shows the three
   optional `InSilicoModel` columns.
 - README section 8, question 1 adds:
-  - An `AssessmentResult` has `value` or `value_text`. When it has a
-    numeric `value` and a criterion, its `outcome` agrees with the
+  - An `AssessmentResult` has `result_value` or `value_text`. When it has
+    a `result_value` and a criterion, its `outcome` agrees with the
     criterion.
-  - A validation or credibility comparator dataset is not a training,
+  - A credibility comparator dataset is not a training,
     tuning or calibration dataset of the same model (FDA CDRH 2023:
     calibration is not validation; FDA AI draft: test data independence).
+  - When `credibility_framework` is FDA CDRH 2023, FDA AI draft or OECD
+    ((Q)SAR), `in_silico_model_id` and `model_risk` have values, and the
+    linked `ContextOfUse` has `model_influence` and `decision_consequence`.
+    These are the in silico frameworks.
   - An `AICredibilityAssessment` is only for a data-driven or hybrid model.
     A hybrid model has one assessment under each FDA framework.
 
 ## Assumptions
 
 1. The required fields above are the D8 minimum for M9. All other fields
-   are optional.
+   are optional. The checks above make some fields required for an in silico
+   framework.
 2. The `cou_category` examples, the evidence categories and the adequacy
    options are copied from the FDA texts as these plans quote them. Check
    each value against the guidance text in the PR.
