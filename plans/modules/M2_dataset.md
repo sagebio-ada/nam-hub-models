@@ -1,58 +1,99 @@
 # M2 dataset: Datasets and NAMPortalDataset
 
-**Decisions:** D4, D11, D20, D25a
-
-- D4 and D11: Keep `dataset_id`.
-- D20: Add `comparator_dataset_id`.
-- PR #22 review, PR22-1: keep `Datasets` and the PR #22 `NAMPortalDataset` as separate templates. Mark their equivalent slots.
+**Decisions (README section 4):** D4, D11, D20, D25a, D26, D27
 
 ## Scope
 
-1. Make `Datasets` (syn75404713) and `NAMPortalDataset` (annotations on the Synapse Dataset entity) into C2M2 `collection` records with FAIR record metadata.
-2. Record which reference dataset a NAM dataset is compared with.
+1. Record which reference datasets a NAM dataset is compared with.
+2. Make the dataset record hold the FAIR fields once (M0 FAIR field map).
 
-The two templates stay separate. A later PR can merge them.
+`Datasets` (syn75404713) and `NAMPortalDataset` (annotations on the Synapse
+Dataset entity) both describe datasets. They stay separate templates (open
+question 2). New dataset fields go on `NAMPortalDataset` only. A `Datasets`
+row reaches them through `dataset_id`, which is the ID of the same Synapse
+Dataset entity (D27).
 
 ## Starting point
 
-`Datasets` has these slots: `dataset_id` (Synapse Dataset ID, pattern `^syn\d+$`, blank for external datasets), `title`, `description`, `study_id`, `study_name`, `assay`, `data_type`, `species`, `format`, `repository`, `external_link`, `doi`, `release_date`, `dataset_item_count`, `dataset_size_in_bytes`, `has_croissant_metadata`, `croissant_metadata_url`, `access_type`, `nam_id`.
+`Datasets` has these slots: `dataset_id` (Synapse Dataset ID, pattern
+`^syn\d+$`, blank for external datasets), `title`, `description`,
+`study_id`, `study_name`, `assay`, `data_type`, `species`, `format`,
+`repository`, `external_link`, `doi`, `release_date`, `dataset_item_count`,
+`dataset_size_in_bytes`, `has_croissant_metadata`, `croissant_metadata_url`,
+`access_type`, `nam_id` (multivalued).
 
-`NAMPortalDataset` (PR #22) has the NF-OSI PortalDataset fields, with NAMHub vocabularies. After the review fixes (M0, "Fixed in PR #18 and PR #22"):
+`NAMPortalDataset` has the NF-OSI PortalDataset fields, with NAMHub
+vocabularies:
 
-- It has `nam_id`.
-- `license` uses `LicenseEnum`.
-- `data_use_modifiers` uses `DataUseModifierEnum`.
-- Its slots have `exact_mappings` or `close_mappings` to the equivalent `Datasets` slots. Example: `measurement_technique` = `assay`.
+- `nam_id`, `study_id`, `creator` (required), `funder` (`FunderEnum`).
+- `license` (`LicenseEnum`, required) and `data_use_modifiers`
+  (`DataUseModifierEnum`).
+- `hosting` (Synapse, external cloud, external download, external access,
+  mixed, unavailable), `repository`, `external_repository_uri` (a CURIE,
+  for example `geo:GSE274451`) and `external_url`.
+- `format` and `measurement_technique` are calculated from the files of the
+  dataset.
+- Its slots have `exact_mappings` or `close_mappings` to the equivalent
+  `Datasets` slots. Example: `measurement_technique` = `assay`.
 
 ## Changes
 
-One PR, after M0 PR 3.
+One PR. The Curator output changes (minor version: one optional column).
 
 | Change | Anchor (candidate) |
 |---|---|
-| Apply `PublishedRecord` to both templates. It adds licence, metadata licence, landing page, access URL, access protocol, creator, contact and ROR. `NAMPortalDataset` already has `license` and `creator`. The mixin reuses those slots, so it adds only the missing fields. | FAIRshake metrics 7 to 9 and 16 to 18; schema.org `Dataset` properties |
-| Add `comparator_dataset_id` (multivalued) to both templates. It names the reference datasets that the NAM results of this dataset are compared with. An example is patient tissue. Like `parent_file_id` (PR18-5), it accepts a Synapse ID, a CURIE (for example `geo:GSE274451`) or a URL. It can point to an external dataset. | No standard predicate for "compared with". Search OLS for an RO or OBI comparison relation. If none exists, use `see_also` to FDA NAM guidance section D (comparator performance) and log it as NAMHub-minted. |
-| File membership comes from `File.dataset_id` (M10). | C2M2 `file_in_collection` |
+| Add `comparator_dataset_id` (multivalued) to `NAMPortalDataset`. It names the reference datasets that the NAM results of this dataset are compared with, for example patient tissue. It accepts a Synapse ID, a CURIE (for example `geo:GSE274451`) or a URL, so it can point to an external dataset. | No standard predicate for "compared with". Search OLS for an RO or OBI comparison relation. If none exists, use `see_also` to FDA NAM guidance section D (comparator performance) and log it as NAMHub-minted. |
 
-M0 PR 2 anchors the existing slots. Examples: `title` → `dcterms:title`, `doi`, `release_date` → `schema:datePublished`, `species` → NCBITaxon, `format` → EDAM.
+The dataset FAIR fields need no new columns. `NAMPortalDataset` holds
+`license` and `creator`. Studies holds the grant, the institution and the
+metadata licence (D28). People holds the contact. The M0 FAIR
+field map gives each field and its key path.
+
+File membership comes from `File.dataset_id` (M10). C2M2:
+`file_in_collection`.
 
 ## Checks
 
 - The checks in README section 2.
-- The Datasets Curator JSON gains the `PublishedRecord` columns and `comparator_dataset_id`.
+- The Curator diff shows only one change: `NAMPortalDataset` gains
+  `comparator_dataset_id`.
 
 ## Assumptions
 
-1. `license` is required on Datasets (M0 open question 1). Everything else that this module adds is optional.
+1. A `Datasets` row and the `NAMPortalDataset` annotations of the same
+   dataset have the same Synapse Dataset ID (`dataset_id` and the entity
+   ID).
 
 ## Open questions
 
-External datasets (for example GEO) have a blank `dataset_id`. C2M2 requires an ID for every collection. Options:
+1. External datasets (for example GEO) have a blank `dataset_id` in
+   `Datasets` and have no `NAMPortalDataset` annotations. Thus they have no
+   FAIR fields. Options:
+   - (a) Make a Synapse Dataset entity for every external dataset, with
+     `NAMPortalDataset` annotations. `hosting` already has values for
+     external data. Then every dataset has a Synapse ID and one record.
+   - (b) Allow the external accession (for example GSE…) or a DOI as
+     `dataset_id` for external rows, and add the FAIR fields to `Datasets`.
+   - (c) Keep `dataset_id` blank for external rows. Add
+     `external_repository_uri` to `Datasets` as the ID of the external
+     dataset.
 
-- (a) Make a Synapse Dataset entity for every external dataset. Then every row has a Synapse ID. This fits the rule that Synapse makes the IDs.
-- (b) Allow the external accession (for example GSE…) or a DOI as `dataset_id` for external rows.
-- (c) Keep `dataset_id` as a Synapse ID, blank for external rows. Use the PR #22 `external_repository_uri` (a CURIE, for example `geo:GSE274451`) as the ID of the external dataset.
+   `comparator_dataset_id` works with all three options.
 
-`comparator_dataset_id` works with all three options. It accepts a Synapse ID, a CURIE or a URL (PR18-5 rule).
+   Recommendation: (a). Every dataset then has one record that holds its
+   FAIR fields, and no field is stored twice (D27).
+2. `Datasets` and `NAMPortalDataset` hold the same values for a dataset:
+   `title`, `description`, `study_id`, `nam_id`, `assay` and
+   `measurement_technique`, `data_type`, `species`, `format`, `doi`,
+   `access_type`, `repository`, and the external link. The PR #22 review
+   kept them separate. D27 asks for one record for each dataset. Options:
+   - (a) Keep both. New fields go on `NAMPortalDataset` only (this plan).
+   - (b) Make `NAMPortalDataset` the only dataset record. Reduce the
+     `Datasets` table to `dataset_id` and the fields that
+     `NAMPortalDataset` does not have, or retire it. This changes the live
+     table syn75404713.
 
-Recommendation: (c). It uses fields that exist. Keys stay Synapse IDs (D25a).
+   Recommendation: (b), after a check of which portal pages and processes
+   read syn75404713.
+3. `Datasets.study_name` repeats `Studies.study_name`, which `study_id`
+   reaches. Remove it from `Datasets` (D27)? This changes the live table.

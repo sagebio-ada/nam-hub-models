@@ -1,28 +1,41 @@
 # M4 model: model instances
 
-**Decisions:** D2 (in vitro instances are Biospecimen rows with optional model
-columns; MPS devices are a separate record), D4, D8 (start with the
-recommended required fields), D10 (animal comparator data is in scope), D11,
-D16.
+**Decisions (README section 4):** D2, D4, D6, D8, D10, D11, D24, D27
 
 ## Scope
 
-1. Add the FDA C.5, FDA C.8 and NAMO fields to Biospecimen for in vitro model
-   rows. Add the link to the NAM catalog.
-2. Add `MicrophysiologicalDevice` (FDA C.9).
+1. Add the FDA C.5, FDA C.8 and NAMO fields to Biospecimen for in vitro
+   model rows. Add the link to the NAM catalog.
+2. Add `CultureProtocol` (FDA C.8 and C.9 run conditions) and
+   `MicrophysiologicalDevice` (FDA C.9).
 3. Add `InSilicoModel`.
 4. Confirm that Individual and Biospecimen cover animal models.
 
-This module runs after the M6 PR. Both edit `modules/biospecimen.yaml`. M6
-changes existing slots. M4 adds new slots.
+Test datasets and performance values belong to M9 (D17). M9 PR 4 adds
+`tuning_dataset_id`, `pretraining_dataset_id` and `pretrained_model_source`
+to `InSilicoModel`.
+
+This module runs after M6 and M7. M4 and M6 both edit
+`modules/biospecimen.yaml`. M6 changes existing slots. M4 adds new slots.
+Put `MicrophysiologicalDevice` and `InSilicoModel` in `modules/model.yaml`.
+Put `CultureProtocol` in `modules/protocol.yaml`, next to `Protocol`, so
+that no module imports another module. Put slots that more than one file
+uses (`vendor`, `catalog_number`, `lot_number`, `device_id`) in `core.yaml`
+(M0 PR 1 rule).
 
 ## Starting point
 
-The PR #18 Biospecimen holds these slots: `biospecimen_type` (tissue, primary
-cells, cell line, in vitro differentiated cells, organoid, engineered
-tissue/MPS, other), `tissue` (tissue modeled), `cell_type` (CL), `cell_line`,
-`cellosaurus_id`, `culture_condition`, `culture_duration` and its unit, and
-`parent_biospecimen_id`. Individual holds `species`, `strain` and `genotype`.
+The Biospecimen template on `main` holds these slots:
+
+- `biospecimen_type`: tissue, primary cells, cell line, in vitro
+  differentiated cells, organoid, engineered tissue, other.
+- `tissue` (UBERON, multivalued), `cell_type` (CL, multivalued),
+  `cell_line`, `cellosaurus_id`.
+- `culture_condition` (free text), `culture_duration` and its unit.
+- `parent_biospecimen_id` (multivalued).
+- `individual_id` (required).
+
+Individual holds `species`, `strain` and `genotype`.
 
 ## Changes
 
@@ -30,81 +43,96 @@ tissue/MPS, other), `tissue` (tissue modeled), `cell_type` (CL), `cell_line`,
 
 All slots are optional (D2). The anchors are candidates until the OLS check.
 
-| Slot | Source | Range |
-|---|---|---|
-| `nam_id` | Instance of a NAM catalog entry; `IAO:0000136` is about | `nam_id` |
-| `cell_source_type` | FDA C.5 (primary, immortalized, stem-cell-derived); NAMO `cell_source` mapping | enum (CL / EFO meanings) |
-| `vendor`, `catalog_number`, `lot_number` | FDA C.5; schema.org `manufacturer`, `productID`, `serialNumber`-style mappings | text |
-| `passage_number` | FDA C.8; NAMO `passage_range` (close mapping) | integer |
-| `authentication_method` | NAMO `authentication_method` | enum, multivalued (STR profiling, mycoplasma testing, species verification; OBI/NCIT meanings) |
-| `culture_medium`, `serum`, `antibiotics`, `growth_factors`, `surface_coating`, `incubator_conditions` | FDA C.8 | text (`growth_factors` can later bind to CHEBI/PR) |
-| `three_d_architecture`, `matrix_composition` | NAMO `three_d_architecture`, `matrix_composition` | enum / text |
-| `differentiation_method` | NAMO `differentiation_method`; FDA C.5 | text |
-| `coculture_configuration` | NAMO `coculture_configuration` | enum (direct contact, transwell, conditioned medium, …) |
-| `device_id` | Device in which the model grew (PR 2) | `device_id` |
+Fields of the model instance and its source material:
 
-**Reason:** FDA C.8 asks for the passage number of cells. NAMO records
-the passage range and the authentication method of a cell model. PR #18 has
-neither field.
+| Slot | Source and anchor | Range |
+|---|---|---|
+| `nam_id` | The NAM catalog entry that this model is an instance of. Do not use IAO "is about": a biospecimen is not an information entity (M0 open question 2c). | `nam_id` |
+| `cell_source_type` | FDA C.5 (primary, immortalized, stem-cell-derived); NAMO `cell_source` mapping | enum (CL and EFO meanings) |
+| `vendor`, `catalog_number`, `lot_number` | FDA C.5. `vendor`: schema.org `manufacturer` (close). `catalog_number`: schema.org `productID`. `lot_number`: `IAO:0000132` (lot number). | text |
+| `passage_number` | FDA C.8; NAMO `passage_range` (close mapping) | integer |
+| `authentication_method` | NAMO `authentication_method` | enum, multivalued (STR profiling, mycoplasma testing, species verification; OBI and NCIT meanings) |
+| `three_d_architecture` | NAMO `three_d_architecture` | enum |
+| `coculture_configuration` | NAMO `coculture_configuration` | enum (direct contact, transwell, conditioned medium, …) |
+
+Record `cell_source_type`, `vendor`, `catalog_number`, `lot_number` and
+`authentication_method` on the row of the source material (for example the
+cell line). A derived row (for example an organoid) reaches them through
+`parent_biospecimen_id`. Do not repeat them on derived rows (D27).
 
 A co-culture is one Biospecimen row with several `parent_biospecimen_id`
-values. Each value is one input population. The PR #18 fixes make the slot
-multivalued (PR #18 review, PR18-14).
+values. Each value is one input population. The cell type of each parent
+row shows its part in the co-culture. Matrix, medium and device are not
+parent rows: `CultureProtocol` and `device_id` give them.
 
-The PR #18 fixes give `biospecimen_type` values their `meaning` terms (PR #18
-review, PR18-10):
+Make a Biospecimen row only for a material that exists. A NAM catalog entry
+or a protocol does not imply a physical model.
 
-- tissue: `NCIT:C12801`
-- primary cells: `EFO:0002660`
-- cell line: `CLO:0000031`
-- organoid: `NCIT:C172259`
+**Reason:** `biospecimen_type` gives the form of the material, for example
+organoid. It does not give the cell source of an organoid or an engineered
+tissue, and FDA C.5 asks for the cell source. FDA C.8 asks for the passage
+number. NAMO records the passage range and the authentication method of a
+cell model. `main` has none of these fields.
 
-OLS has no term for in vitro differentiated cells or for engineered tissue.
-These two values get `close_mappings` to NAMO classes at the pinned commit.
-All values get `exact_mappings` to CELLxGENE `tissue_type` where one exists
-(tissue, primary cell culture, cell line, organoid). M0 PR 2 makes the NAMO
-and CELLxGENE mappings.
+### PR 2: `CultureProtocol` and `MicrophysiologicalDevice`
 
-### PR 2: `MicrophysiologicalDevice`
+`CultureProtocol` (is_a `Protocol`, M7) holds the culture parameters once
+for every biospecimen that uses the protocol. A biospecimen names it with
+`protocol_id` (M6).
 
-One row for each device type and lot. `device_id` is global (D11: devices
-cross studies).
+| Slot | Source and anchor | Range |
+|---|---|---|
+| `culture_medium`, `serum`, `antibiotics`, `growth_factors`, `surface_coating`, `incubator_conditions` | FDA C.8 | text |
+| `matrix_composition` | NAMO `matrix_composition` | text |
+| `flow_rate` and unit, `shear_stress` and unit, `mechanical_stimulation_type` | FDA C.9; NAMO `MicrofluidicDesign`, `MechanicalStimulation` | float and UO unit enums; enum |
 
-Fields: `device_manufacturer`, `device_model`, `device_lot`, `chip_material`,
-`flow_rate` and unit, `shear_stress` and unit, `membrane_type`,
-`membrane_pore_size` and unit, `mechanical_stimulation_type`,
-`leachables_assessment`, `compound_adsorption_assessment` and
-`biocompatibility_assessment`.
+A differentiation protocol is a `CultureProtocol` row with `protocol_type`
+differentiation. Its name, link and `parameters_description` describe the
+method. Thus there is no `differentiation_method` slot. Map NAMO
+`differentiation_method` to `Protocol` (close mapping).
 
-Source: FDA C.9, flattened from NAMO `MicrofluidicDesign` and
-`MechanicalStimulation`. Do not carry over the NAMO ISO 10991 mappings
-(README section 2, source rule). Bind units to UO.
+`MicrophysiologicalDevice`: one row for each device type (FDA C.9).
+`device_id` is global (D11; M0 open question 1).
 
-**Reason:** One device lot serves many biospecimens (D2).
+| Slot | Source |
+|---|---|
+| `device_id` | Key |
+| `vendor`, `catalog_number` | Reuse the PR 1 slots |
+| `device_model` | FDA C.9 |
+| `chip_material`, `membrane_type`, `membrane_pore_size` and unit | FDA C.9; NAMO `MicrofluidicDesign` |
+| `leachables_assessment`, `compound_adsorption_assessment`, `biocompatibility_assessment` | FDA C.9 |
+
+Add to Biospecimen (optional):
+
+- `device_id`: the device type in which the model grew.
+- `device_lot_number`: the lot of that device (`IAO:0000132`). It is a
+  separate slot from `lot_number`, which gives the lot of the source cells.
+
+Bind units to UO. Do not carry over the NAMO ISO 10991 mappings (README
+section 2, source rule).
+
+**Reason:** Many biospecimens share one culture protocol and one device
+type. A `CultureProtocol` row and a `MicrophysiologicalDevice` row store
+their values once (D27). The device lot changes for each use, so it stays
+on Biospecimen.
 
 ### PR 3: `InSilicoModel`
 
 Keys: `in_silico_model_id` (study-scoped), `study_id` and `nam_id`.
 
-- `model_form` (required): first-principles or mechanistic, data-driven, or
-  hybrid. This value decides which FDA credibility guidance applies in M9.
-- Model description (FDA CDRH 2023, Appendix 2): `computational_method`,
-  `governing_equations_description`, `parameter_source_description` and
-  `numerical_methods`.
-- Software: `software_platform`, `software_version`, `model_version` and
-  `software_qa_description`.
-- Scope: `prediction_scope` and `quantities_of_interest`.
-- Data: `training_dataset_id` and `calibration_dataset_id`. Both are
-  multivalued, link to Datasets, and map to `prov:used`.
-- Data-driven description (FDA AI draft, step 4): `model_inputs`,
-  `model_outputs`, `model_architecture`, `model_features`,
-  `feature_selection_method`, `loss_function`, `modeling_approach_rationale`,
-  `learning_methodology`, `training_hyperparameters`, `overfitting_control`,
-  `ensemble_methods`, `output_calibration`, `software_qa_procedures` and
-  `version_tracking`. Offer NAMO `ml_algorithm` as an optional label.
+| Group | Slots | Source |
+|---|---|---|
+| Form | `model_form` (required): first-principles or mechanistic, data-driven, or hybrid. This value decides which FDA credibility guidance applies in M9. | D9 |
+| Description | `computational_method`, `governing_equations_description`, `parameter_source_description`, `numerical_methods` | FDA CDRH 2023, Appendix 2 |
+| Software | `software_platform`, `software_version`, `model_version`, `software_qa_description` | FDA CDRH 2023; FDA AI draft, step 4 (quality assurance and version tracking) |
+| Scope | `prediction_scope`, `quantities_of_interest` | FDA CDRH 2023 |
+| Data | `training_dataset_id`, `calibration_dataset_id`. Both are multivalued, map to `prov:used`, and accept a Synapse ID, a CURIE or a URL (README section 2). | FDA AI draft, step 4 |
+| Data-driven description | `model_inputs`, `model_outputs`, `model_architecture` (NAMO `ml_algorithm` as a close mapping), `model_features`, `feature_selection_method`, `loss_function`, `modeling_approach_rationale`, `learning_methodology`, `training_hyperparameters`, `overfitting_control`, `ensemble_methods`, `output_calibration` | FDA AI draft, step 4 |
 
-Code and containers link through M10 `SoftwareArtifact` (a later family
-plan). Output files link back through `File.in_silico_model_id` (M10).
+Code and containers link through `SoftwareArtifact` records. Output files
+link back through `in_silico_model_id`. Both are in the in silico outputs
+and code family plan (README section 6). Do not add `in_silico_model_id` to
+the `File` base class: sequencing files do not use it.
 
 ### Animal models (D10)
 
@@ -113,43 +141,38 @@ Add no new template.
 - An animal is an Individual of a non-human species with `strain` and
   `genotype`.
 - The samples of the animal are Biospecimens.
-- In vivo dosing is an M8 Exposure on the Individual (see M8).
-- A comparator animal dataset links through `Datasets.comparator_dataset_id`
-  (M2).
+- In vivo dosing is an M8 Exposure on the Individual.
+- A comparator animal dataset links through `comparator_dataset_id` (M2).
 
 ## Checks
 
 Do the standard checks (README section 2).
 
 - PR 1 adds optional Biospecimen columns.
-- PR 2 and PR 3 each add one template.
-
-Verified fact: `gen-curator` drops LinkML `rules` without a warning. A test
-rule ("cell line requires `cellosaurus_id`") gave no condition in
-`Biospecimen.json`, and `curator-lint` gave no warning. Curator cannot
-enforce conditional requirements today.
+- PR 2 adds two templates and the optional `device_id` and
+  `device_lot_number` columns on Biospecimen.
+- PR 3 adds one template.
 
 ## Assumptions
 
-1. Synapse Curator accepts a Biospecimen template with about 20 more optional
+1. Synapse Curator accepts a Biospecimen template with 11 more optional
    columns. Tissue-only datasets stay usable.
-2. The data-driven fields of `InSilicoModel` stay optional in the schema,
-   because rules are not available (see Checks). Review or a QC script
-   enforces "required when data-driven".
+2. A cell line from a vendor has an Individual row for its donor, because
+   `main` requires `individual_id` on Biospecimen. The donor row holds
+   `species` and, where Cellosaurus gives them, `sex` and age.
+3. The fields that D8 requires for in vitro models (`cell_source_type`,
+   and `lot_number` or `catalog_number`, on the source row) and the
+   data-driven fields of
+   `InSilicoModel` stay optional in the schema. Curator cannot enforce a
+   conditional requirement. README section 8, question 1 covers the check.
 
 ## Open questions
 
-1. D8 asks that `cell_source_type` and `lot_number` (or `catalog_number`) are
-   required on in vitro rows only. Curator cannot express this. Options:
-   - (a) Leave the fields optional and check them in a QC script after
-     upload.
-   - (b) Add `if/then` support to linkml-curator (a separate repository,
-     sagebio-ada/linkml-curator; needs approval).
-   - (c) Split a separate `InVitroModel` template from Biospecimen, with
-     those fields required. This conflicts with D2.
+1. `culture_condition` (free text, on `main`) repeats what a
+   `CultureProtocol` row holds. Remove it from Biospecimen (D27)? The
+   change is breaking, and datasets in ingestion use the slot.
+   Recommendation: map the existing values to `CultureProtocol` rows, then
+   remove the slot in this PR.
 
-   Recommendation: (a) now, and (b) as a separate request.
-2. Should `device_id`, `test_article_id` and `protocol_id` be global (a shared
-   catalog across studies, as this plan assumes) or study-scoped like records?
-   Recommendation: global, because each one can serve more than one study
-   (D11).
+README section 8, question 1 (conditional checks) and M0 open question 1
+(scope of `device_id`) also apply.
