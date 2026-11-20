@@ -1,6 +1,6 @@
 id: https://namhub.synapse.org/portal_schemas
 name: namhub
-version: 4.0.0
+version: 4.1.0
 description: >-
   NAMHub portal data schemas — backend Synapse tables and the Landscape data
   collection form. Portal tables are backed by Synapse project syn74360399.
@@ -328,7 +328,7 @@ classes:
       One row per individual (donor, patient or animal) whose biospecimens
       produced data in NAMHub, with their demographics. For an established
       cell line, the individual is the line's donor (e.g. H9 for WA09 hESCs);
-      the line itself is recorded on the Biospecimen.
+      the line itself is recorded on the Model or the Biospecimen.
     unique_keys:
       individual_key:
         unique_key_slots:
@@ -351,6 +351,39 @@ classes:
       species:
         required: true
         multivalued: false
+
+  Model:
+    description: >-
+      One row per in vitro model (a cell line, differentiated cells, an
+      organoid or an engineered tissue) grown from an individual's cells by a
+      defined protocol. A model is not scoped to a study: every study that
+      uses it refers to the same Model ID, and its biospecimens name it.
+    unique_keys:
+      model_key:
+        unique_key_slots:
+          - model_id
+    slots:
+      - model_id
+      - model_name
+      - individual_id
+      - model_type
+      - cell_line
+      - cellosaurus_id
+      - culture_condition
+      - protocol_reference
+      - parent_model_id
+    slot_usage:
+      model_id:
+        required: true
+      model_name:
+        required: true
+      individual_id:
+        required: true
+        description: Individual ID of the donor whose cells the model was grown from.
+      model_type:
+        required: true
+      culture_condition:
+        description: How the model is derived and grown, in words.
 
   Diagnosis:
     description: >-
@@ -425,6 +458,7 @@ classes:
       - study_id
       - biospecimen_id
       - individual_id
+      - model_id
       - parent_biospecimen_id
       - biospecimen_type
       - tissue
@@ -453,6 +487,44 @@ classes:
         description: >-
           Anatomic site the biospecimen was collected from or, for an in vitro
           model, the tissue it models. Biospecimen Type says which.
+      cell_line:
+        description: >-
+          Name of the cell line the biospecimen was grown from, when it has no
+          Model. A biospecimen with a Model takes its line from the Model.
+
+  Exposure:
+    description: >-
+      One row per exposure of a biospecimen: a growth factor, cytokine, small
+      molecule, genetic perturbation or co-culture applied to it, in the order
+      applied. A biospecimen exposed to TGFB3 and then BMP4 has two rows.
+    unique_keys:
+      exposure_key:
+        unique_key_slots:
+          - study_id
+          - biospecimen_id
+          - exposure_order
+    slots:
+      - study_id
+      - biospecimen_id
+      - exposure_order
+      - exposure_agent
+      - exposure_type
+      - exposure_dose
+      - exposure_dose_unit
+      - exposure_start
+      - exposure_duration
+      - exposure_time_unit
+    slot_usage:
+      study_id:
+        required: true
+      biospecimen_id:
+        required: true
+      exposure_order:
+        required: true
+      exposure_agent:
+        required: true
+      exposure_type:
+        required: true
 
   # -- File classes ------------------------------------------------------------
   # Organized by processing level, following the NIH Genomic Data Sharing
@@ -461,7 +533,11 @@ classes:
 
   File:
     abstract: true
-    description: Attributes shared by every data file.
+    description: >-
+      Attributes shared by every data file. The context fields after MD5 are
+      copied from the file's biospecimen records, so that a file view or
+      Dataset can filter on them; a file from several biospecimens lists each
+      distinct value.
     slots:
       - study_id
       - filename
@@ -469,7 +545,30 @@ classes:
       - assay
       - biospecimen_id
       - md5
+      - individual_id
+      - model_id
+      - species
+      - sex
+      - tissue
+      - cell_line
+      - biospecimen_type
+      - exposure_agent
     slot_usage:
+      individual_id:
+        multivalued: true
+      model_id:
+        multivalued: true
+      sex:
+        multivalued: true
+      cell_line:
+        multivalued: true
+      biospecimen_type:
+        multivalued: true
+      exposure_agent:
+        multivalued: true
+        description: >-
+          Agents applied to the file's biospecimens, from their Exposure
+          records. Order, dose and timing stay on the Exposure records.
       study_id:
         required: true
       filename:
@@ -1588,6 +1687,87 @@ slots:
     title: Genotype
     description: Genotype or genetic modification of the individual, e.g. a reporter allele or knockout.
     range: string
+
+  # -- Model slots -------------------------------------------------------------
+
+  model_id:
+    title: Model ID
+    description: Identifier of the in vitro model the biospecimen belongs to, linking to the Model records.
+    range: string
+
+  model_name:
+    title: Model Name
+    description: Readable name of the model, e.g. "Human PSC-derived cartilage, TGFB3".
+    range: string
+
+  model_type:
+    title: Model Type
+    description: What kind of in vitro model this is.
+    range: BiospecimenTypeEnum
+
+  protocol_reference:
+    title: Protocol Reference
+    description: >-
+      Publication or protocol the model is derived by, as a CURIE or URL, e.g.
+      PMID:25961409 or a protocols.io link.
+    range: string
+    pattern: "^[A-Za-z][A-Za-z0-9._-]*:\\S+$"
+
+  parent_model_id:
+    title: Parent Model ID
+    description: Model ID of the model this one was derived from.
+    range: string
+
+  # -- Exposure slots ----------------------------------------------------------
+
+  exposure_order:
+    title: Exposure Order
+    description: Position of the exposure in the order applied, starting at 1.
+    range: integer
+    minimum_value: 1
+
+  exposure_agent:
+    title: Exposure Agent
+    description: >-
+      What the biospecimen was exposed to: a gene symbol for a growth factor,
+      cytokine or perturbed gene (TGFB3, CREB5), a compound name, or a cell
+      type for a co-culture.
+    range: string
+
+  exposure_type:
+    title: Exposure Type
+    description: Kind of exposure.
+    range: ExposureTypeEnum
+
+  exposure_dose:
+    title: Exposure Dose
+    description: Dose or concentration of the agent. Use with Exposure Dose Unit.
+    range: float
+    minimum_value: 0
+
+  exposure_dose_unit:
+    title: Exposure Dose Unit
+    description: Unit of Exposure Dose.
+    range: DoseUnitEnum
+
+  exposure_start:
+    title: Exposure Start
+    description: >-
+      When the exposure began, counted from the first day of the culture the
+      biospecimen came from. Use with Exposure Time Unit.
+    range: float
+    minimum_value: 0
+
+  exposure_duration:
+    title: Exposure Duration
+    description: How long the exposure lasted. Use with Exposure Time Unit.
+    range: float
+    minimum_value: 0
+
+  exposure_time_unit:
+    title: Exposure Time Unit
+    description: Unit of Exposure Start and Exposure Duration.
+    range: TimeUnitEnum
 
   # -- File slots --------------------------------------------------------------
 
