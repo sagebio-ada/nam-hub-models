@@ -939,6 +939,11 @@ enums:
       distal_epiphysis_of_femur:
         title: "distal epiphysis of femur"
         meaning: UBERON:0004406
+      distal_epiphyseal_plate_of_femur:
+        title: "distal epiphyseal plate of femur"
+        description: Growth plate of the distal femur. UBERON has no term this specific.
+        broad_mappings:
+          - UBERON:0002516
       femur:
         title: "femur"
         meaning: UBERON:0000981
@@ -1098,6 +1103,9 @@ enums:
     permissible_values:
       fastq:
         meaning: EDAM:format_1930
+      sra:
+        title: "sra"
+        description: An SRA file, which holds every read of its run.
 
   AlignedReadsFileFormatEnum:
     description: File formats of aligned sequencing reads.
@@ -1267,6 +1275,8 @@ enums:
           - EFO:0007045
       other:
         title: "Other"
+      not_reported:
+        title: "Not reported"
 
   SequencingPlatformEnum:
     description: Sequencing instrument used to generate the data.
@@ -1308,6 +1318,9 @@ enums:
         title: "R1"
       r2:
         title: "R2"
+      r3:
+        title: "R3"
+        description: A third read, such as the second genomic read of a 10x ATAC library.
       i1:
         title: "I1"
       i2:
