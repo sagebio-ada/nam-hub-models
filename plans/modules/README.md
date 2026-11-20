@@ -3,7 +3,7 @@
 These files are the implementation specifications for the NAMHub LinkML
 model refactor. Each module plan gives its scope, starting point, changes,
 PRs, checks, assumptions and open questions. Each plan refers to the
-decisions in section 4 as D1 to D41.
+decisions in section 4 as D1 to D42.
 
 ## 1. Goal
 
@@ -276,6 +276,7 @@ These facts were tested on copies of the schema (linkml-curator v0.4.0):
 | D39 | `NAMPortalDataset` is the only dataset record (FUSION has one Dataset class). The `Datasets` table (syn75404713) is retired, or kept only as a portal view generated from the Dataset entities, after a check of which portal pages read it. Every dataset, external datasets too, gets a Synapse Dataset entity. | The two records repeated title, description, study, format, DOI, access type, repository, external link and data type (D27). |
 | D40 | One credibility record. `ValidationAssessment` folds into `CredibilityAssessment` (FUSION has one modality-neutral CredibilityAssessment with modality subtypes). Comparator data is recorded only on `CredibilityEvidence`. This replaces D20: `comparator_dataset_id` is removed from the dataset record. | One record for each NAM, context of use and framework. FUSION records the comparator with the evidence. |
 | D41 | NAM classification uses the FUSION form: `nam_kind` (FUSION NAMKindEnum, required) and `namo_id` (kept from `main`; FUSION `namo_term`). `namo_class` and `namo_category` are removed, because NAMO gives them from `namo_id`. The M3 `nam_type` enum is not added. | Fewer slots, and the values map 1:1 to FUSION. |
+| D42 | The Biolink Model (release 4.4.6) is a secondary mapping target. It is not imported and does not change any template structure; FUSION stays the base model (D33). (a) Map the NAMHub records and the entity enums to Biolink classes in SSSOM (D31), with the relation and the pinned release (M0). (b) M12 `Assertion.value_origin` is replaced by `knowledge_level`, and M12 `CurationRun.run_method` by `agent_type`. Both use the Biolink enum values verbatim (KnowledgeLevelEnum, AgentTypeEnum); `not_provided` maps to the D29 set in SSSOM and the enums keep the D29 values (as D37). `assertion_method` stays on ECO (FUSION). | Biolink-based knowledge graphs can read NAMHub and FUSION data with no extra crosswalk. `value_origin` and `run_method` were NAMHub-minted; the Biolink Knowledge Level and Agent Type standard is a released, external anchor for the same ideas, and it names text-mining and data-analysis agents. |
 
 ## 5. Starting point
 

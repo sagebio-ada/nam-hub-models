@@ -1,6 +1,6 @@
 # M12 provenance: evidence for metadata values
 
-**Decisions (README section 4):** D4, D11, D26, D27, D29, D31, D32, D33, D37, D41
+**Decisions (README section 4):** D4, D11, D26, D27, D29, D31, D32, D33, D37, D41, D42
 
 ## Scope
 
@@ -48,11 +48,11 @@ One row for each value that a run read, computed or reviewed.
 | `target_field` | The slot name. Empty when the assertion is about the whole record. For a link record (Diagnosis, Treatment), the field that is part of the key, with `value`, names the row. | string |
 | `value` | The value as the template holds it (normalized) | string |
 | `original_value` | The value as the source states it, before normalization | string |
-| `source_id` (required unless computed) | The source: a Synapse ID with version (`syn123.4`), a DOI or PubMed CURIE, or a URL | string, pattern |
+| `source_id` (required unless the run `agent_type` is `data_analysis_pipeline` or `computational_model`) | The source: a Synapse ID with version (`syn123.4`), a DOI or PubMed CURIE, or a URL | string, pattern |
 | `location_type`, `location` | Where in the source: page, section, table, figure, cell, line, time, region or data field, and its label (for example "page 4, table 2, row 3"). W3C Web Annotation selector (`oa:hasSelector`). | enum and text |
 | `source_quote` | The exact text that states the value. W3C Web Annotation `oa:TextQuoteSelector`. | text |
-| `value_origin` (required) | Stated in the source, inferred from the source, or computed from data | enum |
-| `computed_by_protocol_id` | For a computed value: the `ComputationalProtocol` (tool and version) that computed it (M7, M10) | `protocol_id` |
+| `knowledge_level` (required) | The kind of statement that the value is: `knowledge_assertion` (stated in the source), `logical_entailment` (inferred by rule from stated values), `prediction` (inferred by a model), `statistical_association`, `text_co_occurrence`, `observation` (measured or computed from data), with the D29 missing values. Biolink KnowledgeLevelEnum, values verbatim (D42). It replaces the NAMHub-minted `value_origin`. | enum |
+| `computed_by_protocol_id` | For a value that a data analysis pipeline or a computational model made (the run `agent_type`): the `ComputationalProtocol` (tool and version) that computed it (M7, M10) | `protocol_id` |
 | `assertion_method` (required) | ECO assertion method: manual (`ECO:0000218`) or automatic (`ECO:0000203`) | enum |
 | `planning_state` | planned, observed, cannot_tell (for example a planned sample count against the observed one) | enum |
 | `resolution_state` (required) | resolved, provisional, gap, not_attempted | enum |
@@ -78,17 +78,20 @@ Rules:
   conflict, and the curator sets `review_state` on each assertion. No value
   wins without review.
 - A computed value (for example a read count from FASTQ files) has
-  `value_origin` computed and names its protocol. It is not presented as a
-  value read from a document.
-- An inferred value has `value_origin` inferred and keeps its
-  `source_quote`.
+  `knowledge_level` `observation`, comes from a run with `agent_type`
+  `data_analysis_pipeline`, and names its protocol. It is not presented as
+  a value read from a document.
+- An inferred value has `knowledge_level` `logical_entailment` or
+  `prediction` and keeps its `source_quote`.
+- A value read from a document has `knowledge_level`
+  `knowledge_assertion`.
 
 ### `CurationRun` (new; global `curation_run_id`)
 
 | Slot | Source and anchor (candidate) | Range |
 |---|---|---|
 | `curation_run_id` | Key | string |
-| `run_method` (required) | Manual, automatic or mixed | enum |
+| `agent_type` (required) | The kind of agent that made the run: `manual_agent`, `automated_agent`, `data_analysis_pipeline`, `computational_model`, `text_mining_agent` (for example Curie), `image_processing_agent`, `manual_validation_of_automated_agent`, with the D29 missing values. Biolink AgentTypeEnum, values verbatim (D42). It replaces the NAMHub-minted `run_method`. | enum |
 | `curation_agent` (required) | The curator (ORCID) or the tool (name). The name is not `agent`, because M8 `TestArticle.agent` is an enum. | string |
 | `agent_version` | The tool version | string |
 | `run_date` (required) | — | date |
@@ -134,6 +137,14 @@ D37 rule: use the FUSION enum values verbatim for `resolution_state`,
 `review_state`, `planning_state` and `confidence`. Model a conflict as two
 `Assertion` rows and a check finding, not as a value.
 
+D42 rule: `knowledge_level` and `agent_type` use the Biolink Model enum
+values (release 4.4.6) verbatim. Add SSSOM rows from the ECO
+`assertion_method` values to Biolink `agent_type`: manual (`ECO:0000218`)
+close to `manual_agent`, automatic (`ECO:0000203`) close to
+`automated_agent`. FUSION has no slot for `knowledge_level` or
+`agent_type`; the FUSION `AssertionActivity.assertion_method` keeps the ECO
+value.
+
 **Reason:** The FUSION knowledge base keeps the evidence for each value.
 Curator and Curie produce that evidence when they extract the values. If
 the templates do not hold it, it is lost before the submission (D26: no
@@ -144,8 +155,9 @@ pipeline makes it later).
 - The checks in README section 2.
 - The Curator diff shows only the three new templates.
 - README section 8, question 1 adds: each `Assertion` names an existing
-  record and field; its `value` equals the value in that record; a computed
-  value names a protocol.
+  record and field; its `value` equals the value in that record; a value
+  from a run with `agent_type` `data_analysis_pipeline` or
+  `computational_model` names a protocol.
 
 ## Assumptions
 

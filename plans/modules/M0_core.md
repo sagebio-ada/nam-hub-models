@@ -1,7 +1,7 @@
 # M0 core: module split, anchors, key conventions
 
 **Decisions (README section 4):** D3, D4, D6, D11, D13, D25a, D26, D27, D28,
-D29, D30, D31, D34, D36, D39
+D29, D30, D31, D34, D36, D39, D42
 
 ## Scope
 
@@ -142,6 +142,32 @@ Mappings (D31):
   `skos:exactMatch` only when a reviewer accepts that the two definitions
   agree. Otherwise use `skos:closeMatch`, `skos:broadMatch` or
   `skos:narrowMatch`, and say what differs in `comment`.
+- Biolink Model (D42): use release 4.4.6 as `object_source_version`. Map
+  the records and the entity enums below. Biolink is not imported. An enum
+  row says that the values of the enum are of that Biolink class.
+
+  | NAMHub record or enum | Biolink class | Relation |
+  |---|---|---|
+  | Investigation | `biolink:Study` | broad |
+  | Studies | `biolink:Study` | close |
+  | Publications | `biolink:Publication` | exact |
+  | NAMPortalDataset | `biolink:Dataset` | close |
+  | People | `biolink:Agent` | broad |
+  | Individual | `biolink:IndividualOrganism` | close |
+  | Biospecimen, IBDBiospecimen | `biolink:MaterialSample` | close |
+  | MicrophysiologicalDevice | `biolink:Device` | broad |
+  | TestArticle | `biolink:ChemicalEntity` | narrow (a test article can also be a biological agent) |
+  | Exposure | `biolink:ExposureEvent` (`biolink:ChemicalExposure` for a chemical exposure) | close |
+  | Treatment | `biolink:Treatment` | close |
+  | `DiagnosisEnum` | `biolink:Disease` | broad |
+  | `PhenotypeEnum` | `biolink:PhenotypicFeature` | broad |
+  | `TissueEnum` | `biolink:AnatomicalEntity` | broad |
+  | `CellTypeEnum` | `biolink:Cell` | broad |
+  | `SpeciesEnum` | `biolink:OrganismTaxon` | broad |
+
+  The other records (for example Protocol, ModelSystem, ContextOfUse and
+  the M9 assessment records) have no Biolink class with the same meaning.
+  Do not map them.
 - Fields of other models with no IRI (open question 2a) get rows with the
   prefix of that model.
 - Add a check: each mapping in the schema has a row, and each row names an
@@ -150,7 +176,7 @@ Mappings (D31):
 Prefixes:
 
 - Add the prefixes that the anchors need: IAO, HANCESTRO, PROV, dcterms,
-  BAO and T4FS. OBI, PATO, UO and the others in `enums.yaml` exist.
+  BAO, T4FS and biolink (`https://w3id.org/biolink/vocab/`, D42). OBI, PATO, UO and the others in `enums.yaml` exist.
 - Keep EFO and EDAM on identifiers.org (README section 3).
 
 Checks for this PR:
