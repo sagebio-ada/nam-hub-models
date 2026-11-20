@@ -38,6 +38,44 @@ These documents set which fields must exist:
 - The CFDE FAIR rubric on FAIRshake (18 metrics). The plans use it as a
   checklist of fields that the Curator metadata must hold.
 
+### Path of the metadata
+
+Submitters and the Curie extraction tool fill the NAMHub templates in
+Curator. Curie extracts values from source documents (protocols,
+notebooks, publications, spreadsheets). The templates, with the evidence
+for each value (M12), go to the FUSION knowledge base. The FUSION (NDHCC)
+LinkML model is a mapping target: `docs/mappings.sssom.tsv` maps the NAMHub
+templates and slots to it at a pinned version (D31). NAMHub does not write
+to the knowledge base.
+
+### Alignment with the FUSION model
+
+The plans adopt these FUSION design principles. Each is a NAMHub decision
+or a module change, so the plans stand alone:
+
+| FUSION principle | NAMHub decision or plan |
+|---|---|
+| Context of use as a first-class record; model influence, decision consequence and risk | M9 `ContextOfUse`, `CredibilityAssessment` (from the FDA texts, not from proprietary standards) |
+| Results are method-qualified rows, never true/false; thresholds are data | D17; M9 `AssessmentResult`, `AcceptanceCriterion` |
+| Source versus modeled descriptors; input versus observed values | D30; M3 `modeled_disease`, `modeled_phenotype`; M6 `tissue`, `cell_type` |
+| A gap has a stated reason | D29 (missing values); M12 `resolution_state` |
+| Per-value evidence: source, location, quoted text, original and normalized value, method, review state | D32; M12 `Assertion` |
+| Curation profiles and how they combine; a run names its resolved specification | D32; M12 `CurationProfile`, `CurationRun` |
+| Mappings carry relation, justification and review state; NAMO is never assumed equal by name | D7, D31 |
+| Protocols are versioned records; data processing runs a protocol | D24; M7, M10 `ComputationalProtocol` |
+| No physical instance is inferred from a plan or a class | M4 (Biospecimen rows only for materials that exist) |
+| Controls, replicates and non-chemical interventions | M8 `control_role`, `exposure_type`; M6 `biological_replicate_group` |
+| Credibility frameworks for each modality | D9 (FDA primary; OECD secondary) |
+| Validation in levels: schema, references, semantics, domain | Section 2 checks; section 8, question 1 |
+
+The plans differ from FUSION in three places:
+
+- One LinkML source generates the Curator templates. No field exists in a
+  template without a slot in the model.
+- NAMs is a catalog shared by studies (D2, D11). A NAM is not a Study.
+- The plans do not use the ASME V&V 40 framing (source rule). The FDA
+  CDRH 2023 guidance gives the same concepts.
+
 ## 2. Rules for every plan
 
 - **Sourcing principle.** NAMHub does not define new concepts. Each class,
@@ -124,6 +162,12 @@ These facts were tested on copies of the schema (linkml-curator v0.4.0):
 - The generated Curator JSON does not set `additionalProperties: false`,
   and every key link is a plain string. Curator does not check that a
   linked row exists (section 8, question 1).
+- `linkml-validate` (linkml 1.11.1, JSON Schema plugin) enforces LinkML
+  `rules` (preconditions and postconditions) and `exactly_one_of` on each
+  record. It does not report a link to a row that does not exist, and it
+  does not report a duplicate `unique_keys` value. The LinkML reference
+  validator (`linkml_runtime.processing.referencevalidator`) fails on a
+  schema with `rules`; without rules, it did not report either error.
 - `gen-curator` cannot use dynamic enums (`reachable_from`). The enum
   becomes empty, and `curator-lint` gives an error.
 - Integers become text with the pattern `^-?[0-9]+$`, and `minimum_value`
@@ -222,38 +266,59 @@ the latest `main`.
 ## 8. Open questions across modules
 
 1. **Checks that Curator cannot enforce.** Curator drops conditional rules
-   (section 3). These rules need a check after upload:
-   - M4: `cell_source_type` and `lot_number` (or `catalog_number`) on the
-     source row of each in vitro model (D8).
+   and does not check links (section 3). The checks fall in three groups.
+
+   **(i) Rules about one record.** LinkML can state them, and
+   `linkml-validate` enforces them (section 3):
+   - M4: on a source row (cell line, primary cells), `cell_source_type`
+     and one of `lot_number` or `catalog_number` (D8).
    - M4: the data-driven fields of `InSilicoModel` when `model_form` is
      data-driven or hybrid.
    - M8: each Exposure row names exactly one of `biospecimen_id` and
-     `individual_id`, and names a `test_article_id` unless `exposure_type`
-     is physical stimulation.
-   - All modules: every key link names an existing row (`study_id`,
-     `individual_id`, `biospecimen_id`, `parent_biospecimen_id`,
-     `dataset_id`, `nam_id`, `protocol_id`, `device_id`, `test_article_id`,
-     `reference_compound_set_id`, `access_requirement_id`, `parent_file_id`
-     when it is a Synapse ID). D26 counts values reached through keys as
-     present, so a broken link is missing data.
-   - All modules: no identifier names two different rows in one study, and
-     no global identifier names two different rows.
-   - D29: the missing-value copies in each enum match the shared set.
+     `individual_id`, and names a `test_article_id` unless
+     `exposure_type` is physical stimulation.
+   - M9: an `AssessmentResult` has `value` or `value_text`, and has
+     `outcome` when it names a criterion.
+
+   **(ii) Rules across records.** LinkML cannot state them, and the LinkML
+   validators do not check them (section 3):
+   - Every key link names an existing row (`study_id`, `individual_id`,
+     `biospecimen_id`, `parent_biospecimen_id`, `dataset_id`, `nam_id`,
+     `protocol_id`, `device_id`, `test_article_id`,
+     `reference_compound_set_id`, `access_requirement_id`,
+     `context_of_use_id`, `parent_file_id` when it is a Synapse ID). D26
+     counts values reached through keys as present, so a broken link is
+     missing data.
+   - No identifier names two different rows in one study, and no global
+     identifier names two different rows.
    - M12: each `Assertion` names an existing record and field, its `value`
      equals the value in that record, and a computed value names a
      protocol.
-   - M9: an `AssessmentResult` has `value` or `value_text`, and a numeric
-     result agrees with its criterion and `outcome`. A validation or
-     credibility comparator dataset is not a training, tuning or
-     calibration dataset of the same model. `AICredibilityAssessment` is
-     only for data-driven or hybrid models, and a hybrid model has one
-     assessment under each FDA framework.
+   - M9: a numeric result agrees with its criterion and `outcome`. A
+     validation or credibility comparator dataset is not a training,
+     tuning or calibration dataset of the same model.
+     `AICredibilityAssessment` is only for data-driven or hybrid models,
+     and a hybrid model has one assessment under each FDA framework.
 
-   Options:
-   - (a) A QC script in this repository that reads the uploaded records
-     from Synapse and reports failures.
-   - (b) `if/then` support in linkml-curator (a separate repository; needs
-     approval).
+   **(iii) Rules about the schema.** They run in CI on the schema, not on
+   records:
+   - D29: the missing-value copies in each enum match the shared set.
+   - D31: each mapping in the schema has a row in the SSSOM file.
 
-   Which option, and who owns the check? Recommendation: (a) now, and (b)
-   as a feature request.
+   Options for (i) and (ii):
+   - (a) State group (i) as LinkML `rules`, `exactly_one_of` and `any_of`
+     in the schema. `gen-curator` drops them, so the Curator output does
+     not change. Implement group (ii) as a custom `linkml-validate` plugin
+     that reads `unique_keys` and the link slots from the schema. Run one
+     `linkml-validate` command on records exported from Synapse (Curator
+     keys mapped back to slot names).
+   - (b) A separate QC script that holds all the rules in Python.
+   - (c) `if/then` support in linkml-curator (a separate repository; needs
+     approval), so that Curator enforces group (i) at entry.
+
+   Recommendation: (a), and (c) as a feature request. With (a), the model
+   holds every rule that LinkML can state. The rules are visible beside the
+   slots, a schema change and its rules change together, and (c) can later
+   move group (i) into Curator without a rewrite. Only group (ii) is code.
+   Option (b) puts the rules outside the model, where they can drift from
+   it. Who owns the export and the validation run is still open.
