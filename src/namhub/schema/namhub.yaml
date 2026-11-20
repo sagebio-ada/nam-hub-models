@@ -439,6 +439,7 @@ classes:
       - age_unit
       - endoscopic_status
       - sample_title
+      - sample_accession
     slot_usage:
       study_id:
         required: true
@@ -527,6 +528,8 @@ classes:
       - nucleic_acid_source
       - library_preparation_method
       - read_indicator
+      - run_accession
+      - experiment_accession
     slot_usage:
       file_format:
         range: SequencingLevel1FileFormatEnum
@@ -536,6 +539,10 @@ classes:
         required: true
       read_indicator:
         required: true
+        multivalued: true
+        description: >-
+          Which reads the file holds: one for a FASTQ (R1), every read of the
+          run for an SRA file (I1, R1, R2).
 
   SequencingLevel2:
     abstract: true
@@ -1589,6 +1596,15 @@ slots:
     description: Genotype or genetic modification of the individual, e.g. a reporter allele or knockout.
     range: string
 
+  sample_accession:
+    title: Sample Accession
+    description: >-
+      Public accession(s) of the biospecimen as a CURIE, e.g. geo:GSM5848444
+      or biosample:SAMN12345678.
+    multivalued: true
+    range: string
+    pattern: "^[A-Za-z][A-Za-z0-9._-]*:\\S+$"
+
   # -- File slots --------------------------------------------------------------
 
   filename:
@@ -1645,8 +1661,20 @@ slots:
 
   read_indicator:
     title: Read Indicator
-    description: Which read file this is (R1, R2, I1, I2).
+    description: Which read file this is (R1, R2, R3, I1, I2).
     range: ReadIndicatorEnum
+
+  run_accession:
+    title: Run Accession
+    description: Public accession of the sequencing run the file came from, as a CURIE, e.g. sra:SRR17797491.
+    range: string
+    pattern: "^[A-Za-z][A-Za-z0-9._-]*:\\S+$"
+
+  experiment_accession:
+    title: Experiment Accession
+    description: Public accession of the sequencing experiment (library) the run belongs to, as a CURIE, e.g. sra:SRX13967880.
+    range: string
+    pattern: "^[A-Za-z][A-Za-z0-9._-]*:\\S+$"
 
   nucleic_acid_source:
     title: Nucleic Acid Source
@@ -1670,7 +1698,9 @@ slots:
 
   workflow_version:
     title: Workflow Version
-    description: Version of the workflow or software that produced the file.
+    description: >-
+      Version of the workflow or software that produced the file, or "Not
+      reported" when the source does not state one.
     range: string
 
   workflow_link:
