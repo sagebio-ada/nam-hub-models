@@ -1402,6 +1402,43 @@ enums:
         title: "weeks"
         meaning: UO:0000034
 
+  ExposureTypeEnum:
+    description: Kind of exposure applied to a biospecimen.
+    permissible_values:
+      growth_factor_or_cytokine:
+        title: "growth factor or cytokine"
+      small_molecule:
+        title: "small molecule"
+      overexpression:
+        title: "overexpression"
+      knockdown:
+        title: "knockdown"
+      knockout:
+        title: "knockout"
+      co_culture:
+        title: "co-culture"
+      other:
+        title: "other"
+
+  DoseUnitEnum:
+    description: Units of dose or concentration.
+    permissible_values:
+      ng_per_ml:
+        title: "ng/mL"
+      ug_per_ml:
+        title: "µg/mL"
+      nanomolar:
+        title: "nM"
+      micromolar:
+        title: "µM"
+      millimolar:
+        title: "mM"
+      moi:
+        title: "MOI"
+        description: Multiplicity of infection, for viral delivery.
+      percent:
+        title: "percent"
+
   DataUseModifierEnum:
     description: GA4GH Data Use Ontology (DUO) permissions and modifiers.
     permissible_values:
